@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>栈的封装</title>
+</head>
+
+<body>
+    <script>
+        // Method(在对象内称之为方法): 和某一个对象实例有联系
+        // function(在对象外称之为函数)
+        // 封装栈类
+        function Stack() {
+            // 栈中的属性
+            this.items = []
+
+            // 栈的相关操作
+            // 1.将元素压入栈
+            Stack.prototype.push = function(element) {
+                this.items.push(element)
+            }
+
+            // 2.出栈操作：从栈中取出元素
+            Stack.prototype.pop = function() {
+                return this.items.pop()
+            }
+
+            // 3.peek操作：查看一下栈顶元素
+            Stack.prototype.peek = function() {
+                return this.items[this.items.length - 1]
+            }
+
+            // 4.判断栈中的元素是否为空
+            Stack.prototype.isEmpty = function() {
+                return this.items.length == 0
+            }
+
+            // 5.获取栈中元素的个数
+            Stack.prototype.size = function() {
+                return this.items.length
+            }
+
+            // 6.toString方法
+            Stack.prototype.toString = function() {
+                var resultString = ''
+                for (var i = 0; i < this.items.length; i++) {
+                    resultString += this.items[i] + ' '
+                }
+                return resultString
+            }
+        }
+
+        // 栈的使用
+        // var stack = new Stack()
+        // stack.push(20)
+        // stack.push(10)
+        // stack.push(100)
+        // stack.push(77)
+        // alert(stack)
+
+        // stack.pop()
+        // stack.pop()
+        // alert(stack)
+
+        // alert(stack.peek())
+        // alert(stack.isEmpty())
+        // alert(stack.size())
+
+        // 函数：将十进制转成二进制
+        function dec2bin(decNumer) {
+            // 1.定义栈对象
+            var stack = new Stack()
+
+            // 2.循环操作
+            while (decNumer > 0) {
+                // 2-1.获取余数，并且放入到栈中
+                stack.push(decNumer % 2)
+
+                // 2-2.获取整除后的结果，作为下一次运行的数字
+                decNumer = Math.floor(decNumer / 2)
+            }
+
+            // 3.从栈中取出0和1
+            var binayriStrng = ''
+            while (!stack.isEmpty()) {
+                binayriStrng += stack.pop()
+            }
+            return binayriStrng
+        }
+
+        // 测试函数
+        alert(dec2bin(100))
+        alert(dec2bin(10))
+        alert(dec2bin(1000))
+    </script>
+</body>
+
+</html>

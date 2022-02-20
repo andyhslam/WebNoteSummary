@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>原题变形-1-形参有默认值</title>
+</head>
+
+<body>
+    <script>
+        var x = 1;
+
+        function test(x = 4, y = function() {
+            x = 3;
+            console.log(x);
+        }) {
+            /* 
+             局部作用域 Local
+             x => 4 => 3
+             y => function() { x = 3;console.log(x)} // 第2个输出：3
+            */
+
+            /* 
+            块作用域 Block
+            x => 4 => 2
+            */
+            console.log(x); // 第1个输出：4
+            var x = 2;
+            y();
+            console.log(x); // 第3个输出：2
+        }
+        test();
+        console.log(x); // 第4个输出：1
+    </script>
+</body>
+
+</html>

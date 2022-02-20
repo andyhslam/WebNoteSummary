@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>原题变形-3-注释内部变量</title>
+</head>
+
+<body>
+    <script>
+        var x = 1;
+
+        function test(x, y = function() {
+            x = 3;
+            console.log(x);
+        }) {
+            /* 
+             局部作用域 Local
+             x => undefined => 3
+             y => function() { x = 3;console.log(x)} // 第2个输出：3
+            */
+            console.log(x); // 第1个输出：undefined
+            // var x = 2; 注释内部变量
+            y();
+            console.log(x); // 第3个输出：3
+        }
+        test();
+        console.log(x); // 第4个输出：1
+    </script>
+</body>
+
+</html>

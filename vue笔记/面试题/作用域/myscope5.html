@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>原题变形-4-提取匿名函数到全局</title>
+</head>
+
+<body>
+    <script>
+        var x = 1; // => 3
+
+        function yy() {
+            x = 3;
+            console.log(x); // 第2个输出：3
+        }
+
+        function test(x, y = yy) {
+            /* 
+             局部作用域 Local
+             x => undefined
+             y => yy
+            */
+
+            /* 
+            块作用域 Block
+            x => undefined => 2
+            */
+            console.log(x); // 第1个输出：undefined
+            var x = 2;
+            y();
+            console.log(x); // 第3个输出：2
+        }
+        test();
+        console.log(x); // 第4个输出：3
+    </script>
+</body>
+
+</html>

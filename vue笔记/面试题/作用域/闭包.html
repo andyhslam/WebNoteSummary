@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成块作用域的现象和细节</title>
+</head>
+
+<body>
+    <button type="submit">1</button>
+    <button type="submit">2</button>
+    <button type="submit">3</button>
+    <button type="submit">4</button>
+    <script>
+        // const btns = document.getElementsByTagName('button');
+        // for (let i = 0; i < btns.length; i++) {
+        //     btns[i].addEventListener('click', function() {
+        //         const bi = i + 1;
+        //         console.log('第' + bi + '个按钮被点击');
+        //     })
+        // }
+        const btns = document.getElementsByTagName('button');
+        for (var i = 0; i < btns.length; i++) {
+            (function(num) {
+                btns[num].addEventListener('click', function() {
+                    const bi = num + 1;
+                    console.log('第' + bi + '个按钮被点击');
+                })
+            })(i);
+        }
+    </script>
+</body>
+
+</html>

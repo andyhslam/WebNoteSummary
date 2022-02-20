@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成块作用域的现象和细节</title>
+</head>
+
+<body>
+    <script>
+        function test(a = 1, b = 2) {
+            /* 
+            条件：
+            函数形参有默认值，同时函数体中还定义了【变量/常量】
+            现象：
+            形式参数 -> 局部作用域
+            函数体 -> 块作用域
+            */
+            var c = 100;
+            var a = 7;
+            console.log('love');
+        }
+        test()
+    </script>
+</body>
+
+</html>
