@@ -11,6 +11,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue"
+name: "模板语法 & vue指令"
 const list: Array<any> = [{ name: "g" }, { name: "w" }, { name: "j" }]
 const message = ref("凯瑟琳") // 响应式属性
 // ref原理：通过Proxy做属性的劫持，Vue会收集依赖，再去更新视图
