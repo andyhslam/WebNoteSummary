@@ -36,6 +36,7 @@ watch([message1, message2], (newVal, oldVal) => {
 	console.log("新值", newVal)
 	console.log("旧值", oldVal)
 })
+// 注意：目前侦听对象(包括深、浅层次)，新值与旧值是同样的值，属于vue的bug，还没修复
 watch(
 	message3,
 	(newVal, oldVal) => {
