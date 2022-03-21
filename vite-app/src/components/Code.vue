@@ -1,15 +1,15 @@
 <template>
 	<div>
-		<Demo1 v-if="flag">
+		<Code1 v-if="flag">
 			<template v-slot:header>v-if可以使组件重新渲染和销毁</template>
-		</Demo1>
+		</Code1>
 		<button @click="flag = !flag">改变组件状态</button>
 	</div>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue"
-import Demo1 from "./Demo1.vue"
+import Code1 from "./Code1.vue"
 let flag = ref(true)
 </script>
 

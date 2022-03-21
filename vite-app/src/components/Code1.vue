@@ -1,6 +1,6 @@
 <template>
 	<div id="demo">
-		<h1>我是demo组件</h1>
+		<h1>我是code组件</h1>
 		<slot name="header"></slot>
 		<p>{{ count }}</p>
 		<button @click="count++">增加</button>
