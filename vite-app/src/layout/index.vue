@@ -1,6 +1,12 @@
 <template>
 	<div class="layout">
-		<Menu></Menu>
+		<Menu
+			ref="menus"
+			@on-click1="getList"
+			@on-click2="getList"
+			title="我是标题"
+			:data="list"
+		></Menu>
 		<div class="layout-right">
 			<Header></Header>
 			<Content></Content>
@@ -12,7 +18,14 @@
 import Menu from "./menu/index.vue"
 import Header from "./header/index.vue"
 import Content from "./content/index.vue"
+import { reactive, ref } from "vue"
 name: "Layout"
+const list = reactive<number[]>([1, 2, 3])
+const menus = ref(null)
+const getList = (list: number[], flag: boolean) => {
+	console.log(list, "子组件传过来的参数", flag)
+	console.log(menus.value)
+}
 </script>
 
 <style lang="less" scoped>
