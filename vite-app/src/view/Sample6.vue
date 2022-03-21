@@ -53,6 +53,7 @@ watch(message4, (newVal, oldVal) => {
 	console.log("新值", newVal)
 	console.log("旧值", oldVal)
 })
+// 监听reactive 单一值
 watch(
 	() => message5.name1, // 除了可以侦听整个对象，还可以侦听该对象的其中一个属性
 	(newVal, oldVal) => {
