@@ -48,7 +48,7 @@ watch(
 		// immediate: true, // 初始化就立即调用一次
 	}
 )
-// 采用reactive，不加deep:true 也可以执行深度侦听
+// 使用reactive监听(包括深、浅层次)对象，开启和不开启deep，效果一样
 watch(message4, (newVal, oldVal) => {
 	console.log("新值", newVal)
 	console.log("旧值", oldVal)
