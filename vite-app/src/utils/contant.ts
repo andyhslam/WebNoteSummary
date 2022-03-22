@@ -1,5 +1,5 @@
 export type TreeList = {
-  name: String
-  icon?: String
+  name: string
+  icon?: string
   children?: TreeList[] | []
 }

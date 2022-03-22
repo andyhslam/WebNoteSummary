@@ -23,7 +23,6 @@ import Menu from "./menu/index.vue"
 import Header from "./header/index.vue"
 import Content from "./content/index.vue"
 import { reactive, ref } from "vue"
-name: "Layout"
 const list = reactive<number[]>([1, 2, 3])
 // 父组件通过ref获取子组件实例
 const menus = ref(null)

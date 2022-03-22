@@ -1,12 +1,57 @@
 <template>
 	<div class="content">
-		<div class="content-items" v-for="item in 100" :key="item">
+		<!-- <div class="content-items" v-for="item in 100" :key="item">
 			<Card :content="`我是第${item}个`"></Card>
+		</div> -->
+		<div class="tab">
+			<div
+				v-for="(item, index) in tabsData"
+				:class="['tab-item', { active: index === currentIndex }]"
+				:key="index"
+				@click="switchCom(item, index)"
+			>
+				{{ item.name }}
+			</div>
 		</div>
+		<component :is="currentComponent.comName"></component>
 	</div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref, reactive, markRaw } from "vue"
+import TabA from "./TabA.vue"
+import TabB from "./TabB.vue"
+import TabC from "./TabC.vue"
+
+type Tabs = {
+	name: string
+	comName: any
+}
+type Com = Pick<Tabs, "comName">
+const tabsData = reactive<Tabs[]>([
+	{
+		name: "我是A组件",
+		comName: markRaw(TabA),
+		// markRaw给对象添加属性__v_skip:true，跳过proxy代理
+	},
+	{
+		name: "我是B组件",
+		comName: markRaw(TabB),
+	},
+	{
+		name: "我是C组件",
+		comName: markRaw(TabC),
+	},
+])
+let currentIndex = ref<Number>(0)
+let currentComponent = reactive<Com>({
+	comName: tabsData[0].comName,
+})
+const switchCom = (item: Tabs, index: Number) => {
+	currentIndex.value = index
+	currentComponent.comName = item.comName
+}
+</script>
 
 <style lang="less" scoped>
 .content {
@@ -17,6 +62,17 @@
 	&-items {
 		padding: 20px;
 		border: 1px solid #ccc;
+	}
+	.tab {
+		display: flex;
+		.active {
+			background-color: skyblue;
+			color: #fff;
+		}
+		.tab-item {
+			margin-right: 8px;
+			cursor: pointer;
+		}
 	}
 }
 </style>
