@@ -14,16 +14,33 @@
 import { reactive, ref } from "vue"
 const list = reactive<number[]>([3, 6, 9])
 const flag = ref(false)
+
+// 非TS的默认值方式
+// defineProps({
+// 	title: {
+// 		default: "",
+// 		type: String,
+// 	},
+// 	data: Array,
+// })
+
+// TS 特有的默认值方式
 type Props = {
 	title?: string
 	data?: number[]
 }
 withDefaults(defineProps<Props>(), {
 	title: "默认值",
-	data: () => [5, 6, 7], // 复杂数据类型要用这种方式来写
+	data: () => [5, 6, 7], // 复杂数据类型要采用这种方式
 })
 
+// 通过defineExpose，子组件暴露给父组件内部属性
 defineExpose({ list, flag })
+
+/** 子组件给父组件传参：通过defineEmits派发一个事件
+ * 1. 在子组件绑定click事件，然后通过defineEmits注册自定义事件
+ * 2. 点击click，触发emit，调用注册的事件，然后传递参数
+ */
 const emit = defineEmits(["on-click1", "on-click2"])
 const clickTap1 = () => {
 	emit("on-click1", list, true)

@@ -6,7 +6,11 @@
 			@on-click2="getList"
 			title="我是标题"
 			:data="list"
-		></Menu>
+		>
+			<p>父组件通过ref获取子组件实例</p>
+			<p>传递字符串类型不需要v-bind</p>
+			<p>传递非字符串类型需要加v-bind，简写 冒号</p>
+		</Menu>
 		<div class="layout-right">
 			<Header></Header>
 			<Content></Content>
@@ -21,6 +25,7 @@ import Content from "./content/index.vue"
 import { reactive, ref } from "vue"
 name: "Layout"
 const list = reactive<number[]>([1, 2, 3])
+// 父组件通过ref获取子组件实例
 const menus = ref(null)
 const getList = (list: number[], flag: boolean) => {
 	console.log(list, "子组件传过来的参数", flag)
