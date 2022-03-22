@@ -16,7 +16,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineComponent } from "vue"
 import { TreeList } from "../../utils/contant"
 // import TreeItem from "./index.vue" // 引用递归组件的第一种方式，但是代码有警告
 type Props = {
