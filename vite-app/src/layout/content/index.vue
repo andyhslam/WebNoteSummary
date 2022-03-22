@@ -14,6 +14,17 @@
 			</div>
 		</div>
 		<component :is="currentComponent.comName"></component>
+		<Dialog>
+			<template v-slot:header>
+				<div>国产凌凌漆</div>
+			</template>
+			<template #default="{ actor, index }">
+				<div>{{ index }}--{{ actor.name }}--{{ actor.age }}</div>
+			</template>
+			<template #[slotName]>
+				<div>逃学威龙</div>
+			</template>
+		</Dialog>
 	</div>
 </template>
 
@@ -22,7 +33,9 @@ import { ref, reactive, markRaw } from "vue"
 import TabA from "./TabA.vue"
 import TabB from "./TabB.vue"
 import TabC from "./TabC.vue"
+import Dialog from "../../components/dialog/index.vue"
 
+let slotName = ref("footer") // 动态插槽
 type Tabs = {
 	name: string
 	comName: any
