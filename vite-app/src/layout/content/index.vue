@@ -3,6 +3,9 @@
 		<!-- <div class="content-items" v-for="item in 100" :key="item">
 			<Card :content="`我是第${item}个`"></Card>
 		</div> -->
+		<teleport to=".modal">
+			<div class="loading">loading...</div>
+		</teleport>
 		<div class="tab">
 			<div
 				v-for="(item, index) in tabsData"
@@ -80,8 +83,16 @@ const switchCom = (item: Tabs, index: Number) => {
 </script>
 
 <style lang="less" scoped>
+.loading {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	color: #000;
+	background-color: #ff0;
+}
 .content {
 	flex: 1;
+	position: relative;
 	margin: 20px;
 	border: 1px solid #ccc;
 	overflow: auto;
