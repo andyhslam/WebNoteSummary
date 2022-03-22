@@ -25,15 +25,28 @@
 				<div>逃学威龙</div>
 			</template>
 		</Dialog>
+		<Suspense>
+			<template #default>
+				<Asynchronous></Asynchronous>
+			</template>
+			<template #fallback>
+				<div>Loading...</div>
+			</template>
+		</Suspense>
 	</div>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, markRaw } from "vue"
+// import...from的形式只能在顶层作用域使用，不能参杂在js逻辑里面，不然会报错
+// import()的形式可以参杂在js逻辑里面，并且返回promise，而defineAsyncComponent()又会接收promise
+import { ref, reactive, markRaw, defineAsyncComponent } from "vue"
 import TabA from "./TabA.vue"
 import TabB from "./TabB.vue"
 import TabC from "./TabC.vue"
 import Dialog from "../../components/dialog/index.vue"
+const Asynchronous = defineAsyncComponent(
+	() => import("../../components/asynchronous/index.vue")
+)
 
 let slotName = ref("footer") // 动态插槽
 type Tabs = {

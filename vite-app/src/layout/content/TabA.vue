@@ -7,7 +7,7 @@
 <style lang="less" scoped>
 .tab-a {
 	background-color: #f40;
-	height: 300px;
+	height: 100px;
 	border: 1px solid #ccc;
 }
 </style>

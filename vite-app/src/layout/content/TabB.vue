@@ -7,7 +7,7 @@
 <style lang="less" scoped>
 .tab-b {
 	background-color: rgb(76, 0, 255);
-	height: 300px;
+	height: 100px;
 	border: 1px solid #ccc;
 }
 </style>

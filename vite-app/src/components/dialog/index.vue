@@ -48,17 +48,17 @@ const actorList = reactive<Person[]>([
 <style lang="less" scoped>
 .dialog {
 	.header {
-		height: 200px;
+		height: 100px;
 		background-color: red;
 		color: #fff;
 	}
 	.main {
-		height: 300px;
+		height: 200px;
 		background-color: green;
 		color: #fff;
 	}
 	.footer {
-		height: 200px;
+		height: 100px;
 		background-color: blue;
 		color: #fff;
 	}
