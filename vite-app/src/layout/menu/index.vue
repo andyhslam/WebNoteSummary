@@ -7,11 +7,14 @@
 			<button @click="clickTap1">派发1</button>
 			<button @click="clickTap2">派发2</button>
 		</div>
+		<Tree :treeData="treeData" @click-tree="getItem"></Tree>
 	</div>
 </template>
 
 <script setup lang="ts">
 import { reactive, ref } from "vue"
+import Tree from "../../components/tree/index.vue"
+import { TreeList } from "../../utils/contant"
 const list = reactive<number[]>([3, 6, 9])
 const flag = ref(false)
 
@@ -29,6 +32,38 @@ type Props = {
 	title?: string
 	data?: number[]
 }
+
+const treeData = reactive<TreeList[]>([
+	{
+		name: "No1",
+		children: [
+			{
+				name: "No1-1",
+				children: [
+					{
+						name: "No1-1-1",
+					},
+				],
+			},
+		],
+	},
+	{
+		name: "No2",
+		children: [
+			{
+				name: "No2-1",
+			},
+		],
+	},
+	{
+		name: "No3",
+	},
+	{
+		name: "No4",
+		children: [],
+	},
+])
+
 withDefaults(defineProps<Props>(), {
 	title: "默认值",
 	data: () => [5, 6, 7], // 复杂数据类型要采用这种方式
@@ -47,6 +82,9 @@ const clickTap1 = () => {
 }
 const clickTap2 = () => {
 	emit("on-click2", list, false)
+}
+const getItem = (item: TreeList) => {
+	console.log("父组件的item", item)
 }
 </script>
 

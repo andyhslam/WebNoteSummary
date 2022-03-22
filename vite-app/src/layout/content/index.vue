@@ -1,7 +1,7 @@
 <template>
 	<div class="content">
 		<div class="content-items" v-for="item in 100" :key="item">
-			{{ item }}
+			<Card :content="`我是第${item}个`"></Card>
 		</div>
 	</div>
 </template>
