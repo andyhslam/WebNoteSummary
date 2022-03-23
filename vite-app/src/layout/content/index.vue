@@ -21,7 +21,12 @@
 				{{ item.name }}
 			</div>
 		</div>
-		<transition name="fade">
+		<transition
+			name="fade"
+			:duration="{ enter: 500, leave: 1000 }"
+			enter-active-class="animate__animated animate__bounce"
+			leave-active-class="animate__animated animate__flash"
+		>
 			<component :is="currentComponent.comName"></component>
 		</transition>
 		<Dialog>
@@ -56,6 +61,7 @@ import TabC from "./TabC.vue"
 import Dialog from "../../components/dialog/index.vue"
 import Login from "../../components/login/index.vue"
 import Register from "../../components/register/index.vue"
+import "animate.css"
 const Asynchronous = defineAsyncComponent(
 	() => import("../../components/asynchronous/index.vue")
 )
@@ -125,34 +131,34 @@ const switchLoginRegister = () => {
 			cursor: pointer;
 		}
 	}
-	// 准备开始过度
 	.fade-enter-from {
+		// 准备开始过度
 		width: 0;
 		height: 0;
 		transform: rotate(360deg);
 	}
-	// 开始过度
 	.fade-enter-active {
+		// 开始过度
 		transition: all 1.5s ease;
 	}
-	// 过度完成
 	.fade-enter-to {
+		// 过度完成
 		width: 100%;
 		height: 100px;
 		transform: scale(1.1);
 	}
-	// 离开前过度
 	.fade-leave-from {
+		// 离开前过度
 		width: 100%;
 		height: 100px;
 		transform: rotate(360deg);
 	}
-	// 离开中过度
 	.fade-leave-active {
+		// 离开中过度
 		transition: all 2s ease-in-out;
 	}
-	// 离开完成
 	.fade-leave-to {
+		// 离开完成
 		width: 0;
 		height: 0;
 	}
