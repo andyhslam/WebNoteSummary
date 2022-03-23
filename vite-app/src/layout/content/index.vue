@@ -71,6 +71,10 @@
 				</div>
 			</transition-group>
 		</div>
+		<div class="pack">
+			<input type="number" step="20" v-model="numObj.current" />
+			<p>{{ numObj.tweenedNumber.toFixed(0) }}</p>
+		</div>
 		<Dialog>
 			<template v-slot:header>
 				<div>国产凌凌漆</div>
@@ -96,7 +100,7 @@
 <script setup lang="ts">
 // import...from的形式只能在顶层作用域使用，不能参杂在js逻辑里面，不然会报错
 // import()的形式可以参杂在js逻辑里面，并且返回promise，而defineAsyncComponent()又会接收promise
-import { ref, reactive, markRaw, defineAsyncComponent } from "vue"
+import { ref, reactive, markRaw, watch, defineAsyncComponent } from "vue"
 import TabA from "./TabA.vue"
 import TabB from "./TabB.vue"
 import TabC from "./TabC.vue"
@@ -127,6 +131,19 @@ let tranList = ref(
 const randomNum = () => {
 	tranList.value = _.shuffle(tranList.value)
 }
+const numObj = reactive({
+	current: 0,
+	tweenedNumber: 0,
+})
+watch(
+	() => numObj.current,
+	(newVal) => {
+		gsap.to(numObj, {
+			duration: 1,
+			tweenedNumber: newVal,
+		})
+	}
+)
 let slotName = ref("footer") // 动态插槽
 type Tabs = {
 	name: string
