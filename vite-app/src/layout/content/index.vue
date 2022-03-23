@@ -1,6 +1,6 @@
 <template>
 	<div class="content">
-		<!-- <div class="content-items" v-for="item in 100" :key="item">
+		<!-- <div class="content-item" v-for="item in 100" :key="item">
 			<Card :content="`我是第${item}个`"></Card>
 		</div> -->
 		<teleport to=".modal">
@@ -41,6 +41,24 @@
 		>
 			<component :is="currentComponent.comName"></component>
 		</transition>
+		<div>
+			<button @click="addNum">Add</button>
+			<button @click="popNum">Pop</button>
+		</div>
+		<div class="wraps">
+			<transition-group
+				enter-active-class="animate__animated animate__rotateIn"
+				leave-active-class="animate__animated animate__rotateOut"
+			>
+				<div
+					class="wraps-item"
+					v-for="item of transitionList"
+					:key="item"
+				>
+					{{ item }}
+				</div>
+			</transition-group>
+		</div>
 		<Dialog>
 			<template v-slot:header>
 				<div>国产凌凌漆</div>
@@ -78,7 +96,13 @@ import gsap from "gsap"
 const Asynchronous = defineAsyncComponent(
 	() => import("../../components/asynchronous/index.vue")
 )
-
+const transitionList = reactive<number[]>([1, 2, 3, 4, 5, 6])
+const addNum = () => {
+	transitionList.push(transitionList.length + 1)
+}
+const popNum = () => {
+	transitionList.pop()
+}
 let slotName = ref("footer") // 动态插槽
 type Tabs = {
 	name: string
@@ -170,7 +194,7 @@ const leaveCancel = (el: Element) => {
 	margin: 20px;
 	border: 1px solid #ccc;
 	overflow: auto;
-	&-items {
+	&-item {
 		padding: 20px;
 		border: 1px solid #ccc;
 	}
@@ -183,6 +207,15 @@ const leaveCancel = (el: Element) => {
 		.tab-item {
 			margin-right: 8px;
 			cursor: pointer;
+		}
+	}
+	.wraps {
+		display: flex;
+		flex-wrap: wrap;
+		word-break: break-all;
+		border: 1px solid #ccc;
+		&-item {
+			margin: 10px;
 		}
 	}
 	// 通过这个属性可以设置初始节点过度；即页面加载完成就开始动画，对应三个状态
