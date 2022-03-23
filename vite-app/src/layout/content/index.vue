@@ -32,6 +32,10 @@
 			@leave="leaveActive"
 			@after-leave="leaveTo"
 			@leave-cancelled="leaveCancel"
+			appear
+			appear-from-class="appear-from"
+			appear-active-class="animate__animated animate__bounceOut"
+			appear-to-class="appear-to"
 			enter-active-class="animate__animated animate__bounce"
 			leave-active-class="animate__animated animate__flash"
 		>
@@ -180,6 +184,18 @@ const leaveCancel = (el: Element) => {
 			margin-right: 8px;
 			cursor: pointer;
 		}
+	}
+	// 通过这个属性可以设置初始节点过度；即页面加载完成就开始动画，对应三个状态
+	.appear-from {
+		width: 0;
+		height: 0;
+	}
+	.appear-active {
+		transition: all 2s ease-in;
+	}
+	.appear-to {
+		width: 100%;
+		height: 100px;
 	}
 	.fade-enter-from {
 		// 准备开始过度
