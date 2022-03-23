@@ -6,12 +6,17 @@
 		<teleport to=".modal">
 			<div class="loading">loading...</div>
 		</teleport>
+		<button @click="switchLoginRegister">切换</button>
+		<keep-alive :include="['Login', 'Register']">
+			<Login v-if="flag"></Login>
+			<Register v-else></Register>
+		</keep-alive>
 		<div class="tab">
 			<div
 				v-for="(item, index) in tabsData"
 				:class="['tab-item', { active: index === currentIndex }]"
 				:key="index"
-				@click="switchCom(item, index)"
+				@click="switchTab(item, index)"
 			>
 				{{ item.name }}
 			</div>
@@ -47,6 +52,8 @@ import TabA from "./TabA.vue"
 import TabB from "./TabB.vue"
 import TabC from "./TabC.vue"
 import Dialog from "../../components/dialog/index.vue"
+import Login from "../../components/login/index.vue"
+import Register from "../../components/register/index.vue"
 const Asynchronous = defineAsyncComponent(
 	() => import("../../components/asynchronous/index.vue")
 )
@@ -76,9 +83,13 @@ let currentIndex = ref<Number>(0)
 let currentComponent = reactive<Com>({
 	comName: tabsData[0].comName,
 })
-const switchCom = (item: Tabs, index: Number) => {
+const switchTab = (item: Tabs, index: Number) => {
 	currentIndex.value = index
 	currentComponent.comName = item.comName
+}
+const flag = ref(true)
+const switchLoginRegister = () => {
+	flag.value = !flag.value
 }
 </script>
 
