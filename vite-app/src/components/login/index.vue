@@ -1,16 +1,12 @@
 <template>
-	<div>
+	<div class="login">
 		<table>
-			<tr>
-				<td>账号</td>
-				<td><input type="text" v-model="form.loginName" /></td>
-			</tr>
-			<tr>
-				<td>密码</td>
-				<td><input type="password" v-model="form.loginPsd" /></td>
-			</tr>
+			<td>账号</td>
+			<td><input type="text" v-model="form.loginName" /></td>
+			<td>密码</td>
+			<td><input type="password" v-model="form.loginPsd" /></td>
+			<button @click="submit">登录</button>
 		</table>
-		<button @click="submit">登录</button>
 	</div>
 </template>
 

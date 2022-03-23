@@ -4,8 +4,8 @@
 			ref="menus"
 			@on-click1="getList"
 			@on-click2="getList"
-			title="我是标题"
-			:data="list"
+			title="菜单区域"
+			:menu-arr="list"
 		>
 			<p>父组件通过ref获取子组件实例</p>
 			<p>传递字符串类型不需要v-bind</p>

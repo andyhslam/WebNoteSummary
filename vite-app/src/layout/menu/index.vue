@@ -1,8 +1,7 @@
 <template>
 	<div class="menu">
 		<h2>{{ title }}</h2>
-		<span>菜单区域</span>
-		<p>{{ data }}</p>
+		<p>{{ menuArr }}</p>
 		<div>
 			<button @click="clickTap1">派发1</button>
 			<button @click="clickTap2">派发2</button>
@@ -24,13 +23,13 @@ const flag = ref(false)
 // 		default: "",
 // 		type: String,
 // 	},
-// 	data: Array,
+// 	menuArr: Array,
 // })
 
 // TS 特有的默认值方式
 type Props = {
 	title?: string
-	data?: number[]
+	menuArr?: number[]
 }
 
 const treeData = reactive<TreeList[]>([
@@ -66,7 +65,7 @@ const treeData = reactive<TreeList[]>([
 
 withDefaults(defineProps<Props>(), {
 	title: "默认值",
-	data: () => [5, 6, 7], // 复杂数据类型要采用这种方式
+	menuArr: () => [5, 6, 7], // 复杂数据类型要采用这种方式
 })
 
 // 通过defineExpose，子组件暴露给父组件内部属性

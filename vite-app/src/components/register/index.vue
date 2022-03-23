@@ -1,20 +1,14 @@
 <template>
-	<div>
+	<div class="register">
 		<table>
-			<tr>
-				<td>账号</td>
-				<td><input type="text" v-model="form.registerName" /></td>
-			</tr>
-			<tr>
-				<td>密码</td>
-				<td><input type="password" v-model="form.registerPsd" /></td>
-			</tr>
-			<tr>
-				<td>验证码</td>
-				<td><input type="text" v-model="form.registerCode" /></td>
-			</tr>
+			<td>账号</td>
+			<td><input type="text" v-model="form.registerName" /></td>
+			<td>密码</td>
+			<td><input type="password" v-model="form.registerPsd" /></td>
+			<td>验证码</td>
+			<td><input type="text" v-model="form.registerCode" /></td>
+			<button @click="submit">注册</button>
 		</table>
-		<button @click="submit">注册</button>
 	</div>
 </template>
 

@@ -3,14 +3,6 @@
 		<!-- <div class="content-item" v-for="item in 100" :key="item">
 			<Card :content="`我是第${item}个`"></Card>
 		</div> -->
-		<teleport to=".modal">
-			<div class="loading">loading...</div>
-		</teleport>
-		<button @click="switchLoginRegister">切换</button>
-		<keep-alive :include="['Login', 'Register']">
-			<Login v-if="flag"></Login>
-			<Register v-else></Register>
-		</keep-alive>
 		<div class="tab">
 			<div
 				v-for="(item, index) in tabsData"
@@ -105,8 +97,6 @@ import TabA from "./TabA.vue"
 import TabB from "./TabB.vue"
 import TabC from "./TabC.vue"
 import Dialog from "../../components/dialog/index.vue"
-import Login from "../../components/login/index.vue"
-import Register from "../../components/register/index.vue"
 import "animate.css"
 import gsap from "gsap"
 import _ from "lodash"
@@ -173,10 +163,7 @@ const switchTab = (item: Tabs, index: Number) => {
 	currentIndex.value = index
 	currentComponent.comName = item.comName
 }
-const flag = ref<boolean>(true)
-const switchLoginRegister = () => {
-	flag.value = !flag.value
-}
+
 const enterFrom = (el: Element) => {
 	console.log("进入之前")
 	gsap.set(el, {
@@ -221,17 +208,8 @@ const leaveCancel = (el: Element) => {
 </script>
 
 <style lang="less" scoped>
-.loading {
-	position: absolute;
-	right: 10px;
-	top: 10px;
-	color: #000;
-	background-color: #ff0;
-}
-
 .content {
 	flex: 1;
-	position: relative;
 	margin: 20px;
 	border: 1px solid #ccc;
 	overflow: auto;
