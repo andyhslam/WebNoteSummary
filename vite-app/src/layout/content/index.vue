@@ -41,7 +41,7 @@
 		>
 			<component :is="currentComponent.comName"></component>
 		</transition>
-		<div>
+		<div class="wraps-btn">
 			<button @click="addNum">Add</button>
 			<button @click="popNum">Pop</button>
 		</div>
@@ -56,6 +56,18 @@
 					:key="item"
 				>
 					{{ item }}
+				</div>
+			</transition-group>
+		</div>
+		<div class="shuffle">
+			<button @click="randomNum">Random</button>
+			<transition-group tag="ul" class="container" move-class="vessel">
+				<div
+					v-for="item in tranList"
+					:key="item.id"
+					class="container-item"
+				>
+					{{ item.number }}
 				</div>
 			</transition-group>
 		</div>
@@ -93,6 +105,7 @@ import Login from "../../components/login/index.vue"
 import Register from "../../components/register/index.vue"
 import "animate.css"
 import gsap from "gsap"
+import _ from "lodash"
 const Asynchronous = defineAsyncComponent(
 	() => import("../../components/asynchronous/index.vue")
 )
@@ -102,6 +115,17 @@ const addNum = () => {
 }
 const popNum = () => {
 	transitionList.pop()
+}
+let tranList = ref(
+	Array.apply(null, { length: 81 } as number[]).map((_, index) => {
+		return {
+			id: index,
+			number: (index % 9) + 1,
+		}
+	})
+)
+const randomNum = () => {
+	tranList.value = _.shuffle(tranList.value)
 }
 let slotName = ref("footer") // 动态插槽
 type Tabs = {
@@ -217,6 +241,22 @@ const leaveCancel = (el: Element) => {
 		&-item {
 			margin: 10px;
 		}
+	}
+	.container {
+		display: flex;
+		flex-wrap: wrap;
+		width: calc(25px * 10 + 9px);
+		&-item {
+			width: 25px;
+			height: 25px;
+			border: 1px solid #ccc;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+	}
+	.vessel {
+		transition: transform 1s ease-out;
 	}
 	// 通过这个属性可以设置初始节点过度；即页面加载完成就开始动画，对应三个状态
 	.appear-from {
