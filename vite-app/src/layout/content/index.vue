@@ -23,7 +23,15 @@
 		</div>
 		<transition
 			name="fade"
-			:duration="{ enter: 500, leave: 1000 }"
+			:duration="{ enter: 1000, leave: 2000 }"
+			@before-enter="enterFrom"
+			@enter="enterActive"
+			@after-enter="enterTo"
+			@enter-cancelled="enterCancel"
+			@before-leave="leaveFrom"
+			@leave="leaveActive"
+			@after-leave="leaveTo"
+			@leave-cancelled="leaveCancel"
 			enter-active-class="animate__animated animate__bounce"
 			leave-active-class="animate__animated animate__flash"
 		>
@@ -62,6 +70,7 @@ import Dialog from "../../components/dialog/index.vue"
 import Login from "../../components/login/index.vue"
 import Register from "../../components/register/index.vue"
 import "animate.css"
+import gsap from "gsap"
 const Asynchronous = defineAsyncComponent(
 	() => import("../../components/asynchronous/index.vue")
 )
@@ -95,9 +104,50 @@ const switchTab = (item: Tabs, index: Number) => {
 	currentIndex.value = index
 	currentComponent.comName = item.comName
 }
-const flag = ref(true)
+const flag = ref<boolean>(true)
 const switchLoginRegister = () => {
 	flag.value = !flag.value
+}
+const enterFrom = (el: Element) => {
+	console.log("进入之前")
+	gsap.set(el, {
+		width: 0,
+		height: 0,
+	})
+}
+const enterActive = (el: Element, done: gsap.Callback) => {
+	console.log("显示的过度曲线")
+	gsap.to(el, {
+		width: "100%",
+		height: 100,
+		// 过度完成之后，执行一个回调函数
+		onComplete: done,
+	})
+}
+const enterTo = (el: Element) => {
+	console.log("过度完成")
+}
+const enterCancel = (el: Element) => {
+	console.log("显示的过度曲线被打断")
+}
+const leaveFrom = (el: Element) => {
+	console.log("离开之前")
+}
+// 当只用 JavaScript 过渡的时候，在 enter 和 leave 钩子中必须使用 done 进行回调
+const leaveActive = (el: Element, done: gsap.Callback) => {
+	console.log("离开的过度曲线")
+	gsap.to(el, {
+		width: 0,
+		height: 0,
+		// 过度完成之后，执行一个回调函数
+		onComplete: done,
+	})
+}
+const leaveTo = (el: Element) => {
+	console.log("离开完成")
+}
+const leaveCancel = (el: Element) => {
+	console.log("离开的过度曲线被打断")
 }
 </script>
 
