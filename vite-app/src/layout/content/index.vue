@@ -21,7 +21,9 @@
 				{{ item.name }}
 			</div>
 		</div>
-		<component :is="currentComponent.comName"></component>
+		<transition name="fade">
+			<component :is="currentComponent.comName"></component>
+		</transition>
 		<Dialog>
 			<template v-slot:header>
 				<div>国产凌凌漆</div>
@@ -101,6 +103,7 @@ const switchLoginRegister = () => {
 	color: #000;
 	background-color: #ff0;
 }
+
 .content {
 	flex: 1;
 	position: relative;
@@ -121,6 +124,37 @@ const switchLoginRegister = () => {
 			margin-right: 8px;
 			cursor: pointer;
 		}
+	}
+	// 准备开始过度
+	.fade-enter-from {
+		width: 0;
+		height: 0;
+		transform: rotate(360deg);
+	}
+	// 开始过度
+	.fade-enter-active {
+		transition: all 1.5s ease;
+	}
+	// 过度完成
+	.fade-enter-to {
+		width: 100%;
+		height: 100px;
+		transform: scale(1.1);
+	}
+	// 离开前过度
+	.fade-leave-from {
+		width: 100%;
+		height: 100px;
+		transform: rotate(360deg);
+	}
+	// 离开中过度
+	.fade-leave-active {
+		transition: all 2s ease-in-out;
+	}
+	// 离开完成
+	.fade-leave-to {
+		width: 0;
+		height: 0;
 	}
 }
 </style>
