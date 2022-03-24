@@ -20,6 +20,12 @@ import Father from "./Father.vue"
  * 查询父类的provides对象，如果实例是在根目录，回退到appContext的provides中
  */
 
+/**
+ * options Api的写法：和data同层级
+ * provide(){return {key: value}}
+ * inject:['key']
+ */
+
 console.log(getCurrentInstance()) // 返回当前实例的所有信息
 
 provide("grandfatherFlag", ref(false))
