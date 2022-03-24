@@ -7,12 +7,14 @@
 			<button @click="clickTap2">派发2</button>
 		</div>
 		<Tree :treeData="treeData" @click-tree="getItem"></Tree>
+		<ProvideInject></ProvideInject>
 	</div>
 </template>
 
 <script setup lang="ts">
 import { reactive, ref } from "vue"
 import Tree from "../../components/tree/index.vue"
+import ProvideInject from "../../components/provide-inject/GrandFather.vue"
 import { TreeList } from "../../utils/contant"
 const list = reactive<number[]>([3, 6, 9])
 const flag = ref(false)
