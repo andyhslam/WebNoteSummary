@@ -13,7 +13,7 @@ import { inject, Ref, ref } from "vue"
 
 let fatherFlag = inject<Ref<boolean>>("grandfatherFlag", ref(false))
 const changeFlag = () => {
-	fatherFlag.value = true
+	fatherFlag.value = !fatherFlag.value
 }
 </script>
 
