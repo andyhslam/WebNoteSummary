@@ -2,9 +2,9 @@
 	<div>
 		<button @click="appFlag = !appFlag">change appFlag</button>
 		<p>{{ appFlag }}</p>
+		<renderDom title="tsx标题" @tsx-click="getTsx"></renderDom>
+		<Layout> </Layout>
 	</div>
-	<renderDom title="tsx标题" @tsx-click="getTsx"></renderDom>
-	<Layout> </Layout>
 </template>
 
 <script setup lang="ts">
