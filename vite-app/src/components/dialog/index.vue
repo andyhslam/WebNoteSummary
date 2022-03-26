@@ -11,11 +11,18 @@
 		<footer class="footer">
 			<slot name="footer"></slot>
 		</footer>
+		<div class="vm-flag">
+			<button @click="switchDialogVm">change {{ vmFlag }}</button>
+			<span>标题：{{ vmTitle }}</span>
+		</div>
+		<Dvm v-model:vmTitle.tc="vmTitle" v-model.qingwen="vmFlag"></Dvm>
 	</div>
 </template>
 
 <script setup lang="ts">
 import { reactive } from "vue"
+import Dvm from "./VModel.vue"
+
 type Person = {
 	id: number
 	age: number
@@ -43,22 +50,29 @@ const actorList = reactive<Person[]>([
 		name: "Jacky Cheung",
 	},
 ])
+
+let vmFlag = ref<boolean>(true)
+let vmTitle = ref<string>("曹雪芹")
+const switchDialogVm = () => {
+	vmFlag.value = !vmFlag.value
+	vmTitle.value = "曹雪芹"
+}
 </script>
 
 <style lang="less" scoped>
 .dialog {
 	.header {
-		height: 100px;
+		height: 50px;
 		background-color: red;
 		color: #fff;
 	}
 	.main {
-		height: 200px;
+		height: 100px;
 		background-color: green;
 		color: #fff;
 	}
 	.footer {
-		height: 100px;
+		height: 50px;
 		background-color: blue;
 		color: #fff;
 	}

@@ -1,21 +1,21 @@
 <template>
-	<div>
+	<!-- <div>
 		<button @click="appFlag = !appFlag">change appFlag</button>
 		<p>{{ appFlag }}</p>
-		<renderDom title="tsx标题" @tsx-click="getTsx"></renderDom>
-		<Layout> </Layout>
-	</div>
+	</div> -->
+	<!-- <renderDom title="tsx标题" @tsx-click="getTsx"></renderDom> -->
+	<Layout> </Layout>
 </template>
 
 <script setup lang="ts">
-import renderDom from "./App"
+// import renderDom from "./App"
 import Layout from "./layout/index.vue"
 
-let appFlag = ref<boolean>(false)
+// let appFlag = ref<boolean>(false)
 
-const getTsx = (param: number) => {
-	console.log("getTsx=", param)
-}
+// const getTsx = (param: number) => {
+// 	console.log("getTsx=", param)
+// }
 </script>
 
 <style lang="less">

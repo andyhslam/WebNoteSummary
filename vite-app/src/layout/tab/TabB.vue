@@ -1,13 +1,13 @@
 <template>
-	<div class="tab-c">我是TabC组件</div>
+	<div class="tab-b">我是TabB组件</div>
 </template>
 
 <script setup lang="ts"></script>
 
 <style lang="less" scoped>
-.tab-c {
-	background-color: rgb(0, 255, 221);
-	height: 100px;
+.tab-b {
+	background-color: rgb(76, 0, 255);
+	height: 50px;
 	border: 1px solid #ccc;
 }
 </style>

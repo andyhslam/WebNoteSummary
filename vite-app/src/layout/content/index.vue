@@ -3,6 +3,17 @@
 		<!-- <div class="content-item" v-for="item in 100" :key="item">
 			<Card :content="`我是第${item}个`"></Card>
 		</div> -->
+		<Dialog>
+			<template v-slot:header>
+				<div>国产凌凌漆</div>
+			</template>
+			<template #default="{ actor, index }">
+				<div>{{ index }}--{{ actor.name }}--{{ actor.age }}</div>
+			</template>
+			<template #[slotName]>
+				<div>逃学威龙</div>
+			</template>
+		</Dialog>
 		<div class="tab">
 			<div
 				v-for="(item, index) in tabsData"
@@ -67,17 +78,6 @@
 			<input type="number" step="20" v-model="numObj.current" />
 			<p>{{ numObj.tweenedNumber.toFixed(0) }}</p>
 		</div>
-		<Dialog>
-			<template v-slot:header>
-				<div>国产凌凌漆</div>
-			</template>
-			<template #default="{ actor, index }">
-				<div>{{ index }}--{{ actor.name }}--{{ actor.age }}</div>
-			</template>
-			<template #[slotName]>
-				<div>逃学威龙</div>
-			</template>
-		</Dialog>
 		<Suspense>
 			<template #default>
 				<Asynchronous></Asynchronous>
@@ -93,10 +93,10 @@
 // import...from的形式只能在顶层作用域使用，不能参杂在js逻辑里面，不然会报错
 // import()的形式可以参杂在js逻辑里面，并且返回promise，而defineAsyncComponent()又会接收promise
 import { ref, reactive, markRaw, watch, defineAsyncComponent } from "vue"
-import TabA from "./TabA.vue"
-import TabB from "./TabB.vue"
-import TabC from "./TabC.vue"
 import Dialog from "../../components/dialog/index.vue"
+import TabA from "../tab/TabA.vue"
+import TabB from "../tab/TabB.vue"
+import TabC from "../tab/TabC.vue"
 import "animate.css"
 import gsap from "gsap"
 import _ from "lodash"
