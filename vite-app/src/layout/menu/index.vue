@@ -8,14 +8,16 @@
 		</div>
 		<Tree :treeData="treeData" @click-tree="getItem"></Tree>
 		<ProvideInject></ProvideInject>
+		<EventBus></EventBus>
 	</div>
 </template>
 
 <script setup lang="ts">
 import { reactive, ref } from "vue"
+import { TreeList } from "../../utils/contant"
 import Tree from "../../components/tree/index.vue"
 import ProvideInject from "../../components/provide-inject/GrandFather.vue"
-import { TreeList } from "../../utils/contant"
+import EventBus from "../../components/event-bus/index.vue"
 const list = reactive<number[]>([3, 6, 9])
 const flag = ref(false)
 
@@ -33,6 +35,14 @@ type Props = {
 	title?: string
 	menuArr?: number[]
 }
+
+withDefaults(defineProps<Props>(), {
+	title: "默认值",
+	menuArr: () => [5, 6, 7], // 复杂数据类型要采用这种方式
+})
+
+// 通过defineExpose，子组件暴露给父组件内部属性
+defineExpose({ list, flag })
 
 const treeData = reactive<TreeList[]>([
 	{
@@ -65,14 +75,6 @@ const treeData = reactive<TreeList[]>([
 	},
 ])
 
-withDefaults(defineProps<Props>(), {
-	title: "默认值",
-	menuArr: () => [5, 6, 7], // 复杂数据类型要采用这种方式
-})
-
-// 通过defineExpose，子组件暴露给父组件内部属性
-defineExpose({ list, flag })
-
 /** 子组件给父组件传参：通过defineEmits派发一个事件
  * 1. 在子组件绑定click事件，然后通过defineEmits注册自定义事件
  * 2. 点击click，触发emit，调用注册的事件，然后传递参数
@@ -92,6 +94,7 @@ const getItem = (item: TreeList) => {
 <style lang="less" scoped>
 .menu {
 	width: 200px;
+	overflow-y: auto;
 	border: 1px solid #ccc;
 }
 </style>
