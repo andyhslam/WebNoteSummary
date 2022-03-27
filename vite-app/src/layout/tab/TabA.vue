@@ -1,6 +1,7 @@
 <template>
 	<div class="tab-a">
 		<img id="tabA" width="100" height="100" src="../../assets/tabA.png" />
+		<span>{{ $filters.format("最强大脑") }}</span>
 	</div>
 </template>
 

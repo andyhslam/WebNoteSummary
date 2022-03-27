@@ -1,6 +1,7 @@
 <template>
 	<div class="tab-b">
 		<img id="tabB" width="110" height="100" src="../../assets/tabB.png" />
+		<span>{{ $env }}</span>
 	</div>
 </template>
 
