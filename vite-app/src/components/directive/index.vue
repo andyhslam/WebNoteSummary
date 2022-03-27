@@ -1,8 +1,12 @@
 <template>
 	<div class="directive">
 		<div v-move="" class="box">
-			<div class="box-header"></div>
-			<p>内容</p>
+			<div class="box-header">💛大战</div>
+			<a-rate v-model:value="starValue" allow-half>
+				<template #character>
+					<heart-outlined />
+				</template>
+			</a-rate>
 		</div>
 		<button @click="directFlag = !directFlag">自定义指令切换</button>
 		<input type="text" v-model="directValue" />
@@ -18,8 +22,10 @@
 
 <script setup lang="ts">
 import { Directive, DirectiveBinding } from "vue"
+import { HeartOutlined } from "@ant-design/icons-vue"
 import Example from "./example.vue"
 
+const starValue = ref(2)
 let directFlag = ref<boolean>(true)
 let directValue = ref<string>("")
 type Dir = {
@@ -99,6 +105,7 @@ const vMove: Directive<any, void> = (
 		&-header {
 			height: 20px;
 			cursor: move;
+			color: #fff;
 			background-color: #007;
 		}
 	}

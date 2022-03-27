@@ -1,5 +1,5 @@
 <template>
-	<div class="example">样板组件</div>
+	<div class="example">指令组件</div>
 </template>
 
 <script setup lang="ts"></script>

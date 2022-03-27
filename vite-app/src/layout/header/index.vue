@@ -37,7 +37,7 @@ const switchLoading = () => {
 <style lang="less" scoped>
 .header {
 	position: relative;
-	height: 80px;
+	height: 100px;
 	padding: 6px;
 	border-bottom: 1px solid #ccc;
 	button {
