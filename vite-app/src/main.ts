@@ -34,7 +34,7 @@ app.config.globalProperties.$filters = {
 
 app.config.globalProperties.$env = 'dev'
 
-// app.use(Loading)
-// app.use(ElementPlus)
 app.use(Antd)
+app.use(ElementPlus)
+app.use(Loading)
 app.component('Card', Card).mount('#app')
