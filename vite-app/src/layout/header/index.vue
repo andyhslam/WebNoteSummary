@@ -2,11 +2,12 @@
 	<div class="header">
 		<h3>头部区域</h3>
 		<teleport to=".modal">
-			<div class="loading">loading...</div>
+			<div class="continue">未完待续...</div>
 		</teleport>
-		<button @click="switchLoginRegister">账号切换</button>
+		<button @click="switchLoginRegister">切换登录/注册</button>
+		<button @click="switchLoading" class="layer">切换遮罩层</button>
 		<keep-alive :include="['Login', 'Register']">
-			<Login v-if="flag"></Login>
+			<Login v-if="loginFlag"></Login>
 			<Register v-else></Register>
 		</keep-alive>
 		<Directive></Directive>
@@ -14,14 +15,22 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
+import { ref, getCurrentInstance, ComponentInternalInstance } from "vue"
 import Login from "../../components/login/index.vue"
 import Register from "../../components/register/index.vue"
 import Directive from "../../components/directive/index.vue"
 
-const flag = ref<boolean>(true)
+const loginFlag = ref<boolean>(true)
 const switchLoginRegister = () => {
-	flag.value = !flag.value
+	loginFlag.value = !loginFlag.value
+}
+
+const { appContext } = getCurrentInstance() as ComponentInternalInstance
+const switchLoading = () => {
+	appContext.config.globalProperties.$loading.show()
+	setTimeout(() => {
+		appContext.config.globalProperties.$loading.hide()
+	}, 500)
 }
 </script>
 
@@ -29,12 +38,20 @@ const switchLoginRegister = () => {
 .header {
 	position: relative;
 	height: 80px;
+	padding: 6px;
 	border-bottom: 1px solid #ccc;
+	button {
+		cursor: pointer;
+		&.layer {
+			margin-left: 6px;
+		}
+	}
 }
-.loading {
+.continue {
 	position: absolute;
 	right: 10px;
 	bottom: 10px;
+	padding: 6px;
 	color: #000;
 	background-color: #ff0;
 }

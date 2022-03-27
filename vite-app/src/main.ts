@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import './assets/css/reset.less'
 import Card from './components/card/index.vue'
+import Loading from './components/plugins/loading'
 
 const app = createApp(App)
 
@@ -13,7 +14,11 @@ type Filter = {
 declare module '@vue/runtime-core' {
   export interface ComponentCustomProperties {
     $filters: Filter,
-    $env: string
+    $env: string,
+    $loading: {
+      show: () => void,
+      hide: () => void
+    }
   }
 }
 
@@ -24,5 +29,7 @@ app.config.globalProperties.$filters = {
 }
 
 app.config.globalProperties.$env = 'dev'
+
+app.use(Loading)
 
 app.component('Card', Card).mount('#app')

@@ -25,7 +25,7 @@ const emit = defineEmits(["update:modelValue", "update:vmTitle"])
 const closeDialogVm = () => {
 	emit("update:modelValue", false)
 	console.log(propData.vmTitleModifiers)
-	if (propData.vmTitleModifiers.tc) {
+	if (propData.vmTitleModifiers?.tc) {
 		emit("update:vmTitle", "探春")
 	} else {
 		emit("update:vmTitle", "晴雯")

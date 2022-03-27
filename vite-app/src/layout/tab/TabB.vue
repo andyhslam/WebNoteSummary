@@ -6,7 +6,13 @@
 </template>
 
 <script setup lang="ts">
+import { getCurrentInstance, ComponentInternalInstance } from "vue"
 import useBase64 from "./hooks"
+
+// 在setup里面读取值
+const { appContext } = <ComponentInternalInstance>getCurrentInstance()
+const envGlobal = appContext.config.globalProperties.$env
+console.log("envGlobal===", envGlobal)
 
 useBase64({ el: "#tabB" }).then((res) => {
 	// console.log("tabB-baseUrl", res.baseUrl)

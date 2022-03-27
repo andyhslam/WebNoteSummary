@@ -9,7 +9,7 @@
 import useBase64 from "./hooks"
 
 useBase64({ el: "#tabA" }).then((res) => {
-	console.log("tabA-baseUrl", res.baseUrl)
+	// console.log("tabA-baseUrl", res.baseUrl)
 })
 </script>
 

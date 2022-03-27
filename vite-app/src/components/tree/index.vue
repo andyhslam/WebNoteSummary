@@ -7,7 +7,7 @@
 		>
 			{{ item.name }}
 			<TreeItem
-				v-if="item.children"
+				v-if="item?.children?.length"
 				:treeData="item.children"
 				@click-tree="clickItem"
 			></TreeItem>

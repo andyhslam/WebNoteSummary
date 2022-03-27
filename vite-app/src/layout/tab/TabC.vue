@@ -8,7 +8,7 @@
 import useBase64 from "./hooks"
 
 useBase64({ el: "#tabC" }).then((res) => {
-	console.log("tabC-baseUrl", res.baseUrl)
+	// console.log("tabC-baseUrl", res.baseUrl)
 })
 </script>
 

@@ -83,7 +83,7 @@
 				<Asynchronous></Asynchronous>
 			</template>
 			<template #fallback>
-				<div>Loading...</div>
+				<div>Waiting...</div>
 			</template>
 		</Suspense>
 	</div>
