@@ -7,14 +7,14 @@
 <script setup lang="ts">
 let isShow = ref<boolean>(false)
 
-const showLoading = () => {
+const show = () => {
 	isShow.value = true
 }
-const hideLoading = () => {
+const hide = () => {
 	isShow.value = false
 }
 
-defineExpose({ isShow, showLoading, hideLoading })
+defineExpose({ show, hide })
 </script>
 
 <style scoped lang="less">

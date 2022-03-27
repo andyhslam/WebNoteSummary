@@ -1,6 +1,8 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import './assets/css/reset.less'
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
 import Card from './components/card/index.vue'
 import Loading from './components/plugins/loading'
 
@@ -31,5 +33,5 @@ app.config.globalProperties.$filters = {
 app.config.globalProperties.$env = 'dev'
 
 app.use(Loading)
-
+// app.use(ElementPlus)
 app.component('Card', Card).mount('#app')

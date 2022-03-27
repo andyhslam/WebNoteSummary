@@ -11,8 +11,8 @@ export default {
     render(vnode, document.body)
     // 挂载完毕，可以读取属性
     app.config.globalProperties.$loading = {
-      show: vnode.component?.exposed?.showLoading,
-      hide: vnode.component?.exposed?.hideLoading,
+      show: vnode.component?.exposed?.show,
+      hide: vnode.component?.exposed?.hide,
     }
   }
 }
