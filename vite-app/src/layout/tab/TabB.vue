@@ -1,13 +1,21 @@
 <template>
-	<div class="tab-b">我是TabB组件</div>
+	<div class="tab-b">
+		<img id="tabB" width="110" height="100" src="../../assets/tabB.png" />
+	</div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import useBase64 from "./hooks"
+
+useBase64({ el: "#tabB" }).then((res) => {
+	// console.log("tabB-baseUrl", res.baseUrl)
+})
+</script>
 
 <style lang="less" scoped>
 .tab-b {
 	background-color: rgb(76, 0, 255);
-	height: 50px;
+	height: 100px;
 	border: 1px solid #ccc;
 }
 </style>
