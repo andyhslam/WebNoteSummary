@@ -1,6 +1,9 @@
 <template>
 	<div class="header">
-		<h3>头部区域：{{ Test.current }}--{{ Test.name }}</h3>
+		<div>
+			<span>头部区域：{{ Test.current }}--{{ Test.name }}</span>
+			<button @click="changePinia">change pinia</button>
+		</div>
 		<teleport to=".modal">
 			<div class="continue">未完待续...</div>
 		</teleport>
@@ -22,6 +25,18 @@ import Directive from "../../components/directive/index.vue"
 import { useTestStore } from "../../store"
 
 const Test = useTestStore()
+
+/** 修改State的五种方式
+ * 1.直接修改值：Test.current++
+ * 2.实例上有$patch方法可以批量修改多个值：Test.$patch({current: 666,name: "lx",})
+ * 3.批量修改函数形式：Test.$patch((state) => {state.current = 888;state.name = "khp"})
+ * 4.通过原始对象修改整个实例，缺点是必须修改整个对象的所有属性：Test.$state = {current:999, name:"lxx"}
+ * 5.通过actions修改，直接在实例调用：Test.setCurrent(5566)
+ */
+
+const changePinia = () => {
+	Test.setCurrent(5566)
+}
 
 const loginFlag = ref<boolean>(true)
 const switchLoginRegister = () => {
