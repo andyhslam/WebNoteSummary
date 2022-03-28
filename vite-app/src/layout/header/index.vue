@@ -1,6 +1,6 @@
 <template>
 	<div class="header">
-		<h3>头部区域</h3>
+		<h3>头部区域：{{ Test.current }}--{{ Test.name }}</h3>
 		<teleport to=".modal">
 			<div class="continue">未完待续...</div>
 		</teleport>
@@ -19,6 +19,9 @@ import { ref, getCurrentInstance, ComponentInternalInstance } from "vue"
 import Login from "../../components/login/index.vue"
 import Register from "../../components/register/index.vue"
 import Directive from "../../components/directive/index.vue"
+import { useTestStore } from "../../store"
+
+const Test = useTestStore()
 
 const loginFlag = ref<boolean>(true)
 const switchLoginRegister = () => {

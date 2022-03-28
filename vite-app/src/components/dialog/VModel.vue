@@ -101,6 +101,9 @@ const tableData = [
 		justify-content: space-between;
 		padding: 2px;
 		border-bottom: 1px solid #ccc;
+		span {
+			cursor: pointer;
+		}
 	}
 	&-content {
 		padding: 2px;

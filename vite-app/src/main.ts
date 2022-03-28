@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 import App from './App.vue'
 import './assets/css/reset.less'
 import ElementPlus from 'element-plus'
@@ -33,8 +34,10 @@ app.config.globalProperties.$filters = {
 }
 
 app.config.globalProperties.$env = 'dev'
+const store = createPinia()
 
 app.use(Antd)
 app.use(ElementPlus)
 app.use(Loading)
+app.use(store)
 app.component('Card', Card).mount('#app')
