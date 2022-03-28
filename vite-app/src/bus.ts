@@ -17,7 +17,7 @@ class Bus implements BusClass {
   emit(name: string, ...args: Array<any>) {
     let eventName: Array<Function> = this.list[name]
     eventName.forEach(fn => {
-      fn.apply(this, args)
+      fn.apply(this, args) // 此处的this指向Bus
     })
   }
   on(name: string, callback: Function) {
