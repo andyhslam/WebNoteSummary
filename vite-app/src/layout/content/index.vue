@@ -210,7 +210,7 @@ const leaveCancel = (el: Element) => {
 <style lang="less" scoped>
 .content {
 	flex: 1;
-	margin: 20px;
+	margin: 10px;
 	border: 1px solid #ccc;
 	overflow: auto;
 	&-item {

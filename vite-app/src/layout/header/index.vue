@@ -3,6 +3,7 @@
 		<div>
 			<span>头部区域：{{ Test.current }}--{{ Test.name }}</span>
 			<button @click="changePinia">change pinia</button>
+			<span>直接解构：{{ current }}--{{ name }}</span>
 		</div>
 		<teleport to=".modal">
 			<div class="continue">未完待续...</div>
@@ -23,8 +24,11 @@ import Login from "../../components/login/index.vue"
 import Register from "../../components/register/index.vue"
 import Directive from "../../components/directive/index.vue"
 import { useTestStore } from "../../store"
+import { storeToRefs } from "pinia"
 
 const Test = useTestStore()
+// 在Pinia是不允许直接解构，是会失去响应性的；可以使用storeToRefs
+const { current, name } = storeToRefs(Test)
 
 /** 修改State的五种方式
  * 1.直接修改值：Test.current++
@@ -35,7 +39,9 @@ const Test = useTestStore()
  */
 
 const changePinia = () => {
-	Test.setCurrent(5566)
+	Test.current++
+	// current.value++
+	console.log(current.value, name.value)
 }
 
 const loginFlag = ref<boolean>(true)
