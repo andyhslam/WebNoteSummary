@@ -21,7 +21,8 @@ export default function (options: Options): Promise<{ baseUrl: string }> {
       canvas.width = el.width
       canvas.height = el.height
       ctx.drawImage(el, 0, 0, canvas.width, canvas.height)
-      return canvas.toDataURL('image/png') // 导出base64图片
+      const ext = el.src.substring(el.src.lastIndexOf('.') + 1).toLowerCase()
+      return canvas.toDataURL('image/' + ext) // 导出base64图片
     }
   })
 }
