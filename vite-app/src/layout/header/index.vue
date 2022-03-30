@@ -1,8 +1,9 @@
 <template>
 	<div class="header">
 		<div>
-			<span>头部区域：{{ Test.current }}--{{ Test.name }}</span>
+			<span>头部区域：{{ Test.user }}--{{ Test.name }}</span>
 			<button @click="changePinia">change pinia</button>
+			<span>getters:{{ Test.newBoy }}</span>
 			<span>直接解构：{{ current }}--{{ name }}</span>
 		</div>
 		<teleport to=".modal">
@@ -39,8 +40,9 @@ const { current, name } = storeToRefs(Test)
  */
 
 const changePinia = () => {
-	Test.current++
+	// Test.current++
 	// current.value++
+	Test.setUser()
 	console.log(current.value, name.value)
 }
 
