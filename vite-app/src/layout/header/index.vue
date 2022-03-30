@@ -3,8 +3,9 @@
 		<div>
 			<span>头部区域：{{ Test.user }}--{{ Test.name }}</span>
 			<button @click="changePinia">change pinia</button>
-			<span>getters:{{ Test.newBoy }}</span>
-			<span>直接解构：{{ current }}--{{ name }}</span>
+			<button @click="resetPinia">reset pinia</button>
+			<!-- <span>getters:{{ Test.newBoy }}</span>
+			<span>直接解构：{{ current }}--{{ name }}</span> -->
 		</div>
 		<teleport to=".modal">
 			<div class="continue">未完待续...</div>
@@ -42,9 +43,32 @@ const { current, name } = storeToRefs(Test)
 const changePinia = () => {
 	// Test.current++
 	// current.value++
-	Test.setUser()
-	console.log(current.value, name.value)
+	// Test.setUser()
+	Test.setName("王熙凤")
+	// console.log(current.value, name.value)
 }
+const resetPinia = () => {
+	// $reset()：把state所有值重置回原始状态
+	Test.$reset()
+}
+
+// 订阅state的改变：类似于Vuex的abscribe，只要有state的变化就会走这个函数
+Test.$subscribe(
+	(args, state) => {
+		console.log("subscribe-args", args)
+		console.log("subscribe-state", state)
+	},
+	// 第一个参数是工厂函数，第二个参数是配置项；detached: true，表示组件卸载之后还能继续调用
+	{ detached: true, deep: true, flush: "post" }
+)
+
+// 订阅Actions的调用：只要有actions被调用就会走这个函数
+Test.$onAction((args) => {
+	args.after(() => {
+		console.log("onAction-after")
+	})
+	console.log("onAction-args", args)
+}, true)
 
 const loginFlag = ref<boolean>(true)
 const switchLoginRegister = () => {

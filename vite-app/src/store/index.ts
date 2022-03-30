@@ -14,7 +14,7 @@ const Login = (): Promise<User> => {
         name: 'lx',
         age: 20
       })
-    }, 1000);
+    }, 100);
   })
 }
 
@@ -48,7 +48,7 @@ export const useTestStore = defineStore(Names.TEST, {
     async setUser() {
       const result = await Login()
       this.user = result
-      this.setName('薛宝钗') // 多个action互相调用
+      // this.setName('薛宝钗') // 多个action互相调用
     },
     setName(name: string) {
       this.name = name
