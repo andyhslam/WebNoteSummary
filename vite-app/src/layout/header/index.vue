@@ -1,9 +1,11 @@
 <template>
 	<div class="header">
 		<div>
-			<span>头部区域：{{ Test.user }}--{{ Test.name }}</span>
-			<button @click="changePinia">change pinia</button>
-			<button @click="resetPinia">reset pinia</button>
+			<span>头部区域：{{ Test.user }}--{{ Base.baseCurrent }}</span>
+			<button @click="changeTest">change test</button>
+			<button @click="changeBase">change base</button>
+			<!-- <button @click="changePinia">change pinia</button>
+			<button @click="resetPinia">reset pinia</button> -->
 			<!-- <span>getters:{{ Test.newBoy }}</span>
 			<span>直接解构：{{ current }}--{{ name }}</span> -->
 		</div>
@@ -25,10 +27,11 @@ import { ref, getCurrentInstance, ComponentInternalInstance } from "vue"
 import Login from "../../components/login/index.vue"
 import Register from "../../components/register/index.vue"
 import Directive from "../../components/directive/index.vue"
-import { useTestStore } from "../../store"
+import { useTestStore, useBaseStore } from "../../store"
 import { storeToRefs } from "pinia"
 
 const Test = useTestStore()
+const Base = useBaseStore()
 // 在Pinia是不允许直接解构，是会失去响应性的；可以使用storeToRefs
 const { current, name } = storeToRefs(Test)
 
@@ -47,6 +50,12 @@ const changePinia = () => {
 	Test.setName("王熙凤")
 	// console.log(current.value, name.value)
 }
+const changeTest = () => {
+	Test.setUser("杜甫草堂")
+}
+const changeBase = () => {
+	Base.baseCurrent++
+}
 const resetPinia = () => {
 	// $reset()：把state所有值重置回原始状态
 	Test.$reset()
@@ -55,8 +64,8 @@ const resetPinia = () => {
 // 订阅state的改变：类似于Vuex的abscribe，只要有state的变化就会走这个函数
 Test.$subscribe(
 	(args, state) => {
-		console.log("subscribe-args", args)
-		console.log("subscribe-state", state)
+		// console.log("subscribe-args", args)
+		// console.log("subscribe-state", state)
 	},
 	// 第一个参数是工厂函数，第二个参数是配置项；detached: true，表示组件卸载之后还能继续调用
 	{ detached: true, deep: true, flush: "post" }
@@ -65,9 +74,10 @@ Test.$subscribe(
 // 订阅Actions的调用：只要有actions被调用就会走这个函数
 Test.$onAction((args) => {
 	args.after(() => {
-		console.log("onAction-after")
+		// console.log("onAction-after")
 	})
-	console.log("onAction-args", args)
+	// 先执行onAction-args，再执行onAction-after
+	// console.log("onAction-args", args)
 }, true)
 
 const loginFlag = ref<boolean>(true)

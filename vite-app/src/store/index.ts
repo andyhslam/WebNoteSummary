@@ -11,8 +11,8 @@ const Login = (): Promise<User> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({
-        name: 'lx',
-        age: 20
+        name: '开元天宝',
+        age: 742
       })
     }, 100);
   })
@@ -24,7 +24,7 @@ export const useTestStore = defineStore(Names.TEST, {
     return {
       current: 100,
       name: '元春',
-      user: <User>{}, // 类型断言，方便ts进行类型推导
+      user: <User>{}, // 类型断言，方便TS进行类型推导
     }
   },
   // 主要作用类似于computed，数据修饰并且有缓存
@@ -45,13 +45,21 @@ export const useTestStore = defineStore(Names.TEST, {
       this.current = num
     },
     // 异步 可以结合async await 修饰
-    async setUser() {
+    async setUser(name?: string) {
       const result = await Login()
       this.user = result
       // this.setName('薛宝钗') // 多个action互相调用
     },
     setName(name: string) {
       this.name = name
+    }
+  }
+})
+
+export const useBaseStore = defineStore(Names.BASE, {
+  state: () => {
+    return {
+      baseCurrent: 1
     }
   }
 })
