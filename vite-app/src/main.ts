@@ -45,7 +45,7 @@ const setStorage = (key: string, value: any) => {
 const getStorage = (key: string) => {
   return localStorage.getItem(key) ? JSON.parse(localStorage.getItem(key) as string) : {}
 }
-
+// 实现pinia持久化插件
 const piniaPlugin = (options: Options) => {
   // 函数柯里化：pinia调用返回的函数，再传给context
   return (context: PiniaPluginContext) => {
