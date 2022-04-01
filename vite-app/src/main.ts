@@ -1,6 +1,7 @@
-import { createApp, toRaw } from 'vue'
-import { createPinia, PiniaPluginContext } from 'pinia'
 import App from './App.vue'
+import { createApp, toRaw } from 'vue'
+import router from './router'
+import { createPinia, PiniaPluginContext } from 'pinia'
 import './assets/css/reset.less'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
@@ -70,4 +71,5 @@ app.use(Antd)
 app.use(ElementPlus)
 app.use(Loading)
 app.use(store)
+app.use(router)
 app.component('Card', Card).mount('#app')

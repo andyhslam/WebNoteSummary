@@ -1,4 +1,10 @@
 <template>
+	<div>
+		<router-link to="/" style="margin-right: 10px">Login</router-link>
+		<router-link to="/register">Register</router-link>
+	</div>
+	<!-- 路由出口，路由匹配到的组件将渲染在这里 -->
+	<router-view></router-view>
 	<Layout> </Layout>
 	<!-- <renderDom title="tsx标题" @tsx-click="getTsx"></renderDom> -->
 </template>

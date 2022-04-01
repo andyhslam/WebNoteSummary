@@ -12,8 +12,8 @@
 		<teleport to=".modal">
 			<div class="continue">未完待续...</div>
 		</teleport>
-		<button @click="switchLoginRegister">切换登录/注册</button>
-		<button @click="switchLoading" class="layer">切换遮罩层</button>
+		<button @click="switchLoading">切换遮罩层</button>
+		<button @click="switchLoginRegister" class="layer">登录/注册</button>
 		<keep-alive :include="['Login', 'Register']">
 			<Login v-if="loginFlag"></Login>
 			<Register v-else></Register>
