@@ -1,5 +1,5 @@
 <template>
-	<div class="router-jump">
+	<div class="route-jump">
 		<!-- <router-link replace :to="{ name: 'Login' }" style="margin-right: 10px"
 			>Login</router-link
 		>
