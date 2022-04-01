@@ -3,10 +3,12 @@ import { createRouter, createWebHistory, createWebHashHistory, RouteRecordRaw } 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
+    name: 'Login',
     component: () => import('../components/login/index.vue') // 打包时会进行代码分割，有利于性能优化
   },
   {
     path: '/register',
+    name: 'Register',
     component: () => import('../components/register/index.vue')
   }
 ]
