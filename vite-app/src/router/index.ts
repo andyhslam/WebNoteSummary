@@ -4,12 +4,12 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Login',
-    component: () => import('../components/login/index.vue') // 打包时会进行代码分割，有利于性能优化
+    component: () => import('../components/login/login.vue') // 打包时会进行代码分割，有利于性能优化
   },
   {
-    path: '/register',
+    path: '/register/:id',
     name: 'Register',
-    component: () => import('../components/register/index.vue')
+    component: () => import('../components/register/register.vue')
   }
 ]
 
