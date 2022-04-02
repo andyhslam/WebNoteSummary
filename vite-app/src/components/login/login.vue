@@ -40,6 +40,7 @@ const toDetail = (item: Item) => {
 	router.push({
 		name: "Register",
 		// params传递的参数不会显示在地址栏中，而是存在于内存当中；页面刷新，传递过来的值会丢失。
+		// 通过动态路由参数可以解决params传参的这个问题
 		params: {
 			id: item.id,
 		},
