@@ -33,14 +33,15 @@ type Item = {
 }
 
 const toDetail = (item: Item) => {
+	// query传递的参数会显示在地址栏中，并且保存传递过来的值，刷新页面不变。
 	// router.push({
 	// 	path: "/register",
 	// 	query: item,
 	// })
 	router.push({
 		name: "Register",
-		// params传递的参数不会显示在地址栏中，而是存在于内存当中；页面刷新，传递过来的值会丢失。
-		// 通过动态路由参数可以解决params传参的这个问题
+		// params传递的参数不会显示在地址栏中，而是存在于内存当中；刷新页面，传递过来的值会丢失。
+		// 通过动态路由参数可以解决params传参刷新会无效的问题
 		params: {
 			id: item.id,
 		},
