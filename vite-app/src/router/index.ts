@@ -3,8 +3,10 @@ import { createRouter, createWebHistory, createWebHashHistory, RouteRecordRaw } 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    alias: ['/root1', '/root2'],
-    redirect: to => {
+    // alias: ['/root1', '/root2'], // 别名 alias
+    // redirect:'/tab1', // 1.字符串形式配置
+    // redirect: { path: '/tab1' }, // 2.对象形式配置
+    redirect: (to) => { // 3.函数模式（可以传参）
       // return '/tab1'
       to.query.name = '清明节' // to表示当前父路由的所有信息
       return { path: '/tab1', query: to.query }
