@@ -3,6 +3,12 @@ import { createRouter, createWebHistory, createWebHashHistory, RouteRecordRaw } 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
+    alias: ['/root1', '/root2'],
+    redirect: to => {
+      // return '/tab1'
+      to.query.name = '清明节' // to表示当前父路由的所有信息
+      return { path: '/tab1', query: to.query }
+    },
     component: () => import('../layout/tab/Tab.vue'),
     children: [
       {
