@@ -20,7 +20,7 @@ export default function (options: Options): Promise<{ baseUrl: string }> {
       const ctx = canvas.getContext('2d') // 给canvas指定2d的环境
       canvas.width = el.width
       canvas.height = el.height
-      ctx.drawImage(el, 0, 0, canvas.width, canvas.height)
+      ctx?.drawImage(el, 0, 0, canvas.width, canvas.height)
       const ext = el.src.substring(el.src.lastIndexOf('.') + 1).toLowerCase()
       return canvas.toDataURL('image/' + ext) // 导出base64图片
     }

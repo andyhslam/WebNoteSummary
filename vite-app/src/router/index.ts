@@ -3,6 +3,25 @@ import { createRouter, createWebHistory, createWebHashHistory, RouteRecordRaw } 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
+    component: () => import('../layout/tab/Tab.vue'),
+    children: [
+      {
+        path: 'tab1',
+        components: {
+          default: () => import('../layout/tab/TabA.vue')
+        }
+      },
+      {
+        path: 'tab2',
+        components: {
+          tabB: () => import('../layout/tab/TabB.vue'),
+          tabC: () => import('../layout/tab/TabC.vue'),
+        }
+      },
+    ]
+  },
+  {
+    path: '/login',
     name: 'Login',
     component: () => import('../components/login/login.vue') // 打包时会进行代码分割，有利于性能优化
   },
