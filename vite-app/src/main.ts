@@ -67,6 +67,15 @@ store.use(piniaPlugin({
   key: 'pinia'
 }))
 
+const whiteList = ['/']
+router.beforeEach((to, from, next) => {
+  if (whiteList.includes(to.path) || localStorage.getItem('token')) {
+    next()
+  } else {
+    next('/')
+  }
+})
+
 app.use(Antd)
 app.use(ElementPlus)
 app.use(Loading)

@@ -3,6 +3,14 @@ import { createRouter, createWebHistory, createWebHashHistory, RouteRecordRaw } 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
+    component: () => import('@/components/login/eLogin.vue')
+  },
+  {
+    path: '/index',
+    component: () => import('@/layout/index.vue')
+  },
+  {
+    path: '/root',
     // alias: ['/root1', '/root2'], // 别名 alias
     // redirect:'/tab1', // 1.字符串形式配置
     // redirect: { path: '/tab1' }, // 2.对象形式配置

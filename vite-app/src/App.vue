@@ -15,13 +15,13 @@
 	</div>
 	<!-- 路由出口，路由匹配到的组件将渲染在这里 -->
 	<router-view></router-view>
-	<Layout> </Layout>
+	<!-- <Layout> </Layout> -->
 	<!-- <renderDom title="tsx标题" @tsx-click="getTsx"></renderDom> -->
 </template>
 
 <script setup lang="ts">
 // import renderDom from "./App"
-import Layout from "./layout/index.vue"
+// import Layout from "./layout/index.vue"
 import { useRouter } from "vue-router"
 
 // const getTsx = (param: number) => {
