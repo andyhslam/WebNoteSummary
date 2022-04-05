@@ -70,6 +70,7 @@ store.use(piniaPlugin({
 }))
 
 const whiteList = ['/']
+// 全局前置守卫
 router.beforeEach((to, from, next) => {
   vNode.component?.exposed?.startLoading()
   if (whiteList.includes(to.path) || localStorage.getItem('token')) {
@@ -78,6 +79,7 @@ router.beforeEach((to, from, next) => {
     next('/')
   }
 })
+// 全局后置守卫
 router.afterEach((to, from) => {
   vNode.component?.exposed?.endLoading()
 })
