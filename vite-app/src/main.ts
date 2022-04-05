@@ -1,5 +1,5 @@
 import App from './App.vue'
-import { createApp, toRaw } from 'vue'
+import { createApp, toRaw, createVNode, render } from 'vue'
 import router from './router'
 import { createPinia, PiniaPluginContext } from 'pinia'
 import './assets/css/reset.less'
@@ -8,8 +8,10 @@ import 'element-plus/dist/index.css'
 import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
 import Card from './components/card/index.vue'
-import Loading from './components/plugins/loading'
-
+// import Loading from './components/plugins/loading'
+import loadingBar from "@/components/plugins/loadingBar.vue"
+const vNode = createVNode(loadingBar)
+render(vNode, document.body)
 const app = createApp(App)
 
 // 声明文件 不然TS无法正确类型推导
@@ -69,16 +71,20 @@ store.use(piniaPlugin({
 
 const whiteList = ['/']
 router.beforeEach((to, from, next) => {
+  vNode.component?.exposed?.startLoading()
   if (whiteList.includes(to.path) || localStorage.getItem('token')) {
     next()
   } else {
     next('/')
   }
 })
+router.afterEach((to, from) => {
+  vNode.component?.exposed?.endLoading()
+})
 
 app.use(Antd)
 app.use(ElementPlus)
-app.use(Loading)
+// app.use(Loading)
 app.use(store)
 app.use(router)
 app.component('Card', Card).mount('#app')

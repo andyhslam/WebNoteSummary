@@ -3,13 +3,13 @@
 		<!-- <router-link replace :to="{ name: 'Login' }" style="margin-right: 10px"
 			>Login</router-link
 		>
-		<router-link replace to="/register">Register</router-link> -->
-		<!-- <a href="/" style="margin-right: 10px">Login</a>
-		<a href="/register">Register</a> -->
+		<router-link replace to="/register">Register</router-link>
+		<a href="/" style="margin-right: 10px">Login</a>
+		<a href="/register">Register</a>
 		<button @click="toPage('Login')" style="margin-right: 10px">
 			Login
 		</button>
-		<button @click="toPage('Register')">Register</button>
+		<button @click="toPage('Register')">Register</button> -->
 		<button @click="next" style="margin-right: 10px">next</button>
 		<button @click="prev">prev</button>
 	</div>
