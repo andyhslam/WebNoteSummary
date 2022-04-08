@@ -73,13 +73,14 @@ const whiteList = ['/']
 // 全局前置守卫
 router.beforeEach((to, from, next) => {
   vNode.component?.exposed?.startLoading()
+  //白名单有值或者登陆过存储了token信息可以跳转，否则就去登录页面
   if (whiteList.includes(to.path) || localStorage.getItem('token')) {
     next()
   } else {
     next('/')
   }
 })
-// 全局后置守卫
+// 全局后置守卫：不会接受 next函数，也不会改变导航本身。
 router.afterEach((to, from) => {
   vNode.component?.exposed?.endLoading()
 })
