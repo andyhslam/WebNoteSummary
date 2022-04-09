@@ -3,7 +3,8 @@ import express, { Express, Request, Response } from 'express'
 const app: Express = express()
 
 app.get('/login', (req: Request, res: Response) => {
-  res.header('Access-Control-Allow-Origin', '*')
+  // req：接收前端传过来的值；res：返回给前端的值
+  res.header('Access-Control-Allow-Origin', '*');
   if (req.query.user === 'admin' && req.query.password === '123456') {
     res.json({
       route: [
