@@ -70,8 +70,9 @@ store.use(piniaPlugin({
 }))
 
 const whiteList = ['/']
-// 全局前置守卫
+// 全局前置守卫：只要是与路由相关的，都可以在这个钩子读取
 router.beforeEach((to, from, next) => {
+  document.title = to.meta.title
   vNode.component?.exposed?.startLoading()
   //白名单有值或者登陆过存储了token信息可以跳转，否则就去登录页面
   if (whiteList.includes(to.path) || localStorage.getItem('token')) {

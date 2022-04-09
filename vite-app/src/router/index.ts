@@ -1,13 +1,28 @@
 import { createRouter, createWebHistory, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 
+declare module 'vue-router' {
+  interface RouteMeta {
+    title: string,
+    transition: string
+  }
+}
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    component: () => import('@/components/login/eLogin.vue')
+    component: () => import('@/components/login/eLogin.vue'),
+    meta: {
+      title: '登录页面',
+      transition: 'animate__fadeInUp'
+    }
   },
   {
     path: '/index',
-    component: () => import('@/layout/index.vue')
+    component: () => import('@/layout/index.vue'),
+    meta: {
+      title: '首页',
+      transition: 'animate__bounceIn'
+    }
   },
   {
     path: '/root',
@@ -50,7 +65,19 @@ const routes: Array<RouteRecordRaw> = [
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
+  routes,
+  scrollBehavior: (to, from, savePosition) => {
+    // savePosition: 标记距离
+    // scrollBehavior：返回滚动位置的对象信息 { left: number, top: number }
+    console.log('savePosition', savePosition)
+    return new Promise((r) => {
+      setTimeout(() => {
+        r({
+          top: 1000
+        })
+      }, 2000);
+    })
+  }
 })
 
 export default router

@@ -14,7 +14,14 @@
 		<button @click="prev">prev</button>
 	</div>
 	<!-- 路由出口，路由匹配到的组件将渲染在这里 -->
-	<router-view></router-view>
+	<!-- 通过插槽解构出的两个属性：route(当前路由的信息)，Component(当前vNode) -->
+	<router-view #default="{ route, Component }">
+		<transition
+			:enter-active-class="`animate__animated ${route.meta.transition}`"
+		>
+			<component :is="Component"></component>
+		</transition>
+	</router-view>
 	<!-- <Layout> </Layout> -->
 	<!-- <renderDom title="tsx标题" @tsx-click="getTsx"></renderDom> -->
 </template>
@@ -23,6 +30,7 @@
 // import renderDom from "./App"
 // import Layout from "./layout/index.vue"
 import { useRouter } from "vue-router"
+import "animate.css"
 
 // const getTsx = (param: number) => {
 // 	console.log("getTsx=", param)
