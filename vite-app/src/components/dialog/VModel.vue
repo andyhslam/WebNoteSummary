@@ -90,7 +90,7 @@ const tableData = [
 <style lang="less" scoped>
 .dvm {
 	width: 800px;
-	height: 240px;
+	height: 250px;
 	border: 1px solid #ccc;
 	position: fixed;
 	left: 50%;

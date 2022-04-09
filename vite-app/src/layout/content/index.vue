@@ -1,8 +1,5 @@
 <template>
 	<div class="content">
-		<!-- <div class="content-item" v-for="item in 100" :key="item">
-			<Card :content="`我是第${item}个`"></Card>
-		</div> -->
 		<div class="tab">
 			<div
 				v-for="(item, index) in tabsData"
@@ -51,17 +48,6 @@
 				</div>
 			</transition-group>
 		</div>
-		<Dialog>
-			<template v-slot:header>
-				<div>国产凌凌漆</div>
-			</template>
-			<template #default="{ actor, index }">
-				<div>{{ index }}--{{ actor.name }}--{{ actor.age }}</div>
-			</template>
-			<template #[slotName]>
-				<div>逃学威龙</div>
-			</template>
-		</Dialog>
 		<div class="shuffle">
 			<button @click="randomNum">Random</button>
 			<transition-group tag="ul" class="container" move-class="vessel">
@@ -96,7 +82,6 @@ import { ref, reactive, markRaw, watch, defineAsyncComponent } from "vue"
 import TabA from "../tab/TabA.vue"
 import TabB from "../tab/TabB.vue"
 import TabC from "../tab/TabC.vue"
-import Dialog from "../../components/dialog/index.vue"
 import "animate.css"
 import gsap from "gsap"
 import _ from "lodash"
@@ -134,7 +119,7 @@ watch(
 		})
 	}
 )
-let slotName = ref("footer") // 动态插槽
+
 type Tabs = {
 	name: string
 	comName: any

@@ -8,7 +8,7 @@
 .example {
 	width: 60px;
 	height: 30px;
-	font-size: 12px;
+	line-height: 30px;
 	border: 1px solid #ccc;
 }
 </style>

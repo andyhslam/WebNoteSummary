@@ -1,6 +1,6 @@
 <template>
 	<div class="header">
-		<div>
+		<div class="pinia-management">
 			<span>头部区域：{{ Test.user }}--{{ Base.baseCurrent }}</span>
 			<button @click="changeTest">change test</button>
 			<button @click="changeBase">change base</button>
@@ -18,7 +18,11 @@
 			<Login v-if="loginFlag"></Login>
 			<Register v-else></Register>
 		</keep-alive>
-		<Directive></Directive>
+		<div class="case">
+			<router-link to="/case1">case1</router-link>
+			<router-link to="/case2">case2</router-link>
+			<router-link to="/case3">case3</router-link>
+		</div>
 	</div>
 </template>
 
@@ -26,7 +30,6 @@
 import { ref, getCurrentInstance, ComponentInternalInstance } from "vue"
 import Login from "../../components/login/index.vue"
 import Register from "../../components/register/index.vue"
-import Directive from "../../components/directive/index.vue"
 import { useTestStore, useBaseStore } from "../../store"
 import { storeToRefs } from "pinia"
 
@@ -104,6 +107,14 @@ const switchLoading = () => {
 		cursor: pointer;
 		&.layer {
 			margin-left: 6px;
+		}
+	}
+	.case {
+		position: absolute;
+		right: 10px;
+		top: 10px;
+		a {
+			margin-right: 10px;
 		}
 	}
 }

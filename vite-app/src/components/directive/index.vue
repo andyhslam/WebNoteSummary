@@ -91,9 +91,7 @@ const vMove: Directive<any, void> = (
 <style scoped lang="less">
 .directive {
 	display: flex;
-	position: absolute;
-	right: 0;
-	top: 0;
+	justify-content: center;
 	.box {
 		position: fixed;
 		left: 50%;

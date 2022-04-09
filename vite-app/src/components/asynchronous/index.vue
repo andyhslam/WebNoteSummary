@@ -1,6 +1,8 @@
 <template>
-	<div>
-		<div v-for="item of dataList">{{ item.name }}</div>
+	<div class="bing-dun-dun">
+		<ul>
+			<li v-for="item of dataList">{{ item.name }}</li>
+		</ul>
 	</div>
 </template>
 
@@ -11,4 +13,14 @@ const dataList = await axios("./data.json")
 console.log(dataList)
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.bing-dun-dun {
+	ul {
+		overflow: hidden;
+		li {
+			width: 10%;
+			float: left;
+		}
+	}
+}
+</style>

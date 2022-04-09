@@ -33,6 +33,7 @@ import { reactive, ref } from "vue"
 import { useRouter } from "vue-router"
 import type { FormItemRule, FormInstance } from "element-plus"
 import { ElMessage } from "element-plus"
+import axios from "axios"
 
 const router = useRouter()
 type Form = {
@@ -69,12 +70,28 @@ const rules = reactive<Rules>({
 const onSubmit = () => {
 	loginForm.value?.validate((validate) => {
 		if (validate) {
+			initRouter()
 			router.push("/index")
 			localStorage.setItem("token", "lx")
 		} else {
 			ElMessage.error("请输入完整的信息")
 		}
 	})
+}
+
+const initRouter = async () => {
+	const result = await axios.get("http://localhost:9999/login", {
+		params: formInline,
+	})
+	result.data?.route?.forEach((v: any) => {
+		router.addRoute({
+			path: v.path,
+			name: v.name,
+			component: () => import(`../../views/case/${v.component}`),
+		})
+	})
+	router.push("/index")
+	console.log("获取路由的所有列表", router.getRoutes())
 }
 </script>
 
