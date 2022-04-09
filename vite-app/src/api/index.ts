@@ -9,7 +9,7 @@ app.get('/login', (req: Request, res: Response) => {
       route: [
         { path: '/case1', name: 'Case1', component: 'case1.vue' },
         { path: '/case2', name: 'Case2', component: 'case2.vue' },
-        { path: '/case3', name: 'Case3', component: 'case3.vue' }
+        { path: '/case3', name: 'Case3', component: 'case3.vue' },
       ]
     })
   } else if (req.query.user === 'admin2' && req.query.password === '123456') {
