@@ -26,7 +26,7 @@ router.get('/list', async (req: Request, res: Response) => {
   // req：接收前端传过来的值；res：返回给前端的值
   const result = await axios.post('https://api.inews.qq.com/newsqa/v1/query/inner/publish/modules/list?modules=statisGradeCityDetail,diseaseh5Shelf')
   res.json({
-    data: result.data
+    ...result.data.data
   })
 })
 

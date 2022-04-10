@@ -1,10 +1,11 @@
 import { defineStore } from 'pinia'
 import { getApiList } from '../server'
+import type { RootObject } from './type'
 
 export const useStore = defineStore({
   id: 'counter',
   state: () => ({
-    list: {}
+    list: <RootObject>{}
   }),
   getters: {
 
@@ -12,7 +13,8 @@ export const useStore = defineStore({
   actions: {
     async getList() {
       const result = await getApiList()
-      console.log('getApiList', result)
+      this.list = result
+      console.log('getApiList', this.list)
     }
   }
 })
