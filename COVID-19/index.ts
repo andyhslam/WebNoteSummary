@@ -1,6 +1,12 @@
-import express, { Express, Router, Request, Response } from 'express'
+import express, { Express, Router, Request, Response, NextFunction } from 'express'
 import axios from 'axios'
 const app: Express = express()
+
+// app.use()和app.all()这两种方法都可以使用
+app.all('*', (req: Request, res: Response, next: NextFunction) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  next()
+})
 
 /**
  * node.js中express的Router路由的使用：
@@ -18,7 +24,7 @@ app.use('/api', router); // 用中间件来注册router
 // 使用router来写请求
 router.get('/list', async (req: Request, res: Response) => {
   // req：接收前端传过来的值；res：返回给前端的值
-  const result = await axios.get('https://api.inews.qq.com/newsqa/v1/query/inner/publish/modules/list?modules=statisGradeCityDetail,diseaseh5Shelf')
+  const result = await axios.post('https://api.inews.qq.com/newsqa/v1/query/inner/publish/modules/list?modules=statisGradeCityDetail,diseaseh5Shelf')
   res.json({
     data: result.data
   })

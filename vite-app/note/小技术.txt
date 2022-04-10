@@ -3,4 +3,13 @@ console.log(undefined ?? []) // []
 console.log(0 ?? []) // 0
 console.log(false ?? []) // false
 
+通过vite构建前端项目的几种方式：
+1. npm init vue@latest
+2. npm init vite@latest
+3. yarn create vite
+
+通过Vue cli脚手架构建前端项目的步骤：
+1. npm install @vue/cli -g
+2. vue create <project-name>
+
 https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/void
