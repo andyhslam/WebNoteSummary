@@ -1,6 +1,39 @@
 <template>
 	<div class="box" :style="{ backgroundImage: `url(${bg})` }">
-		<div class="box-left"></div>
+		<div class="box-left" style="color: #fff">
+			<div class="box-left-card">
+				<section>
+					<div>较上日+ {{ store.chinaAdd.localConfirmH5 }}</div>
+					<div>{{ store.chinaTotal.localConfirm }}</div>
+					<div>本土现有确诊</div>
+				</section>
+				<section>
+					<div>较上日+ {{ store.chinaAdd.nowConfirm }}</div>
+					<div>{{ store.chinaTotal.nowConfirm }}</div>
+					<div>现有确诊</div>
+				</section>
+				<section>
+					<div>较上日+ {{ store.chinaAdd.confirm }}</div>
+					<div>{{ store.chinaTotal.confirm }}</div>
+					<div>累计确诊</div>
+				</section>
+				<section>
+					<div>较上日+ {{ store.chinaAdd.noInfect }}</div>
+					<div>{{ store.chinaTotal.noInfect }}</div>
+					<div>无症状感染者</div>
+				</section>
+				<section>
+					<div>较上日+ {{ store.chinaAdd.importedCase }}</div>
+					<div>{{ store.chinaTotal.importedCase }}</div>
+					<div>境外输入</div>
+				</section>
+				<section>
+					<div>较上日+ {{ store.chinaAdd.dead }}</div>
+					<div>{{ store.chinaTotal.dead }}</div>
+					<div>累计死亡</div>
+				</section>
+			</div>
+		</div>
 		<div id="china" class="box-center"></div>
 		<div class="box-right" style="color: #fff">
 			<table class="table" cellspacing="0" border="1">
@@ -49,6 +82,7 @@ onMounted(async () => {
 })
 const initCharts = () => {
 	const province = store.list.diseaseh5Shelf.areaTree[0].children
+	store.item = province[1].children
 	const data = province.map((v) => {
 		return {
 			name: v.name,
@@ -207,8 +241,9 @@ body,
 	display: flex;
 	overflow: hidden;
 	padding: 10px;
+	background-position: center top;
 	&-left {
-		width: 400px;
+		width: 350px;
 		&-pie {
 			height: 320px;
 			margin-top: 20px;
@@ -218,13 +253,13 @@ body,
 			margin-top: 20px;
 		}
 		&-card {
-			display: grid;
-			grid-template-columns: auto auto auto;
-			grid-template-rows: auto auto;
+			display: grid; //容器指定网格布局
+			grid-template-columns: auto auto auto; //定义每一列的列宽，3个值表示有3列
+			grid-template-rows: auto auto; //定义每一行的行高，2个值表示有2行，常用的值：auto、1fr
 			section {
-				background: @itemBg;
+				background-color: @itemBg;
 				border: 1px solid @itemBorder;
-				padding: 10px;
+				padding: 10px 0;
 				display: flex;
 				flex-direction: column;
 				align-items: center;
@@ -241,7 +276,7 @@ body,
 		flex: 1;
 	}
 	&-right {
-		width: 450px;
+		width: 350px;
 	}
 }
 </style>
