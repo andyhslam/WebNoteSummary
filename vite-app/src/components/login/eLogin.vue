@@ -87,6 +87,7 @@ const initRouter = async () => {
 		router.addRoute({
 			path: v.path,
 			name: v.name,
+			// vite在使用动态路由的时候无法使用别名@，必须使用相对路径
 			component: () => import(`../../views/case/${v.component}`),
 		})
 	})
