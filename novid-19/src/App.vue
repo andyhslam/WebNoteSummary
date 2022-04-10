@@ -33,6 +33,7 @@
 					<div>累计死亡</div>
 				</section>
 			</div>
+			<div class="box-left-pie"></div>
 		</div>
 		<div id="china" class="box-center"></div>
 		<div class="box-right" style="color: #fff">
@@ -79,7 +80,9 @@ const store = useStore()
 onMounted(async () => {
 	await store.getList()
 	initCharts()
+	initPie()
 })
+
 const initCharts = () => {
 	const province = store.list.diseaseh5Shelf.areaTree[0].children
 	store.item = province[1].children
@@ -205,6 +208,44 @@ const initCharts = () => {
 		store.item = e.data.children
 	})
 }
+
+const initPie = () => {
+	const charts = echarts.init(
+		document.querySelector(".box-left-pie") as HTMLElement
+	)
+	charts.setOption({
+		backgroundColor: "#223651",
+		tooltip: {
+			trigger: "item",
+		},
+		series: [
+			{
+				type: "pie",
+				radius: ["40%", "70%"],
+				itemStyle: {
+					borderRadius: 4,
+					borderColor: "#fff",
+					borderWidth: 2,
+				},
+				label: {
+					show: true,
+				},
+				emphasis: {
+					label: {
+						show: true,
+						fontSize: "14",
+					},
+				},
+				data: store.cityDetail.map((v) => {
+					return {
+						name: v.city,
+						value: v.nowConfirm,
+					}
+				}),
+			},
+		],
+	})
+}
 </script>
 
 <style lang="less">
@@ -244,14 +285,6 @@ body,
 	background-position: center top;
 	&-left {
 		width: 350px;
-		&-pie {
-			height: 320px;
-			margin-top: 20px;
-		}
-		&-line {
-			height: 320px;
-			margin-top: 20px;
-		}
 		&-card {
 			display: grid; //容器指定网格布局
 			grid-template-columns: auto auto auto; //定义每一列的列宽，3个值表示有3列
@@ -270,6 +303,14 @@ body,
 					font-weight: bold;
 				}
 			}
+		}
+		&-pie {
+			height: 320px;
+			margin-top: 20px;
+		}
+		&-line {
+			height: 320px;
+			margin-top: 20px;
 		}
 	}
 	&-center {
