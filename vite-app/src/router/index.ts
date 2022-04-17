@@ -60,7 +60,22 @@ const routes: Array<RouteRecordRaw> = [
     path: '/register/:id',
     name: 'Register',
     component: () => import('../components/register/register.vue')
-  }
+  },
+  {
+    path: '/case1',
+    name: 'Case1',
+    component: () => import('@/views/case/case1.vue')
+  },
+  {
+    path: '/case2',
+    name: 'Case2',
+    component: () => import('@/views/case/case2.vue')
+  },
+  {
+    path: '/case3',
+    name: 'Case3',
+    component: () => import('@/views/case/case3.vue')
+  },
 ]
 
 const router = createRouter({

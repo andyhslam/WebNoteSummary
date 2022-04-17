@@ -27,6 +27,10 @@ const renderDom = (props:Props, ctx:any) => {
 }
 
 const clickTap = (ctx: any) => {
+  /**
+   * onClick={clickTap(ctx)} 这样给函数传参，会直接调用该函数
+   * onClick={clickTap.bind(this, ctx)} bind会返回一个新的函数，这样给函数传参，才不会直接调用；也不支持修饰符
+   */
   ctx.emit('tsx-click', 123)
 }
 
