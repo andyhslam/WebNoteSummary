@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="brother">
 		<BrotherA></BrotherA>
 		<BrotherB></BrotherB>
 		<!-- <BrotherA @on-click-tob="getFlag"></BrotherA>

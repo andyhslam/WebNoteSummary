@@ -10,7 +10,6 @@
 		<button @click="prev">prev</button>
 		<button @click="logout" class="logout">登出</button>
 	</div>
-	<Sample8></Sample8>
 	<!-- 路由出口，路由匹配到的组件将渲染在这里 -->
 	<!-- 通过插槽解构出的两个属性：route(当前路由信息)，Component(当前vNode) -->
 	<router-view #default="{ route, Component }">
@@ -23,7 +22,6 @@
 </template>
 
 <script setup lang="ts">
-import Sample8 from "@/sample/Sample8.vue"
 import { useRouter } from "vue-router"
 import "animate.css"
 

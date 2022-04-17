@@ -1,6 +1,7 @@
 import App from './App.vue'
 import { createApp, toRaw, createVNode, render } from 'vue'
 import router from './router'
+import mitt from 'mitt'
 import { createPinia, PiniaPluginContext } from 'pinia'
 import './assets/css/reset.less'
 import ElementPlus from 'element-plus'
@@ -13,6 +14,7 @@ import loadingBar from "@/components/plugins/loadingBar.vue"
 const vNode = createVNode(loadingBar)
 render(vNode, document.body)
 const app = createApp(App)
+const Mit = mitt()
 
 // 声明文件 不然TS无法正确类型推导
 type Filter = {
@@ -86,6 +88,13 @@ router.afterEach((to, from) => {
   vNode.component?.exposed?.endLoading()
 })
 
+declare module 'vue' {
+  export interface ComponentCustomProperties {
+    $Bus: typeof Mit
+  }
+}
+
+app.config.globalProperties.$Bus = Mit
 app.use(Antd)
 app.use(ElementPlus)
 // app.use(Loading)
