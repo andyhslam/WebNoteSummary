@@ -1,0 +1,23 @@
+{
+	"name": "02-modules",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"script1": "node ./04-scripts/script1.js && node ./04-scripts/script2.js",
+		"start": "node ./04-scripts/script.js",
+		"config": "echo %npm_package_config_env%"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"03-custom-lwj": "^1.0.0",
+		"axios": "^0.27.2",
+		"lodash": "^4.17.21"
+	},
+	"config": {
+		"env": "production"
+	}
+}
