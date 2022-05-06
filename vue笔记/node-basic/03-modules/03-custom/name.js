@@ -10,8 +10,11 @@ const age = {
 }
 
 // 一个文件只能有一个module.exports
+
+// 使用方式一：
 // module.exports = name
 
+// 使用方式二：
 module.exports = {
 	name,
 	age,
@@ -20,6 +23,7 @@ module.exports = {
 // exports.name = name
 // exports.age = age
 
+// 使用方式三：
 // exports.default = { name, age }
 // module.exports = { default: { name, age } }
 
