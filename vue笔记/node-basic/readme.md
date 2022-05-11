@@ -7,3 +7,14 @@
 
 -   ^13.4.6：^表示只锁定主版本号，~13.4.6：~表示锁定主版本号和次版本号；
 -   13.4.6：表示锁定补丁版本号，"\*"：表示最新版本
+
+## node 的浏览器端调试
+
+-   node --inspect-brk server.js
+
+## node 进程管理工具
+
+-   supervisor
+-   nodemon(在本地端使用)
+-   forever
+-   pm2(在服务器端管理 nodejs 多进程)
