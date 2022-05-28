@@ -42,3 +42,7 @@
 
 -   gulp 是一个任务批处理系统
 -   webpack 强调将文件按照模块进行打包
+
+## yarn 如何查看源和换源
+
+-   https://zhuanlan.zhihu.com/p/35856841
