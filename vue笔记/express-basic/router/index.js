@@ -21,7 +21,6 @@ router.get("/", list)
 // 修改数据-覆盖式修改
 // router.put("/index", (req, res, next) => {
 // 	const data = req.body
-// 	console.log(data)
 // 	res.send("put response")
 // })
 
