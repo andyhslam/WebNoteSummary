@@ -50,3 +50,8 @@
 ## epress template
 
 -   ejs、pug、jade、art-template
+
+# 页面 render
+
+-   SSR(Server Side Render) 服务端渲染页面
+-   CSR(Client Side Render) 客户端渲染页面
