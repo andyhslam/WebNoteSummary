@@ -7,14 +7,23 @@ const list = (req, res, next) => {
 	// data += "</ul>"
 
 	// 客户端渲染
-	let dataObj = {
-		ret: true,
-		data: [],
-	}
+	// let dataObj = {
+	// 	ret: true,
+	// 	data: [],
+	// }
+	// for (let i = 0; i < 100; i++) {
+	// 	dataObj.data.push("line" + i)
+	// }
+	// res.send(dataObj)
+
+	let dataArray = []
 	for (let i = 0; i < 100; i++) {
-		dataObj.data.push("line" + i)
+		dataArray.push("line " + i)
 	}
-	res.send(dataObj)
+	res.set("Content-Type", "application/json;charset=utf-8")
+	res.render("list", {
+		data: JSON.stringify(dataArray),
+	})
 }
 
 exports.list = list
