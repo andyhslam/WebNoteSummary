@@ -17,7 +17,7 @@ const list = (req, res, next) => {
 	// res.send(dataObj)
 
 	let dataArray = []
-	for (let i = 0; i < 100; i++) {
+	for (let i = 0; i < 10; i++) {
 		dataArray.push("line " + i)
 	}
 	res.set("Content-Type", "application/json;charset=utf-8")

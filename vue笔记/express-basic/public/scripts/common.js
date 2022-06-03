@@ -1,11 +1,20 @@
 $.ajax({
 	url: "/api/list", // 此js文件与index.html是同源的
 	success(result) {
-		let html = "<ul>"
-		$.each(result.data, (index, value) => {
-			html += "<li>" + value + "</li>"
+		let templateStr = `
+      <ul>
+        {{each target}}
+          <li>{{$index}} {{$value}}</li>
+        {{/each}}
+      </ul>
+      <p>{{msg}}</p>
+    `
+
+		const html = template.render(templateStr, {
+			target: result.data,
+			msg: "hello",
 		})
-		html += "</ul>"
+
 		$("#list").html(html)
 	},
 })
