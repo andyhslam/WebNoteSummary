@@ -1,7 +1,7 @@
 const fs = require("fs")
 const path = require("path")
 const template = require("art-template")
-const { dataArray: listModel } = require("../model/list.js")
+const listModel = require("../model/list.js")
 
 // 应用中间件
 const list = (req, res, next) => {
