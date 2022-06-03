@@ -1,6 +1,7 @@
 const fs = require("fs")
 const path = require("path")
 const template = require("art-template")
+const { dataArray: listModel } = require("../model/list.js")
 
 // 应用中间件
 const list = (req, res, next) => {
@@ -21,10 +22,10 @@ const list = (req, res, next) => {
 	// }
 	// res.send(dataObj)
 
-	let dataArray = []
-	for (let i = 0; i < 10; i++) {
-		dataArray.push("line " + i)
-	}
+	// let dataArray = []
+	// for (let i = 0; i < 10; i++) {
+	// 	dataArray.push("line " + i)
+	// }
 
 	// res.set("Content-Type", "application/json;charset=utf-8")
 
@@ -37,7 +38,7 @@ const list = (req, res, next) => {
 	// })
 
 	const html = template(path.join(__dirname, "../view/list-html.art"), {
-		target: dataArray,
+		target: listModel,
 	})
 	fs.writeFileSync(path.join(__dirname, "../public/list.html"), html)
 	res.send("pages has been compiled.")
