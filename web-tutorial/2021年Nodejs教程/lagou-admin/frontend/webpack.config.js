@@ -1,6 +1,7 @@
 const path = require("path")
 const CopyPlugin = require("copy-webpack-plugin")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
+const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 
 module.exports = {
 	// 配置环境
@@ -9,12 +10,12 @@ module.exports = {
 	devtool: "source-map",
 	// 配置入口
 	entry: {
-		app: "./src/app.js",
+		"js/app": "./src/app.js",
 	},
 	// 配置出口
 	output: {
 		path: path.join(__dirname, "./dist"),
-		filename: "app.js",
+		filename: "[name]-[hash:6].js", // hash值防止浏览器缓存文件
 	},
 	module: {
 		rules: [
@@ -37,9 +38,11 @@ module.exports = {
 			patterns: [
 				{
 					from: "./public/*.ico",
+					to: path.join(__dirname, "./dist/favicon.ico"),
 				},
 			],
 		}),
+		new CleanWebpackPlugin(),
 	],
 	// 配置server
 	devServer: {
