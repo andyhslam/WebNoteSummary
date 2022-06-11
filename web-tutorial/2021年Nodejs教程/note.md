@@ -1,32 +1,26 @@
 ## node package versions
-
--   13.4.6
--   major(主版本):13, minor(次版本):4, patch(补丁版本):6(偶数表示稳定的 patch，奇数表示不稳定的 patch)
+- 13.4.6
+- major(主版本):13, minor(次版本):4, patch(补丁版本):6(偶数表示稳定的 patch，奇数表示不稳定的 patch)
 
 ## npm 版本符号
-
--   ^13.4.6：^表示只锁定主版本号，~13.4.6：~表示锁定主版本号和次版本号；
--   13.4.6：表示锁定补丁版本号，"\*"：表示最新版本
+- ^13.4.6：^表示只锁定主版本号，~13.4.6：~表示锁定主版本号和次版本号；
+- 13.4.6：表示锁定补丁版本号，"\*"：表示最新版本
 
 ## node 的浏览器端调试
-
--   node --inspect-brk server.js
+- node --inspect-brk server.js
 
 ## node 进程管理工具
-
--   supervisor
--   nodemon(在本地端使用)
--   forever
--   pm2(在服务器端管理 nodejs 多进程)
+- supervisor
+- nodemon(在本地端使用)
+- forever
+- pm2(在服务器端管理 nodejs 多进程)
 
 ## jsonp 原理
-
--   利用浏览器端请求 js(script 标签加载 js) 不跨域的特性，从后端拉取一段 js 代码来运行，然后在前端准备好相应的函数，接收后端接口传过来的参数(即完成接口的获取)。
--   如果通过 ajax 请求另一个平台的接口，就会有同源策略的限制。
--   注意：非同源，不跨域
+- 利用浏览器端请求 js(script 标签加载 js) 不跨域的特性，从后端拉取一段 js 代码来运行，然后在前端准备好相应的函数，接收后端接口传过来的参数(即完成接口的获取)。
+- 如果通过 ajax 请求另一个平台的接口，就会有同源策略的限制。
+- 注意：非同源，不跨域
 
 ## Windows 下如何查看某个端口被谁占用
-
 1. 查找所有运行的端口：netstat -ano
 2. 查看被占用端口对应的 PID：netstat -aon|findstr "9000"
    回车执行该命令，最后一位数字就是 PID, 这里是 3548。
@@ -34,25 +28,33 @@
 4. 结束进程，强制（/F 参数）杀死 pid 为 3548 的所有进程包括子进程（/T 参数）：taskkill /T /F /PID 3548
 
 ## 正向代理和反向代理的区别
-
 1. 正向代理是客户端的代理，帮助客户端访问其无法访问的服务器资源。反向代理则是服务器的代理，帮助服务器做负载均衡，安全防护等。
 2. 正向代理一般是客户端架设的，比如在自己的机器上安装一个代理软件。反向代理一般是服务器架设的，比如在自己的机器集群中部署一个 反向代理服务器。
 
 ## gulp 与 webpack 的区别：
-
--   gulp 是一个任务批处理系统
--   webpack 强调将文件按照模块进行打包
+- gulp 是一个任务批处理系统
+- webpack 强调将文件按照模块进行打包
 
 ## yarn 如何查看源和换源
-
--   https://zhuanlan.zhihu.com/p/35856841
+- https://zhuanlan.zhihu.com/p/35856841
 
 ## epress template
-
--   ejs、pug、jade、art-template
+- ejs、pug、jade、art-template
 
 ## 页面 render
+- SSR(Server Side Render) 服务端渲染页面
+- CSR(Client Side Render) 客户端渲染页面
+- https://aui.github.io/art-template/zh-cn/
 
--   SSR(Server Side Render) 服务端渲染页面
--   CSR(Client Side Render) 客户端渲染页面
--   https://aui.github.io/art-template/zh-cn/
+## Node.js项目
+### 前端(Front-end)
+- 前端工程化环境(webpack)
+- CSS预处理工具(sass)
+- JS模块化：ES Module，CommonJS Module
+- JS库：jQuery
+- SPA：single page application，路由：SME-Router
+- UI组件库：基于Bootstrap(AdminLTE)
+### 后端(Backend)
+- Node.js
+- Express
+- MongoDB(Mongoose)
