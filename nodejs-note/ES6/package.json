@@ -1,0 +1,18 @@
+{
+	"name": "es6",
+	"version": "1.0.0",
+	"description": "",
+	"main": "01_let.js",
+	"type": "module",
+	"scripts": {
+		"bulid": "npx webpack",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"webpack": "^4.16.2",
+		"webpack-cli": "^3.1.0"
+	}
+}
