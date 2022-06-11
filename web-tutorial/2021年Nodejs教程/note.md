@@ -54,7 +54,8 @@
 - JS模块化：ES Module，CommonJS Module
 - JS库：jQuery
 - SPA：single page application，路由：SME-Router
-- UI组件库：基于Bootstrap(AdminLTE)
+- UI组件库：基于Bootstrap(AdminLTE) https://adminlte.io/themes/AdminLTE/index.html
+- RMVC：art-template
 ### 后端(Backend)
 - Node.js
 - Express
