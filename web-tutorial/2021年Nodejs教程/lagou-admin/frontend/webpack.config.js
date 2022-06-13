@@ -40,6 +40,10 @@ module.exports = {
 					from: "./public/*.ico",
 					to: path.join(__dirname, "./dist/favicon.ico"),
 				},
+				{
+					from: "./public/libs",
+					to: path.join(__dirname, "./dist/libs"),
+				},
 			],
 		}),
 		new CleanWebpackPlugin(),
