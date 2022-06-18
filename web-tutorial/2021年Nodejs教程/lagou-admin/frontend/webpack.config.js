@@ -25,6 +25,10 @@ module.exports = {
 					loader: "art-template-loader",
 				},
 			},
+			{
+				test: /\.css$/,
+				loaders: ["style-loader", "css-loader"],
+			},
 		],
 	},
 	// 配置插件

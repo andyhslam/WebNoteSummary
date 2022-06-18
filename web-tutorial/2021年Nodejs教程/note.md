@@ -60,3 +60,6 @@
 - Node.js
 - Express
 - MongoDB(Mongoose)
+
+### loader
+- 线上部署不需要loader：因为打包以后，文件已经编译完。
