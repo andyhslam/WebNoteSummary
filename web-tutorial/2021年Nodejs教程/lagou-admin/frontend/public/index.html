@@ -6,16 +6,30 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>lagou-admin</title>
-  <link rel="stylesheet" href="./libs/css/adminlte.min.css">
+  <link rel="stylesheet" href="./libs/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./libs/css/font-awesome.min.css">
+  <link rel="stylesheet" href="./libs/css/ionicons.min.css">
+  <link rel="stylesheet" href="./libs/css/AdminLTE.min.css">
   <link rel="stylesheet" href="./libs/css/all.min.css">
+  <link rel="stylesheet" href="./libs/css/blue.css">
   <link rel="stylesheet" href="./libs/css/base.css">
 </head>
 
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini login-page">
   <div id="root"></div>
-  <script src="./libs/js/adminlte.min.js"></script>
-  <script src="./libs/js/bootstrap.bundle.min.js"></script>
   <script src="./libs/js/jquery.min.js"></script>
+  <script src="./libs/js/bootstrap.bundle.min.js"></script>
+  <script src="./libs/js/adminlte.min.js"></script>
+  <script src="./libs/js/icheck.min.js"></script>
+  <script>
+    $(function () {
+      $('input').iCheck({
+        checkboxClass: 'icheckbox_square-blue',
+        radioClass: 'iradio_square-blue',
+        increaseArea: '20%' /* optional */
+      });
+    });
+  </script>
 </body>
 
 </html>
