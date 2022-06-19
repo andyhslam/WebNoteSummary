@@ -14,3 +14,7 @@
 |     index     |       index       | 索引                                           |
 |  table joins  |                   | 表连接，MongoDB 不支持(MongoDB 不支持多表查询) |
 |  primary key  |    primary key    | 主键，MongoDB 自动将\_id 字段设置为主键        |
+
+
+## Mongoose
+- 它是nodejs操作数据库的驱动程序。(http://www.mongoosejs.net/docs/guide.html)
