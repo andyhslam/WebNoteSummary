@@ -13,5 +13,6 @@ const usersSchema = mongoose.Schema({
 	password: String,
 })
 const Users = mongoose.model("users", usersSchema)
-// 暴露model(集合)
+
+// 暴露model(Mongoose的model相当于MongoDB的集合)
 exports.Users = Users

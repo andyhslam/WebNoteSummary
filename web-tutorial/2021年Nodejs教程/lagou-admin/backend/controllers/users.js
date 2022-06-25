@@ -30,4 +30,15 @@ const signup = async (req, res, next) => {
 	}
 }
 
+// 用户列表
+const list = async (req, res) => {
+	// 后续：可以在前端通过拦截器的方法去做set请求
+	res.set("Content-Type", "application/json; charset=utf-8")
+	const userList = await usersModel.findList()
+	res.render("success", {
+		succData: JSON.stringify(userList),
+	})
+}
+
 exports.signup = signup
+exports.list = list
