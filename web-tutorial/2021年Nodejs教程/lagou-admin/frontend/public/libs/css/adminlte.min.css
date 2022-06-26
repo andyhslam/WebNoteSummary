@@ -3208,12 +3208,8 @@ a:focus {
   background-color: #3c8dbc;
 }
 
-.pagination li.active a {
+.pagination li.active span {
   color: #fff;
-}
-
-.pagination.pagination-flat>li>a {
-  border-radius: 0 !important;
 }
 
 .products-list {

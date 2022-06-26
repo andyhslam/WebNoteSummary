@@ -9,6 +9,10 @@ const indexHtml = indexTpl({})
 const loginHtml = loginTpl({})
 const usersHtml = usersTpl()
 
+const pageSize = 10
+let userList = []
+
+// 函数柯里化
 const _handleSubmit = (router) => {
 	return (e) => {
 		e.preventDefault()
@@ -29,7 +33,8 @@ const _signup = () => {
 		success(res) {
 			// 注册成功后的回调
 			console.log(res)
-			_list()
+			// 添加数据后渲染
+			_loadData()
 		},
 	})
 
@@ -39,7 +44,6 @@ const _signup = () => {
 
 // 分页器
 const _pagination = (data) => {
-	const pageSize = 10
 	const total = data.length
 	const pageCount = Math.ceil(total / pageSize)
 	const pageArray = new Array(pageCount)
@@ -53,28 +57,38 @@ const _pagination = (data) => {
 		function () {
 			// 坑：箭头函数的this，其作用域指向会变；普通函数能保证this的作用域指向正确
 			$(this).addClass("active").siblings().removeClass("active")
+			_list($(this).index())
 		}
 	)
 }
 
-const _list = () => {
-	$.ajax({
+const _loadData = () => {
+	// jquer的ajax返回defer(可以用promise获取数据)
+	return $.ajax({
 		url: "/api/users/list",
 		type: "get",
+		// async: false,
+		// async (默认: true) 默认设置下，所有请求均为异步请求。如果需要发送同步请求，请将此选项设置为 false。注意，同步请求将锁住浏览器，用户其它操作必须等待请求完成才可以执行。
 		success(result) {
-			$("#users-list").html(
-				usersListTpl({
-					data: result.data,
-				})
-			)
+			userList = result.data
 			// 分页
-			_pagination(result.data)
+			_pagination(userList)
+			// 用户列表渲染
+			_list(1)
 		},
 	})
 }
 
-// 函数柯里化：此处是函数里面返回一个函数作为路由的回调函数
-// 登录
+const _list = (pageNo) => {
+	let start = (pageNo - 1) * pageSize
+	$("#users-list").html(
+		usersListTpl({
+			data: userList.slice(start, start + pageSize),
+		})
+	)
+}
+
+// 登录；函数柯里化：此处是函数里面返回一个函数作为路由的回调函数
 const login = (router) => {
 	return (req, res, next) => {
 		res.render(loginHtml)
@@ -93,8 +107,8 @@ const index = (router) => {
 		// 填充用户列表
 		$("#users").html(usersHtml)
 
-		// 渲染list
-		_list()
+		// 初次获取数据
+		_loadData()
 
 		// 点击保存，提交表单
 		$("#users-save").on("click", _signup)
