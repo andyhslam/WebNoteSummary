@@ -27,7 +27,8 @@ const _signup = () => {
 	const formData = $("#users-form").serialize()
 	$.ajax({
 		// api是后端接口，users是分类，signup是具体操作
-		url: "/api/users/signup",
+		// url: "/api/users/signup",
+		url: "/api/users",
 		type: "post",
 		data: formData,
 		success(res) {
@@ -63,12 +64,13 @@ const _pagination = (data) => {
 }
 
 const _loadData = () => {
-	// jquer的ajax返回defer(可以用promise获取数据)
-	return $.ajax({
-		url: "/api/users/list",
-		type: "get",
+	// jquer的ajax返回defer(可以用promise获取数据：return)
+	$.ajax({
+		// url: "/api/users/list",
+		url: "/api/users",
+		// type: "get",
 		// async: false,
-		// async (默认: true) 默认设置下，所有请求均为异步请求。如果需要发送同步请求，请将此选项设置为 false。注意，同步请求将锁住浏览器，用户其它操作必须等待请求完成才可以执行。
+		// async (默认:true) 默认设置下，所有请求均为异步请求。如果需要发送同步请求，请将此选项设置为 false。注意，同步请求将锁住浏览器，用户其它操作必须等待请求完成才可以执行。
 		success(result) {
 			userList = result.data
 			// 分页

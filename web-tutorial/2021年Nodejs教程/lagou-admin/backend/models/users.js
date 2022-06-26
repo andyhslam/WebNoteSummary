@@ -19,6 +19,12 @@ const findList = () => {
 	return Users.find().sort({ _id: -1 })
 }
 
+const remove = (id) => {
+	return Users.findByIdAndRemove(id)
+	// return Users.deleteOne({ _id: id })
+}
+
 exports.signup = signup
 exports.findUser = findUser
 exports.findList = findList
+exports.remove = remove

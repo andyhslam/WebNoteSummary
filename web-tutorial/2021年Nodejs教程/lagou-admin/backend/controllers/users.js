@@ -18,7 +18,7 @@ const signup = async (req, res, next) => {
 		})
 	} else {
 		// 数据库里没有这个用户，开始添加用户
-		const result = await usersModel.signup({
+		await usersModel.signup({
 			username,
 			password: bcryptPassword,
 		})
@@ -31,7 +31,7 @@ const signup = async (req, res, next) => {
 }
 
 // 用户列表
-const list = async (req, res) => {
+const list = async (req, res, next) => {
 	// 后续：可以在前端通过拦截器的方法去做set请求
 	res.set("Content-Type", "application/json; charset=utf-8")
 	const userList = await usersModel.findList()
@@ -40,5 +40,27 @@ const list = async (req, res) => {
 	})
 }
 
+// 删除用户
+const remove = async (req, res, next) => {
+	res.set("Content-Type", "application/json; charset=utf-8")
+	// 使用delete方法(类似post方法)，从body里面拿到id
+	const { id } = req.body
+	// 没有await就不会运行
+	const result = await usersModel.remove(id)
+	if (result) {
+		res.render("success", {
+			succData: JSON.stringify({
+				message: "用户删除成功！",
+			}),
+		})
+	}
+	res.render("fail", {
+		failData: JSON.stringify({
+			message: "用户删除失败。",
+		}),
+	})
+}
+
 exports.signup = signup
 exports.list = list
+exports.remove = remove
