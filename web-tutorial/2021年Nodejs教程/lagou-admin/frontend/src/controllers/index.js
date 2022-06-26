@@ -3,6 +3,7 @@ import indexTpl from "../views/index.art"
 import loginTpl from "../views/login.art"
 import usersTpl from "../views/users.art"
 import usersListTpl from "../views/users-list.art"
+import usersListPageTpl from "../views/users-page.art"
 
 const indexHtml = indexTpl({})
 const loginHtml = loginTpl({})
@@ -36,6 +37,26 @@ const _signup = () => {
 	$btnClose.click()
 }
 
+// 分页器
+const _pagination = (data) => {
+	const pageSize = 10
+	const total = data.length
+	const pageCount = Math.ceil(total / pageSize)
+	const pageArray = new Array(pageCount)
+	const htmlPage = usersListPageTpl({
+		pageArray,
+	})
+	$("#users-page").html(htmlPage)
+	$("#users-page-list li:nth-child(2)").addClass("active")
+	$("#users-page-list li:not(:first-child, :last-child)").on(
+		"click",
+		function () {
+			// 坑：箭头函数的this，其作用域指向会变；普通函数能保证this的作用域指向正确
+			$(this).addClass("active").siblings().removeClass("active")
+		}
+	)
+}
+
 const _list = () => {
 	$.ajax({
 		url: "/api/users/list",
@@ -46,6 +67,8 @@ const _list = () => {
 					data: result.data,
 				})
 			)
+			// 分页
+			_pagination(result.data)
 		},
 	})
 }
