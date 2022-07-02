@@ -9,7 +9,7 @@ const indexHtml = indexTpl({})
 const loginHtml = loginTpl({})
 const usersHtml = usersTpl()
 
-const pageSize = 5
+const pageSize = 2
 let curPage = 1
 let userList = []
 
@@ -93,6 +93,7 @@ const login = (router) => {
 	}
 }
 
+// 设置页码高亮
 const _setPageActive = (index) => {
 	$("#users-page #users-page-list li:not(:first-child, :last-child)")
 		.eq(index - 1)
@@ -119,8 +120,14 @@ const index = () => {
 				data: {
 					id: $(this).data("id"),
 				},
-				success() {
-					_loadData()
+				async success() {
+					await _loadData()
+					const uls = userList.length
+					const isLastPage = Math.ceil(uls / pageSize) === curPage
+					const isLastOne = uls % pageSize === 1
+					if (isLastPage && isLastOne && curPage > 0) {
+						curPage--
+					}
 				},
 			})
 		})
@@ -131,10 +138,35 @@ const index = () => {
 			"#users-page-list li:not(:first-child, :last-child)",
 			function () {
 				// this指向代理的那个元素(li)
-				const index = $(this).index()
-				_list(index)
-				curPage = index
-				_setPageActive(index)
+				curPage = $(this).index()
+				_list(curPage)
+				_setPageActive(curPage)
+			}
+		)
+
+		// 向前翻页
+		$("#users-page").on(
+			"click",
+			"#users-page-list li:first-child",
+			function () {
+				if (curPage > 1) {
+					curPage--
+					_list(curPage)
+					_setPageActive(curPage)
+				}
+			}
+		)
+
+		// 向后翻页
+		$("#users-page").on(
+			"click",
+			"#users-page-list li:last-child",
+			function () {
+				if (curPage < Math.ceil(userList.length / pageSize)) {
+					curPage++
+					_list(curPage)
+					_setPageActive(curPage)
+				}
 			}
 		)
 
