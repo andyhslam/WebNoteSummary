@@ -4,6 +4,7 @@ import loginTpl from "../views/login.art"
 import usersTpl from "../views/users.art"
 import usersListTpl from "../views/users-list.art"
 import usersListPageTpl from "../views/users-page.art"
+import router from "../routes"
 
 const indexHtml = indexTpl({})
 const loginHtml = loginTpl({})
@@ -111,6 +112,7 @@ const index = () => {
 
 		// 填充用户列表
 		$("#users").html(usersHtml)
+
 		// 绑定删除事件，绑定代理
 		$("#users-list").on("click", ".remove", function () {
 			// 坑：箭头函数的this，其作用域指向会变；普通函数能保证this的作用域指向正确
@@ -125,14 +127,16 @@ const index = () => {
 					const uls = userList.length
 					const isLastPage = Math.ceil(uls / pageSize) === curPage
 					const isLastOne = uls % pageSize === 1
-					if (isLastPage && isLastOne && curPage > 0) {
+					if (uls === 1) {
+						curPage = 1
+					} else if (isLastPage && isLastOne && curPage > 0) {
 						curPage--
 					}
 				},
 			})
 		})
 
-		// 点击页码
+		// 绑定分页事件
 		$("#users-page").on(
 			"click",
 			"#users-page-list li:not(:first-child, :last-child)",
@@ -170,7 +174,13 @@ const index = () => {
 			}
 		)
 
-		// 初次获取数据
+		// 绑定登出事件
+		$("#users-signout").on("click", (e) => {
+			e.preventDefault()
+			router.go("/login")
+		})
+
+		// 初次渲染数据
 		_loadData()
 
 		// 点击保存，提交表单
