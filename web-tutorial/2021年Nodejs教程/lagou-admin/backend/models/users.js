@@ -20,8 +20,8 @@ const findList = () => {
 }
 
 const remove = (id) => {
-	return Users.findByIdAndRemove(id)
-	// return Users.deleteOne({ _id: id })
+	// return Users.findByIdAndRemove(id)
+	return Users.deleteOne({ _id: id })
 }
 
 exports.signup = signup

@@ -19,6 +19,8 @@
 ## Mongoose
 - 它是nodejs操作数据库的驱动程序。(http://www.mongoosejs.net/docs/guide.html)
 
-## Robo 3T
-- MongoDB可视化工具(https://studio3t.com/download/)
-- 使用教程(https://www.cnblogs.com/tugenhua0707/p/9250673.html)
+## Robo 3T(MongoDB可视化工具)
+- 下载地址(https://studio3t.com/download/)
+- MongoDB可视化工具--Robo 3T 使用教程(https://www.cnblogs.com/tugenhua0707/p/9250673.html)
+- Robo3T 1.4.3下载安装配置(https://www.jianshu.com/p/cc419d500743)
+- MongoDB可视化工具 Studio 3T使用教程(https://www.jianshu.com/p/961092048234)

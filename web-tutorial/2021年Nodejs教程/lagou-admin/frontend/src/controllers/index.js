@@ -68,7 +68,7 @@ const _loadData = () => {
 	$.ajax({
 		// url: "/api/users/list",
 		url: "/api/users",
-		// type: "get",
+		type: "get",
 		// async: false,
 		// async (默认:true) 默认设置下，所有请求均为异步请求。如果需要发送同步请求，请将此选项设置为 false。注意，同步请求将锁住浏览器，用户其它操作必须等待请求完成才可以执行。
 		success(result) {
@@ -81,6 +81,7 @@ const _loadData = () => {
 	})
 }
 
+// 装填list数据
 const _list = (pageNo) => {
 	let start = (pageNo - 1) * pageSize
 	$("#users-list").html(
@@ -108,6 +109,19 @@ const index = (router) => {
 
 		// 填充用户列表
 		$("#users").html(usersHtml)
+		// 绑定删除事件，绑定代理
+		$("#users-list").on("click", ".remove", function () {
+			$.ajax({
+				url: "/api/users",
+				type: "delete",
+				data: {
+					id: $(this).data("id"),
+				},
+				success() {
+					_loadData()
+				},
+			})
+		})
 
 		// 初次获取数据
 		_loadData()
