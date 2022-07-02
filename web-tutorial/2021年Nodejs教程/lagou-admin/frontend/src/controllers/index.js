@@ -1,13 +1,13 @@
 // 前端webpack编译ES6的import语法
 import indexTpl from "../views/index.art"
-import loginTpl from "../views/login.art"
+import signupTpl from "../views/signup.art"
 import usersTpl from "../views/users.art"
 import usersListTpl from "../views/users-list.art"
 import usersListPageTpl from "../views/users-page.art"
 import router from "../routes"
 
 const indexHtml = indexTpl({})
-const loginHtml = loginTpl({})
+const signupHtml = signupTpl({})
 const usersHtml = usersTpl()
 
 const pageSize = 2
@@ -22,15 +22,14 @@ const _handleSubmit = (router) => {
 	}
 }
 
-// 注册用户
+// 注册用户-请求接口
 const _signup = () => {
 	const $btnClose = $("#users-close")
 	// 提交表单；serialize：序列化表格内容为字符串，用于Ajax请求。
 	const formData = $("#users-form").serialize()
 	$.ajax({
 		// api是后端接口，users是分类，signup是具体操作
-		// url: "/api/users/signup",
-		url: "/api/users",
+		url: "/api/users/signup",
 		type: "post",
 		data: formData,
 		success(res) {
@@ -57,11 +56,11 @@ const _pagination = (data) => {
 	_setPageActive(curPage)
 }
 
+// 加载用户数据
 const _loadData = () => {
 	// jquer的ajax返回defer(可以用promise获取数据：return)
 	$.ajax({
-		// url: "/api/users/list",
-		url: "/api/users",
+		url: "/api/users/list",
 		type: "get",
 		// async: false,
 		// async (默认:true) 默认设置下，所有请求均为异步请求。如果需要发送同步请求，请将此选项设置为 false。注意，同步请求将锁住浏览器，用户其它操作必须等待请求完成才可以执行。
@@ -85,12 +84,13 @@ const _list = (pageNo) => {
 	)
 }
 
-// 登录；函数柯里化：此处是函数里面返回一个函数作为路由的回调函数
-const login = (router) => {
+// 注册用户函数
+// 函数柯里化：此处是函数里面返回一个函数作为路由的回调函数
+const signup = (router) => {
 	return (req, res, next) => {
-		res.render(loginHtml)
+		res.render(signupHtml)
 		// 因为此处需要一个回调函数，所以_handleSubmit方法需要包装成一个柯里化函数
-		$("#login").on("submit", _handleSubmit(router))
+		$("#signup").on("submit", _handleSubmit(router))
 	}
 }
 
@@ -117,7 +117,7 @@ const index = () => {
 		$("#users-list").on("click", ".remove", function () {
 			// 坑：箭头函数的this，其作用域指向会变；普通函数能保证this的作用域指向正确
 			$.ajax({
-				url: "/api/users",
+				url: "/api/users/remove",
 				type: "delete",
 				data: {
 					id: $(this).data("id"),
@@ -177,7 +177,7 @@ const index = () => {
 		// 绑定登出事件
 		$("#users-signout").on("click", (e) => {
 			e.preventDefault()
-			router.go("/login")
+			router.go("/signup")
 		})
 
 		// 初次渲染数据
@@ -188,4 +188,4 @@ const index = () => {
 	}
 }
 
-export { login, index }
+export { index, signup }

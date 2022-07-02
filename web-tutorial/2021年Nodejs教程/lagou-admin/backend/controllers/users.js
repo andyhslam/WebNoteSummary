@@ -30,6 +30,13 @@ const signup = async (req, res, next) => {
 	}
 }
 
+// 用户登录
+const signin = async (req, res, next) => {
+	const { username, password } = req.body
+	const result = await usersModel.findUser(username)
+	console.log(result)
+}
+
 // 用户列表
 const list = async (req, res, next) => {
 	// 后续：可以在前端通过拦截器的方法去做set请求
@@ -63,5 +70,6 @@ const remove = async (req, res, next) => {
 }
 
 exports.signup = signup
+exports.signin = signin
 exports.list = list
 exports.remove = remove
