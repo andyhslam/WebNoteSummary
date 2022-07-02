@@ -9,7 +9,8 @@ const indexHtml = indexTpl({})
 const loginHtml = loginTpl({})
 const usersHtml = usersTpl()
 
-const pageSize = 10
+const pageSize = 5
+let curPage = 1
 let userList = []
 
 // 函数柯里化
@@ -52,15 +53,7 @@ const _pagination = (data) => {
 		pageArray,
 	})
 	$("#users-page").html(htmlPage)
-	$("#users-page-list li:nth-child(2)").addClass("active")
-	$("#users-page-list li:not(:first-child, :last-child)").on(
-		"click",
-		function () {
-			// 坑：箭头函数的this，其作用域指向会变；普通函数能保证this的作用域指向正确
-			$(this).addClass("active").siblings().removeClass("active")
-			_list($(this).index())
-		}
-	)
+	_setPageActive(curPage)
 }
 
 const _loadData = () => {
@@ -76,7 +69,7 @@ const _loadData = () => {
 			// 分页
 			_pagination(userList)
 			// 用户列表渲染
-			_list(1)
+			_list(curPage)
 		},
 	})
 }
@@ -100,7 +93,15 @@ const login = (router) => {
 	}
 }
 
-const index = (router) => {
+const _setPageActive = (index) => {
+	$("#users-page #users-page-list li:not(:first-child, :last-child)")
+		.eq(index - 1)
+		.addClass("active")
+		.siblings()
+		.removeClass("active")
+}
+
+const index = () => {
 	return (req, res, next) => {
 		res.render(indexHtml)
 
@@ -111,6 +112,7 @@ const index = (router) => {
 		$("#users").html(usersHtml)
 		// 绑定删除事件，绑定代理
 		$("#users-list").on("click", ".remove", function () {
+			// 坑：箭头函数的this，其作用域指向会变；普通函数能保证this的作用域指向正确
 			$.ajax({
 				url: "/api/users",
 				type: "delete",
@@ -122,6 +124,19 @@ const index = (router) => {
 				},
 			})
 		})
+
+		// 点击页码
+		$("#users-page").on(
+			"click",
+			"#users-page-list li:not(:first-child, :last-child)",
+			function () {
+				// this指向代理的那个元素(li)
+				const index = $(this).index()
+				_list(index)
+				curPage = index
+				_setPageActive(index)
+			}
+		)
 
 		// 初次获取数据
 		_loadData()
