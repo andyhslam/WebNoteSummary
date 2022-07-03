@@ -87,6 +87,16 @@
 4. 跨域请求如何携带cookie？(https://blog.csdn.net/KIKI_20170120/article/details/123606851)
 5. 此方案的弊端：后端需要存储session；下次前端还需要携带cookie和后端存储的session进行比较，
   后端认为前端的cookie还没过期而且对上了，才允许前端登录。
+6. 后端创建session，产生hash值，再把cookie种到前端。步骤如下：
+  const sessionId = randomstring.generate()
+	Set-Cookie是http协议首部字段的名字，功能是可以从后端往前端种cookie
+	cookie的操作：有域名(Path)、有值(sessionId)、有协议(HttpOnly)
+	res.set("Set-Cookie", `sessionId=${sessionId}; Path=/; HttpOnly`)
+7. cookie与域名有关，只要域名不变，就一直会携带cookie到后端。
+8. 浏览器显示的接口cookie，其实就是请求本身注入到浏览器，下次访问时，前端就会自动携带cookie到后端；
+  http协议的cookie有两种，后端给前端种cookie称为Set-Cookie，前端给后端送cookie是在请求首部加个字段(Cookie)；
+  浏览器和后端会自动维护这个cookie。
+9. 请求首部：请求后端接口时，加的首部字段。
 
 - token登录注册方案
 1. 后端不需要存储任何东西，只需要给前端发令牌；然后通过token的认证机制，只要认证该token是合法的，前端就可以登录。
