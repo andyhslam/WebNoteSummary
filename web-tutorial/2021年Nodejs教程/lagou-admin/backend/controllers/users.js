@@ -49,7 +49,6 @@ const signin = async (req, res, next) => {
 			 */
 			// 在此次请求的req注入session，以后在任何地方都可以通过req访问到这个session
 			req.session.username = username
-			console.log(req)
 			res.render("success", {
 				succData: JSON.stringify({
 					username,
@@ -69,6 +68,16 @@ const signin = async (req, res, next) => {
 			}),
 		})
 	}
+}
+
+// 用户登出
+const signout = async (req, res, next) => {
+	req.session = null
+	res.render("success", {
+		succData: JSON.stringify({
+			message: "用户成功登出！",
+		}),
+	})
 }
 
 // 用户列表
@@ -103,7 +112,25 @@ const remove = async (req, res, next) => {
 	}
 }
 
+const isAuth = async (req, res, next) => {
+	if (req.session.username) {
+		res.render("success", {
+			succData: JSON.stringify({
+				username: req.session.username,
+			}),
+		})
+	} else {
+		res.render("fail", {
+			failData: JSON.stringify({
+				message: "请登录。",
+			}),
+		})
+	}
+}
+
 exports.signup = signup
 exports.signin = signin
+exports.signout = signout
 exports.list = list
 exports.remove = remove
+exports.isAuth = isAuth

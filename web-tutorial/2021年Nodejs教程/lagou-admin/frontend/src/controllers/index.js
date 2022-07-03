@@ -1,5 +1,6 @@
 // 前端webpack编译ES6的import语法
 import indexTpl from "../views/index.art"
+import signinTpl from "../views/signin.art"
 import signupTpl from "../views/signup.art"
 import usersTpl from "../views/users.art"
 import usersListTpl from "../views/users-list.art"
@@ -7,7 +8,8 @@ import usersListPageTpl from "../views/users-page.art"
 import router from "../routes"
 
 const indexHtml = indexTpl({})
-const signupHtml = signupTpl({})
+const signinHtml = signinTpl()
+const signupHtml = signupTpl()
 const usersHtml = usersTpl()
 
 const pageSize = 2
@@ -18,13 +20,23 @@ let userList = []
 const _handleSubmit = (router) => {
 	return (e) => {
 		e.preventDefault()
-		router.go("/index")
+		const formData = $("#signin").serialize()
+		$.ajax({
+			url: "/api/users/signin",
+			type: "post",
+			dataType: "json",
+			data: formData,
+			success(res) {
+				if (res.ret) {
+					router.go("/index")
+				}
+			},
+		})
 	}
 }
 
 // 注册用户-请求接口
 const _signup = () => {
-	const $btnClose = $("#users-close")
 	// 提交表单；serialize：序列化表格内容为字符串，用于Ajax请求。
 	const formData = $("#users-form").serialize()
 	$.ajax({
@@ -41,6 +53,7 @@ const _signup = () => {
 	})
 
 	// 单击关闭模态框
+	const $btnClose = $("#users-close")
 	$btnClose.click()
 }
 
@@ -84,13 +97,21 @@ const _list = (pageNo) => {
 	)
 }
 
-// 注册用户函数
+// 注册用户模块
 // 函数柯里化：此处是函数里面返回一个函数作为路由的回调函数
 const signup = (router) => {
 	return (req, res, next) => {
 		res.render(signupHtml)
 		// 因为此处需要一个回调函数，所以_handleSubmit方法需要包装成一个柯里化函数
 		$("#signup").on("submit", _handleSubmit(router))
+	}
+}
+
+// 用户登录模块
+const signin = (router) => {
+	return (req, res, next) => {
+		res.render(signinHtml)
+		$("#signin").on("submit", _handleSubmit(router))
 	}
 }
 
@@ -188,4 +209,4 @@ const index = () => {
 	}
 }
 
-export { index, signup }
+export { index, signup, signin }

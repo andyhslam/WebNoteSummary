@@ -1,10 +1,10 @@
-<div class="signup-box">
-  <div class="signup-logo">
+<div class="signin-box">
+  <div class="signin-logo">
     <a href=""><b>拉勾网</b>后台管理系统</a>
   </div>
-  <div class="signup-box-body">
-    <p class="signup-box-msg">注册帐号</p>
-    <form id="signup">
+  <div class="signin-box-body">
+    <p class="signin-box-msg">登录帐号</p>
+    <form id="signin">
       <div class="form-group has-feedback">
         <input type="text" class="form-control" placeholder="Username">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -15,7 +15,7 @@
       </div>
       <div class="row">
         <div class="col-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">注册</button>
+          <button type="submit" class="btn btn-primary btn-block btn-flat">登录</button>
         </div>
       </div>
     </form>
