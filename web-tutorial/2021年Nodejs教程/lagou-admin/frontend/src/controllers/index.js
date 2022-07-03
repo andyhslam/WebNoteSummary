@@ -5,7 +5,7 @@ import signupTpl from "../views/signup.art"
 import usersTpl from "../views/users.art"
 import usersListTpl from "../views/users-list.art"
 import usersListPageTpl from "../views/users-page.art"
-import router from "../routes"
+// import router from "../routes"
 
 const indexHtml = indexTpl({})
 const signinHtml = signinTpl()
@@ -16,8 +16,8 @@ const pageSize = 2
 let curPage = 1
 let userList = []
 
-// 函数柯里化
-const _handleSubmit = (router) => {
+// 提交登录
+const _signinSubmit = (router) => {
 	return (e) => {
 		e.preventDefault()
 		const formData = $("#signin").serialize()
@@ -32,6 +32,14 @@ const _handleSubmit = (router) => {
 				}
 			},
 		})
+	}
+}
+
+// 函数柯里化；提交注册
+const _signupSubmit = (router) => {
+	return (e) => {
+		e.preventDefault()
+		router.go("/index")
 	}
 }
 
@@ -102,8 +110,8 @@ const _list = (pageNo) => {
 const signup = (router) => {
 	return (req, res, next) => {
 		res.render(signupHtml)
-		// 因为此处需要一个回调函数，所以_handleSubmit方法需要包装成一个柯里化函数
-		$("#signup").on("submit", _handleSubmit(router))
+		// 因为此处需要一个回调函数，所以_signupSubmit方法需要包装成一个柯里化函数
+		$("#signup").on("submit", _signupSubmit(router))
 	}
 }
 
@@ -111,7 +119,7 @@ const signup = (router) => {
 const signin = (router) => {
 	return (req, res, next) => {
 		res.render(signinHtml)
-		$("#signin").on("submit", _handleSubmit(router))
+		$("#signin").on("submit", _signinSubmit(router))
 	}
 }
 
@@ -124,8 +132,9 @@ const _setPageActive = (index) => {
 		.removeClass("active")
 }
 
-const index = () => {
-	return (req, res, next) => {
+const index = (router) => {
+	const loadIndex = (res) => {
+		// 渲染首页
 		res.render(indexHtml)
 
 		// window resize，让页面撑满整个屏幕
@@ -198,7 +207,16 @@ const index = () => {
 		// 绑定登出事件
 		$("#users-signout").on("click", (e) => {
 			e.preventDefault()
-			router.go("/signup")
+			$.ajax({
+				url: "/api/users/signout",
+				type: "get",
+				dataType: "json",
+				success(result) {
+					if (result.ret) {
+						location.reload()
+					}
+				},
+			})
 		})
 
 		// 初次渲染数据
@@ -206,6 +224,20 @@ const index = () => {
 
 		// 点击保存，提交表单
 		$("#users-save").on("click", _signup)
+	}
+
+	return (req, res, next) => {
+		$.ajax({
+			url: "/api/users/isAuth",
+			dataType: "json",
+			success(result) {
+				if (result.ret) {
+					loadIndex(res)
+				} else {
+					router.go("/signin")
+				}
+			},
+		})
 	}
 }
 
