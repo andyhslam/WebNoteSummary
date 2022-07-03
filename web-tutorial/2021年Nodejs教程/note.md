@@ -97,6 +97,8 @@
   http协议的cookie有两种，后端给前端种cookie称为Set-Cookie，前端给后端送cookie是在请求首部加个字段(Cookie)；
   浏览器和后端会自动维护这个cookie。
 9. 请求首部：请求后端接口时，加的首部字段。
+10. 由session种出的cookie有过期时间，一旦cookie过期，后端返回的数据也会过期，后端就让前端重新登录，
+  接着后端产生一个新的session(插件cookie-session可以完成这件事)
 
 - token登录注册方案
 1. 后端不需要存储任何东西，只需要给前端发令牌；然后通过token的认证机制，只要认证该token是合法的，前端就可以登录。

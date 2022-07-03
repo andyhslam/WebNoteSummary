@@ -1,9 +1,10 @@
 var createError = require("http-errors")
 var express = require("express")
-// var cors = require("cors")
 var path = require("path")
 var cookieParser = require("cookie-parser")
 var logger = require("morgan")
+// var cors = require("cors")
+var cookieSession = require("cookie-session")
 
 // var indexRouter = require('./routes/index');
 var usersRouter = require("./routes/users")
@@ -19,8 +20,18 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, "public")))
+
 // app.use(cors()) // 解决浏览器跨越问题
-// app.use('/', indexRouter);
+// app.use('/', indexRouter)
+
+// 设置cookie-session
+app.use(
+	cookieSession({
+		name: "session",
+		keys: ["key1", "key2"],
+	})
+)
+
 app.use("/api/users", usersRouter)
 
 // catch 404 and forward to error handler

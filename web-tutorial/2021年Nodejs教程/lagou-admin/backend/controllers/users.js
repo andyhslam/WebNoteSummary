@@ -1,6 +1,6 @@
 const usersModel = require("../models/users")
 const { hash, compare } = require("../utils/tools")
-const randomstring = require("randomstring")
+// const randomstring = require("randomstring")
 
 // 注册用户：数据装填到模板里，渲染到请求页面上
 const signup = async (req, res, next) => {
@@ -41,10 +41,15 @@ const signin = async (req, res, next) => {
 		// 此处的password指用户传过来的密码，hash指数据库存储的密码，两者进行比较
 		const compareResult = await compare(password, hash)
 		if (compareResult) {
-			const sessionId = randomstring.generate()
-			// Set-Cookie是http协议首部字段的名字，功能是可以从后端往前端种cookie
-			// cookie的操作：有域名(Path)、有值(sessionId)、有协议(HttpOnly)
-			res.set("Set-Cookie", `sessionId=${sessionId}; Path=/; HttpOnly`)
+			/**
+			 * const sessionId = randomstring.generate()
+			 * Set-Cookie是http协议首部字段的名字，功能是可以从后端往前端种cookie
+			 * cookie的操作：有域名(Path)、有值(sessionId)、有协议(HttpOnly)
+			 * res.set("Set-Cookie", `sessionId=${sessionId}; Path=/; HttpOnly`)
+			 */
+			// 在此次请求的req注入session，以后在任何地方都可以通过req访问到这个session
+			req.session.username = username
+			console.log(req)
 			res.render("success", {
 				succData: JSON.stringify({
 					username,
