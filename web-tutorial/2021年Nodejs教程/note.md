@@ -56,13 +56,19 @@
 - SPA：single page application，路由：SME-Router
 - UI组件库：基于Bootstrap(AdminLTE) https://adminlte.io/themes/AdminLTE/index.html
 - RMVC：art-template
+- module模块，model模型，modal模态框
+
 ### 后端(Backend)
 - Node.js
-- Express
+- Express(static,router,randomstring,bcrypt,cookie-session)
 - MongoDB(Mongoose)
+- EJS
+- jwt(json web token)
+- RMVP
 
 ### loader
 - 线上部署不需要loader：因为打包以后，文件已经编译完。
+- babel-loader: 将ES6编译成ES5.
 
 ### 常用标点
 - &hellip;(...)

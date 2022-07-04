@@ -1,6 +1,5 @@
 // 前端webpack编译ES6的import语法
 import indexTpl from "../views/index.art"
-import signinTpl from "../views/signin.art"
 import signupTpl from "../views/signup.art"
 import usersTpl from "../views/users.art"
 import usersListTpl from "../views/users-list.art"
@@ -8,32 +7,12 @@ import usersListPageTpl from "../views/users-page.art"
 // import router from "../routes"
 
 const indexHtml = indexTpl({})
-const signinHtml = signinTpl()
 const signupHtml = signupTpl()
 const usersHtml = usersTpl()
 
 const pageSize = 2
 let curPage = 1
 let userList = []
-
-// 提交登录
-const _signinSubmit = (router) => {
-	return (e) => {
-		e.preventDefault()
-		const formData = $("#signin").serialize()
-		$.ajax({
-			url: "/api/users/signin",
-			type: "post",
-			dataType: "json",
-			data: formData,
-			success(res) {
-				if (res.ret) {
-					router.go("/index")
-				}
-			},
-		})
-	}
-}
 
 // 函数柯里化；提交注册
 const _signupSubmit = (router) => {
@@ -112,14 +91,6 @@ const signup = (router) => {
 		res.render(signupHtml)
 		// 因为此处需要一个回调函数，所以_signupSubmit方法需要包装成一个柯里化函数
 		$("#signup").on("submit", _signupSubmit(router))
-	}
-}
-
-// 用户登录模块
-const signin = (router) => {
-	return (req, res, next) => {
-		res.render(signinHtml)
-		$("#signin").on("submit", _signinSubmit(router))
 	}
 }
 
@@ -241,4 +212,4 @@ const index = (router) => {
 	}
 }
 
-export { index, signup, signin }
+export { index, signup }
