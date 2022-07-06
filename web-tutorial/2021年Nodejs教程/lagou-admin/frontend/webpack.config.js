@@ -16,6 +16,7 @@ module.exports = {
 	output: {
 		path: path.join(__dirname, "./dist"),
 		// 在开发环境，不需要输入版本号，没有缓存，因此可以不用标明hash值
+		// 在现网环境，可以改版本号刷新缓存，因此需要标明hash值
 		filename: "[name]-[hash:6].js", // hash值防止浏览器缓存文件
 	},
 	module: {

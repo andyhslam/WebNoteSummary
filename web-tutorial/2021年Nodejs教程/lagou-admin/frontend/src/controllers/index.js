@@ -3,15 +3,15 @@ import indexTpl from "../views/index.art"
 import signupTpl from "../views/signup.art"
 import usersTpl from "../views/users.art"
 import usersListTpl from "../views/users-list.art"
-import usersListPageTpl from "../views/users-page.art"
+import { pagination } from "../components/pagination.js"
+import page from "../bus/page.js"
 // import router from "../routes"
 
 const indexHtml = indexTpl({})
 const signupHtml = signupTpl()
 const usersHtml = usersTpl()
 
-const pageSize = 2
-let curPage = 1
+const pageSize = page.pageSize
 let userList = []
 
 // 函数柯里化；提交注册
@@ -19,6 +19,16 @@ const _signupSubmit = (router) => {
 	return (e) => {
 		e.preventDefault()
 		router.go("/index")
+	}
+}
+
+// 注册用户模块
+// 函数柯里化：此处是函数里面返回一个函数作为路由的回调函数
+const signup = (router) => {
+	return (req, res, next) => {
+		res.render(signupHtml)
+		// 因为此处需要一个回调函数，所以_signupSubmit方法需要包装成一个柯里化函数
+		$("#signup").on("submit", _signupSubmit(router))
 	}
 }
 
@@ -31,9 +41,9 @@ const _signup = () => {
 		url: "/api/users/signup",
 		type: "post",
 		data: formData,
-		success(res) {
+		success() {
 			// 注册成功后的回调
-			console.log(res)
+			page.setCurPage(1)
 			// 添加数据后渲染
 			_loadData()
 		},
@@ -44,16 +54,14 @@ const _signup = () => {
 	$btnClose.click()
 }
 
-// 分页器
-const _pagination = (data) => {
-	const total = data.length
-	const pageCount = Math.ceil(total / pageSize)
-	const pageArray = new Array(pageCount)
-	const htmlPage = usersListPageTpl({
-		pageArray,
-	})
-	$("#users-page").html(htmlPage)
-	_setPageActive(curPage)
+// 装填list数据
+const _list = (pageNo) => {
+	let start = (pageNo - 1) * pageSize
+	$("#users-list").html(
+		usersListTpl({
+			data: userList.slice(start, start + pageSize),
+		})
+	)
 }
 
 // 加载用户数据
@@ -67,40 +75,61 @@ const _loadData = () => {
 		success(result) {
 			userList = result.data
 			// 分页
-			_pagination(userList)
+			pagination(userList)
 			// 用户列表渲染
-			_list(curPage)
+			_list(page.curPage)
 		},
 	})
 }
 
-// 装填list数据
-const _list = (pageNo) => {
-	let start = (pageNo - 1) * pageSize
-	$("#users-list").html(
-		usersListTpl({
-			data: userList.slice(start, start + pageSize),
+// 绑定事件的方法
+const _methods = () => {
+	// 绑定删除事件，绑定代理
+	$("#users-list").on("click", ".remove", function () {
+		// 坑：箭头函数的this，其作用域指向会变；普通函数能保证this的作用域指向正确
+		$.ajax({
+			url: "/api/users/remove",
+			type: "delete",
+			data: {
+				id: $(this).data("id"),
+			},
+			async success() {
+				await _loadData()
+				const uls = userList.length
+				const isLastPage = Math.ceil(uls / pageSize) === page.curPage
+				const isLastOne = uls % pageSize === 1
+				if (uls === 1) {
+					page.setCurPage(1)
+				} else if (isLastPage && isLastOne && page.curPage > 0) {
+					page.setCurPage(page.curPage - 1)
+				}
+			},
 		})
-	)
+	})
+
+	// 绑定登出事件
+	$("#users-signout").on("click", (e) => {
+		e.preventDefault()
+		$.ajax({
+			url: "/api/users/signout",
+			type: "get",
+			dataType: "json",
+			success(result) {
+				if (result.ret) {
+					location.reload()
+				}
+			},
+		})
+	})
+
+	// 点击保存，提交表单
+	$("#users-save").on("click", _signup)
 }
 
-// 注册用户模块
-// 函数柯里化：此处是函数里面返回一个函数作为路由的回调函数
-const signup = (router) => {
-	return (req, res, next) => {
-		res.render(signupHtml)
-		// 因为此处需要一个回调函数，所以_signupSubmit方法需要包装成一个柯里化函数
-		$("#signup").on("submit", _signupSubmit(router))
-	}
-}
-
-// 设置页码高亮
-const _setPageActive = (index) => {
-	$("#users-page #users-page-list li:not(:first-child, :last-child)")
-		.eq(index - 1)
-		.addClass("active")
-		.siblings()
-		.removeClass("active")
+const _subscribe = () => {
+	$("body").on("changeCurPage", (e, pageIndex) => {
+		_list(pageIndex)
+	})
 }
 
 const index = (router) => {
@@ -113,90 +142,17 @@ const index = (router) => {
 
 		// 填充用户列表
 		$("#users").html(usersHtml)
-
-		// 绑定删除事件，绑定代理
-		$("#users-list").on("click", ".remove", function () {
-			// 坑：箭头函数的this，其作用域指向会变；普通函数能保证this的作用域指向正确
-			$.ajax({
-				url: "/api/users/remove",
-				type: "delete",
-				data: {
-					id: $(this).data("id"),
-				},
-				async success() {
-					await _loadData()
-					const uls = userList.length
-					const isLastPage = Math.ceil(uls / pageSize) === curPage
-					const isLastOne = uls % pageSize === 1
-					if (uls === 1) {
-						curPage = 1
-					} else if (isLastPage && isLastOne && curPage > 0) {
-						curPage--
-					}
-				},
-			})
-		})
-
-		// 绑定分页事件
-		$("#users-page").on(
-			"click",
-			"#users-page-list li:not(:first-child, :last-child)",
-			function () {
-				// this指向代理的那个元素(li)
-				curPage = $(this).index()
-				_list(curPage)
-				_setPageActive(curPage)
-			}
-		)
-
-		// 向前翻页
-		$("#users-page").on(
-			"click",
-			"#users-page-list li:first-child",
-			function () {
-				if (curPage > 1) {
-					curPage--
-					_list(curPage)
-					_setPageActive(curPage)
-				}
-			}
-		)
-
-		// 向后翻页
-		$("#users-page").on(
-			"click",
-			"#users-page-list li:last-child",
-			function () {
-				if (curPage < Math.ceil(userList.length / pageSize)) {
-					curPage++
-					_list(curPage)
-					_setPageActive(curPage)
-				}
-			}
-		)
-
-		// 绑定登出事件
-		$("#users-signout").on("click", (e) => {
-			e.preventDefault()
-			$.ajax({
-				url: "/api/users/signout",
-				type: "get",
-				dataType: "json",
-				success(result) {
-					if (result.ret) {
-						location.reload()
-					}
-				},
-			})
-		})
-
 		// 初次渲染数据
 		_loadData()
 
-		// 点击保存，提交表单
-		$("#users-save").on("click", _signup)
+		// 绑定页面事件
+		_methods()
+
+		// 订阅事件
+		_subscribe()
 	}
 
+	// 返回的中间件是给路由准备的
 	return (req, res, next) => {
 		$.ajax({
 			url: "/api/users/isAuth",
