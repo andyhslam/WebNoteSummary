@@ -105,6 +105,28 @@
 9. 请求首部：请求后端接口时，加的首部字段。
 10. 由session种出的cookie有过期时间，一旦cookie过期，后端返回的数据也会过期，后端就让前端重新登录，
   接着后端产生一个新的session(插件cookie-session可以完成这件事)
+11. 深入Cookie与Session的区别与原理：https://juejin.cn/post/6844903888600956936
+12. JavaScript的存储--Cookie、Session、localStorage、sessionStorage：
+  https://juejin.cn/post/7012506796489359368
+
+- cookie-session的通信过程：
+1. 前端输入用户名和密码发送到后端，后端存储的session当成是cookie的内容种到前端去，前端在下次请求该网站的第二个页面时，
+  携带该cookie。后端会自动将cookie值和session值进行比较，如果这两个值相等，就允许用户访问。
+2. 缺点：每个用户登录进来，服务器都要存储session。
 
 - token登录注册方案
-1. 后端不需要存储任何东西，只需要给前端发令牌；然后通过token的认证机制，只要认证该token是合法的，前端就可以登录。
+1. 前端输入用户名和密码发送到后端，后端验证用户名和密码都没问题之后，将生成的token传给前端；前端通过localStorage
+  或者cookie的方式存储该token，下次再去鉴权时携带该token到后端，只要后端验证token是有效的，就认为是合法用户。
+2. 后端不需要存储任何东西，只需要给前端发令牌；然后通过token的认证机制，只要认证该token是合法的，前端就可以登录。
+3. 优点：后端不需要存储token。
+4. 关键点：后端需要有一个生成token的算法，或者是生成一个像样的token，不容易被别人破解。
+5. 技术点：JWT(全称：Json Web Token) https://www.zhihu.com/question/485758060/answer/2257869896
+
+- 密钥生成(有两种方法：ssh和openssl)
+1. 生成私钥：
+  首先命令行输入 openssl
+  openssl > genrsa -out rsa_private_key.pem 2048
+2. 根据私钥生成公钥
+  openssl > rsa -in rsa_private_key.pem -pubout -out rsa_public_key.pem
+3. 连接git服务器的原理：在本地生成私钥和公钥，通过私钥生成token，把token和公钥传到git服务器(github或者gitlab)
+  进行验证，验证通过后，就不再需要输入用户名和密码。

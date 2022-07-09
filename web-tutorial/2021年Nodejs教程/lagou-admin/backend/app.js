@@ -25,12 +25,12 @@ app.use(express.static(path.join(__dirname, "public")))
 // app.use('/', indexRouter)
 
 // 设置cookie-session
-app.use(
-	cookieSession({
-		name: "session",
-		keys: ["key1", "key2"],
-	})
-)
+// app.use(
+// 	cookieSession({
+// 		name: "session",
+// 		keys: ["key1", "key2"],
+// 	})
+// )
 
 app.use("/api/users", usersRouter)
 
