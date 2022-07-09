@@ -53,6 +53,9 @@
 - CSS预处理工具(sass)
 - JS模块化：ES Module，CommonJS Module
 - JS库：jQuery
+1. jQuery.ajax(url,[settings]) https://jquery.cuishifeng.cn/jQuery.Ajax.html
+2. success(data, textStatus, jqXHR)
+  请求成功后的回调函数。参数：由服务器返回，并根据dataType参数进行处理后的数据；描述状态的字符串。还有 jqXHR（在jQuery 1.4.x的中，XMLHttpRequest） 对象 。在jQuery 1.5， 成功设置可以接受一个函数数组。每个函数将被依次调用。
 - SPA：single page application，路由：SME-Router
 - UI组件库：基于Bootstrap(AdminLTE) https://adminlte.io/themes/AdminLTE/index.html
 - RMVC：art-template

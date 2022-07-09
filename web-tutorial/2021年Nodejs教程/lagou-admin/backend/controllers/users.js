@@ -1,5 +1,5 @@
 const usersModel = require("../models/users")
-const { hash, compare } = require("../utils/tools")
+const { hash, compare, sign, verify } = require("../utils/tools")
 // const randomstring = require("randomstring")
 
 // 注册用户：数据装填到模板里，渲染到请求页面上
@@ -48,7 +48,11 @@ const signin = async (req, res, next) => {
 			 * res.set("Set-Cookie", `sessionId=${sessionId}; Path=/; HttpOnly`)
 			 */
 			// 在此次请求的req注入session，以后在任何地方都可以通过req访问到这个session
-			req.session.username = username
+			// req.session.username = username
+
+			const token = sign(username)
+			// 行内规范：自定义首部字段以'X'开头；Http协议定义的首部字段是没有以'X'开头的
+			res.set("X-Access-Token", token)
 			res.render("success", {
 				succData: JSON.stringify({
 					username,
