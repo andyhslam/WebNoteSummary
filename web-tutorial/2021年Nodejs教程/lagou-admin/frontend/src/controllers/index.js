@@ -40,6 +40,9 @@ const _signup = () => {
 		// api是后端接口，users是分类，signup是具体操作
 		url: "/api/users/signup",
 		type: "post",
+		headers: {
+			"X-Access-Token": localStorage.getItem("lg-token") || "",
+		},
 		data: formData,
 		success() {
 			// 注册成功后的回调
@@ -70,6 +73,9 @@ const _loadData = () => {
 	$.ajax({
 		url: "/api/users/list",
 		type: "get",
+		headers: {
+			"X-Access-Token": localStorage.getItem("lg-token") || "",
+		},
 		// async: false,
 		// async (默认:true) 默认设置下，所有请求均为异步请求。如果需要发送同步请求，请将此选项设置为 false。注意，同步请求将锁住浏览器，用户其它操作必须等待请求完成才可以执行。
 		success(result) {
@@ -90,6 +96,9 @@ const _methods = () => {
 		$.ajax({
 			url: "/api/users/remove",
 			type: "delete",
+			headers: {
+				"X-Access-Token": localStorage.getItem("lg-token") || "",
+			},
 			data: {
 				id: $(this).data("id"),
 			},
@@ -110,16 +119,21 @@ const _methods = () => {
 	// 绑定登出事件
 	$("#users-signout").on("click", (e) => {
 		e.preventDefault()
-		$.ajax({
-			url: "/api/users/signout",
-			type: "get",
-			dataType: "json",
-			success(result) {
-				if (result.ret) {
-					location.reload()
-				}
-			},
-		})
+		// token登出方案
+		localStorage.setItem("lg-token", "")
+		location.reload()
+
+		// cookie-session登出方案
+		// $.ajax({
+		// 	url: "/api/users/signout",
+		// 	type: "get",
+		// 	dataType: "json",
+		// 	success(result) {
+		// 		if (result.ret) {
+		// 			location.reload()
+		// 		}
+		// 	},
+		// })
 	})
 
 	// 点击保存，提交表单
@@ -157,6 +171,9 @@ const index = (router) => {
 		$.ajax({
 			url: "/api/users/isAuth",
 			dataType: "json",
+			headers: {
+				"X-Access-Token": localStorage.getItem("lg-token") || "",
+			},
 			success(result) {
 				if (result.ret) {
 					loadIndex(res)
