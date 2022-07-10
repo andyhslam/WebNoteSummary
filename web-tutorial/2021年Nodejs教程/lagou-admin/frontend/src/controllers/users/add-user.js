@@ -29,7 +29,4 @@ export const addUser = () => {
 
 	// 点击保存，提交表单
 	$("#users-save").on("click", _save)
-
-	// 单击关闭模态框
-	$("#users-close").click()
 }
