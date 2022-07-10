@@ -21,7 +21,7 @@ export const addUser = () => {
 				page.setCurPage(1)
 				// 告知list页面要重新渲染
 				$("body").trigger("addUser")
-				// 关闭模态框
+				// 单击关闭模态框
 				$("#users-close").click()
 			},
 		})
@@ -29,7 +29,4 @@ export const addUser = () => {
 
 	// 点击保存，提交表单
 	$("#users-save").on("click", _save)
-
-	// 单击关闭模态框
-	$("#users-close").click()
 }
