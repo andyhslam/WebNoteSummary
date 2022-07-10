@@ -3,11 +3,12 @@ import indexTpl from "../../views/index.art"
 import usersTpl from "../../views/users.art"
 import usersListTpl from "../../views/users-list.art"
 
-import { pagination } from "../../components/pagination.js"
 import page from "../../bus/page.js"
 import { addUser } from "./add-user.js"
+import { pagination } from "../../components/pagination.js"
 import { auth as authModel } from "../../models/auth.js"
 import { usersList as usersListModel } from "../../models/users-list.js"
+import { usersRemove as usersRemoveModel } from "../../models/users-remove.js"
 
 const indexHtml = indexTpl({})
 const usersHtml = usersTpl()
@@ -38,29 +39,20 @@ const _loadData = async () => {
 // 绑定事件的方法
 const _methods = () => {
 	// 绑定删除事件，绑定代理
-	$("#users-list").on("click", ".remove", function () {
+	$("#users-list").on("click", ".remove", async function () {
 		// 坑：箭头函数的this，其作用域指向会变；普通函数能保证this的作用域指向正确
-		$.ajax({
-			url: "/api/users/remove",
-			type: "delete",
-			headers: {
-				"X-Access-Token": localStorage.getItem("lg-token") || "",
-			},
-			data: {
-				id: $(this).data("id"),
-			},
-			async success() {
-				await _loadData()
-				const uls = userList.length
-				const isLastPage = Math.ceil(uls / pageSize) === page.curPage
-				const isLastOne = uls % pageSize === 1
-				if (uls === 1) {
-					page.setCurPage(1)
-				} else if (isLastPage && isLastOne && page.curPage > 0) {
-					page.setCurPage(page.curPage - 1)
-				}
-			},
-		})
+		const result = await usersRemoveModel($(this).data("id"))
+		if (result.ret) {
+			await _loadData()
+			const uls = userList.length
+			const isLastPage = Math.ceil(uls / pageSize) === page.curPage
+			const isLastOne = uls % pageSize === 1
+			if (uls === 1) {
+				page.setCurPage(1)
+			} else if (isLastPage && isLastOne && page.curPage > 0) {
+				page.setCurPage(page.curPage - 1)
+			}
+		}
 	})
 
 	// 绑定登出事件
