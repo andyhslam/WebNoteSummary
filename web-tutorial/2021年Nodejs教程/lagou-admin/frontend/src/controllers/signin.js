@@ -1,25 +1,21 @@
+// import是静态加载的内容
 import signinTpl from "../views/signin.art"
+import { signin as signinModel } from "../models/signin"
+
 const signinHtml = signinTpl()
 
 // 提交登录；函数柯里化
 const _signinSubmit = (router) => {
-	return (e) => {
+	return async (e) => {
 		e.preventDefault()
 		const formData = $("#signin").serialize()
-		$.ajax({
-			url: "/api/users/signin",
-			type: "post",
-			dataType: "json",
-			data: formData,
-			success(res, textStatus, jqXHR) {
-				// 后端通过响应首部字段把token返回给前端
-				const token = jqXHR.getResponseHeader("X-Access-Token")
-				localStorage.setItem("lg-token", token)
-				if (res.ret) {
-					router.go("/index")
-				}
-			},
-		})
+		const { res, jqXHR } = await signinModel(formData)
+		// 后端通过响应首部字段把token返回给前端
+		const token = jqXHR.getResponseHeader("X-Access-Token")
+		localStorage.setItem("lg-token", token)
+		if (res.ret) {
+			router.go("/index")
+		}
 	}
 }
 

@@ -6,6 +6,8 @@ import usersListTpl from "../../views/users-list.art"
 import { pagination } from "../../components/pagination.js"
 import page from "../../bus/page.js"
 import { addUser } from "./add-user.js"
+import { auth as authModel } from "../../models/auth.js"
+import { usersList as usersListModel } from "../../models/users-list.js"
 
 const indexHtml = indexTpl({})
 const usersHtml = usersTpl()
@@ -24,24 +26,13 @@ const _list = (pageNo) => {
 }
 
 // 加载用户数据
-const _loadData = () => {
-	// jquer的ajax返回defer(可以用promise获取数据：return)
-	$.ajax({
-		url: "/api/users/list",
-		type: "get",
-		headers: {
-			"X-Access-Token": localStorage.getItem("lg-token") || "",
-		},
-		// async: false,
-		// async (默认:true) 默认设置下，所有请求均为异步请求。如果需要发送同步请求，请将此选项设置为 false。注意，同步请求将锁住浏览器，用户其它操作必须等待请求完成才可以执行。
-		success(result) {
-			userList = result.data
-			// 分页
-			pagination(userList)
-			// 用户列表渲染
-			_list(page.curPage)
-		},
-	})
+const _loadData = async () => {
+	const result = await usersListModel()
+	userList = result.data
+	// 分页
+	pagination(userList)
+	// 用户列表渲染
+	_list(page.curPage)
 }
 
 // 绑定事件的方法
@@ -124,21 +115,14 @@ const index = (router) => {
 	}
 
 	// 返回的中间件是给路由准备的
-	return (req, res, next) => {
-		$.ajax({
-			url: "/api/users/isAuth",
-			dataType: "json",
-			headers: {
-				"X-Access-Token": localStorage.getItem("lg-token") || "",
-			},
-			success(result) {
-				if (result.ret) {
-					loadIndex(res)
-				} else {
-					router.go("/signin")
-				}
-			},
-		})
+	return async (req, res, next) => {
+		const result = await authModel()
+		if (result.ret) {
+			console.log("_loadData")
+			loadIndex(res)
+		} else {
+			router.go("/signin")
+		}
 	}
 }
 

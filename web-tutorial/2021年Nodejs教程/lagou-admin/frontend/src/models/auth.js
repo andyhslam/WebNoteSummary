@@ -1,4 +1,4 @@
-export const routerGuard = () => {
+export const auth = () => {
 	// 返回promise
 	return $.ajax({
 		url: "/api/users/isAuth",
