@@ -1,7 +1,7 @@
 // webpack自动将es6模块化转成浏览器能够兼容的，一直兼容到底
 import SMERouter from "sme-router"
 // 导入中间件
-import { index, signup } from "../controllers/index"
+import { index } from "../controllers/users/index"
 import signin from "../controllers/signin"
 
 const router = new SMERouter("root")
@@ -30,8 +30,6 @@ router.route("/", () => {})
 
 router.route("/index", index(router))
 
-router.route("/signup", signup(router)) // 注册
-
-router.route("/signin", signin(router)) // 登录
+router.route("/signin", signin(router))
 
 export default router

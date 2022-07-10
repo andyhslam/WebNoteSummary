@@ -1,61 +1,17 @@
 // 前端webpack编译ES6的import语法
-import indexTpl from "../views/index.art"
-import signupTpl from "../views/signup.art"
-import usersTpl from "../views/users.art"
-import usersListTpl from "../views/users-list.art"
-import { pagination } from "../components/pagination.js"
-import page from "../bus/page.js"
-// import router from "../routes"
+import indexTpl from "../../views/index.art"
+import usersTpl from "../../views/users.art"
+import usersListTpl from "../../views/users-list.art"
+
+import { pagination } from "../../components/pagination.js"
+import page from "../../bus/page.js"
+import { addUser } from "./add-user.js"
 
 const indexHtml = indexTpl({})
-const signupHtml = signupTpl()
 const usersHtml = usersTpl()
 
 const pageSize = page.pageSize
 let userList = []
-
-// 函数柯里化；提交注册
-const _signupSubmit = (router) => {
-	return (e) => {
-		e.preventDefault()
-		router.go("/index")
-	}
-}
-
-// 注册用户模块
-// 函数柯里化：此处是函数里面返回一个函数作为路由的回调函数
-const signup = (router) => {
-	return (req, res, next) => {
-		res.render(signupHtml)
-		// 因为此处需要一个回调函数，所以_signupSubmit方法需要包装成一个柯里化函数
-		$("#signup").on("submit", _signupSubmit(router))
-	}
-}
-
-// 注册用户-请求接口
-const _signup = () => {
-	// 提交表单；serialize：序列化表格内容为字符串，用于Ajax请求。
-	const formData = $("#users-form").serialize()
-	$.ajax({
-		// api是后端接口，users是分类，signup是具体操作
-		url: "/api/users/signup",
-		type: "post",
-		headers: {
-			"X-Access-Token": localStorage.getItem("lg-token") || "",
-		},
-		data: formData,
-		success() {
-			// 注册成功后的回调
-			page.setCurPage(1)
-			// 添加数据后渲染
-			_loadData()
-		},
-	})
-
-	// 单击关闭模态框
-	const $btnClose = $("#users-close")
-	$btnClose.click()
-}
 
 // 装填list数据
 const _list = (pageNo) => {
@@ -135,14 +91,14 @@ const _methods = () => {
 		// 	},
 		// })
 	})
-
-	// 点击保存，提交表单
-	$("#users-save").on("click", _signup)
 }
 
 const _subscribe = () => {
 	$("body").on("changeCurPage", (e, pageIndex) => {
 		_list(pageIndex)
+	})
+	$("body").on("addUser", () => {
+		_loadData()
 	})
 }
 
@@ -156,6 +112,7 @@ const index = (router) => {
 
 		// 填充用户列表
 		$("#users").html(usersHtml)
+		$("#add-user-btn").on("click", addUser)
 		// 初次渲染数据
 		_loadData()
 
@@ -185,4 +142,4 @@ const index = (router) => {
 	}
 }
 
-export { index, signup }
+export { index }
