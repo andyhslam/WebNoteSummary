@@ -110,7 +110,6 @@ const index = (router) => {
 	return async (req, res, next) => {
 		const result = await authModel()
 		if (result.ret) {
-			console.log("_loadData")
 			loadIndex(res)
 		} else {
 			router.go("/signin")

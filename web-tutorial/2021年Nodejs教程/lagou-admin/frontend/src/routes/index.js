@@ -1,11 +1,11 @@
 // webpack自动将es6模块化转成浏览器能够兼容的，一直兼容到底
-import SMERouter from "sme-router"
+import GP21Router from "gp21-router"
 // 导入中间件
 import signin from "../controllers/signin.js"
 import { index } from "../controllers/users/index.js"
 import { auth as authModel } from "../models/auth.js"
 
-const router = new SMERouter("root")
+const router = new GP21Router("root")
 
 // 路由守卫：路由切换之前的拦截，防止直接输入路由跳转。
 router.use(async () => {

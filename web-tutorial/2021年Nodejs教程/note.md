@@ -78,6 +78,9 @@
 - &times;(>×)
 - &laquo;(<<)
 - &raquo;(>>)
+- 点击a链接不起作用的两种方式：
+1. <a href="javascript:void(0)"></a>
+2. <a href="javascript:;"></a>
 
 ### 开发架构
 - 前后端分离的开发架构
@@ -133,3 +136,7 @@
   openssl > rsa -in rsa_private_key.pem -pubout -out rsa_public_key.pem
 3. 连接git服务器的原理：在本地生成私钥和公钥，通过私钥生成token，把token和公钥传到git服务器(github或者gitlab)
   进行验证，验证通过后，就不再需要输入用户名和密码。
+
+### git操作
+1. git checkout -b [新的分支名] [提交码commit-hash]
+   基于当前分支和提交码创建并切换到新的分支

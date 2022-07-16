@@ -20,6 +20,6 @@
 		"webpack-dev-server": "^3.11.0"
 	},
 	"dependencies": {
-		"sme-router": "^0.12.8"
+		"gp21-router": "^1.0.1"
 	}
 }
