@@ -27,17 +27,19 @@ const pagination = (data) => {
 
 const _bindEvent = (pageCount) => {
 	// 绑定分页事件
-	$("#users-page").on(
-		"click",
-		"#users-page-list li:not(:first-child, :last-child)",
-		function () {
-			// this指向代理的那个元素(li)
-			const pageIndex = $(this).index()
-			page.setCurPage(pageIndex)
-			$("body").trigger("changeCurPage", pageIndex)
-			_setPageActive(pageIndex)
-		}
-	)
+	$("#users-page")
+		.off("click")
+		.on(
+			"click",
+			"#users-page-list li:not(:first-child, :last-child)",
+			function () {
+				// this指向代理的那个元素(li)
+				const pageIndex = $(this).index()
+				page.setCurPage(pageIndex)
+				$("body").trigger("changeCurPage", pageIndex)
+				_setPageActive(pageIndex)
+			}
+		)
 
 	// 向前翻页
 	$("#users-page").on(

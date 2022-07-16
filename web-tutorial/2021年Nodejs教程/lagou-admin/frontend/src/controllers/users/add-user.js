@@ -5,6 +5,7 @@ import { usersAdd as usersAddModel } from "../../models/users-add.js"
 // 添加用户
 export const addUser = () => {
 	const usersAddHtml = usersAddTpl()
+	// 在id为users-list-box的元素后面，添加模板
 	$("#users-list-box").after(usersAddHtml)
 	const _save = async () => {
 		// 提交表单；serialize：序列化表格内容为字符串，用于Ajax请求。

@@ -1,5 +1,6 @@
 import indexTpl from "../views/index.art"
 import { auth as authModel } from "../models/auth.js"
+import pageHeader from "../components/page-header.js"
 import userImage1 from "../assets/img/user1.jpg"
 import userImage2 from "../assets/img/user2.jpg"
 import userImage3 from "../assets/img/user3.jpg"
@@ -24,6 +25,9 @@ const index = (router) => {
 
 			// window resize，让页面撑满整个屏幕
 			// $(window, ".wrapper").resize()
+
+			// 加载页面导航
+			pageHeader()
 
 			// const $lias = $("#sidebar-menu li a")
 			// const hash = location.hash
