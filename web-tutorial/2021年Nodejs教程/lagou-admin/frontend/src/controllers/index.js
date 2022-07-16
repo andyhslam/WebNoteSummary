@@ -15,7 +15,16 @@ const index = (router) => {
 			// window resize，让页面撑满整个屏幕
 			// $(window, ".wrapper").resize()
 
-			$("#sidebar-menu li:not(:first-child)").on("click", function () {})
+			const $lis = $("#sidebar-menu li")
+			$lis.on("click", function () {
+				const url = $(this).attr("to")
+				router.go(url)
+			})
+			const hash = location.hash.slice(1)
+			$lis.filter(`[to="${hash}"]`)
+				.addClass("active")
+				.siblings()
+				.removeClass("active")
 		} else {
 			router.go("/signin")
 		}

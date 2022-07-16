@@ -82,34 +82,32 @@ const _subscribe = () => {
 	})
 }
 
-// const index = (router) => {
-// 	const loadIndex = (res) => {
-// 		// 渲染首页
-// 		res.render(indexHtml)
+const index = (router) => {
+	const loadIndex = (res, next) => {
+		// 填充用户列表
+		// $("#users").html(usersHtml)
+		next()
+		res.render(usersHtml)
+		$("#add-user-btn").on("click", addUser)
+		// 初次渲染数据
+		_loadData()
 
-// 		// window resize，让页面撑满整个屏幕
-// 		// $(window, ".wrapper").resize()
+		// 绑定页面事件
+		_methods()
 
-// 		// 填充用户列表
-// 		$("#users").html(usersHtml)
-// 		$("#add-user-btn").on("click", addUser)
-// 		// 初次渲染数据
-// 		_loadData()
+		// 订阅事件
+		_subscribe()
+	}
 
-// 		// 绑定页面事件
-// 		_methods()
+	// 返回的中间件是给路由准备的
+	return async (req, res, next) => {
+		const result = await authModel()
+		if (result.ret) {
+			loadIndex(res, next)
+		} else {
+			router.go("/signin")
+		}
+	}
+}
 
-// 		// 订阅事件
-// 		_subscribe()
-// 	}
-
-// 	// 返回的中间件是给路由准备的
-// 	return async (req, res, next) => {
-// 		const result = await authModel()
-// 		if (result.ret) {
-// 			loadIndex(res)
-// 		} else {
-// 			router.go("/signin")
-// 		}
-// 	}
-// }
+export default index
