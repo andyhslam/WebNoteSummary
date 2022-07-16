@@ -1,5 +1,4 @@
 // 前端webpack编译ES6的import语法
-import indexTpl from "../../views/index.art"
 import usersTpl from "../../views/users.art"
 import usersListTpl from "../../views/users-list.art"
 
@@ -10,9 +9,7 @@ import { auth as authModel } from "../../models/auth.js"
 import { usersList as usersListModel } from "../../models/users-list.js"
 import { usersRemove as usersRemoveModel } from "../../models/users-remove.js"
 
-const indexHtml = indexTpl({})
 const usersHtml = usersTpl()
-
 const pageSize = page.pageSize
 let userList = []
 
@@ -85,36 +82,34 @@ const _subscribe = () => {
 	})
 }
 
-const index = (router) => {
-	const loadIndex = (res) => {
-		// 渲染首页
-		res.render(indexHtml)
+// const index = (router) => {
+// 	const loadIndex = (res) => {
+// 		// 渲染首页
+// 		res.render(indexHtml)
 
-		// window resize，让页面撑满整个屏幕
-		// $(window, ".wrapper").resize()
+// 		// window resize，让页面撑满整个屏幕
+// 		// $(window, ".wrapper").resize()
 
-		// 填充用户列表
-		$("#users").html(usersHtml)
-		$("#add-user-btn").on("click", addUser)
-		// 初次渲染数据
-		_loadData()
+// 		// 填充用户列表
+// 		$("#users").html(usersHtml)
+// 		$("#add-user-btn").on("click", addUser)
+// 		// 初次渲染数据
+// 		_loadData()
 
-		// 绑定页面事件
-		_methods()
+// 		// 绑定页面事件
+// 		_methods()
 
-		// 订阅事件
-		_subscribe()
-	}
+// 		// 订阅事件
+// 		_subscribe()
+// 	}
 
-	// 返回的中间件是给路由准备的
-	return async (req, res, next) => {
-		const result = await authModel()
-		if (result.ret) {
-			loadIndex(res)
-		} else {
-			router.go("/signin")
-		}
-	}
-}
-
-export { index }
+// 	// 返回的中间件是给路由准备的
+// 	return async (req, res, next) => {
+// 		const result = await authModel()
+// 		if (result.ret) {
+// 			loadIndex(res)
+// 		} else {
+// 			router.go("/signin")
+// 		}
+// 	}
+// }

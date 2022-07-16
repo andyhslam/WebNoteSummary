@@ -163,13 +163,13 @@
 
       <nav id="sidebar-menu" class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-item">
+          <li class="nav-item" to="/index/users">
             <a href="javascript:void(0)" class="nav-link">
               <i class="nav-icon fa fa-link"></i>
               <span>用户管理</span>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" to="/index/positions">
             <a href="javascript:;" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <span>职位管理</span>
@@ -199,20 +199,7 @@
     </div>
 
     <div class="content">
-      <div class="row">
-        <div class="col-lg-12">
-          <div id="users"></div>
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">不支持同时打开多个模态框 | 模态框的 HTML 代码放置的位置</h5>
-              <p class="card-text">
-                千万不要在一个模态框上重叠另一个模态框。要想同时支持多个模态框，需要自己写额外的代码来实现。 | 务必将模态框
-                的 HTML 代码放在文档的最高层级内（也就是说，尽量作为 body 标签的直接子元素），以避免其他组件影响模态框的展现和/或功能。
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+      {{subRouter}}
     </div>
   </div>
 

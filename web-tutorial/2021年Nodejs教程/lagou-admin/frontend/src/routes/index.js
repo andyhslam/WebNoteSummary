@@ -2,7 +2,9 @@
 import GP21Router from "gp21-router"
 // 导入中间件
 import signin from "../controllers/signin.js"
-import { index } from "../controllers/users/index.js"
+import index from "../controllers/index.js"
+import listUser from "../controllers/users/list-user.js"
+import listPosition from "../controllers/positions/list-position.js"
 import { auth as authModel } from "../models/auth.js"
 
 const router = new GP21Router("root")
@@ -21,8 +23,10 @@ router.use(async () => {
 // 路由定义
 router.route("/", () => {})
 
-router.route("/index", index(router))
-
 router.route("/signin", signin(router))
+
+router.route("/index", index(router))
+router.route("/index/users", listUser(router))
+router.route("/index/positions", listPosition(router))
 
 export default router
