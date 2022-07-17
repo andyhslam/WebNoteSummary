@@ -19,12 +19,14 @@ const findList = () => {
 	return Users.find().sort({ _id: -1 })
 }
 
-const remove = (id) => {
+const removed = (id) => {
 	// return Users.findByIdAndRemove(id)
 	return Users.deleteOne({ _id: id })
 }
 
-exports.signup = signup
-exports.findUser = findUser
-exports.findList = findList
-exports.remove = remove
+// exports.signup = signup
+// exports.findUser = findUser
+// exports.findList = findList
+// exports.remove = removed
+
+module.exports = { signup, findUser, findList, remove: removed }

@@ -1,0 +1,39 @@
+<div class="modal fade" id="pos-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">添加职位</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="box box-primary">
+          <form id="positions-form" role="form">
+            <div class="box-body">
+              <div class="form-group">
+                <label for="company-logo">公司名称</label>
+                <input type="text" name="company-logo" class="form-control" id="company-logo" placeholder="请输入公司名称">
+              </div>
+              <div class="form-group">
+                <label for="position-name">职位名称</label>
+                <input type="text" name="position-name" class="form-control" id="position-name" placeholder="请输入职位名称">
+              </div>
+              <div class="form-group">
+                <label for="city">城市</label>
+                <input type="text" name="city" class="form-control" id="city" placeholder="请输入城市">
+              </div>
+              <div class="form-group">
+                <label for="salary">职位薪资</label>
+                <input type="text" name="salary" class="form-control" id="salary" placeholder="请输入职位薪资">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" id="positions-close" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary" id="positions-save">保存</button>
+      </div>
+    </div>
+  </div>
+</div>

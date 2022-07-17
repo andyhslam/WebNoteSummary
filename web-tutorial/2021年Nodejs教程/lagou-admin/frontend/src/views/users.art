@@ -1,6 +1,6 @@
 <div id="users-list-box" class="box">
   <div class="box-header">
-    <button id="add-user-btn" class="btn btn-primary" data-toggle="modal" data-target="#myModal">添加</button>
+    <button id="add-user-btn" class="btn btn-primary" data-toggle="modal" data-target="#user-modal">添加</button>
   </div>
   <div class="box-body">
     <table class="table table-bordered">

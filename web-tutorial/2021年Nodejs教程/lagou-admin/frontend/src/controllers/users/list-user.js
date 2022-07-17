@@ -82,8 +82,8 @@ const _subscribe = () => {
 	})
 }
 
-const index = (router) => {
-	const loadIndex = (res, next) => {
+const listUser = (router) => {
+	const loadListUser = (res, next) => {
 		// 填充用户列表
 		// $("#users").html(usersHtml)
 		next()
@@ -103,11 +103,11 @@ const index = (router) => {
 	return async (req, res, next) => {
 		const result = await authModel()
 		if (result.ret) {
-			loadIndex(res, next)
+			loadListUser(res, next)
 		} else {
 			router.go("/signin")
 		}
 	}
 }
 
-export default index
+export default listUser
