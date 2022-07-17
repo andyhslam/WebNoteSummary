@@ -7,12 +7,22 @@ mongoose.connect("mongodb://localhost/lagou-admin", {
 const db = mongoose.connection
 db.on("error", console.error.bind(console, "connection error:"))
 
-// 构建users的schema
+// 构建users的model
 const usersSchema = mongoose.Schema({
 	username: String,
 	password: String,
 })
 const Users = mongoose.model("users", usersSchema)
 
+// 构建positions的model
+const positionsSchema = mongoose.Schema({
+	companyName: String,
+	positionName: String,
+	city: String,
+	createTime: String,
+	salary: String,
+})
+const Positions = mongoose.model("positions", positionsSchema)
+
 // 暴露model(Mongoose的model相当于MongoDB的集合)
-exports.Users = Users
+module.exports = { Users, Positions }
