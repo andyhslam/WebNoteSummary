@@ -1,11 +1,21 @@
 class Page {
 	constructor() {
 		this.curPage = 1
-		this.pageSize = 2
+		this.pageSize = 3
+		this.curRoute = "#/index/users"
+	}
+
+	reset() {
+		this.curPage = 1
+		this.pageSize = 3
 	}
 
 	setCurPage(curPage) {
 		this.curPage = curPage
+	}
+
+	setCurRoute(route) {
+		this.curRoute = route
 	}
 }
 

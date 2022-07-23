@@ -19,8 +19,8 @@ const positionsSchema = mongoose.Schema({
 	companyName: String,
 	positionName: String,
 	city: String,
-	createTime: String,
 	salary: String,
+	createTime: String,
 })
 const Positions = mongoose.model("positions", positionsSchema)
 

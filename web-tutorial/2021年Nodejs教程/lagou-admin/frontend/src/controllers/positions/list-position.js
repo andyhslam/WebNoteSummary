@@ -14,7 +14,6 @@ export default (router) => {
 			res.render(positionsTpl())
 
 			const list = await positionsList()
-			console.log(list)
 
 			// 渲染list
 			$("#positions-list").html(

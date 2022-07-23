@@ -1,6 +1,8 @@
 import indexTpl from "../views/index.art"
 import { auth as authModel } from "../models/auth.js"
 import pageHeader from "../components/page-header.js"
+import page from "../bus/page.js"
+
 import userImage1 from "../assets/img/user1.jpg"
 import userImage2 from "../assets/img/user2.jpg"
 import userImage3 from "../assets/img/user3.jpg"
@@ -46,6 +48,13 @@ const index = (router) => {
 				.addClass("active")
 				.siblings()
 				.removeClass("active")
+
+			// 如果不等就重置page对象
+			if (hash !== page.curRoute) {
+				page.reset()
+			}
+			// 保存当前路由
+			page.setCurRoute(hash)
 		} else {
 			router.go("/signin")
 		}
