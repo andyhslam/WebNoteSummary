@@ -1,9 +1,9 @@
 import http from "../utils/http.js"
 
-export const usersRemove = async (id) => {
+export const remove = async ({ url, id }) => {
 	try {
 		const { result } = await http({
-			url: "/api/users/remove",
+			url,
 			type: "delete",
 			data: { id },
 		})

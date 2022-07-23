@@ -1,12 +1,11 @@
 import positionsTpl from "../../views/positions.art"
-import positionsAddTpl from "../../views/positions-add.art"
 import positionsListTpl from "../../views/positions-list.art"
 
 import page from "../../bus/page.js"
 import { pagination } from "../../components/pagination.js"
 import { auth as authModel } from "../../models/auth.js"
 import { positionsList as positionsListModel } from "../../models/positions-list.js"
-import { positionsAdd } from "../../models/positions-add.js"
+import { addPosition } from "./add-position.js"
 
 const pageSize = page.pageSize
 let positionsList = []
@@ -36,12 +35,14 @@ const _subscribe = () => {
 		.on("changeCurPage", (e, pageIndex) => {
 			_list(pageIndex)
 		})
-	// $("body").on("addUser", () => {
-	// 	_loadData()
-	// })
+	$("body")
+		.off("addPosition")
+		.on("addPosition", () => {
+			_loadData()
+		})
 }
 
-export default (router) => {
+const listPositions = (router) => {
 	return async (req, res, next) => {
 		const result = await authModel()
 		if (result.ret) {
@@ -54,17 +55,12 @@ export default (router) => {
 			// 订阅事件
 			_subscribe()
 
-			// 职位添加
-			$("#positions-list-box").after(positionsAddTpl())
-			$("#positions-save")
-				.off("click")
-				.on("click", async () => {
-					const formData = $("#positions-form").serialize()
-					const result = await positionsAdd(formData)
-					$("#positions-close").click()
-				})
+			// 通过模态框添加职位，不是通过点击添加的
+			addPosition()
 		} else {
 			router.go("/signin")
 		}
 	}
 }
+
+export default listPositions

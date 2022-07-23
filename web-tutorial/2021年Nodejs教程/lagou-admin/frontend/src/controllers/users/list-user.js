@@ -7,7 +7,7 @@ import { addUser } from "./add-user.js"
 import { pagination } from "../../components/pagination.js"
 import { auth as authModel } from "../../models/auth.js"
 import { usersList as usersListModel } from "../../models/users-list.js"
-import { usersRemove as usersRemoveModel } from "../../models/users-remove.js"
+import { remove } from "../common/index.js"
 
 const usersHtml = usersTpl()
 const pageSize = page.pageSize
@@ -33,46 +33,6 @@ const _loadData = async () => {
 	_list(page.curPage)
 }
 
-// 绑定事件的方法
-const _methods = () => {
-	// 绑定删除事件，绑定代理
-	$("#users-list").on("click", ".remove", async function () {
-		// 坑：箭头函数的this，其作用域指向会变；普通函数能保证this的作用域指向正确
-		const result = await usersRemoveModel($(this).data("id"))
-		if (result.ret) {
-			await _loadData()
-			const uls = userList.length
-			const isLastPage = Math.ceil(uls / pageSize) === page.curPage
-			const isLastOne = uls % pageSize === 1
-			if (uls === 1) {
-				page.setCurPage(1)
-			} else if (isLastPage && isLastOne && page.curPage > 0) {
-				page.setCurPage(page.curPage - 1)
-			}
-		}
-	})
-
-	// 绑定登出事件
-	$("#users-signout").on("click", (e) => {
-		e.preventDefault()
-		// token登出方案
-		localStorage.setItem("lg-token", "")
-		location.reload()
-
-		// cookie-session登出方案
-		// $.ajax({
-		// 	url: "/api/users/signout",
-		// 	type: "get",
-		// 	dataType: "json",
-		// 	success(result) {
-		// 		if (result.ret) {
-		// 			location.reload()
-		// 		}
-		// 	},
-		// })
-	})
-}
-
 const _subscribe = () => {
 	$("body").on("changeCurPage", (e, pageIndex) => {
 		_list(pageIndex)
@@ -85,15 +45,22 @@ const _subscribe = () => {
 const listUser = (router) => {
 	const loadListUser = (res, next) => {
 		// 填充用户列表
-		// $("#users").html(usersHtml)
 		next()
 		res.render(usersHtml)
+
+		// 点击添加用户
 		$("#add-user-btn").on("click", addUser)
+
 		// 初次渲染数据
 		_loadData()
 
-		// 绑定页面事件
-		_methods()
+		// 删除用户
+		remove({
+			$box: $("#users-list"),
+			dataList: userList,
+			url: "/api/users/remove",
+			loadData: _loadData,
+		})
 
 		// 订阅事件
 		_subscribe()

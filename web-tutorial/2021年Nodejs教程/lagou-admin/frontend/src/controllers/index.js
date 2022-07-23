@@ -55,6 +55,28 @@ const index = (router) => {
 			}
 			// 保存当前路由
 			page.setCurRoute(hash)
+
+			// 绑定登出事件
+			$("#users-signout")
+				.off("click")
+				.on("click", (e) => {
+					e.preventDefault()
+					// token登出方案
+					localStorage.setItem("lg-token", "")
+					location.reload()
+
+					// cookie-session登出方案
+					// $.ajax({
+					// 	url: "/api/users/signout",
+					// 	type: "get",
+					// 	dataType: "json",
+					// 	success(result) {
+					// 		if (result.ret) {
+					// 			location.reload()
+					// 		}
+					// 	},
+					// })
+				})
 		} else {
 			router.go("/signin")
 		}

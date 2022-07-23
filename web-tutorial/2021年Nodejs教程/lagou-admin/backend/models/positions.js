@@ -8,5 +8,5 @@ exports.add = (data) => {
 }
 
 exports.list = () => {
-	return Positions.find({})
+	return Positions.find({}).sort({ _id: -1 })
 }
