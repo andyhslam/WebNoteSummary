@@ -11,14 +11,16 @@ import { remove } from "../common/index.js"
 
 const usersHtml = usersTpl()
 const pageSize = page.pageSize
-let userList = []
+let state = {
+	list: [],
+}
 
 // 装填list数据
 const _list = (pageNo) => {
 	let start = (pageNo - 1) * pageSize
 	$("#users-list").html(
 		usersListTpl({
-			data: userList.slice(start, start + pageSize),
+			data: state.list.slice(start, start + pageSize),
 		})
 	)
 }
@@ -26,9 +28,10 @@ const _list = (pageNo) => {
 // 加载用户数据
 const _loadData = async () => {
 	const result = await usersListModel()
-	userList = result.data
+	// 要用原来的引用
+	state.list = result.data
 	// 分页
-	pagination(userList)
+	pagination(result.data)
 	// 用户列表渲染
 	_list(page.curPage)
 }
@@ -43,7 +46,7 @@ const _subscribe = () => {
 }
 
 const listUser = (router) => {
-	const loadListUser = (res, next) => {
+	const loadListUser = async (res, next) => {
 		// 填充用户列表
 		next()
 		res.render(usersHtml)
@@ -52,12 +55,12 @@ const listUser = (router) => {
 		$("#add-user-btn").on("click", addUser)
 
 		// 初次渲染数据
-		_loadData()
+		await _loadData()
 
 		// 删除用户
 		remove({
 			$box: $("#users-list"),
-			dataList: userList,
+			state, // 传递一个引用类型的值state，在删除组件能实时获取数据条数
 			url: "/api/users/remove",
 			loadData: _loadData,
 		})
