@@ -10,3 +10,8 @@ exports.add = (data) => {
 exports.list = () => {
 	return Positions.find({}).sort({ _id: -1 })
 }
+
+exports.remove = (id) => {
+	// return Positions.findByIdAndRemove(id)
+	return Positions.deleteOne({ _id: id })
+}

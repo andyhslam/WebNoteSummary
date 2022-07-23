@@ -35,3 +35,34 @@ exports.list = async (req, res, next) => {
 		})
 	}
 }
+
+// 删除职位
+exports.remove = async (req, res, next) => {
+	res.set("Content-Type", "application/json; charset=utf-8")
+	// 使用delete方法(类似post方法)，从body里面拿到id
+	const { id } = req.body
+	// 没有await就不会运行
+	const result = await positionsModel.remove(id)
+	console.log("result", result)
+	try {
+		if (result.deletedCount > 0) {
+			res.render("success", {
+				succData: JSON.stringify({
+					message: "职位删除成功！",
+				}),
+			})
+		} else {
+			res.render("fail", {
+				failData: JSON.stringify({
+					message: "ID错误，职位删除失败。",
+				}),
+			})
+		}
+	} catch (err) {
+		res.render("fail", {
+			failData: JSON.stringify({
+				message: "数据库操作发生错误，职位删除失败。",
+			}),
+		})
+	}
+}

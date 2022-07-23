@@ -8,8 +8,8 @@ var cookieSession = require("cookie-session")
 var app = express()
 
 // const indexRouter = require('./routes/index');
-const usersRouter = require("./routes/users")
-const positionsRouter = require("./routes/positions")
+const usersRouter = require("./routes/users.js")
+const positionsRouter = require("./routes/positions.js")
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"))
