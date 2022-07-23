@@ -4,6 +4,7 @@ import positionsListTpl from "../../views/positions-list.art"
 
 import { pagination } from "../../components/pagination.js"
 import { auth as authModel } from "../../models/auth.js"
+import { positionsList } from "../../models/positions-list.js"
 
 export default (router) => {
 	return async (req, res, next) => {
@@ -12,15 +13,18 @@ export default (router) => {
 			next()
 			res.render(positionsTpl())
 
+			const list = await positionsList()
+			console.log(list)
+
 			// 渲染list
 			$("#positions-list").html(
 				positionsListTpl({
-					data: [1, 2, 3],
+					data: list,
 				})
 			)
 
 			// 分页
-			pagination([1, 2, 3])
+			pagination(list)
 
 			// 职位添加
 			$("#positions-list-box").after(positionsAddTpl())

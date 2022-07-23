@@ -6,3 +6,7 @@ exports.add = (data) => {
 	// 把数据保存到集合里；返回promise，是个异步函数
 	return position.save()
 }
+
+exports.list = () => {
+	return Positions.find({})
+}
