@@ -6,26 +6,29 @@ import { pagination } from "../../components/pagination.js"
 import { auth as authModel } from "../../models/auth.js"
 import { positionsList as positionsListModel } from "../../models/positions-list.js"
 import { addPosition } from "./add-position.js"
+import { remove } from "../common/index.js"
 
 const pageSize = page.pageSize
-let positionsList = []
+let state = {
+	list: [],
+}
 
 // 渲染list
 const _list = (pageNo) => {
 	let start = (pageNo - 1) * pageSize
 	$("#positions-list").html(
 		positionsListTpl({
-			data: positionsList.slice(start, start + pageSize),
+			data: state.list.slice(start, start + pageSize),
 		})
 	)
 }
 
 // 加载用户数据
 const _loadData = async () => {
-	positionsList = await positionsListModel()
+	state.list = await positionsListModel()
 	// 分页
-	pagination(positionsList)
-	// 用户列表渲染
+	pagination(state.list)
+	// 职位列表渲染
 	_list(page.curPage)
 }
 
@@ -57,6 +60,14 @@ const listPositions = (router) => {
 
 			// 通过模态框添加职位，不是通过点击添加的
 			addPosition()
+
+			// 删除职位
+			remove({
+				$box: $("#positions-list"),
+				state, // 传递一个引用类型的值state，在删除组件能实时获取数据条数
+				url: "/api/positions/remove",
+				loadData: _loadData,
+			})
 		} else {
 			router.go("/signin")
 		}
