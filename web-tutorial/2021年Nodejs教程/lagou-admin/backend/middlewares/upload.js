@@ -9,7 +9,7 @@ const storage = multer.diskStorage({
 		cb(null, path.join(__dirname, "../public/uploads"))
 	},
 	filename: function (req, file, cb) {
-		let ext = mime.getExtension(file.mimetype)
+		const ext = mime.getExtension(file.mimetype)
 		filename = file.fieldname + "-" + Date.now() + "." + ext
 		cb(null, filename)
 	},
@@ -17,8 +17,46 @@ const storage = multer.diskStorage({
 
 const limits = {
 	fileSize: 200 * 1024,
-	files: 2,
+	files: 1,
 }
 
-const upload = multer({ storage, limits })
-module.exports = upload
+function fileFilter(req, file, cb) {
+	/**
+	 * 这个函数应该调用 `cb` 用boolean值来指示是否接受该文件
+	 * 拒绝这个文件，使用`false`， cb(null, false)
+	 * 接受这个文件，使用`true`， cb(null, true)
+	 */
+
+	const acceptType = ["png", "jpg", "jpeg", "gif"]
+	const fileExt = mime.getExtension(file.mimetype)
+	if (!acceptType.includes(fileExt)) {
+		// 如果有问题，发送一个错误:
+		cb(new Error("不支持该文件类型!"))
+	} else {
+		cb(null, true)
+	}
+}
+
+const upload = multer({ storage, limits, fileFilter }).single("companyLogo")
+
+const uploadMiddleware = (req, res, next) => {
+	upload(req, res, function (err) {
+		if (err instanceof multer.MulterError) {
+			res.render("fail", {
+				failData: JSON.stringify({
+					message: "文件过大。",
+				}),
+			})
+		} else if (err) {
+			res.render("fail", {
+				failData: JSON.stringify({
+					message: err.message,
+				}),
+			})
+		} else {
+			next()
+		}
+	})
+}
+
+module.exports = uploadMiddleware
