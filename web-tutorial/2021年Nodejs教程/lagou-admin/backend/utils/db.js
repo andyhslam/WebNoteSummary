@@ -16,6 +16,7 @@ const Users = mongoose.model("users", usersSchema)
 
 // 构建positions的model
 const positionsSchema = mongoose.Schema({
+	companyLogo: String,
 	companyName: String,
 	positionName: String,
 	city: String,
