@@ -8,15 +8,17 @@ export const addPosition = () => {
 	// 在id为positions-list-box的元素后面，添加模板
 	$("#positions-list-box").after(positionsAddHtml)
 	const _save = async () => {
-		// 提交表单；serialize：序列化表格内容为字符串，用于Ajax请求。
-		const formData = $("#positions-form").serialize()
-		const result = await positionsAddModel(formData)
-		if (result.ret) {
-			page.setCurPage(1)
-			// 告知list页面要重新渲染
-			$("body").trigger("addPosition")
-			// 单击关闭模态框
-			$("#positions-close").click()
+		try {
+			const result = await positionsAddModel()
+			if (result.ret) {
+				page.setCurPage(1)
+				// 告知list页面要重新渲染
+				$("body").trigger("addPosition")
+				// 单击关闭模态框
+				$("#positions-close").click()
+			}
+		} catch (err) {
+			throw error(err.message)
 		}
 	}
 
