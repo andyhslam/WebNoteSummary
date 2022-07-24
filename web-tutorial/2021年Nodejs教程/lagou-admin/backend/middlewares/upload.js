@@ -54,6 +54,7 @@ const uploadMiddleware = (req, res, next) => {
 				}),
 			})
 		} else {
+			req.companyLogo = filename
 			next()
 		}
 	})

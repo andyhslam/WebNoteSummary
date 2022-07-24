@@ -5,6 +5,7 @@ exports.add = async (req, res, next) => {
 	res.set("Content-Type", "application/json; charset=utf-8")
 	const result = await positionsModel.add({
 		...req.body,
+		companyLogo: req.companyLogo,
 		createTime: moment().format("YYYY年MM月DD日, HH:mm:ss a"),
 	})
 	if (result) {
