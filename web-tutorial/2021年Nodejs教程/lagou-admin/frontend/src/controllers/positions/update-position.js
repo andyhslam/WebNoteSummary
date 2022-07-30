@@ -1,10 +1,9 @@
 import positionsUpdateTpl from "../../views/positions-update.art"
 import positionsUpdateFormTpl from "../../views/positions-update-form.art"
 import http from "../../utils/http.js"
-import page from "../../bus/page.js"
 import { positionsUpdate as positionsUpdateModel } from "../../models/positions-update.js"
 
-// 添加职位
+// 编辑职位，只渲染模板
 export const updatePosition = () => {
 	const positionsUpdateHtml = positionsUpdateTpl()
 	// 在id为positions-list-box的元素后面，添加模板
@@ -13,10 +12,8 @@ export const updatePosition = () => {
 		try {
 			const result = await positionsUpdateModel()
 			if (result.ret) {
-				// 添加数据后渲染
-				page.setCurPage(1)
 				// 告知list页面要重新渲染
-				$("body").trigger("addPosition")
+				$("body").trigger("updatePosition")
 			}
 			// 单击关闭模态框
 			$("#positions-update-close").click()
@@ -29,6 +26,7 @@ export const updatePosition = () => {
 	$("#positions-update-save").off("click").on("click", _save)
 }
 
+// 编辑职位，加载数据
 export const fillPositionsUpdateTpl = async (id) => {
 	const { result } = await http({
 		url: "/api/positions/listone",

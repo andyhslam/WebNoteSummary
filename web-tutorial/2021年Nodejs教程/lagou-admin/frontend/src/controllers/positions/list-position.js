@@ -44,6 +44,11 @@ const _subscribe = () => {
 		.on("addPosition", () => {
 			_loadData()
 		})
+	$("body")
+		.off("updatePosition")
+		.on("updatePosition", () => {
+			_loadData()
+		})
 }
 
 const listPositions = (router) => {
@@ -69,8 +74,11 @@ const listPositions = (router) => {
 				url: "/api/positions/remove",
 				loadData: _loadData,
 			})
+
+			// 编辑职位，只渲染模板
 			updatePosition()
-			// 编辑职位
+
+			// 编辑职位，加载数据
 			$("#positions-list")
 				.off("click", ".update")
 				.on("click", ".update", function () {

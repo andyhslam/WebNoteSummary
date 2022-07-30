@@ -3,15 +3,13 @@ const path = require("path")
 const multer = require("multer")
 const mime = require("mime")
 
-let filename = ""
-
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
 		cb(null, path.join(__dirname, "../public/uploads"))
 	},
 	filename: function (req, file, cb) {
 		const ext = mime.getExtension(file.mimetype)
-		filename = file.fieldname + "-" + Date.now() + "." + ext
+		const filename = file.fieldname + "-" + Date.now() + "." + ext
 		cb(null, filename)
 	},
 })
@@ -60,7 +58,7 @@ const uploadMiddleware = (req, res, next) => {
 			 * 新加的字段companyLogo_old不是在model定义的，所以没有显示在数据库
 			 */
 			const { companyLogo_old } = req.body
-			if (filename !== "" && companyLogo_old) {
+			if (req.file && companyLogo_old) {
 				// 编辑状态修改图片
 				try {
 					fs.unlinkSync(
@@ -69,16 +67,16 @@ const uploadMiddleware = (req, res, next) => {
 							`../public/uploads/${companyLogo_old}`
 						)
 					)
-					req.companyLogo = filename
+					req.companyLogo = req.file.filename
 				} catch (err) {
 					console.log(err)
 				}
-			} else if (filename === "" && companyLogo_old) {
+			} else if (!req.file && companyLogo_old) {
 				// 编辑状态不改图片
 				req.companyLogo = companyLogo_old
 			} else {
-				// companyLogo_old为空的情况
-				req.companyLogo = filename
+				// filename有值，companyLogo_old为空的情况
+				req.companyLogo = req.file.filename
 			}
 			next()
 		}
