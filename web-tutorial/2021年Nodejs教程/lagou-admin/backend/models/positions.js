@@ -11,6 +11,10 @@ exports.list = () => {
 	return Positions.find({}).sort({ _id: -1 })
 }
 
+exports.listone = (id) => {
+	return Positions.findOne({ _id: id })
+}
+
 exports.remove = (id) => {
 	// return Positions.findByIdAndRemove(id)
 	return Positions.deleteOne({ _id: id })

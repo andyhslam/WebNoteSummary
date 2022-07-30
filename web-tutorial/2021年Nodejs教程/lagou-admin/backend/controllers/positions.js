@@ -37,6 +37,20 @@ exports.list = async (req, res, next) => {
 	}
 }
 
+exports.listone = async (req, res, next) => {
+	const result = await positionsModel.listone(req.body.id)
+	if (result) {
+		// res.json不需要加上res.set()
+		res.json(result)
+	} else {
+		res.render("fail", {
+			failData: JSON.stringify({
+				message: "获取数据失败。",
+			}),
+		})
+	}
+}
+
 // 删除职位
 exports.remove = async (req, res, next) => {
 	res.set("Content-Type", "application/json; charset=utf-8")

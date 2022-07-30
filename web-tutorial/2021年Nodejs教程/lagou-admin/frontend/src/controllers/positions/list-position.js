@@ -62,9 +62,6 @@ const listPositions = (router) => {
 			// 通过模态框添加职位，不是通过点击添加的
 			addPosition()
 
-			// 编辑职位
-			updatePosition()
-
 			// 删除职位
 			remove({
 				$box: $("#positions-list"),
@@ -72,6 +69,13 @@ const listPositions = (router) => {
 				url: "/api/positions/remove",
 				loadData: _loadData,
 			})
+
+			// 编辑职位
+			$("#positions-list")
+				.off("click")
+				.on("click", ".update", function () {
+					updatePosition($(this).data("id"))
+				})
 		} else {
 			router.go("/signin")
 		}

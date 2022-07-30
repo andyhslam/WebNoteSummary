@@ -1,10 +1,18 @@
 import positionsUpdateTpl from "../../views/positions-update.art"
+import http from "../../utils/http.js"
 import page from "../../bus/page.js"
 import { positionsAdd as positionsAddModel } from "../../models/positions-add.js"
 
 // 添加职位
-export const updatePosition = () => {
-	const positionsUpdateHtml = positionsUpdateTpl()
+export const updatePosition = async (id) => {
+	const { result } = await http({
+		url: "/api/positions/listone",
+		type: "post",
+		data: { id },
+	})
+	const positionsUpdateHtml = positionsUpdateTpl({
+		data: { ...result },
+	})
 	// 在id为positions-list-box的元素后面，添加模板
 	$("#positions-list-box").after(positionsUpdateHtml)
 	const _save = async () => {
@@ -17,12 +25,12 @@ export const updatePosition = () => {
 			// 	$("body").trigger("addPosition")
 			// }
 			// 单击关闭模态框
-			$("#positions-update-close").click()
+			// $("#positions-update-close").click()
 		} catch (err) {
 			throw error(err.message)
 		}
 	}
 
 	// 点击保存，提交表单
-	$("#positions-update-save").off("click").on("click", _save)
+	$("#positions-save").off("click").on("click", _save)
 }
