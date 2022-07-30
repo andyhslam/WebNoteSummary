@@ -44,7 +44,6 @@ exports.remove = async (req, res, next) => {
 	const { id } = req.body
 	// 没有await就不会运行
 	const result = await positionsModel.remove(id)
-	console.log("result", result)
 	try {
 		if (result.deletedCount > 0) {
 			res.render("success", {
@@ -63,6 +62,29 @@ exports.remove = async (req, res, next) => {
 		res.render("fail", {
 			failData: JSON.stringify({
 				message: "数据库操作发生错误，职位删除失败。",
+			}),
+		})
+	}
+}
+
+// 编辑职位
+exports.update = async (req, res, next) => {
+	res.set("Content-Type", "application/json; charset=utf-8")
+	const data = { ...req.body }
+	if (req.companyLogo) {
+		data["companyLogo"] = req.companyLogo
+	}
+	const result = await positionsModel.update(data)
+	if (result) {
+		res.render("success", {
+			succData: JSON.stringify({
+				message: "职位编辑成功！",
+			}),
+		})
+	} else {
+		res.render("fail", {
+			failData: JSON.stringify({
+				message: "职位编辑失败。",
 			}),
 		})
 	}
