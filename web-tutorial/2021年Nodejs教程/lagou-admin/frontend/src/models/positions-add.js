@@ -32,6 +32,6 @@ export const positionsAdd = () => {
 			resetForm: true, //成功提交后，是否重置所有表单元素的值
 			timeout: 3000, //限制请求的时间，当请求大于3秒后，跳出请求
 		}
-		$("#positions-form").ajaxSubmit(options)
+		$("#positions-add-form").ajaxSubmit(options)
 	})
 }

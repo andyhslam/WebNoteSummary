@@ -11,17 +11,18 @@ export const addPosition = () => {
 		try {
 			const result = await positionsAddModel()
 			if (result.ret) {
+				// 添加数据后渲染
 				page.setCurPage(1)
 				// 告知list页面要重新渲染
 				$("body").trigger("addPosition")
-				// 单击关闭模态框
-				$("#positions-close").click()
 			}
+			// 单击关闭模态框
+			$("#positions-add-close").click()
 		} catch (err) {
 			throw error(err.message)
 		}
 	}
 
 	// 点击保存，提交表单
-	$("#positions-save").off("click").on("click", _save)
+	$("#positions-add-save").off("click").on("click", _save)
 }
