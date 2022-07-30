@@ -6,7 +6,7 @@ import { pagination } from "../../components/pagination.js"
 import { auth as authModel } from "../../models/auth.js"
 import { positionsList as positionsListModel } from "../../models/positions-list.js"
 import { addPosition } from "./add-position.js"
-import { updatePosition } from "./update-position.js"
+import { updatePosition, fillPositionsUpdateTpl } from "./update-position.js"
 import { remove } from "../common/index.js"
 
 const pageSize = page.pageSize
@@ -69,12 +69,12 @@ const listPositions = (router) => {
 				url: "/api/positions/remove",
 				loadData: _loadData,
 			})
-
+			updatePosition()
 			// 编辑职位
 			$("#positions-list")
 				.off("click")
 				.on("click", ".update", function () {
-					updatePosition($(this).data("id"))
+					fillPositionsUpdateTpl($(this).data("id"))
 				})
 		} else {
 			router.go("/signin")
