@@ -20,4 +20,6 @@
     <label for="salary">职位薪资</label>
     <input type="text" value="{{data.salary}}" name="salary" class="form-control" id="salary" placeholder="请输入职位薪资">
   </div>
+  <input type="hidden" value="{{data._id}}" name="id">
+  <input type="hidden" value="{{data.companyLogo}}" name="companyLogo_old">
 </div>

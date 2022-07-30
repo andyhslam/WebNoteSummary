@@ -72,7 +72,7 @@ const listPositions = (router) => {
 			updatePosition()
 			// 编辑职位
 			$("#positions-list")
-				.off("click")
+				.off("click", ".update")
 				.on("click", ".update", function () {
 					fillPositionsUpdateTpl($(this).data("id"))
 				})

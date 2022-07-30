@@ -24,5 +24,5 @@ export const addPosition = () => {
 	}
 
 	// 点击保存，提交表单
-	$("#positions-save").off("click").on("click", _save)
+	$("#positions-add-save").off("click").on("click", _save)
 }

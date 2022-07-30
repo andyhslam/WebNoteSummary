@@ -61,6 +61,7 @@ const uploadMiddleware = (req, res, next) => {
 			 */
 			const { companyLogo_old } = req.body
 			if (filename !== "" && companyLogo_old) {
+				// 编辑状态修改图片
 				try {
 					fs.unlinkSync(
 						path.join(
@@ -68,11 +69,17 @@ const uploadMiddleware = (req, res, next) => {
 							`../public/uploads/${companyLogo_old}`
 						)
 					)
+					req.companyLogo = filename
 				} catch (err) {
 					console.log(err)
 				}
+			} else if (filename === "" && companyLogo_old) {
+				// 编辑状态不改图片
+				req.companyLogo = companyLogo_old
+			} else {
+				// companyLogo_old为空的情况
+				req.companyLogo = filename
 			}
-			req.companyLogo = filename
 			next()
 		}
 	})
