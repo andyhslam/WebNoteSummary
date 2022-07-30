@@ -6,6 +6,7 @@ import { pagination } from "../../components/pagination.js"
 import { auth as authModel } from "../../models/auth.js"
 import { positionsList as positionsListModel } from "../../models/positions-list.js"
 import { addPosition } from "./add-position.js"
+import { updatePosition } from "./update-position.js"
 import { remove } from "../common/index.js"
 
 const pageSize = page.pageSize
@@ -60,6 +61,9 @@ const listPositions = (router) => {
 
 			// 通过模态框添加职位，不是通过点击添加的
 			addPosition()
+
+			// 编辑职位
+			updatePosition()
 
 			// 删除职位
 			remove({

@@ -1,3 +1,4 @@
+const fs = require("fs")
 const path = require("path")
 const multer = require("multer")
 const mime = require("mime")
@@ -54,8 +55,25 @@ const uploadMiddleware = (req, res, next) => {
 				}),
 			})
 		} else {
-			req.companyLogo = filename
-			next()
+			if (filename !== "") {
+				/**
+				 * 前端上传新的图片，就在后端把旧的图片删掉
+				 * 新加的字段companyLogo_old不是在model定义的，所以没有显示在数据库
+				 */
+				const { companyLogo_old } = req.body
+				try {
+					fs.unlinkSync(
+						path.join(
+							__dirname,
+							`../public/uploads/${companyLogo_old}`
+						)
+					)
+					req.companyLogo = filename
+				} catch (err) {
+					console.log(err)
+				}
+				next()
+			}
 		}
 	})
 }
