@@ -16,7 +16,7 @@ const server = http.createServer(async (req, res) => {
 	res.end()
 })
 
-// 在 8080 端口监听请求
+// 前端服务：在 8080 端口监听请求
 server.listen(8080, () => {
 	console.log("localhost:8080")
 })
