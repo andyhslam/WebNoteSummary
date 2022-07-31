@@ -19,7 +19,7 @@ export const addPosition = () => {
 			// 单击关闭模态框
 			$("#positions-add-close").click()
 		} catch (err) {
-			throw error(err.message)
+			throw Error(err.message)
 		}
 	}
 
