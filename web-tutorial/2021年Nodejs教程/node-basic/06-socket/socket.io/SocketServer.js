@@ -20,6 +20,6 @@ io.on("connection", (socket) => {
 	})
 })
 
-server.listen(3000, "192.168.43.64", () => {
-	console.log("listening on *:3000")
+server.listen(3001, "192.168.43.64", () => {
+	console.log("listening on *:3001")
 })

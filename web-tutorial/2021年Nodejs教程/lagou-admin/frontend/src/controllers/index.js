@@ -2,6 +2,7 @@ import indexTpl from "../views/index.art"
 import { auth as authModel } from "../models/auth.js"
 import pageHeader from "../components/page-header.js"
 import page from "../bus/page.js"
+// import { io } from "socket.io-client"
 
 import userImage1 from "../assets/img/user1.jpg"
 import userImage2 from "../assets/img/user2.jpg"
@@ -77,6 +78,13 @@ const index = (router) => {
 					// 	},
 					// })
 				})
+
+			// socket
+			const socket = io.connect("http://localhost:3000")
+			socket.on("message", function (msg) {
+				let num = ~~$("#icon-email").text() // 位运算符
+				$("#icon-email").text(++num)
+			})
 		} else {
 			router.go("/signin")
 		}

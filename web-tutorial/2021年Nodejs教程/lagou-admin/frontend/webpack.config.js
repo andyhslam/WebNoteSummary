@@ -82,6 +82,13 @@ module.exports = {
 			"/api": {
 				target: "http://localhost:3000",
 			},
+			// "/socket": {
+			// 	target: "http://localhost:3000",
+			// 	changeOrigin: true,
+			// 	pathRewrite: {
+			// 		"^/socket": "",
+			// 	},
+			// },
 		},
 	},
 }
