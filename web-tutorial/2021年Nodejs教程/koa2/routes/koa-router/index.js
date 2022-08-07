@@ -5,7 +5,7 @@ const router = new Router()
 
 // koa2的中间件全部都是异步函数
 router
-	.get("/", async (ctx, next) => {
+	.get("indexPage", "/", async (ctx, next) => {
 		ctx.body = "home"
 	})
 	.get(
@@ -24,9 +24,19 @@ router
 			return "下个中间件返值给上个中间件"
 		}
 	)
-	.get(["/admin/id", "/name/age"], async (ctx, next) => {
+	.get(["/name/ad", "/age/18"], async (ctx, next) => {
 		// 两个枚举值：数组里面写死的路径
+		// ctx.redirect("/")
+		ctx.redirect(router.url("user", { id: 100 }, { query: { limit: 3 } }))
 		ctx.body = ctx.url
+	})
+	.get("/cup/:size", (ctx, next) => {
+		console.log("size2", ctx.params.size)
+		ctx.body = ctx.params.size
+	})
+	.param("size", (size, ctx, next) => {
+		console.log("size1", size)
+		next()
 	})
 	.use("/users", users.routes(), users.allowedMethods())
 // 通过users这条路由去引出其它的子路由
