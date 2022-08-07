@@ -10,6 +10,12 @@ router.get("user", "/login/:id", async (ctx, next) => {
 	ctx.status = 301
 })
 
+router.get("/list", async (ctx, next) => {
+	const query = ctx.request.query
+	const querystring = ctx.request.querystring
+	ctx.body = querystring
+})
+
 router.post("/signin", async (ctx, next) => {
 	const result = await parsePostData(ctx)
 	// 浏览器v8引擎的搜索环境有URLSearchParams方法，定义在window全局对象

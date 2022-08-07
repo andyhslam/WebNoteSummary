@@ -1,5 +1,6 @@
 const Router = require("@koa/router")
 const users = require("./users.js")
+const products = require("./products.js")
 
 const router = new Router()
 
@@ -39,6 +40,7 @@ router
 		next()
 	})
 	.use("/users", users.routes(), users.allowedMethods())
+	.use("/products", products.routes(), products.allowedMethods())
 // 通过users这条路由去引出其它的子路由
 
 module.exports = router
