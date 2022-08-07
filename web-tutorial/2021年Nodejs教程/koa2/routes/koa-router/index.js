@@ -1,4 +1,5 @@
 const Router = require("@koa/router")
+const users = require("./users.js")
 
 const router = new Router()
 
@@ -20,9 +21,14 @@ router
 			console.log(result)
 		},
 		(ctx, next) => {
-			console.log("000")
-			return 101
+			return "下个中间件返值给上个中间件"
 		}
 	)
+	.get(["/admin/id", "/name/age"], async (ctx, next) => {
+		// 两个枚举值：数组里面写死的路径
+		ctx.body = ctx.url
+	})
+	.use("/users", users.routes(), users.allowedMethods())
+// 通过users这条路由去引出其它的子路由
 
 module.exports = router
