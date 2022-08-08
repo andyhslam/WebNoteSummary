@@ -7,8 +7,9 @@ const router = require("./routes/koa-router/index.js")
 
 const render = views(__dirname + "/views", {
 	// ejs是默认的解析引擎，在这里加上扩展名，等到真正渲染时就不用加了
-	// extension: "ejs",
+	extension: "ejs",
 	map: {
+		htm: "ejs", // 扩展名为htm的文件，使用ejs模板引擎去解析
 		html: "ejs", // 扩展名为html的文件，使用ejs模板引擎去解析
 	},
 })
