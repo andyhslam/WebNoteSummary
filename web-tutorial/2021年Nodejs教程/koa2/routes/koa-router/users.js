@@ -1,7 +1,8 @@
 const Router = require("@koa/router")
+const { query } = require("../../utils/async-db.js")
 
 const router = new Router({
-	prefix: "/admin",
+	prefix: "/lyf",
 })
 // 还可以继续引入一个路由，再通过use()定义子路由，实现嵌套路由
 // user：命名路由
@@ -11,9 +12,18 @@ router.get("user", "/login/:id", async (ctx, next) => {
 })
 
 router.get("/list", async (ctx, next) => {
-	const query = ctx.request.query
-	const querystring = ctx.request.querystring
-	ctx.body = querystring
+	// const query = ctx.request.query
+	// const querystring = ctx.request.querystring
+	// ctx.body = querystring
+	const result = await query("select * from users where id=?", [2])
+	ctx.body = result
+})
+
+router.post("/signup", async (ctx, next) => {
+	const body = ctx.request.body
+	// sql语句的？是为了防止sql注入
+	const result = await query("insert into users set ?", body)
+	ctx.body = result
 })
 
 router.post("/signin", async (ctx, next) => {
