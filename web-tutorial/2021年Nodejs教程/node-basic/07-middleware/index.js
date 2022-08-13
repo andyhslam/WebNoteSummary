@@ -1,4 +1,4 @@
-// express中间件
+// express同步中间件的实现原理
 const middleware1 = (req, res, next) => {
 	console.log("middleware1 start")
 	next()

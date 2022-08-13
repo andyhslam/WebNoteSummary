@@ -39,8 +39,26 @@ router
 		console.log("size1", size)
 		next()
 	})
-	.use("/users", users.routes(), users.allowedMethods())
+	.use("/users", users.routes(), users.allowedMethods()) // 通过users这条路由去引出其它的子路由
 	.use("/products", products.routes(), products.allowedMethods())
-// 通过users这条路由去引出其它的子路由
+	.get(
+		// koa异步中间件的实现原理
+		"/verify/order",
+		async (ctx, next) => {
+			console.log("m1 start")
+			await next()
+			console.log("m1 end")
+		},
+		async (ctx, next) => {
+			console.log("m2 start")
+			await next()
+			console.log("m2 end")
+		},
+		async (ctx, next) => {
+			console.log("m3 start")
+			await next()
+			console.log("m3 end")
+		}
+	)
 
 module.exports = router
