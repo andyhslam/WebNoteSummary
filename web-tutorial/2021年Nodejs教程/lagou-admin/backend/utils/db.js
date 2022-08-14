@@ -13,6 +13,7 @@ const usersSchema = mongoose.Schema({
 	username: String,
 	password: String,
 })
+// users表示数据表名称或者集合名称
 const Users = mongoose.model("users", usersSchema)
 
 // 构建positions的model
@@ -24,6 +25,7 @@ const positionsSchema = mongoose.Schema({
 	salary: String,
 	createTime: String,
 })
+// positions表示数据表名称或者集合名称
 const Positions = mongoose.model("positions", positionsSchema)
 
 // 暴露model(Mongoose的model相当于MongoDB的集合)
