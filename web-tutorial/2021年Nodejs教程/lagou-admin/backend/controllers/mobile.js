@@ -6,7 +6,7 @@ exports.positions = async (req, res, next) => {
 	const { start, pageSize } = req.query
 	const result = await mobileModel.positions(~~start, ~~pageSize)
 	if (result && result.length) {
-		// res.json不需要加上res.set()
+		// res.json不需要加上res.set()；json是前后端交互的基本数据格式
 		res.json(result)
 	} else {
 		res.render("fail", {
