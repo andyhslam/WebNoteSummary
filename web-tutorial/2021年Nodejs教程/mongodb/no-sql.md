@@ -82,3 +82,9 @@
 -   db.FeyWong.find({$or: [{songTitle : "Monsoon"}, {albumName : "Everything"}]}) or 与查询
 -   db.FeyWong.findOne(); db.FeyWong.find().limit(1) 查询第 1 条数据
 -   db.FeyWong.find().count() 查询某个结果集的记录条数
+
+db.getCollection("items").find({}).map(doc => {
+    doc.icon=doc.icon ? doc.icon.replace('localhost:3000', 'test.andy-topfullstack.site') : null
+    db.items.save(doc)
+    return doc
+})
