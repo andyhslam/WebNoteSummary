@@ -1,5 +1,6 @@
 import React from "react"
 
+// 箭头函数写法
 class Test extends React.Component {
 	// 事件回调函数
 	handler() {

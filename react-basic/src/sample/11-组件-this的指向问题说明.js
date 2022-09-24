@@ -1,5 +1,6 @@
 import React from "react"
 
+// constructor中通过bind强行绑定this
 class Test extends React.Component {
 	// 构造函数做初始化
 	constructor() {
