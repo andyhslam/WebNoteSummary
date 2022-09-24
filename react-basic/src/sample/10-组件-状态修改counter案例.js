@@ -15,7 +15,6 @@ class Counter extends React.Component {
 		})
 	}
 	render() {
-		// 2.使用状态
 		return (
 			<button onClick={this.changeCount}>{this.state.count}click</button>
 		)
