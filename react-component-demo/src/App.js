@@ -87,6 +87,38 @@ class App extends React.Component {
 			list: this.state.list.filter((v) => v.id !== id),
 		})
 	}
+	// 切换喜欢的回调函数
+	toggleLike = (curItem) => {
+		const { attitude, id } = curItem
+		this.setState({
+			list: this.state.list.map((item) => {
+				if (item.id === id) {
+					return {
+						...item,
+						attitude: attitude === 1 ? 0 : 1,
+					}
+				} else {
+					return item
+				}
+			}),
+		})
+	}
+	// 切换讨厌的回调函数
+	toggleHate = (curItem) => {
+		const { attitude, id } = curItem
+		this.setState({
+			list: this.state.list.map((item) => {
+				if (item.id === id) {
+					return {
+						...item,
+						attitude: attitude === -1 ? 0 : -1,
+					}
+				} else {
+					return item
+				}
+			}),
+		})
+	}
 	render() {
 		return (
 			<div className="App">
@@ -161,6 +193,9 @@ class App extends React.Component {
 											{formatDate(item.time)}
 										</span>
 										<span
+											onClick={() =>
+												this.toggleLike(item)
+											}
 											className={
 												item.attitude === 1
 													? "like liked"
@@ -170,6 +205,9 @@ class App extends React.Component {
 											<i className="icon" />
 										</span>
 										<span
+											onClick={() =>
+												this.toggleHate(item)
+											}
 											className={
 												item.attitude === -1
 													? "hate hated"
