@@ -5,15 +5,16 @@ import React from "react"
 function FSon(props) {
 	// 3-a.函数式组件直接通过参数获取props对象
 	console.log("函数式子组件的props", props)
+	const { msg, list, child } = props
 	return (
 		<div>
-			<span>我是函数式子组件，{props.msg}</span>
+			<span>我是函数式子组件，{msg}</span>
 			<ul>
-				{props.list.map((item) => (
+				{list.map((item) => (
 					<li key={item}>{item}</li>
 				))}
 			</ul>
-			{props.child}
+			{child}
 		</div>
 	)
 }
@@ -23,13 +24,12 @@ class CSon extends React.Component {
 	// 3-b.类组件使用this.props获取props对象
 	render() {
 		console.log("类子组件的props", this.props)
+		const { userInfo, getMsg } = this.props
 		return (
 			<div>
 				<span>我是类子组件</span>
-				<p>{this.props.userInfo.name}</p>
-				<button onClick={this.props.getMsg}>
-					触发父组件传入的函数
-				</button>
+				<p>{userInfo.name}</p>
+				<button onClick={getMsg}>触发父组件传入的函数</button>
 			</div>
 		)
 	}
