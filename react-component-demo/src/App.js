@@ -64,7 +64,7 @@ class App extends React.Component {
 			comment: e.target.value,
 		})
 	}
-	// 发表的回调函数
+	// 发表评论的回调函数
 	submitComment = () => {
 		// 提交评论
 		this.setState({
@@ -79,6 +79,12 @@ class App extends React.Component {
 					attitude: 1,
 				},
 			],
+		})
+	}
+	// 删除评论的回调函数
+	delComment = (id) => {
+		this.setState({
+			list: this.state.list.filter((v) => v.id !== id),
 		})
 	}
 	render() {
@@ -172,7 +178,12 @@ class App extends React.Component {
 										>
 											<i className="icon" />
 										</span>
-										<span className="reply btn-hover">
+										<span
+											className="reply btn-hover"
+											onClick={() =>
+												this.delComment(item.id)
+											}
+										>
 											删除
 										</span>
 									</div>
