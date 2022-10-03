@@ -30,7 +30,7 @@ const Test = ({ list, tListShape: tShape }) => {
 }
 
 Test.propTypes = {
-	// 限定list参数的类型必须是数组类型
+	// 限定list参数的类型必须是数组类型，且必填
 	list: PropTypes.array.isRequired,
 	tShape: PropTypes.shape({
 		ad: PropTypes.number,

@@ -8,7 +8,8 @@ const Test = ({ list }) => {
 }
 
 Test.propTypes = {
-	list: PropTypes.array, // 限定list参数的类型必须是数组类型
+	// 限定list参数的类型必须是数组类型
+	list: PropTypes.array,
 }
 
 class App extends React.Component {
