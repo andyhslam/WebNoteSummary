@@ -22,7 +22,6 @@ class App extends React.Component {
 	render() {
 		return (
 			<div>
-				{/* 不传入pageSize属性 */}
 				<List pageSize={30} />
 			</div>
 		)
