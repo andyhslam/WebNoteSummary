@@ -2,6 +2,12 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## npx create-react-app react-basic
+
+1. npx create-react-app 是固定命令，create-react-app 是 React 脚手架的名称
+2. react-basic 表示项目名称，可以自定义，保持语义化
+3. npx 命令会帮助我们临时安装 create-react-app 包，然后初始化项目完成之后会自自动删掉，所以不需要全局安装 create-react-app
+
 ## Available Scripts
 
 In the project directory, you can run:
