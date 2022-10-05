@@ -20,9 +20,8 @@ function App() {
 	useEffect(() => {
 		// 定义副作用
 		console.log("副作用执行了")
-		document.title = count
-		console.log(name)
-	}, [count, name])
+		document.title = name + count
+	}, [name, count])
 	// 这种情况下，组件首次渲染时，修改count或者name的值时，都会执行副作用函数
 
 	return (
