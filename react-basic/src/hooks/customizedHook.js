@@ -1,6 +1,6 @@
 // 自定义hook
-import { useWindowScroll } from "./hooks/useWindowScroll.js"
-import { useLocalStorage } from "./hooks/useLocalStorage.js"
+import { useWindowScroll } from "./useWindowScroll.js"
+import { useLocalStorage } from "./useLocalStorage.js"
 
 function App() {
 	// 在函数组件的最外层执行
