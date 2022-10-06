@@ -3,8 +3,8 @@
  * 本节任务：掌握hooks语境下，实现跨组件的context机制
  * 实现步骤：
  * 1.调用createContext方法，创建Context对象
- * 2.在顶层组件通过Provider提供数据
- * 3.在底层组件通过useContext函数获取数据
+ * 2.在顶层组件通过Context.Provider提供数据
+ * 3.在底层组件通过useContext函数(参数为Context对象)获取数据
  */
 
 import { createContext, useState, useContext } from "react"
