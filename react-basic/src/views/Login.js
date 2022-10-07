@@ -11,7 +11,9 @@ function Login() {
 			<span>login</span>
 			{/* 3.在事件中，执行跳转函数并传入目标路径，完成路由跳转 */}
 			{/* 注: 如果在跳转时不想添加历史记录，可以添加额外参数replace为true */}
-			<button onClick={() => navigate("/about", { replace: true })}>
+			<button
+				onClick={() => navigate("/about?id=1001", { replace: true })}
+			>
 				跳到关于
 			</button>
 		</div>
