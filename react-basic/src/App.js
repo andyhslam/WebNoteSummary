@@ -5,7 +5,7 @@ import About from "./views/About.js"
 function App() {
 	return (
 		<div className="App">
-			{/* 包裹整个应用，一个React应用只需要使用一次；基于h5的history.pushState API实现 */}
+			{/* 包裹整个应用，一个React应用只需要使用一次；初始化路由 */}
 			<BrowserRouter>
 				{/* Link组件用于指定导航链接，完成声明式的路由跳转，类比router-link；to属性用于指定路由地址*/}
 				<Link to="/">首页</Link>
