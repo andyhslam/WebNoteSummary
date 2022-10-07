@@ -16,7 +16,7 @@ function App() {
 					{/* 用于定义路由路径和渲染组件的对应关系，path属性用来指定匹配的路径地址，element属性指定要渲染的组件 */}
 					<Route path="/" element={<Home />}></Route>
 					{/* 当url路径为‘/about’时，当前路由发生匹配，渲染对应的About组件 */}
-					<Route path="/about" element={<About />}></Route>
+					<Route path="/about/:id/:name" element={<About />}></Route>
 					<Route path="/login" element={<Login />}></Route>
 				</Routes>
 			</BrowserRouter>
