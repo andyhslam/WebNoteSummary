@@ -16,6 +16,8 @@ function App() {
 			<button onClick={counterStore.addCount}>
 				{counterStore.count}
 			</button>
+			{JSON.stringify(counterStore.filterList)}
+			<button onClick={counterStore.changeList}>change list</button>
 		</div>
 	)
 }
