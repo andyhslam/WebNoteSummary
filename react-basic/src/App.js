@@ -1,49 +1,22 @@
-/**
- * useContext使用
- * 本节任务：掌握hooks语境下，实现跨组件的context机制
- * 实现步骤：
- * 1.调用createContext方法，创建Context对象
- * 2.在顶层组件通过Context.Provider提供数据
- * 3.在底层组件通过useContext函数(参数为Context对象)获取数据
- */
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom"
+import Home from "./views/Home.js"
+import About from "./views/About.js"
 
-import { createContext, useState, useContext } from "react"
-
-const Context = createContext()
-
-// 底层组件
-function ComA() {
-	const count = useContext(Context)
-	return (
-		<div>
-			<p>this is ComA</p>
-			<p>顶层组件App传过来的数据：{count}</p>
-			<ComC />
-		</div>
-	)
-}
-
-// 底层组件
-function ComC() {
-	const count = useContext(Context)
-	return (
-		<div>
-			<p>this is ComC</p>
-			<p>顶层组件App传过来的数据：{count}</p>
-		</div>
-	)
-}
-
-// 顶层组件
 function App() {
-	const [count, setCount] = useState(0)
 	return (
-		<div>
-			<Context.Provider value={count}>
-				<ComA />
-			</Context.Provider>
-			{/* 响应式：提供方修改数据，使用方也能获得更新之后的数据 */}
-			<button onClick={() => setCount(count + 10)}>{count}</button>
+		<div className="App">
+			{/* 包裹整个应用，一个React应用只需要使用一次；基于h5的history.pushState API实现 */}
+			<BrowserRouter>
+				{/* Link组件用于指定导航链接，完成声明式的路由跳转，类比router-link；to属性用于指定路由地址*/}
+				<Link to="/">首页</Link>
+				<Link to="/about">关于</Link>
+				{/* 路由出口，路由对应的组件会在此进行渲染，类比router-view */}
+				<Routes>
+					{/* 用于定义路由路径和渲染组件的对应关系，path属性用来指定匹配的路径地址，element属性指定要渲染的组件 */}
+					<Route path="/" element={<Home />}></Route>
+					<Route path="/about" element={<About />}></Route>
+				</Routes>
+			</BrowserRouter>
 		</div>
 	)
 }
