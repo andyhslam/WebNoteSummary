@@ -13,7 +13,8 @@ function App() {
 					<Route path="/" element={<Layout />}>
 						{/* 定义二级路由嵌套，通过结构定义嵌套关系 */}
 						<Route path="board" element={<Board />}></Route>
-						<Route path="article" element={<Article />}></Route>
+						{/* 默认二级路由：标记index属性，把原本的路径path属性去掉 */}
+						<Route index element={<Article />}></Route>
 					</Route>
 					<Route path="/login" element={<Login />}></Route>
 				</Routes>
