@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom"
 import Home from "./views/Home.js"
 import About from "./views/About.js"
+import Login from "./views/Login.js"
 
 function App() {
 	return (
@@ -16,6 +17,7 @@ function App() {
 					<Route path="/" element={<Home />}></Route>
 					{/* 当url路径为‘/about’时，当前路由发生匹配，渲染对应的About组件 */}
 					<Route path="/about" element={<About />}></Route>
+					<Route path="/login" element={<Login />}></Route>
 				</Routes>
 			</BrowserRouter>
 		</div>
