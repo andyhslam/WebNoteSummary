@@ -8,7 +8,7 @@ function About() {
 	// const id = params.get("id")
 	return (
 		<div>
-			about得到的参数值为{params.id}-{params.name}
+			About得到的参数值为{params.id}-{params.name}
 		</div>
 	)
 }
