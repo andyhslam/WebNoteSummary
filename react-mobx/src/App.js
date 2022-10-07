@@ -6,18 +6,21 @@
  * 4.让组件响应数据变化
  */
 
-import counterStore from "./store/counter.js"
+import { useStore } from "./store/index.js"
 // 连接mobx和React的中间件
 import { observer } from "mobx-react-lite"
 
 function App() {
+	// 注意：解构赋值到store实例对象就够了，防止破坏响应式，只需解构用到的store
+	const { counterStore, listStore } = useStore()
 	return (
 		<div className="App">
 			<button onClick={counterStore.addCount}>
 				{counterStore.count}
 			</button>
-			{JSON.stringify(counterStore.filterList)}
-			<button onClick={counterStore.changeList}>change list</button>
+			<button onClick={listStore.addList}>
+				{listStore.list.join("-")}
+			</button>
 		</div>
 	)
 }

@@ -5,6 +5,7 @@
  * 3.利用React的useContext机制导出统一的useStore方法，供业务组件使用
  */
 
+import React from "react"
 import { CounterStore } from "./counter.js"
 import { ListStore } from "./list.js"
 
@@ -21,6 +22,21 @@ class RootStore {
 	}
 }
 
-// 实例化RootStore
+// 实例化RootStore，得到的根实例对象有counterStore和listStore属性
+const rootStore = new RootStore()
 
-// 使用react的context机制，完成统一方法封装。
+/**
+ * 使用react的context机制，完成统一方法封装。
+ * context机制的数据查找链：
+ * 优先从最近的Provider的value属性开始找，如果找不到(因为在这里没有用到Provider做包裹，所以找不到)，
+ * 就会继续往下找createContext方法执行时传入的参数。
+ */
+const context = React.createContext(rootStore)
+
+/**
+ * 通过useContext取到rootStore实例对象，然后返回，
+ * 只要在业务组件中，调用useStore方法，将获得这个根实例对象。
+ * useStore以use开头，符合hook的特性。
+ */
+const useStore = () => React.useContext(context)
+export { useStore }
