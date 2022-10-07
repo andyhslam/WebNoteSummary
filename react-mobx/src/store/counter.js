@@ -1,7 +1,7 @@
 /**
  * 初始化mobx的步骤：
  * 1.定义数据状态state
- * 2.在构造器中实现数据响应式处理 makeAutoObservble
+ * 2.在构造器中实现数据响应式处理makeAutoObservble
  * 3.定义修改数据的函数action
  * 4.实例化store并导出
  */
@@ -40,5 +40,5 @@ class CounterStore {
 }
 
 // 4.实例化，然后导出给react使用
-const counterStore = new CounterStore()
-export default counterStore
+// export default new CounterStore()
+export { CounterStore }
