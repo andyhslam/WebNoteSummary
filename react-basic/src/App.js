@@ -3,6 +3,7 @@ import Layout from "./views/Layout.js"
 import Login from "./views/Login.js"
 import Article from "./views/Article.js"
 import Board from "./views/Board.js"
+import NotFound from "./views/NotFound.js"
 
 function App() {
 	return (
@@ -17,6 +18,8 @@ function App() {
 						<Route index element={<Article />}></Route>
 					</Route>
 					<Route path="/login" element={<Login />}></Route>
+					{/* 当所有路径都没有匹配时，渲染此路由 */}
+					<Route path="*" element={<NotFound />}></Route>
 				</Routes>
 			</BrowserRouter>
 		</div>
