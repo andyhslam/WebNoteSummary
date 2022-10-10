@@ -15,5 +15,10 @@ class TaskStore {
 	constructor() {
 		makeAutoObservable(this)
 	}
+	// 单选操作
+	singleCheck(id, isDone) {
+		const item = this.list.find((v) => v.id === id)
+		item.isDone = isDone
+	}
 }
 export default TaskStore

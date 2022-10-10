@@ -1,7 +1,12 @@
 import "./index.css"
 import { useStore } from "../store"
+import { observer } from "mobx-react-lite"
 function Task() {
 	const { taskStore } = useStore()
+	// 单选框的受控方式
+	function changeSingleCheck(e, id) {
+		taskStore.singleCheck(id, e.target.checked)
+	}
 	return (
 		<section className="todoapp">
 			<header className="header">
@@ -23,10 +28,14 @@ function Task() {
 							className={item.isDone ? "todo completed" : "todo"}
 						>
 							<div className="view">
+								{/* 单选框，使用受控组件的方式 */}
 								<input
 									className="toggle"
 									type="checkbox"
-									defaultChecked={true}
+									onChange={(e) =>
+										changeSingleCheck(e, item.id)
+									}
+									checked={item.isDone}
 								/>
 								<label>{item.name}</label>
 								<button className="destroy"></button>
@@ -39,4 +48,4 @@ function Task() {
 	)
 }
 
-export default Task
+export default observer(Task)
