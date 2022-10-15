@@ -7,6 +7,10 @@ function Task() {
 	function changeSingleCheck(e, id) {
 		taskStore.singleCheck(id, e.target.checked)
 	}
+	// 全选
+	function allChange(e) {
+		taskStore.allCheck(e.target.checked)
+	}
 	return (
 		<section className="todoapp">
 			<header className="header">
@@ -19,7 +23,14 @@ function Task() {
 				/>
 			</header>
 			<section className="main">
-				<input id="toggle-all" className="toggle-all" type="checkbox" />
+				{/* 全选框 */}
+				<input
+					id="toggle-all"
+					className="toggle-all"
+					type="checkbox"
+					checked={taskStore.isAll}
+					onChange={allChange}
+				/>
 				<label htmlFor="toggle-all"></label>
 				<ul className="todo-list">
 					{taskStore.list.map((item) => (
