@@ -12,6 +12,10 @@ class TaskStore {
 			isDone: false,
 		},
 	]
+	/**
+	 * 使用普通函数和箭头函数的最大区别是this的指向问题，不过在这个类的构造器中，
+	 * 已经对this做了响应式处理，所以在此处使用普通函数和箭头函数都可以。
+	 */
 	constructor() {
 		makeAutoObservable(this)
 	}
@@ -30,6 +34,10 @@ class TaskStore {
 	// 计算属性：只有所有子项都是选中的时候，才是选中的状态
 	get isAll() {
 		return this.list.every((item) => item.isDone)
+	}
+	// 删除
+	delTask = (id) => {
+		this.list = this.list.filter((item) => item.id !== id)
 	}
 }
 export default TaskStore
