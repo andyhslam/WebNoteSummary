@@ -1,7 +1,20 @@
-import "./App.css"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import Layout from "./pages/Layout"
+import Login from "./pages/Login"
 
 function App() {
-	return <div className="App">app</div>
+	return (
+		// 路由配置
+		<BrowserRouter>
+			<div className="App">
+				<Routes>
+					{/* 创建路由path和组件的对应关系 */}
+					<Route path="/" element={<Layout />}></Route>
+					<Route path="/login" element={<Login />}></Route>
+				</Routes>
+			</div>
+		</BrowserRouter>
+	)
 }
 
 export default App
