@@ -1,6 +1,9 @@
 import "./index.css"
 import { useStore } from "../store"
 import { observer } from "mobx-react-lite"
+import { useState } from "react"
+import uuid from "react-uuid"
+
 function Task() {
 	const { taskStore } = useStore()
 	// 单选框的受控方式
@@ -15,14 +18,30 @@ function Task() {
 	function delTask(id) {
 		taskStore.delTask(id)
 	}
+	// 新增
+	const [taskValue, setTaskValue] = useState("")
+	function addTask(e) {
+		if (e.keyCode === 13) {
+			taskStore.addTask({
+				id: uuid(),
+				name: taskValue,
+				isDone: false,
+			})
+			setTaskValue("")
+		}
+	}
 	return (
 		<section className="todoapp">
 			<header className="header">
 				<h1>todos</h1>
+				{/* 新增输入框 */}
 				<input
 					className="new-todo"
 					autoFocus
 					autoComplete="off"
+					value={taskValue}
+					onChange={(e) => setTaskValue(e.target.value)}
+					onKeyUp={addTask}
 					placeholder="What needs to be done?"
 				/>
 			</header>
@@ -53,6 +72,7 @@ function Task() {
 									checked={item.isDone}
 								/>
 								<label>{item.name}</label>
+								{/* 删除 */}
 								<button
 									className="destroy"
 									onClick={() => delTask(item.id)}
