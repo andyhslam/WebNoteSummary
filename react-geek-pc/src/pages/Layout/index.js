@@ -5,7 +5,7 @@ import {
 	EditOutlined,
 	LogoutOutlined,
 } from "@ant-design/icons"
-import { Outlet } from "react-router-dom"
+import { Outlet, Link } from "react-router-dom"
 import "./index.scss"
 
 const { Header, Sider } = Layout
@@ -37,13 +37,13 @@ const GeekLayout = () => {
 						style={{ height: "100%", borderRight: 0 }}
 					>
 						<Menu.Item icon={<HomeOutlined />} key="1">
-							数据概览
+							<Link to="/">数据概览</Link>
 						</Menu.Item>
 						<Menu.Item icon={<DiffOutlined />} key="2">
-							内容管理
+							<Link to="/article">内容管理</Link>
 						</Menu.Item>
 						<Menu.Item icon={<EditOutlined />} key="3">
-							发布文章
+							<Link to="/publish">发布文章</Link>
 						</Menu.Item>
 					</Menu>
 				</Sider>
