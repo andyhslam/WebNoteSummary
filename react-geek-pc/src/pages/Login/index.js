@@ -3,6 +3,13 @@ import logo from "@/assets/logo.png"
 import "./index.scss"
 
 function Login() {
+	function onFinish(values) {
+		// 函数参数values：表单值
+		console.log("Success", values)
+	}
+	const onFinishFailed = (errorInfo) => {
+		console.log("Failed:", errorInfo)
+	}
 	return (
 		<div className="login">
 			<Card className="login-container">
@@ -13,10 +20,13 @@ function Login() {
           3. 为 Form.Item 组件添加 rules 属性，用来添加表单校验
         */}
 				<Form
+					name="basic"
 					validateTrigger={["onBlur", "onChange"]}
 					initialValues={{
 						remember: true,
 					}}
+					onFinish={onFinish}
+					onFinishFailed={onFinishFailed}
 				>
 					<Form.Item
 						name="mobile"
