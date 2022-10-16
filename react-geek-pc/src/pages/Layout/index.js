@@ -5,6 +5,7 @@ import {
 	EditOutlined,
 	LogoutOutlined,
 } from "@ant-design/icons"
+import { Outlet } from "react-router-dom"
 import "./index.scss"
 
 const { Header, Sider } = Layout
@@ -46,8 +47,10 @@ const GeekLayout = () => {
 						</Menu.Item>
 					</Menu>
 				</Sider>
+				{/* 二级路由对应显示 */}
 				<Layout className="layout-content" style={{ padding: 20 }}>
-					内容
+					{/* 二级路由出口 */}
+					<Outlet />
 				</Layout>
 			</Layout>
 		</Layout>
