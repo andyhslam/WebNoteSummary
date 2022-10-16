@@ -9,7 +9,7 @@ class LoginStore {
 		makeAutoObservable(this)
 	}
 	// 定义操作token的方法
-	setToken = async ({ mobile, code }) => {
+	getToken = async ({ mobile, code }) => {
 		// 调用登录接口，获得数据之后，存入token
 		const { data } = await http.post(
 			"http://geek.itheima.net/v1_0/authorizations",

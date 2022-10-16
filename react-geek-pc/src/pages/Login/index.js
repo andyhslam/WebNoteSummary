@@ -1,11 +1,14 @@
 import { Card, Form, Input, Button, Checkbox } from "antd"
 import logo from "@/assets/logo.png"
 import "./index.scss"
+import { useStore } from "@/store"
 
 function Login() {
+	const { loginStore } = useStore()
 	function onFinish(values) {
 		// 函数参数values：表单值
 		console.log("Success", values)
+		loginStore.getToken(values)
 	}
 	const onFinishFailed = (errorInfo) => {
 		console.log("Failed:", errorInfo)
