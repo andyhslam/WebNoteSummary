@@ -1,38 +1,21 @@
-import { useEffect, useRef } from "react"
-import * as echarts from "echarts"
+import Bar from "@/components/bar/index.js"
 
 const Home = () => {
-	const domRef = useRef()
-	const chartInit = () => {
-		// 基于准备好的dom，初始化echarts实例
-		const myChart = echarts.init(domRef.current)
-		// 绘制图表
-		myChart.setOption({
-			title: {
-				text: "ECharts 入门示例",
-			},
-			tooltip: {},
-			xAxis: {
-				data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"],
-			},
-			yAxis: {},
-			series: [
-				{
-					name: "销量",
-					type: "bar",
-					data: [5, 20, 36, 10, 10, 20],
-				},
-			],
-		})
-	}
-	// 执行初始化函数chartInit
-	useEffect(() => {
-		chartInit()
-	}, [])
 	return (
 		<div>
-			{/* 准备一个挂载节点 */}
-			<div ref={domRef} style={{ width: 500, height: 400 }}></div>
+			{/* 渲染Bar组件 */}
+			<Bar
+				title="三大框架满意度"
+				xData={["react", "vue", "angular"]}
+				yData={[50, 40, 30]}
+				style={{ width: 500, height: 400 }}
+			/>
+			<Bar
+				title="三大框架使用度"
+				xData={["react", "vue", "angular"]}
+				yData={[80, 70, 60]}
+				style={{ width: 300, height: 200 }}
+			/>
 		</div>
 	)
 }
