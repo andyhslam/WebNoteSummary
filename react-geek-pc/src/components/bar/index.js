@@ -29,7 +29,7 @@ function Bar({ title, xData, yData, style }) {
 	// 执行初始化函数chartInit
 	useEffect(() => {
 		chartInit()
-	}, [])
+	}, []) // eslint-disable-line
 	return (
 		<div>
 			{/* 准备一个挂载节点 */}

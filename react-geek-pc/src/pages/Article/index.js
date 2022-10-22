@@ -30,9 +30,37 @@ const Article = () => {
 		const { data } = await http.get("/channels")
 		setChannelList(data.channels)
 	}
+	// useEffect的依赖非常必要，否则容易出现循环执行
+	// 在里面写了引起组件重新渲染的逻辑，重新渲染又会导致useEffect执行
 	useEffect(() => {
 		loadChannelList()
 	}, [])
+	// 文章列表管理：统一管理数据，setArticle({})
+	const [article, setArticle] = useState({
+		list: [], // 文章列表
+		count: 0, // 文章数量
+	})
+	// 文章参数管理
+	const [params, setParams] = useState({
+		page: 1,
+		per_page: 10,
+	})
+	/**
+	 * 1.如果异步请求函数需要依赖一些数据的变化而重新执行，就把它写到内部。
+	 * 2.或者说，只要涉及到异步请求函数，都放到useEffect内部。
+	 * 本质区别：
+	 * 1.写到useEffect外面，每次组件更新，函数都会重新初始化，造成性能消耗；
+	 * 2.写到useEffect里面，只会在依赖项发生变化的时候，函数才会重新初始化，避免性能消耗。
+	 * 面试题：
+	 * useCallback可以缓存函数，useMemo可以缓存变量；重复渲染的时候，当依赖项不变化，就不会重新声明。
+	 */
+	useEffect(() => {
+		const loadArticleList = async () => {
+			const { data } = await http.get("/mp/articles", { params })
+			console.log("loadArticleList", data)
+		}
+		loadArticleList()
+	}, [params])
 	const onFinish = (values) => {
 		console.log("onFinish", values)
 	}
