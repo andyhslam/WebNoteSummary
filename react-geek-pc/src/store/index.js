@@ -2,10 +2,12 @@
 
 import React from "react"
 import LoginStore from "./login.Store.js"
+import UserStore from "./user.Store.js"
 
 class RootStore {
 	constructor() {
 		this.loginStore = new LoginStore()
+		this.userStore = new UserStore()
 	}
 }
 
