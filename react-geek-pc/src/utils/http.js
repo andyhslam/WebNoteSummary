@@ -38,11 +38,9 @@ http.interceptors.response.use(
 	(error) => {
 		// 超出 2xx 范围的状态码都会触发该函数。
 		// 对响应错误做点什么
-		console.dir(error)
 		if (error.response.status === 401) {
 			// reactRouter默认状态下，没有实例的说法，不支持在组件之外完成路由跳转，需要自己来实现跳回到登录页
 			history.push("/login")
-			console.dir("login")
 		}
 		return Promise.reject(error)
 	}
