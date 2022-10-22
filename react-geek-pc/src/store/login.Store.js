@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx"
-import { http, setToken, getToken } from "@/utils"
+import { http, setToken, getToken, removeToken } from "@/utils"
 
 class LoginStore {
 	// 定义数据，先从本地取出token，从而刷新页面不丢失
@@ -16,6 +16,13 @@ class LoginStore {
 		this.token = data.token
 		// 存入token到本地
 		setToken(this.token)
+	}
+	// 退出登录
+	logout = () => {
+		// 清除实例的token
+		this.token = ""
+		// 清除本地的token
+		removeToken()
 	}
 }
 
