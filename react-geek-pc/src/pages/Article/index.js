@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import {
 	Card,
 	Breadcrumb,
@@ -117,9 +117,13 @@ const Article = () => {
 		// 拿到当前页码及每页条数，修改params，引起接口更新
 		setParams({ page, per_page })
 	}
+	// 编辑文章
+	const navigate = useNavigate()
+	const goPublish = (data) => {
+		navigate(`/publish?id=${data.id}`)
+	}
 	// 删除文章
 	const delArticle = async (data) => {
-		console.log(data)
 		await http.delete(`/mp/articles/${data.id}`)
 		// 刷新文章列表
 		setParams({
@@ -183,6 +187,7 @@ const Article = () => {
 							type="primary"
 							shape="circle"
 							icon={<EditOutlined />}
+							onClick={() => goPublish(data)}
 						/>
 						<Button
 							type="primary"
