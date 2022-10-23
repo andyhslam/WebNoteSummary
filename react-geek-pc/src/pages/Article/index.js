@@ -70,7 +70,7 @@ const Article = () => {
 				title: "离线化加载h5资源解决方案",
 			},
 			{
-				id: "8218",
+				id: "8220",
 				comment_count: 3,
 				cover: {
 					images: ["http://geek.itheima.net/resources/images/15.jpg"],
@@ -114,7 +114,18 @@ const Article = () => {
 		})
 	}
 	const pageChange = (page, per_page) => {
+		// 拿到当前页码及每页条数，修改params，引起接口更新
 		setParams({ page, per_page })
+	}
+	// 删除文章
+	const delArticle = async (data) => {
+		console.log(data)
+		await http.delete(`/mp/articles/${data.id}`)
+		// 刷新文章列表
+		setParams({
+			...params,
+			page: 1,
+		})
 	}
 	const columns = [
 		{
@@ -163,7 +174,7 @@ const Article = () => {
 			/**
 			 * render函数参数说明：
 			 * 1.如果明确写明dataIndex，此参数就表示该dataIndex所在列的数据；
-			 * 2.如果没有写明dataIndex，此参数就表示整个dataSource的数据；
+			 * 2.如果没有写明dataIndex，此参数就表示dataSource某一行的数据；
 			 */
 			render: (data) => {
 				return (
@@ -178,6 +189,7 @@ const Article = () => {
 							danger
 							shape="circle"
 							icon={<DeleteOutlined />}
+							onClick={() => delArticle(data)}
 						/>
 					</Space>
 				)
