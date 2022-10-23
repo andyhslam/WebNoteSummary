@@ -13,7 +13,7 @@ import { PlusOutlined } from "@ant-design/icons"
 import { Link, useSearchParams } from "react-router-dom"
 import { observer } from "mobx-react-lite"
 import "./index.scss"
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import ReactQuill from "react-quill"
 import "react-quill/dist/quill.snow.css"
 import { useStore } from "@/store/index.js"
@@ -78,6 +78,20 @@ const Publish = () => {
 	 */
 	const [searchParams] = useSearchParams()
 	const articleId = searchParams.get("id")
+	const formRef = useRef(null)
+	// 回显基础数据
+	useEffect(() => {
+		const loadDetail = async () => {
+			const { data } = await http.get(`/mp/articles/${articleId}`)
+			// 动态设置表单数据
+			formRef.current.setFieldsValue(data)
+		}
+		// 编辑状态才发送请求
+		if (articleId) {
+			loadDetail()
+			console.log("formRef", formRef.current)
+		}
+	}, [articleId])
 	return (
 		<div className="publish">
 			<Card
@@ -93,6 +107,7 @@ const Publish = () => {
 				}
 			>
 				<Form
+					ref={formRef}
 					labelCol={{ span: 4 }}
 					wrapperCol={{ span: 16 }}
 					initialValues={{ type: 1, content: "this is content" }}
