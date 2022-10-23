@@ -81,6 +81,7 @@ const Publish = () => {
 				images: fileList.map((file) => file.url),
 			},
 		}
+		// 注意：接口会按照上传图片数量来决定单图或三图
 		if (articleId) {
 			// 编辑更新
 			await http.put(`/mp/articles/${articleId}?draft=false`, params)
