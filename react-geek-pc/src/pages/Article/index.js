@@ -36,7 +36,7 @@ const Article = () => {
 		loadChannelList()
 	}, [])
 	// 文章列表管理：统一管理数据，setArticle({})
-	const [article, setArticle] = useState({
+	const [articleData, setArticleData] = useState({
 		list: [], // 文章列表
 		count: 0, // 文章数量
 	})
@@ -55,9 +55,39 @@ const Article = () => {
 	 * useCallback可以缓存函数，useMemo可以缓存变量；重复渲染的时候，当依赖项不变化，就不会重新声明。
 	 */
 	useEffect(() => {
+		const fakeData = [
+			{
+				id: "8216",
+				comment_count: 0,
+				cover: {
+					images: [""],
+				},
+				like_count: 0,
+				pubdate: "2019-03-11 09:00:00",
+				read_count: 2,
+				status: 1,
+				title: "离线化加载h5资源解决方案",
+			},
+			{
+				id: "8218",
+				comment_count: 3,
+				cover: {
+					images: ["http://geek.itheima.net/resources/images/15.jpg"],
+				},
+				like_count: 3,
+				pubdate: "2022-10-11 09:00:00",
+				read_count: 2,
+				status: 2,
+				title: "wkwebview离线化加载h5资源解决方案",
+			},
+		]
 		const loadArticleList = async () => {
 			const { data } = await http.get("/mp/articles", { params })
-			console.log("loadArticleList", data)
+			const { results, total_count } = data
+			setArticleData({
+				list: results.length ? results : fakeData,
+				count: total_count,
+			})
 		}
 		loadArticleList()
 	}, [params])
@@ -71,7 +101,12 @@ const Article = () => {
 			width: 120,
 			render: (cover) => {
 				return (
-					<img src={cover || img404} width={80} height={60} alt="" />
+					<img
+						src={cover.images[0] || img404}
+						width={80}
+						height={60}
+						alt=""
+					/>
 				)
 			},
 		},
@@ -125,20 +160,6 @@ const Article = () => {
 					</Space>
 				)
 			},
-		},
-	]
-	const data = [
-		{
-			id: "8218",
-			comment_count: 0,
-			cover: {
-				images: ["http://geek.itheima.net/resources/images/15.jpg"],
-			},
-			like_count: 0,
-			pubdate: "2019-03-11 09:00:00",
-			read_count: 2,
-			status: 2,
-			title: "wkwebview离线化加载h5资源解决方案",
 		},
 	]
 	return (
@@ -196,8 +217,12 @@ const Article = () => {
 				</Form>
 			</Card>
 			{/* 文章列表区域 */}
-			<Card title={`根据筛选条件共查询到 count 条结果：`}>
-				<Table rowKey="id" columns={columns} dataSource={data} />
+			<Card title={`根据筛选条件共查询到 ${articleData.count} 条结果：`}>
+				<Table
+					rowKey="id"
+					columns={columns}
+					dataSource={articleData.list}
+				/>
 			</Card>
 		</div>
 	)
