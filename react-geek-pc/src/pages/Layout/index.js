@@ -15,7 +15,7 @@ const { Header, Sider } = Layout
 
 const GeekLayout = () => {
 	const { pathname } = useLocation()
-	const { userStore, loginStore } = useStore()
+	const { userStore, loginStore, channelStore } = useStore()
 	const navigate = useNavigate()
 	/**
 	 * 此处的依赖项userStore不是响应式，不会变化；
@@ -23,7 +23,8 @@ const GeekLayout = () => {
 	 */
 	useEffect(() => {
 		userStore.getUserInfo()
-	}, [userStore])
+		channelStore.loadChannelList()
+	}, [userStore, channelStore])
 	// 确定退出
 	const onConfirm = () => {
 		loginStore.logout()

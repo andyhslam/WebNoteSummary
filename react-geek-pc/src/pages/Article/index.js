@@ -19,22 +19,15 @@ import "./index.scss"
 import img404 from "@/assets/error.png"
 import { useEffect, useState } from "react"
 import { http } from "@/utils"
+import { useStore } from "@/store/index.js"
+import { observer } from "mobx-react-lite"
 
 const { Option } = Select
 const { RangePicker } = DatePicker
 
 const Article = () => {
-	// 频道列表管理
-	const [channelList, setChannelList] = useState([])
-	const loadChannelList = async () => {
-		const { data } = await http.get("/channels")
-		setChannelList(data.channels)
-	}
-	// useEffect的依赖非常必要，否则容易出现循环执行
-	// 在里面写了引起组件重新渲染的逻辑，重新渲染又会导致useEffect执行
-	useEffect(() => {
-		loadChannelList()
-	}, [])
+	const { channelStore } = useStore()
+
 	// 文章列表管理：统一管理数据，setArticle({})
 	const [articleData, setArticleData] = useState({
 		list: [], // 文章列表
@@ -54,6 +47,9 @@ const Article = () => {
 	 * 2.写到useEffect里面，只会在依赖项发生变化的时候，函数才会重新初始化，避免性能消耗。
 	 * 面试题：
 	 * useCallback可以缓存函数，useMemo可以缓存变量；重复渲染的时候，当依赖项不变化，就不会重新声明。
+	 * 要点：
+	 * 1.useEffect的依赖非常必要，否则容易出现循环执行；
+	 * 2.在里面写了引起组件重新渲染的逻辑，重新渲染又会导致useEffect执行。
 	 */
 	useEffect(() => {
 		const fakeData = [
@@ -231,7 +227,7 @@ const Article = () => {
 							placeholder="请选择文章频道"
 							style={{ width: 120 }}
 						>
-							{channelList.map((channel) => (
+							{channelStore.channelList.map((channel) => (
 								<Option key={channel.id} value={channel.id}>
 									{channel.name}
 								</Option>
@@ -273,4 +269,4 @@ const Article = () => {
 	)
 }
 
-export default Article
+export default observer(Article)
