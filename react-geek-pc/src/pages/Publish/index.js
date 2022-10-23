@@ -27,7 +27,7 @@ const Publish = () => {
 	const [fileList, setFileList] = useState([])
 	// 上传成功回调
 	const onUploadChange = (info) => {
-		console.log(info)
+		// console.log(info)
 		const fileList = info.fileList.map((file) => {
 			if (file.response) {
 				return {
@@ -36,8 +36,13 @@ const Publish = () => {
 			}
 			return file
 		})
-		// 采取受控的方式，获得后端返回的url数据
+		// 采取受控的方式，获得后端返回的图片url地址
 		setFileList(fileList)
+	}
+	// 切换图片
+	const [imgCount, setImgCount] = useState(1)
+	const radioChange = (e) => {
+		setImgCount(e.target.value)
 	}
 	return (
 		<div className="publish">
@@ -85,25 +90,27 @@ const Publish = () => {
 
 					<Form.Item label="封面">
 						<Form.Item name="type">
-							<Radio.Group>
+							<Radio.Group onChange={radioChange}>
 								<Radio value={1}>单图</Radio>
 								<Radio value={3}>三图</Radio>
 								<Radio value={0}>无图</Radio>
 							</Radio.Group>
 						</Form.Item>
-						<Upload
-							name="image"
-							listType="picture-card"
-							className="avatar-uploader"
-							showUploadList
-							action="http://geek.itheima.net/v1_0/upload"
-							fileList={fileList}
-							onChange={onUploadChange}
-						>
-							<div style={{ marginTop: 8 }}>
-								<PlusOutlined />
-							</div>
-						</Upload>
+						{imgCount > 0 && (
+							<Upload
+								name="image"
+								listType="picture-card"
+								className="avatar-uploader"
+								showUploadList
+								action="http://geek.itheima.net/v1_0/upload"
+								fileList={fileList}
+								onChange={onUploadChange}
+							>
+								<div style={{ marginTop: 8 }}>
+									<PlusOutlined />
+								</div>
+							</Upload>
+						)}
 					</Form.Item>
 					<Form.Item
 						label="内容"
