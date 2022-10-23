@@ -83,13 +83,18 @@ const Publish = () => {
 	useEffect(() => {
 		const loadDetail = async () => {
 			const { data } = await http.get(`/mp/articles/${articleId}`)
+			const { cover, ...formValue } = data
 			// 动态设置表单数据
-			formRef.current.setFieldsValue(data)
+			formRef.current.setFieldsValue({ ...formValue, type: cover.type })
+			// 格式化封面图片数据
+			const imgList = cover.images.map((url) => ({ url }))
+			// 调用setFileList方法回填upload组件
+			setFileList(imgList)
+			fileListRef.current = imgList
 		}
 		// 编辑状态才发送请求
 		if (articleId) {
 			loadDetail()
-			console.log("formRef", formRef.current)
 		}
 	}, [articleId])
 	return (
