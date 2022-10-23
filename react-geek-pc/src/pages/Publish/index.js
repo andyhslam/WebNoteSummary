@@ -13,7 +13,7 @@ import { PlusOutlined } from "@ant-design/icons"
 import { Link } from "react-router-dom"
 import { observer } from "mobx-react-lite"
 import "./index.scss"
-import { useState } from "react"
+import { useState, useRef } from "react"
 import ReactQuill from "react-quill"
 import "react-quill/dist/quill.snow.css"
 import { useStore } from "@/store/index.js"
@@ -26,23 +26,34 @@ const Publish = () => {
 	const { channelStore } = useStore()
 	// 存放上传图片的列表
 	const [fileList, setFileList] = useState([])
+	// 1. 通过useRef创建一个暂存仓库
+	const fileListRef = useRef([])
 	// 上传成功回调
-	const onUploadChange = (info) => {
-		const fileList = info.fileList.map((file) => {
-			if (file.response) {
-				return {
-					url: file.response.data.url,
-				}
-			}
-			return file
-		})
+	const onUploadChange = ({ fileList }) => {
 		// 采取受控的方式，获得后端返回的图片url地址
 		setFileList(fileList)
+		// 2. 在上传图片完毕时，把图片列表存储到ref仓库
+		fileListRef.current = fileList
 	}
 	// 切换图片
 	const [imgCount, setImgCount] = useState(1)
 	const radioChange = (e) => {
-		setImgCount(e.target.value)
+		/**
+		 * useState不是实时更新的，而是异步更新；
+		 * 所以不能用imgCount，而是要用原始数据e.target.value作为判断条件。
+		 */
+		const rawCount = e.target.value
+		setImgCount(rawCount)
+		// 3.从ref仓库取出对应的图片数量，以数组的形式存入fileList
+		if (!fileListRef.current.length) {
+			return false
+		}
+		if (rawCount === 1) {
+			const firstImg = fileListRef.current[0]
+			setFileList(firstImg ? [firstImg] : [])
+		} else if (rawCount === 3) {
+			setFileList(fileListRef.current)
+		}
 	}
 	// 提交表单
 	const onFinish = (values) => {
@@ -53,7 +64,10 @@ const Publish = () => {
 			content,
 			title,
 			type,
-			cover: { type, images: fileList.map((v) => v.url) },
+			cover: {
+				type,
+				images: fileList.map((file) => file.response.data.url),
+			},
 		}
 		http.post("/mp/articles?draft=false", params)
 	}
