@@ -41,6 +41,7 @@ const Article = () => {
 		count: 0, // 文章数量
 	})
 	// 文章参数管理
+	// react遵循数据不可变的原则，setState会重新生成一个状态对象。
 	const [params, setParams] = useState({
 		page: 1,
 		per_page: 10,
@@ -91,8 +92,26 @@ const Article = () => {
 		}
 		loadArticleList()
 	}, [params])
-	const onFinish = (values) => {
-		console.log("onFinish", values)
+	// 筛选功能
+	const onSearch = (values) => {
+		const { status, channel_id, date } = values
+		// 格式化表单数据
+		const _params = {}
+		if (status !== -1) {
+			_params.status = status
+		}
+		if (channel_id) {
+			_params.channel_id = channel_id
+		}
+		if (date) {
+			_params.begin_pubdate = date[0].format("YYYY-MM-DD")
+			_params.end_pubdate = date[1].format("YYYY-MM-DD")
+		}
+		// 修改params参数，触发接口再次发起；整体覆盖原来的对象。
+		setParams({
+			...params,
+			..._params,
+		})
 	}
 	const columns = [
 		{
@@ -176,7 +195,7 @@ const Article = () => {
 				}
 				style={{ marginBottom: 20 }}
 			>
-				<Form onFinish={onFinish} initialValues={{ status: -1 }}>
+				<Form onFinish={onSearch} initialValues={{ status: -1 }}>
 					<Form.Item label="状态" name="status">
 						<Radio.Group>
 							<Radio value={-1}>全部</Radio>
