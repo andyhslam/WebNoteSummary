@@ -52,38 +52,12 @@ const Article = () => {
 	 * 2.在里面写了引起组件重新渲染的逻辑，重新渲染又会导致useEffect执行。
 	 */
 	useEffect(() => {
-		const fakeData = [
-			{
-				id: "8216",
-				comment_count: 0,
-				cover: {
-					images: [""],
-				},
-				like_count: 0,
-				pubdate: "2019-03-11 09:00:00",
-				read_count: 2,
-				status: 1,
-				title: "离线化加载h5资源解决方案",
-			},
-			{
-				id: "8220",
-				comment_count: 3,
-				cover: {
-					images: ["http://geek.itheima.net/resources/images/15.jpg"],
-				},
-				like_count: 3,
-				pubdate: "2022-10-11 09:00:00",
-				read_count: 2,
-				status: 2,
-				title: "wkwebview离线化加载h5资源解决方案",
-			},
-		]
 		const loadArticleList = async () => {
 			const { data } = await http.get("/mp/articles", { params })
 			const { results, total_count } = data
 			setArticleData({
-				list: results.length ? results : fakeData,
-				count: results.length ? total_count : fakeData.length,
+				list: results,
+				count: total_count,
 			})
 		}
 		loadArticleList()

@@ -10,7 +10,7 @@ import {
 	Select,
 } from "antd"
 import { PlusOutlined } from "@ant-design/icons"
-import { Link } from "react-router-dom"
+import { Link, useSearchParams } from "react-router-dom"
 import { observer } from "mobx-react-lite"
 import "./index.scss"
 import { useState, useRef } from "react"
@@ -71,6 +71,13 @@ const Publish = () => {
 		}
 		http.post("/mp/articles?draft=false", params)
 	}
+	/**
+	 * 编辑功能：
+	 * 1.通过路由参数拿到文章id
+	 * 2.根据文章id是否存在判断是否为编辑状态
+	 */
+	const [searchParams] = useSearchParams()
+	const articleId = searchParams.get("id")
 	return (
 		<div className="publish">
 			<Card
@@ -79,7 +86,9 @@ const Publish = () => {
 						<Breadcrumb.Item>
 							<Link to="/">首页</Link>
 						</Breadcrumb.Item>
-						<Breadcrumb.Item>发布文章</Breadcrumb.Item>
+						<Breadcrumb.Item>
+							{articleId ? "编辑" : "发布"}文章
+						</Breadcrumb.Item>
 					</Breadcrumb>
 				}
 			>
@@ -164,7 +173,7 @@ const Publish = () => {
 								type="primary"
 								htmlType="submit"
 							>
-								发布文章
+								{articleId ? "更新" : "发布"}文章
 							</Button>
 						</Space>
 					</Form.Item>
