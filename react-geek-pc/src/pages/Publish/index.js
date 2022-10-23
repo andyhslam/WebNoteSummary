@@ -8,9 +8,10 @@ import {
 	Upload,
 	Space,
 	Select,
+	message,
 } from "antd"
 import { PlusOutlined } from "@ant-design/icons"
-import { Link, useSearchParams } from "react-router-dom"
+import { Link, useNavigate, useSearchParams } from "react-router-dom"
 import { observer } from "mobx-react-lite"
 import "./index.scss"
 import { useState, useRef, useEffect } from "react"
@@ -30,10 +31,21 @@ const Publish = () => {
 	const fileListRef = useRef([])
 	// 上传成功回调
 	const onUploadChange = ({ fileList }) => {
+		// 格式化图片数据
+		const formatList = fileList.map((file) => {
+			// 上传完毕，做数据处理
+			if (file.response) {
+				return {
+					url: file.response.data.url,
+				}
+			}
+			// 正在上传中，不做数据处理
+			return file
+		})
 		// 采取受控的方式，获得后端返回的图片url地址
-		setFileList(fileList)
+		setFileList(formatList)
 		// 2. 在上传图片完毕时，把图片列表存储到ref仓库
-		fileListRef.current = fileList
+		fileListRef.current = formatList
 	}
 	// 切换图片
 	const [imgCount, setImgCount] = useState(1)
@@ -56,20 +68,29 @@ const Publish = () => {
 		}
 	}
 	// 提交表单
-	const onFinish = (values) => {
+	const navigate = useNavigate()
+	const onFinish = async (values) => {
 		// 数据的二次处理 重点是处理cover字段
 		const { channel_id, content, title, type } = values
 		const params = {
 			channel_id,
 			content,
 			title,
-			type,
 			cover: {
 				type,
-				images: fileList.map((file) => file.response.data.url),
+				images: fileList.map((file) => file.url),
 			},
 		}
-		http.post("/mp/articles?draft=false", params)
+		if (articleId) {
+			// 编辑更新
+			await http.put(`/mp/articles/${articleId}?draft=false`, params)
+		} else {
+			// 新增
+			await http.post("/mp/articles?draft=false", params)
+		}
+		// 跳转到文章列表，提示用户
+		navigate("/article")
+		message.success(`${articleId ? "更新成功" : "发布成功"}`)
 	}
 	/**
 	 * 编辑功能：
@@ -90,6 +111,10 @@ const Publish = () => {
 			const imgList = cover.images.map((url) => ({ url }))
 			// 调用setFileList方法回填upload组件
 			setFileList(imgList)
+			// 删除图片时，仍要保持最大图片数量
+			setImgCount(cover.type)
+			// 把封面图片数据存入暂存列表
+			// 回显列表fileList和暂存列表fileListRef的数据格式保持一致，就可以完成回填
 			fileListRef.current = imgList
 		}
 		// 编辑状态才发送请求
