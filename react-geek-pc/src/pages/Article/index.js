@@ -44,7 +44,7 @@ const Article = () => {
 	// react遵循数据不可变的原则，setState会重新生成一个状态对象。
 	const [params, setParams] = useState({
 		page: 1,
-		per_page: 10,
+		per_page: 1,
 	})
 	/**
 	 * 1.如果异步请求函数需要依赖一些数据的变化而重新执行，就把它写到内部。
@@ -87,7 +87,7 @@ const Article = () => {
 			const { results, total_count } = data
 			setArticleData({
 				list: results.length ? results : fakeData,
-				count: total_count,
+				count: results.length ? total_count : fakeData.length,
 			})
 		}
 		loadArticleList()
@@ -112,6 +112,9 @@ const Article = () => {
 			...params,
 			..._params,
 		})
+	}
+	const pageChange = (page, per_page) => {
+		setParams({ page, per_page })
 	}
 	const columns = [
 		{
@@ -241,6 +244,12 @@ const Article = () => {
 					rowKey="id"
 					columns={columns}
 					dataSource={articleData.list}
+					pagination={{
+						current: params.page,
+						pageSize: params.per_page,
+						total: articleData.count,
+						onChange: pageChange,
+					}}
 				/>
 			</Card>
 		</div>
