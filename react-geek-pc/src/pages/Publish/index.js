@@ -11,12 +11,13 @@ import {
 } from "antd"
 import { PlusOutlined } from "@ant-design/icons"
 import { Link } from "react-router-dom"
+import { observer } from "mobx-react-lite"
 import "./index.scss"
 import { useState } from "react"
 import ReactQuill from "react-quill"
 import "react-quill/dist/quill.snow.css"
 import { useStore } from "@/store/index.js"
-import { observer } from "mobx-react-lite"
+import { http } from "@/utils"
 
 const { Option } = Select
 
@@ -27,7 +28,6 @@ const Publish = () => {
 	const [fileList, setFileList] = useState([])
 	// 上传成功回调
 	const onUploadChange = (info) => {
-		// console.log(info)
 		const fileList = info.fileList.map((file) => {
 			if (file.response) {
 				return {
@@ -43,6 +43,19 @@ const Publish = () => {
 	const [imgCount, setImgCount] = useState(1)
 	const radioChange = (e) => {
 		setImgCount(e.target.value)
+	}
+	// 提交表单
+	const onFinish = (values) => {
+		// 数据的二次处理 重点是处理cover字段
+		const { channel_id, content, title, type } = values
+		const params = {
+			channel_id,
+			content,
+			title,
+			type,
+			cover: { type, images: fileList.map((v) => v.url) },
+		}
+		http.post("/mp/articles?draft=false", params)
 	}
 	return (
 		<div className="publish">
@@ -60,6 +73,7 @@ const Publish = () => {
 					labelCol={{ span: 4 }}
 					wrapperCol={{ span: 16 }}
 					initialValues={{ type: 1, content: "this is content" }}
+					onFinish={onFinish}
 				>
 					<Form.Item
 						label="标题"
