@@ -8,15 +8,15 @@ import {
 import "./index.scss"
 import { useEffect } from "react"
 import { observer } from "mobx-react-lite"
-import { Outlet, Link, useLocation, useNavigate } from "react-router-dom"
+import { Outlet, useLocation, useNavigate } from "react-router-dom"
 import { useStore } from "@/store/index.js"
 
 const { Header, Sider } = Layout
 
 const GeekLayout = () => {
+	const navigate = useNavigate()
 	const { pathname } = useLocation()
 	const { userStore, loginStore, channelStore } = useStore()
-	const navigate = useNavigate()
 	/**
 	 * 此处的依赖项userStore不是响应式，不会变化；
 	 * 所以这个副作用函数只在组件首次渲染的时候执行一次。
@@ -30,6 +30,24 @@ const GeekLayout = () => {
 		loginStore.logout()
 		navigate("/login")
 	}
+	// 菜单项
+	const menuItems = [
+		{
+			label: "数据概览",
+			key: "/",
+			icon: <HomeOutlined />,
+		},
+		{
+			label: "内容管理",
+			key: "/article",
+			icon: <DiffOutlined />,
+		},
+		{
+			label: "发布文章",
+			key: "/publish",
+			icon: <EditOutlined />,
+		},
+	]
 	return (
 		<Layout>
 			<Header className="header">
@@ -51,21 +69,13 @@ const GeekLayout = () => {
 			<Layout>
 				<Sider width={200} className="site-layout-background">
 					<Menu
+						selectedKeys={[pathname]}
 						mode="inline"
 						theme="dark"
-						selectedKeys={[pathname]}
+						items={menuItems}
+						onClick={(e) => navigate(e.key)}
 						style={{ height: "100%", borderRight: 0 }}
-					>
-						<Menu.Item icon={<HomeOutlined />} key="/">
-							<Link to="/">数据概览</Link>
-						</Menu.Item>
-						<Menu.Item icon={<DiffOutlined />} key="/article">
-							<Link to="/article">内容管理</Link>
-						</Menu.Item>
-						<Menu.Item icon={<EditOutlined />} key="/publish">
-							<Link to="/publish">发布文章</Link>
-						</Menu.Item>
-					</Menu>
+					/>
 				</Sider>
 				{/* 二级路由对应显示 */}
 				<Layout className="layout-content" style={{ padding: 20 }}>
