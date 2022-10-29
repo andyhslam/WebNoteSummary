@@ -18,7 +18,7 @@ const GeekLayout = () => {
 	const { pathname } = useLocation()
 	const { userStore, loginStore, channelStore } = useStore()
 	/**
-	 * 此处的依赖项userStore不是响应式，不会变化；
+	 * 此处的依赖项userStore和channelStore不是响应式，不会变化；
 	 * 所以这个副作用函数只在组件首次渲染的时候执行一次。
 	 */
 	useEffect(() => {
