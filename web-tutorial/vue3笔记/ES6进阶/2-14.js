@@ -50,8 +50,15 @@ class Father {
 // extends关键字，可以让子类继承父类的属性和方法。
 class Son extends Father {
 	constructor(x, y) {
-		// 通过super关键字，调用父类上的构造函数，实现子类向父类传递参数。
+		/**
+		 * 通过super关键字，调用父类上的构造函数，实现子类向父类传递参数；
+		 * 子类在构造函数中使用super，必须放到this前面；
+		 * 必须先调用父类的构造函数，然后才能对子类的this进行赋值操作。
+		 */
 		super(x, y)
+	}
+	subtract() {
+		console.log(this.x - this.y)
 	}
 	say() {
 		// 通过super关键字，调用父类上的普通函数
@@ -65,7 +72,9 @@ class Son extends Father {
  * 2.继承中，如果子类里面没有，就去查找父类有没有这个方法，如果有，就执行父类的这个方法。
  */
 
-const son = new Son(1, 2)
+const son = new Son(5, 3)
+console.log(son)
 son.money()
 son.sum()
+son.subtract()
 son.say()
