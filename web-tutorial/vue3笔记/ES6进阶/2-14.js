@@ -39,6 +39,9 @@ class Father {
 	sum() {
 		console.log(this.x + this.y)
 	}
+	say() {
+		console.log("我是爸爸")
+	}
 	money() {
 		console.log(100)
 	}
@@ -47,10 +50,22 @@ class Father {
 // extends关键字，可以让子类继承父类的属性和方法。
 class Son extends Father {
 	constructor(x, y) {
-		// 通过super关键字，可以调用父类上的构造函数和普通函数，实现子类向父类传递参数。
+		// 通过super关键字，调用父类上的构造函数，实现子类向父类传递参数。
 		super(x, y)
 	}
+	say() {
+		// 通过super关键字，调用父类上的普通函数
+		super.say()
+	}
 }
+
+/**
+ * 继承中属性和方法的查找原则: 就近原则
+ * 1.继承中，如果实例化子类输出一个方法，先看子类有没有这个方法，如果有就先执行子类的；
+ * 2.继承中，如果子类里面没有，就去查找父类有没有这个方法，如果有，就执行父类的这个方法。
+ */
+
 const son = new Son(1, 2)
 son.money()
 son.sum()
+son.say()
