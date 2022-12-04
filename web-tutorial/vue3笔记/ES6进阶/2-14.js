@@ -17,11 +17,8 @@ class Star {
 
 // 利用类创建实例对象
 const ldh = new Star("刘德华", 61)
-const zxy = new Star("张学友", 60)
 console.log(ldh)
-console.log(zxy)
 ldh.sing("冰雨")
-zxy.sing("李香兰")
 
 /**
  * 1.通过class关键字创建类, 类名我们还是习惯性定义首字母大写。
@@ -32,3 +29,28 @@ zxy.sing("李香兰")
  * 6.类里面所有的函数不需要写function
  * 7.多个函数方法之间不需要添加逗号分隔
  */
+
+// 1.类的继承
+class Father {
+	constructor(x, y) {
+		this.x = x
+		this.y = y
+	}
+	sum() {
+		console.log(this.x + this.y)
+	}
+	money() {
+		console.log(100)
+	}
+}
+
+// extends关键字，可以让子类继承父类的属性和方法。
+class Son extends Father {
+	constructor(x, y) {
+		// 通过super关键字，可以调用父类上的构造函数和普通函数，实现子类向父类传递参数。
+		super(x, y)
+	}
+}
+const son = new Son(1, 2)
+son.money()
+son.sum()
