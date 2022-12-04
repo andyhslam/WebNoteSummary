@@ -6,9 +6,15 @@ class Star {
 	 * 如果没有显式定义，类内部会自动创建一个constructor()
 	 */
 	constructor(uname, age) {
-		// this指向创建的实例对象
+		// 构造函数里面的this指向创建的实例对象
 		this.uname = uname
 		this.age = age
+		// 直接在构造函数里面调用实例方法
+		this.singer()
+	}
+	// 普通函数里面的this指向该函数的调用者
+	singer() {
+		console.log(this.uname)
 	}
 	sing(song) {
 		console.log(this.uname + "：" + song)
@@ -17,8 +23,16 @@ class Star {
 
 // 利用类创建实例对象
 const ldh = new Star("刘德华", 61)
-console.log(ldh)
 ldh.sing("冰雨")
+
+/**
+ * 使用类的3个注意点
+ * 1.在ES6中，类没有变量提升，所以必须先定义类，才能通过类实例化对象。
+ * 2.类里面的共有属性和方法，一定要加this使用，因为这些属性和方法属于实例对象。
+ * 3.类里面的this指向问题：
+ * 3-1.构造函数里面的this指向创建的实例对象；
+ * 3-2.普通函数里面的this指向该函数的调用者。
+ */
 
 /**
  * 1.通过class关键字创建类, 类名我们还是习惯性定义首字母大写。
