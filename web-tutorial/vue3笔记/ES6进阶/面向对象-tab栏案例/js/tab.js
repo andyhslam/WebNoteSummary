@@ -19,6 +19,7 @@ class Tab {
 			this.lis[i].onclick = this.toggleTab
 			this.remove[i].onclick = this.removeTab
 			this.spans[i].ondblclick = this.editTab
+			this.sections[i].ondblclick = this.editTab
 		}
 	}
 	// 动态添加元素，需要重新获取对应的元素
@@ -90,6 +91,12 @@ class Tab {
 		// 当鼠标离开文本框的时候，就把文本框里面的值给span
 		input.onblur = function () {
 			this.parentNode.innerHTML = this.value
+		}
+		// 按下回车键也可以把文本框里面的值给span
+		input.onkeyup = function (e) {
+			if (e.keyCode === 13) {
+				this.blur() // 手动调用表单失去焦点事件，不需要鼠标离开操作
+			}
 		}
 	}
 }
