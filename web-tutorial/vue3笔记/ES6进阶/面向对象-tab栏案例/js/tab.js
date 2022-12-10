@@ -60,8 +60,16 @@ class Tab {
 	removeTab(e) {
 		// 阻止冒泡：防止触发li的切换点击事件
 		e.stopPropagation()
-		// 获取关闭按钮的父节点li的索引号
+		// 获取关闭按钮的父节点li的索引号(即关闭按钮的索引号)
 		var index = this.parentNode.index
+		// 根据索引号删除对应的li和section，remove()方法可以直接删除指定的元素。
+		that.lis[index].remove()
+		that.sections[index].remove()
+		that.init()
+		// 当删除选中状态的li的时候，让它的前一个li处于选中状态。
+		index--
+		// 自动执行点击事件，不需要鼠标触发
+		that.lis[index] && that.lis[index].click()
 	}
 	// 4. 修改功能
 	editTab() {}
