@@ -8,6 +8,7 @@ class Tab {
 		this.sections = this.main.querySelectorAll("section")
 		this.add = this.main.querySelector(".tabadd")
 		this.ul = this.main.querySelector(".fisrstnav ul:first-child")
+		this.fsection = this.main.querySelector(".tabscon")
 		this.init()
 	}
 	init() {
@@ -28,6 +29,7 @@ class Tab {
 		this.className = "liactive"
 		that.sections[this.index].className = "conactive"
 	}
+	// 清除所有li和section的类
 	clearClass() {
 		for (var i = 0; i < this.lis.length; i++) {
 			this.lis[i].className = ""
@@ -36,11 +38,15 @@ class Tab {
 	}
 	// 2. 添加功能
 	addTab() {
+		that.clearClass()
 		// 1.创建li元素和section元素
 		var li =
 			'<li class="liactive"><span>新选项卡</span><span class="iconfont icon-guanbi"></span></li>'
+		var section =
+			'<section class="conactive">测试' + Math.random() + "</section>"
 		// 2.把这两个字符串元素追加到对应的父元素最后面
 		that.ul.insertAdjacentHTML("beforeend", li)
+		that.fsection.insertAdjacentHTML("beforeend", section)
 	}
 	// 3. 删除功能
 	removeTab() {}
