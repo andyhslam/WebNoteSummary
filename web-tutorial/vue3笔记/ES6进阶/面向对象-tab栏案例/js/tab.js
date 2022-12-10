@@ -5,7 +5,7 @@ class Tab {
 		that = this
 		this.main = document.querySelector(id)
 		this.add = this.main.querySelector(".tabadd")
-		this.ul = this.main.querySelector(".fisrstnav ul:first-child")
+		this.ul = this.main.querySelector(".firstnav ul:first-child")
 		this.fsection = this.main.querySelector(".tabscon")
 		this.init()
 	}
@@ -18,6 +18,7 @@ class Tab {
 			this.lis[i].index = i
 			this.lis[i].onclick = this.toggleTab
 			this.remove[i].onclick = this.removeTab
+			this.spans[i].ondblclick = this.editTab
 		}
 	}
 	// 动态添加元素，需要重新获取对应的元素
@@ -25,6 +26,7 @@ class Tab {
 		this.lis = this.main.querySelectorAll("li")
 		this.sections = this.main.querySelectorAll("section")
 		this.remove = this.main.querySelectorAll(".icon-guanbi")
+		this.spans = this.main.querySelectorAll(".firstnav li span:first-child")
 	}
 	// 1. 切换功能
 	toggleTab() {
@@ -74,7 +76,13 @@ class Tab {
 		that.lis[index] && that.lis[index].click()
 	}
 	// 4. 修改功能
-	editTab() {}
+	editTab() {
+		// 如果双击文字，会默认选定文字，此时需要双击禁止选中文字。
+		window.getSelection
+			? window.getSelection().removeAllRanges()
+			: document.getSelection.empty()
+		this.innerHTML = '<input type="text" />'
+	}
 }
 
 new Tab("#tab")
