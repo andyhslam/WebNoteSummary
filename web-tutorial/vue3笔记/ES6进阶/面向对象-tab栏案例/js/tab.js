@@ -66,6 +66,8 @@ class Tab {
 		that.lis[index].remove()
 		that.sections[index].remove()
 		that.init()
+		// 当删除不是选中状态的li的时候，原来的选中状态li保持不变
+		if (document.querySelector(".liactive")) return
 		// 当删除选中状态的li的时候，让它的前一个li处于选中状态。
 		index--
 		// 自动执行点击事件，不需要鼠标触发
