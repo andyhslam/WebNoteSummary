@@ -77,11 +77,20 @@ class Tab {
 	}
 	// 4. 修改功能
 	editTab() {
+		var str = this.innerHTML
 		// 如果双击文字，会默认选定文字，此时需要双击禁止选中文字。
 		window.getSelection
 			? window.getSelection().removeAllRanges()
 			: document.getSelection.empty()
 		this.innerHTML = '<input type="text" />'
+		var input = this.children[0]
+		input.value = str
+		// 使文本框里面的文字处于选定状态
+		input.select()
+		// 当鼠标离开文本框的时候，就把文本框里面的值给span
+		input.onblur = function () {
+			this.parentNode.innerHTML = this.value
+		}
 	}
 }
 
