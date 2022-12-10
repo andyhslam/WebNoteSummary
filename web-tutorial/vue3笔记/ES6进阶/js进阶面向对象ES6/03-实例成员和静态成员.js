@@ -15,12 +15,28 @@
 function Star(uname, age) {
 	this.uname = uname
 	this.age = age
-	this.sing = function () {
-		console.log("我会唱歌")
-	}
+	// this.sing = function () {
+	// 	console.log("我会唱歌")
+	// }
+}
+/**
+ * 构造函数原型prototype：
+ * 构造函数通过原型分配的函数是所有对象所共享的。
+ * js规定，每个构造函数都有一个prototype属性，指向另一个对象。
+ * 注意这个prototype就是一个对象，这个对象的所有属性和方法，都会被构造函数所拥有。
+ * 我们可以把那些不变的方法，直接定义在prototype对象上，这样所有实例对象就可以共享这些方法。
+ */
+Star.prototype.sing = function () {
+	console.log("我会唱歌")
 }
 
+/**
+ * 一般情况下，公共属性定义到构造函数里面，公共方法定义在原型对象身上(实现方法的共享，不会再开辟新的内存空间，节省内存资源)
+ */
+
 var ldh = new Star("刘德华", 17)
+var zxy = new Star("张学友", 18)
+console.log(ldh.sing === zxy.sing)
 /**
  * 1.实例成员：构造函数内部通过this添加的成员；例如：uname、age、sing
  * 实例成员只能通过实例化对象来访问，不能通过构造函数来访问。
@@ -36,3 +52,5 @@ console.log(Star.uname) // undefined; 这是不可以的
 Star.sex = "male"
 console.log(Star.sex)
 console.log(ldh.sex) // undefined; 这是不可以的
+
+// 类是对象的模板，对象是类的实例。
