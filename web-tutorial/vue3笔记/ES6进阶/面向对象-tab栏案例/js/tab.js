@@ -17,12 +17,14 @@ class Tab {
 			// 每个li的index属性值是当前li的索引号
 			this.lis[i].index = i
 			this.lis[i].onclick = this.toggleTab
+			this.remove[i].onclick = this.removeTab
 		}
 	}
-	// 获取所有的li和section元素
+	// 动态添加元素，需要重新获取对应的元素
 	updateNode() {
 		this.lis = this.main.querySelectorAll("li")
 		this.sections = this.main.querySelectorAll("section")
+		this.remove = this.main.querySelectorAll(".icon-guanbi")
 	}
 	// 1. 切换功能
 	toggleTab() {
@@ -55,7 +57,12 @@ class Tab {
 		that.init()
 	}
 	// 3. 删除功能
-	removeTab() {}
+	removeTab(e) {
+		// 阻止冒泡：防止触发li的切换点击事件
+		e.stopPropagation()
+		// 获取关闭按钮的父节点li的索引号
+		var index = this.parentNode.index
+	}
 	// 4. 修改功能
 	editTab() {}
 }
