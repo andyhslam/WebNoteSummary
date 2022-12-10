@@ -6,10 +6,13 @@ class Tab {
 		this.main = document.querySelector(id)
 		this.lis = this.main.querySelectorAll("li")
 		this.sections = this.main.querySelectorAll("section")
+		this.add = this.main.querySelector(".tabadd")
+		this.ul = this.main.querySelector(".fisrstnav ul:first-child")
 		this.init()
 	}
 	init() {
-		// 初始化操作(页面加载)让相关的元素(li)绑定(点击)事件
+		// 初始化操作(页面加载)让相关的元素绑定(点击)事件
+		this.add.onclick = this.addTab
 		for (var i = 0; i < this.lis.length; i++) {
 			// 每个li的index属性值是当前li的索引号
 			this.lis[i].index = i
@@ -32,7 +35,13 @@ class Tab {
 		}
 	}
 	// 2. 添加功能
-	addTab() {}
+	addTab() {
+		// 1.创建li元素和section元素
+		var li =
+			'<li class="liactive"><span>新选项卡</span><span class="iconfont icon-guanbi"></span></li>'
+		// 2.把这两个字符串元素追加到对应的父元素最后面
+		that.ul.insertAdjacentHTML("beforeend", li)
+	}
 	// 3. 删除功能
 	removeTab() {}
 	// 4. 修改功能
