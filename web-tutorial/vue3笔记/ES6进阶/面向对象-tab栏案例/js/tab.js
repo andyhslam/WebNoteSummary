@@ -4,14 +4,13 @@ class Tab {
 		// 获取元素
 		that = this
 		this.main = document.querySelector(id)
-		this.lis = this.main.querySelectorAll("li")
-		this.sections = this.main.querySelectorAll("section")
 		this.add = this.main.querySelector(".tabadd")
 		this.ul = this.main.querySelector(".fisrstnav ul:first-child")
 		this.fsection = this.main.querySelector(".tabscon")
 		this.init()
 	}
 	init() {
+		this.updateNode()
 		// 初始化操作(页面加载)让相关的元素绑定(点击)事件
 		this.add.onclick = this.addTab
 		for (var i = 0; i < this.lis.length; i++) {
@@ -19,6 +18,11 @@ class Tab {
 			this.lis[i].index = i
 			this.lis[i].onclick = this.toggleTab
 		}
+	}
+	// 获取所有的li和section元素
+	updateNode() {
+		this.lis = this.main.querySelectorAll("li")
+		this.sections = this.main.querySelectorAll("section")
 	}
 	// 1. 切换功能
 	toggleTab() {
@@ -47,6 +51,8 @@ class Tab {
 		// 2.把这两个字符串元素追加到对应的父元素最后面
 		that.ul.insertAdjacentHTML("beforeend", li)
 		that.fsection.insertAdjacentHTML("beforeend", section)
+		// 先添加li和section的新元素，然后获取所有的li和section元素，再给他们绑定事件
+		that.init()
 	}
 	// 3. 删除功能
 	removeTab() {}
