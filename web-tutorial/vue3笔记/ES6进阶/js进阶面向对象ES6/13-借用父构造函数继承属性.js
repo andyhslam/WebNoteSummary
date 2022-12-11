@@ -27,3 +27,6 @@ Son.prototype.constructor = Son
 
 var son = new Son("刘德华", 17, 100)
 console.log(son)
+
+console.log(typeof Son)
+console.log(Object.prototype.toString.call(Son))
