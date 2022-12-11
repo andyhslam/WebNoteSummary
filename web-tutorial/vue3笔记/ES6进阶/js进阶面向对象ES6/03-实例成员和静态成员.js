@@ -25,21 +25,24 @@ function Star(uname, age) {
  * 一般情况下，公共属性定义到构造函数里面，公共方法定义在原型对象身上(实现方法的共享，不会再开辟新的内存空间，节省内存资源)
  */
 
-// Star.prototype.sing = function () {
-// 	console.log("我会唱歌")
-// }
-
-Star.prototype = {
-	/**
-	 * 如果修改了原来的原型对象，给原型对象赋值的是一个对象;
-	 * 此时原型对象就没有constructor属性，也就是把原来的constructor属性覆盖了；
-	 * 则必须手动地利用constructor指回原来的构造函数，这样就知道对象是通过哪个构造函数创建出来的。
-	 */
-	constructor: Star,
-	sing: function () {
-		console.log("我会唱歌")
-	},
+var that
+Star.prototype.sing = function () {
+	that = this
+	console.log("我会唱歌")
 }
+
+/**
+ * 如果修改了原来的原型对象，给原型对象赋值的是一个对象;
+ * 此时原型对象就没有constructor属性，也就是把原来的constructor属性覆盖了；
+ * 则必须手动地利用constructor指回原来的构造函数，这样就知道对象是通过哪个构造函数创建出来的。
+ */
+// Star.prototype = {
+// 	constructor: Star,
+// 	sing: function () {
+// 		that = this
+// 		console.log("我会唱情歌")
+// 	},
+// }
 
 /**
  * constructor构造函数：
@@ -50,6 +53,12 @@ Star.prototype = {
 var ldh = new Star("刘德华", 17)
 var zxy = new Star("张学友", 18)
 console.log(ldh.sing === zxy.sing)
+/**
+ * 1.构造函数中的this指向的是实例对象；
+ * 2.原型对象里面的函数的this指向的也是实例对象，因为原型对象里面的函数就是给实例对象使用的。
+ */
+ldh.sing()
+console.log(that === ldh)
 /**
  * 1.只要是对象就有__proto__属性，指向原型对象
  * 2.Star的原型对象的__proto__属性指向的是Object的原型对象
