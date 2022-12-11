@@ -50,8 +50,13 @@ Star.prototype = {
 var ldh = new Star("刘德华", 17)
 var zxy = new Star("张学友", 18)
 console.log(ldh.sing === zxy.sing)
-console.log(Star.prototype)
-console.log(ldh.__proto__)
+/**
+ * 1.只要是对象就有__proto__属性，指向原型对象
+ * 2.Star的原型对象的__proto__属性指向的是Object的原型对象
+ * 3.Object的原型对象__proto__属性指向为null
+ */
+console.log(Star.prototype.__proto__ === Object.prototype) // true
+console.log(Object.prototype.__proto__) // null
 /**
  * 1.实例成员：构造函数内部通过this添加的成员；例如：uname、age、sing
  * 实例成员只能通过实例化对象来访问，不能通过构造函数来访问。
