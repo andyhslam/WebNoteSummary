@@ -1,8 +1,6 @@
-var that
 class Tab {
 	constructor(id) {
 		// 获取元素
-		that = this
 		this.main = document.querySelector(id)
 		this.add = this.main.querySelector(".tabadd")
 		this.ul = this.main.querySelector(".firstnav ul:first-child")
@@ -12,12 +10,12 @@ class Tab {
 	init() {
 		this.updateNode()
 		// 初始化操作(页面加载)让相关的元素绑定(点击)事件
-		this.add.onclick = this.addTab
+		this.add.onclick = this.addTab.bind(this.add, this)
 		for (var i = 0; i < this.lis.length; i++) {
 			// 每个li的index属性值是当前li的索引号
 			this.lis[i].index = i
-			this.lis[i].onclick = this.toggleTab
-			this.remove[i].onclick = this.removeTab
+			this.lis[i].onclick = this.toggleTab.bind(this.lis[i], this)
+			this.remove[i].onclick = this.removeTab.bind(this.remove[i], this)
 			this.spans[i].ondblclick = this.editTab
 			this.sections[i].ondblclick = this.editTab
 		}
@@ -30,7 +28,7 @@ class Tab {
 		this.spans = this.main.querySelectorAll(".firstnav li span:first-child")
 	}
 	// 1. 切换功能
-	toggleTab() {
+	toggleTab(that) {
 		// console.log(this.index) 获取当前li的索引号
 		// 此处的this指向函数的调用者(li)，所以要定义一个全局变量that保存constructor里面的this
 		// 此处的that指向实例对象，因为是实例对象调用clearClass方法，所以clearClass方法里面的this就指向实例对象。
@@ -46,7 +44,7 @@ class Tab {
 		}
 	}
 	// 2. 添加功能
-	addTab() {
+	addTab(that) {
 		that.clearClass()
 		// 1.创建li元素和section元素
 		var li =
@@ -60,7 +58,7 @@ class Tab {
 		that.init()
 	}
 	// 3. 删除功能
-	removeTab(e) {
+	removeTab(that, e) {
 		// 阻止冒泡：防止触发li的切换点击事件
 		e.stopPropagation()
 		// 获取关闭按钮的父节点li的索引号(即关闭按钮的索引号)
