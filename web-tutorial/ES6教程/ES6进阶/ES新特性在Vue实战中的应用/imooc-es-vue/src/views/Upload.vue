@@ -41,8 +41,8 @@ export default {
 			client: new OSS({
 				region: "oss-cn-hongkong",
 				bucket: "andy-imooc-es",
-				accessKeyId: "LTAI5tGWtBGJYWAvgCAvikzf",
-				accessKeySecret: "dy5dIP8ZczWoq91yaUNS1JI4aOdq3H",
+				accessKeyId: "",
+				accessKeySecret: "",
 			}),
 		}
 	},
