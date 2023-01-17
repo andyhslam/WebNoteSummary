@@ -62,7 +62,7 @@ export default {
 				}
 				files.push(file)
 			}
-			this.uploadFilesByOSS(files)
+			this.uploadFilesByOSS2(files)
 		},
 		// 上传多图到阿里云OSS
 		uploadFilesByOSS(files) {
@@ -95,6 +95,20 @@ export default {
 				.catch((err) => {
 					console.log(err)
 				})
+		},
+		// 上传多图到阿里云OSS-async/await
+		async uploadFilesByOSS2(files) {
+			this.isUploading = true
+			const imgs = []
+			for (const file of files) {
+				const result = await this.client.put(
+					`${Math.random()}-${file.name}`,
+					file
+				)
+				imgs.push(result.url)
+			}
+			this.imgList = imgs
+			this.isUploading = false
 		},
 	},
 }
