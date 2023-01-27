@@ -11,8 +11,9 @@
 
 			}
 		},
-		onLoad() {
-			
+		async onLoad() {
+			const res = await this.$u.get('/api/index')
+			console.log(res);
 		},
 		methods: {
 
