@@ -1,0 +1,7 @@
+/* 1. rpx px em rem vh wh；
+   2. 推荐使用rpx，会根据不同的设备进行换算；
+   3. 750宽度下，2rpx = 1px；
+   */
+.font-20 {
+	font-size: 40rpx;
+}

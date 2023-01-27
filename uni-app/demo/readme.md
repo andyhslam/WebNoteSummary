@@ -1,0 +1,12 @@
+## 项目的目录结构
+1. pages：页面存放目录
+2. static：静态文件资源目录
+3. App.vue：应用入口文件，和小程序app.js类似
+4. main.js：应用入口文件，注册Vue等
+5. manifest.json：项目配置文件
+6. pages.json：页面配置文件
+7. uni.scss：全局样式文件
+8. common：存放公用的文件
+9. components：自定义组件目录
+10. store：vuex目录
+11. unpackage：打包编译后的文件存放目录
