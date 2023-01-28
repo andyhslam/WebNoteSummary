@@ -23,6 +23,8 @@ const install = (Vue, vm) => {
 		// 方式一，存放在vuex的token，假设使用了uView封装的vuex方式
 		// 见：https://uviewui.com/components/globalVariable.html
 		// config.header.token = vm.token;
+		vm.access_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvYXBpLnNob3AuZWR1d29yay5jblwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTY3NDkxOTExMSwiZXhwIjoxNjc1Mjc5MTExLCJuYmYiOjE2NzQ5MTkxMTEsImp0aSI6ImozU3hHckExS3VxNGJoUksiLCJzdWIiOjIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.uAkOpLWlWokLNmD3VhpWxD4-vamTZM-KbTAUgaVwQQc'
+		config.header.Authorization = 'Bearer ' + vm.access_token;
 		
 		// 方式二，如果没有使用uView封装的vuex方法，那么需要使用$store.state获取
 		// config.header.token = vm.$store.state.token;
@@ -34,7 +36,6 @@ const install = (Vue, vm) => {
 		// 所以哪怕您重新登录修改了Storage，下一次的请求将会是最新值
 		// const token = uni.getStorageSync('token');
 		// config.header.token = token;
-		config.header.Token = 'xxxxxx';
 		
 		// 可以对某个url进行特别处理，此url参数为this.$u.get(url)中的url值
 		if(config.url == '/user/login') config.header.noToken = true;
@@ -52,16 +53,24 @@ const install = (Vue, vm) => {
 			// 这里对data进行返回，将会在this.$u.post(url).then(res => {})的then回调中的res得到
 			// 如果配置了originalData为true，请留意这里的返回值
 			return data;
+		} else if(statusCode == 400) {
+			//（错误请求）服务器不理解请求的语法。
+			vm.$u.toast(data.message);
+			return false;
 		} else if(statusCode == 401) {
-			// 假设201为token失效，这里跳转登录
+			//（未授权）请求要求身份验证。
 			vm.$u.toast('验证失败，请重新登录');
 			setTimeout(() => {
 				// 此为uView的方法，详见路由相关文档
 				vm.$u.route('/pages/user/login')
 			}, 1500)
 			return false;
-		} else {
-			// 如果返回false，则会调用Promise的reject回调，
+		} else if(statusCode == 422) {
+			//（验证错误）请求参数未通过验证
+			vm.$u.toast(Object.values(data.errors).flat().shift());
+			return false;
+		}  else {
+			// 如果返回false(即出现异常的情况)，则会调用Promise的reject回调，
 			// 并将进入this.$u.post(url).then().catch(res=>{})的catch回调中，res为服务端的返回值
 			return false;
 		}
