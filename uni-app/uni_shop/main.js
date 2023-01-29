@@ -15,4 +15,9 @@ const app = new Vue({
 })
 // 这里需要写在最后，是为了等Vue创建对象完成，引入"app"对象(也即页面的"this"实例)
 Vue.use(httpInterceptor, app)
+
+// http接口API集中管理
+import httpApi from '@/common/http.api.js'
+Vue.use(httpApi, app)
+
 app.$mount()
