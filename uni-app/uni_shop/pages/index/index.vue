@@ -1,6 +1,19 @@
 <template>
-	<view>
-		首页 {{vuex_user.name}}
+	<view class="wrap">
+		<u-swiper :list="imgList"></u-swiper>
+		<u-tabs :list="sortList" :is-scroll="false" :current="currentSort" @change="changeSort"></u-tabs>
+		<u-row gutter="16">
+			<u-col span="6" v-for="i in 12">
+				<navigator class="goods-item u-m-t-30 u-p-40">
+					<u-image width="100%" height="300rpx" :src="imgSrc"></u-image>
+					<view class="title u-m-10 u-font-32">区块链</view>
+					<view class="u-flex u-row-between">
+						<view class="price">￥ 99</view>
+						<view class="sales">销量：10</view>
+					</view>
+				</navigator>
+			</u-col>
+		</u-row>
 	</view>
 </template>
 
@@ -8,43 +21,52 @@
 	export default {
 		data() {
 			return {
-
+				imgList: [
+					{
+						image: 'https://cdn.uviewui.com/uview/swiper/1.jpg',
+						title: '昨夜星辰昨夜风，画楼西畔桂堂东'
+					},
+					{
+						image: 'https://cdn.uviewui.com/uview/swiper/2.jpg',
+						title: '身无彩凤双飞翼，心有灵犀一点通'
+					},
+					{
+						image: 'https://cdn.uviewui.com/uview/swiper/3.jpg',
+						title: '谁念西风独自凉，萧萧黄叶闭疏窗，沉思往事立残阳'
+					}
+				],
+				sortList: [
+					{name: '默认'}, 
+					{name: '销量'}, 
+					{name: '推荐'},
+					{name: '最新'},
+				],
+				currentSort: 0,
+				imgSrc: 'https://oss.shop.eduwork.cn/product/2020-0820-5f3e152e57d13.png',
 			}
 		},
 		 async onLoad() {
-			// const res = await this.$u.get('/api/index')
 			
-			// this.$u.post('/api/auth/wx/bind').then(res => {
-			// 	// Promise.then的写法不影响后面代码的执行，所以不需要使用try...catch(e)来捕获异常
-			// 	console.log('res-bind', res);
-			// })
-			
-			// try {
-			// 	const res = await this.$u.post('/api/auth/login')
-			// 	console.log('res-login', res);
-			// 	// async...await的写法影响后面代码的执行，所以需要使用try...catch(e)来捕获异常
-			// } catch(e) {
-			// 	console.log(e);
-			// }
-			
-			// const res = await this.$u.patch('/api/orders/2/confirm')
-			// console.log(res);
-			
-			// 集中管理api
-			// const res = await this.$u.api.index()
-			// const res = await this.$u.api.authLogin({email: 'test@a.com', password: '123123'})
-			// console.log(res);
-			
-			console.log('vuex_version', this.vuex_version);
-			// this.$u.vuex('vuex_name', 'Tom1')
-			console.log('vuex_name', this.vuex_name);
 		},
 		methods: {
-
+			changeSort(index) {
+				this.currentSort = index;
+			}
 		},
 	}
 </script>
 
 <style lang="scss" scoped>
-
+	.goods-item {
+		box-shadow: 0 12rpx 20rpx 0 rgba(0, 0, 0, .1);
+		.title {
+			font-weight: 500;
+		}
+		.price {
+			color: red;
+		}
+		.sales {
+			color: #888;
+		}
+	}
 </style>
