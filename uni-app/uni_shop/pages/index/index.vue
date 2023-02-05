@@ -1,15 +1,15 @@
 <template>
 	<view class="wrap">
-		<u-swiper :list="imgList"></u-swiper>
+		<u-swiper :list="slides" name="img_url" height="320"></u-swiper>
 		<u-tabs :list="sortList" :is-scroll="false" :current="currentSort" @change="changeSort"></u-tabs>
 		<u-row gutter="16">
-			<u-col span="6" v-for="i in 12">
+			<u-col span="6" v-for="item in goods">
 				<navigator class="goods-item u-m-t-30 u-p-40">
-					<u-image width="100%" height="300rpx" :src="imgSrc"></u-image>
-					<view class="title u-m-10 u-font-32">区块链</view>
+					<u-image width="100%" height="300rpx" :src="item.cover_url"></u-image>
+					<view class="title u-m-10 u-font-32 u-line-1">{{item.title}}</view>
 					<view class="u-flex u-row-between">
-						<view class="price">￥ 99</view>
-						<view class="sales">销量：10</view>
+						<view class="price">￥ {{item.price}}</view>
+						<view class="sales">销量：{{item.sales}}</view>
 					</view>
 				</navigator>
 			</u-col>
@@ -21,20 +21,6 @@
 	export default {
 		data() {
 			return {
-				imgList: [
-					{
-						image: 'https://cdn.uviewui.com/uview/swiper/1.jpg',
-						title: '昨夜星辰昨夜风，画楼西畔桂堂东'
-					},
-					{
-						image: 'https://cdn.uviewui.com/uview/swiper/2.jpg',
-						title: '身无彩凤双飞翼，心有灵犀一点通'
-					},
-					{
-						image: 'https://cdn.uviewui.com/uview/swiper/3.jpg',
-						title: '谁念西风独自凉，萧萧黄叶闭疏窗，沉思往事立残阳'
-					}
-				],
 				sortList: [
 					{name: '默认'}, 
 					{name: '销量'}, 
@@ -42,15 +28,22 @@
 					{name: '最新'},
 				],
 				currentSort: 0,
-				imgSrc: 'https://oss.shop.eduwork.cn/product/2020-0820-5f3e152e57d13.png',
+				slides: [],
+				goods: [],
 			}
 		},
-		 async onLoad() {
-			
+		onLoad() {
+			this.getIndexData()
 		},
 		methods: {
 			changeSort(index) {
 				this.currentSort = index;
+			},
+			async getIndexData() {
+				const res = await this.$u.api.index()
+				console.log('res', res);
+				this.slides = res.slides
+				this.goods = res.goods.data
 			}
 		},
 	}
