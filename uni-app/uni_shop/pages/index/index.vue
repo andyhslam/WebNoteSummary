@@ -30,21 +30,32 @@
 				currentSort: 0,
 				slides: [],
 				goods: [],
+				page: 1,
 			}
 		},
 		onLoad() {
 			this.getIndexData()
+		},
+		onReachBottom() {
+			// 重新请求数据，带上分页参数
+			this.page += 1
+			this.getIndexData()
+			
 		},
 		methods: {
 			changeSort(index) {
 				this.currentSort = index;
 			},
 			async getIndexData() {
-				const res = await this.$u.api.index()
+				const params = {
+					page: this.page
+				}
+				const res = await this.$u.api.index(params)
 				console.log('res', res);
 				this.slides = res.slides
-				this.goods = res.goods.data
-			}
+				// this.goods.push(...res.goods.data)
+				this.goods = [...this.goods, ...res.goods.data]
+			},
 		},
 	}
 </script>
