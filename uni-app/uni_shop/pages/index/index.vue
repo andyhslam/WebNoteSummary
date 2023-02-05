@@ -40,16 +40,23 @@
 			// 重新请求数据，带上分页参数
 			this.page += 1
 			this.getIndexData()
-			
 		},
 		methods: {
 			changeSort(index) {
-				this.currentSort = index;
+				this.currentSort = index
+				// 重置商品数据和分页
+				this.goods = []
+				this.page = 1
+				this.getIndexData()
 			},
 			async getIndexData() {
 				const params = {
 					page: this.page
 				}
+				// 增加排序条件
+				if(this.currentSort === 1) params.sales = 1
+				if(this.currentSort === 2) params.recommend = 1
+				if(this.currentSort === 3) params.new = 1
 				const res = await this.$u.api.index(params)
 				console.log('res', res);
 				this.slides = res.slides
