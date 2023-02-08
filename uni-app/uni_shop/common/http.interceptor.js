@@ -59,11 +59,15 @@ const install = (Vue, vm) => {
 			return false;
 		} else if(statusCode == 401) {
 			//（未授权）请求要求身份验证。
-			vm.$u.toast('验证失败，请重新登录');
-			setTimeout(() => {
-				// 此为uView的方法，详见路由相关文档
-				vm.$u.route('/pages/user/login')
-			}, 1500)
+			// 401的情况有两种：一种是认证未通过；一种是没有token或者token过期
+			if (data.message === 'Unauthorized') {
+				vm.$u.toast('账号或密码错误');
+			} else {
+				vm.$u.toast('验证失败，请重新登录');
+				setTimeout(() => {
+					vm.$u.route('/pages/user/login')
+				}, 1500)
+			}
 			return false;
 		} else if(statusCode == 422) {
 			//（验证错误）请求参数未通过验证
