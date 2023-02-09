@@ -32,6 +32,9 @@ export default {
 			return style;
 		}
 	},
+	onLoad() {
+
+	},
 	methods: {
 		async submit() {
 			if(!this.$u.test.email(this.email) || !this.password) return
@@ -43,6 +46,10 @@ export default {
 			// 请求API，执行登录
 			const loginRes = await this.$u.api.authLogin(params)
 			// this.$u.route({url: 'pages/auth/code'})
+			// 缓存token
+			this.$u.vuex('vuex_token', loginRes.access_token)
+			// 请求用户详情
+			const userInfoRes = await this.$u.api.userInfo()
 		},
 	},
 };

@@ -23,8 +23,7 @@ const install = (Vue, vm) => {
 		// 方式一，存放在vuex的token，假设使用了uView封装的vuex方式
 		// 见：https://uviewui.com/components/globalVariable.html
 		// config.header.token = vm.token;
-		vm.access_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvYXBpLnNob3AuZWR1d29yay5jblwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTY3NDkxOTExMSwiZXhwIjoxNjc1Mjc5MTExLCJuYmYiOjE2NzQ5MTkxMTEsImp0aSI6ImozU3hHckExS3VxNGJoUksiLCJzdWIiOjIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.uAkOpLWlWokLNmD3VhpWxD4-vamTZM-KbTAUgaVwQQc'
-		config.header.Authorization = 'Bearer ' + vm.access_token;
+		config.header.Authorization = 'Bearer ' + vm.vuex_token;
 		
 		// 方式二，如果没有使用uView封装的vuex方法，那么需要使用$store.state获取
 		// config.header.token = vm.$store.state.token;
