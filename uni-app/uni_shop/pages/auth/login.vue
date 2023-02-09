@@ -45,11 +45,12 @@ export default {
 			}
 			// 请求API，执行登录
 			const loginRes = await this.$u.api.authLogin(params)
-			// this.$u.route({url: 'pages/auth/code'})
 			// 缓存token
 			this.$u.vuex('vuex_token', loginRes.access_token)
-			// 请求用户详情
+			// 请求用户信息
 			const userInfoRes = await this.$u.api.userInfo()
+			// 缓存用户信息
+			this.$u.vuex('vuex_user', userInfoRes)
 		},
 	},
 };
