@@ -62,10 +62,8 @@ const install = (Vue, vm) => {
 			if (data.message === 'Unauthorized') {
 				vm.$u.toast('账号或密码错误');
 			} else {
-				vm.$u.toast('验证失败，请重新登录');
-				setTimeout(() => {
-					vm.$u.route('/pages/user/login')
-				}, 1500)
+				// 如果请求需要登录的API，就跳转到登录页
+				vm.$u.utils.isLogin()
 			}
 			return false;
 		} else if(statusCode == 422) {
