@@ -47,10 +47,19 @@ export default {
 			const loginRes = await this.$u.api.authLogin(params)
 			// 缓存token
 			this.$u.vuex('vuex_token', loginRes.access_token)
+			this.$u.toast('登录成功')
 			// 请求用户信息
 			const userInfoRes = await this.$u.api.userInfo()
 			// 缓存用户信息
 			this.$u.vuex('vuex_user', userInfoRes)
+			// 登录之后，跳转到来源页
+			const backUrl = uni.getStorageSync('back_url') || 'pages/index/index'
+			setTimeout(() => {
+				this.$u.route({
+					type: 'reLaunch',
+					url: backUrl,
+				})
+			}, 1500)
 		},
 	},
 };
