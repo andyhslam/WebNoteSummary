@@ -15,7 +15,7 @@ Vue.mixin(vuexStore);
 import store from '@/store';
 const app = new Vue({
 	store,
-    ...App
+  ...App
 })
 
 // 这里需要写在最后，是为了等Vue创建对象完成，引入"app"对象(也即页面的"this"实例)
@@ -25,5 +25,9 @@ Vue.use(httpInterceptor, app)
 // http接口API集中管理
 import httpApi from '@/common/http.api.js'
 Vue.use(httpApi, app)
+
+// 自定义工具
+import utils from '@/common/utils.js'
+Vue.use(utils, app)
 
 app.$mount()
