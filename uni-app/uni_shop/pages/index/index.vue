@@ -29,6 +29,7 @@
 			}
 		},
 		onLoad() {
+			// this.$u.utils.isLogin()
 			this.getIndexData()
 		},
 		onReachBottom() {
