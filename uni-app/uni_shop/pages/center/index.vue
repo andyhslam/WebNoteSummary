@@ -26,7 +26,7 @@
 		
 		<view class="u-m-t-20">
 			<u-cell-group>
-				<u-cell-item icon="reload" title="退出登录"></u-cell-item>
+				<u-cell-item icon="reload" title="退出登录" @click="logout"></u-cell-item>
 			</u-cell-group>
 		</view>
 	</view>
@@ -47,6 +47,22 @@
 				this.$u.route({
 					url: 'pages/center/baseInfo'
 				})
+			},
+			// 退出登录
+			async logout() {
+				// 请求API，退出登录
+				await this.$u.api.authLogout()
+				this.$u.toast('退出成功')
+				setTimeout(() => {
+					// 清除缓存的token和用户信息
+					this.$u.vuex('vuex_token', null)
+					this.$u.vuex('vuex_user', {})
+					// 关闭所有页面，跳转到首页
+					this.$u.route({
+						type: 'reLaunch',
+						url: 'pages/index/index',
+					})
+				}, 1500)
 			}
 		}
 	}
