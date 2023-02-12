@@ -34,11 +34,15 @@
 		},
 		methods: {
 			submit() {
-				this.$refs.uForm.validate(valid => {
+				this.$refs.uForm.validate(async (valid) => {
 					if (valid) {
-						console.log('验证通过');
+						// 更新用户信息
+						await this.$u.api.userInfoUpdate(this.form)
+						// 刷新用户信息，更新vuex_user
+						await this.$u.utils.updateUser()
+						this.$u.toast('更新成功')
 					} else {
-						console.log('验证失败');
+						this.$u.toast('验证失败')
 					}
 				});
 			}
