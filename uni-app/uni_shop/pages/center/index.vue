@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="u-flex user-box u-p-l-30 u-p-r-20 u-p-30">
+		<view class="u-flex user-box u-p-l-30 u-p-r-20 u-p-t-30 u-p-b-30">
 			<view class="u-m-r-10">
 				<u-avatar :src="vuex_user.avatar_url" size="140"></u-avatar>
 			</view>
@@ -12,7 +12,7 @@
 		
 		<view class="u-m-t-20">
 			<u-cell-group>
-				<u-cell-item icon="account" title="个人信息"></u-cell-item>
+				<u-cell-item icon="account" title="个人信息" @click="toBaseInfo"></u-cell-item>
 			</u-cell-group>
 		</view>
 		
@@ -43,7 +43,11 @@
 			if(!this.$u.utils.isLogin()) return
 		},
 		methods: {
-			
+			toBaseInfo(index) {
+				this.$u.route({
+					url: 'pages/center/baseInfo'
+				})
+			}
 		}
 	}
 </script>

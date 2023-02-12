@@ -12,7 +12,7 @@
 		{
 			"path": "pages/goods/goods",
 			"style": {
-				"navigationBarTitleText": "商品",
+				"navigationBarTitleText": "商品分类",
 				"enablePullDownRefresh": true
 			}
 
@@ -44,6 +44,13 @@
 				"navigationBarTitleText": "注册",
 				"enablePullDownRefresh": false
 			}
+		}, {
+			"path": "pages/center/baseInfo",
+			"style": {
+				"navigationBarTitleText": "修改个人信息",
+				"enablePullDownRefresh": false
+			}
+
 		}
 	],
 	"globalStyle": {
