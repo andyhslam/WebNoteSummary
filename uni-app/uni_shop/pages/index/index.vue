@@ -29,7 +29,6 @@
 			}
 		},
 		onLoad() {
-			// this.$u.utils.isLogin()
 			this.getIndexData()
 		},
 		onReachBottom() {
@@ -56,7 +55,7 @@
 				if(this.currentSort === 3) params.new = 1
 				const res = await this.$u.api.index(params)
 				this.loading = false
-				console.log('res', res);
+				console.log('首页数据', res);
 				this.slides = res.slides
 				// this.goodsList.push(...res.goods.data)
 				this.goodsList = [...this.goodsList, ...res.goods.data]
@@ -68,3 +67,4 @@
 <style lang="scss" scoped>
 
 </style>
+

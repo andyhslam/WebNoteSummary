@@ -5,6 +5,7 @@ const install = (Vue, vm) => {
 	
 	// 认证相关的
 	const authLogin = (params) => vm.$u.post('/api/auth/login', params); // 登录
+	const authRegister = (params) => vm.$u.post('/api/auth/register', params); // 注册
 	
 	// 用户相关的
 	const userInfo = () => vm.$u.get('/api/user'); // 用户详情
@@ -14,6 +15,7 @@ const install = (Vue, vm) => {
 	vm.$u.api = {
 		index,
 		authLogin,
+		authRegister,
 		userInfo,
 	};
 }
