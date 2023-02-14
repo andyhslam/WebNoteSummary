@@ -7,6 +7,7 @@ const install = (Vue, vm) => {
 	const authLogin = (params) => vm.$u.post('/api/auth/login', params); // 登录
 	const authRegister = (params) => vm.$u.post('/api/auth/register', params); // 注册
 	const authLogout = () => vm.$u.post('/api/auth/logout'); // 退出登录
+	const authOssToken = () => vm.$u.get('/api/auth/oss/token'); // 获取阿里云OSS Token，用于前端直传文件使用
 	
 	// 用户相关的
 	const userInfo = () => vm.$u.get('/api/user'); // 用户详情
@@ -19,6 +20,7 @@ const install = (Vue, vm) => {
 		authLogin,
 		authRegister,
 		authLogout,
+		authOssToken,
 		userInfo,
 		userInfoUpdate,
 	};
