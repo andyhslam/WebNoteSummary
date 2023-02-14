@@ -1,5 +1,6 @@
 <template>
-	<u-upload 
+	<u-upload
+		ref="upload"
 		:action="action" 
 		:max-size="5 * 1024 * 1024"
 		 max-count="1"
@@ -65,9 +66,14 @@
 				return true
 			},
 			// 图片上传成功时触发	
-			onSuccess() {
+			async onSuccess() {
 				// 请求API，更新头像
+				await this.$u.api.userAvatar({avatar: this.formData.key})
 				// 更新缓存的用户信息
+				await this.$u.utils.updateUser()
+				// 移除预览区域的图片
+				this.$refs.upload.remove(0)
+				this.$u.toast('更新成功')
 			},
 		}
 	}
