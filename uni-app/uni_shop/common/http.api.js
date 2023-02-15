@@ -14,6 +14,8 @@ const install = (Vue, vm) => {
 	const userInfoUpdate = (params) => vm.$u.put('/api/user', params); // 更新用户信息
 	const userAvatar = (params) => vm.$u.patch('/api/user/avatar', params); // 更新头像
 	
+	// 商品相关的
+	const goodsInfo = (id) => vm.$u.get(`/api/goods/${id}`); // 商品详情
 	
 	// 将各个定义的接口名称，统一放进对象挂载到vm.$u.api(因为vm就是this，也即this.$u.api)下
 	vm.$u.api = {
@@ -25,6 +27,7 @@ const install = (Vue, vm) => {
 		userInfo,
 		userInfoUpdate,
 		userAvatar,
+		goodsInfo,
 	};
 }
 

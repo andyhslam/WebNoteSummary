@@ -51,6 +51,13 @@
 				"enablePullDownRefresh": false
 			}
 
+		}, {
+			"path": "pages/goods/show",
+			"style": {
+				"navigationBarTitleText": "商品详情",
+				"enablePullDownRefresh": false
+			}
+
 		}
 	],
 	"globalStyle": {
