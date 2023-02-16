@@ -47,14 +47,14 @@
 		<view class="navigation">
 			<view class="left u-text-center">
 				<view class="item" @click="collect">
-					<view v-if="isCollect === 0">
+					<block v-if="isCollect === 0">
 						<u-icon name="star" :size="50"></u-icon>
 						<view class="text u-line-1">收藏</view>
-					</view>
-					<view v-else>
+					</block>
+					<block v-else>
 						<u-icon name="star-fill" :size="50" color="#2979ff"></u-icon>
 						<view class="text u-line-1" style="color:#2979ff;">已收藏</view>
-					</view>
+					</block>
 				</view>
 				<view class="item car" @click="toCart">
 					<u-badge class="car-num" :count="cartsNum" type="primary" :offset="[-3,-6]"></u-badge>
@@ -111,12 +111,13 @@
 			// 收藏商品
 			async collect() {
 				await this.$u.api.goodsCollect(this.goodsId)
-				if(this.isCollect === 0) {
+				if (this.isCollect === 0) {
+					this.isCollect = 1
 					this.$u.toast('收藏成功')
-				}else {
-					this.$u.toast('取消收藏成功')
+				} else {
+					this.isCollect = 0
+					this.$u.toast('取消收藏')
 				}
-				this.isCollect = !this.isCollect
 			},
 			// 添加购物车
 			async carts() {

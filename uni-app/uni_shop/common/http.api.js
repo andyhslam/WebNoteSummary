@@ -16,6 +16,7 @@ const install = (Vue, vm) => {
 	
 	// 商品相关的
 	const goodsInfo = (id) => vm.$u.get(`/api/goods/${id}`); // 商品详情
+	const goodsCollect = (id) => vm.$u.post(`/api/collects/goods/${id}`); // 收藏和取消
 	
 	// 将各个定义的接口名称，统一放进对象挂载到vm.$u.api(因为vm就是this，也即this.$u.api)下
 	vm.$u.api = {
@@ -28,6 +29,7 @@ const install = (Vue, vm) => {
 		userInfoUpdate,
 		userAvatar,
 		goodsInfo,
+		goodsCollect,
 	};
 }
 
