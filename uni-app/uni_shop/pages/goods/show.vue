@@ -57,13 +57,13 @@
 					</block>
 				</view>
 				<view class="item car" @click="toCart">
-					<u-badge class="car-num" :count="cartsNum" type="primary" :offset="[-3,-6]"></u-badge>
+					<u-badge class="car-num" :count="cartCount" type="primary" :offset="[-3,-6]"></u-badge>
 					<u-icon name="shopping-cart" :size="50"></u-icon>
 					<view class="text u-line-1">购物车</view>
 				</view>
 			</view>
 			<view class="right">
-				<view class="cart btn u-line-1" @click="carts">加入购物车</view>
+				<view class="cart btn u-line-1" @click="addCart">加入购物车</view>
 			</view>
 		</view>
 	</view>
@@ -87,13 +87,15 @@
 				goodsList:[],
 				goodsId:null,
 				isCollect:0,
-				cartsNum:0,
+				cartCount:0,
 			};
 		},
 		onLoad(option) {
 			this.goodsId = option.id
+			// 商品数据
 			this.getData()
-			// this.get()
+			// 购物项产品数量
+			this.getCartCount()
 		},
 		methods:{
 			async getData() {
@@ -119,14 +121,13 @@
 					this.$u.toast('取消收藏')
 				}
 			},
-			// 添加购物车
-			async carts() {
-				const params = {
-					goods_id:this.goodsId,
-				}
-				await this.$u.api.goodsCarts(params)
+			// 加入购物车
+			async addCart() {
+				const params = {goods_id:this.goodsId}
+				await this.$u.api.cartAdd(params)
 				this.$u.toast('添加成功')
-				this.get()
+				// 重新获取购物项产品数量
+				this.getCartCount()
 			},
 			toCart() {
 				this.$u.route({
@@ -134,11 +135,11 @@
 					url:"pages/cart/cart"
 				})
 			},
-			async get() {
-				const token = this.vuex_token
-				if(token) {
-					const res = await this.$u.api.goodsCartsList()
-					this.cartsNum = res.data.length
+			// 获取购物项产品数量
+			async getCartCount() {
+				if (this.$u.utils.isLogin()) {
+					const res = await this.$u.api.cartList()
+					this.cartCount = res.data[0].num
 				}
 			}
 		}

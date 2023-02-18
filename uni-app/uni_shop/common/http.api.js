@@ -18,6 +18,10 @@ const install = (Vue, vm) => {
 	const goodsInfo = (id) => vm.$u.get(`/api/goods/${id}`); // 商品详情
 	const goodsCollect = (id) => vm.$u.post(`/api/collects/goods/${id}`); // 收藏和取消
 	
+	// 购物车相关的
+	const cartAdd = (params) => vm.$u.post('/api/carts', params); // 添加购物车
+	const cartList = () => vm.$u.get('/api/carts'); // 购物车列表
+	
 	// 将各个定义的接口名称，统一放进对象挂载到vm.$u.api(因为vm就是this，也即this.$u.api)下
 	vm.$u.api = {
 		index,
@@ -30,6 +34,8 @@ const install = (Vue, vm) => {
 		userAvatar,
 		goodsInfo,
 		goodsCollect,
+		cartAdd,
+		cartList,
 	};
 }
 
