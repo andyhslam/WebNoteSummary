@@ -1,7 +1,7 @@
 <template>
 	<view class="wrap">
 		<u-swiper :list="slides" name="img_url" height="320"></u-swiper>
-		<u-tabs :list="sortList" :is-scroll="false" :current="currentSort" @change="changeSort"></u-tabs>
+		<u-tabs :list="sortList" :is-scroll="false" :current="curSort" @change="changeSort"></u-tabs>
 		<u-row gutter="16"  class="u-skeleton">
 			<u-col span="6" v-for="(goods, index) in goodsList.length ? goodsList : [{}, {}, {}, {}]" :key="index">
 				<goods-card :goods="goods"></goods-card>
@@ -21,7 +21,7 @@
 					{name: '推荐'},
 					{name: '最新'},
 				],
-				currentSort: 0,
+				curSort: 0,
 				slides: [],
 				goodsList: [],
 				page: 1,
@@ -38,7 +38,7 @@
 		},
 		methods: {
 			changeSort(index) {
-				this.currentSort = index
+				this.curSort = index
 				// 重置商品数据和分页
 				this.goodsList = []
 				this.page = 1
@@ -50,9 +50,9 @@
 					page: this.page
 				}
 				// 增加排序条件
-				if(this.currentSort === 1) params.sales = 1
-				if(this.currentSort === 2) params.recommend = 1
-				if(this.currentSort === 3) params.new = 1
+				if(this.curSort === 1) params.sales = 1
+				if(this.curSort === 2) params.recommend = 1
+				if(this.curSort === 3) params.new = 1
 				const res = await this.$u.api.index(params)
 				this.loading = false
 				console.log('首页数据', res);

@@ -3,6 +3,7 @@
 		<view class="u-search-box">
 			<u-search placeholder="输入商品名称" v-model="keyword" @custom="searchGoods" @clear="clearSearch"></u-search>
 		</view>
+		<u-tabs :list="sortList" :is-scroll="false" :current="curSort" @change="changeSort"></u-tabs>
 		<view class="u-menu-wrap">
 			<scroll-view scroll-y scroll-with-animation class="u-tab-view menu-scroll-view">
 				<block v-for="item in categories" :key="item.id">
@@ -16,11 +17,11 @@
 				<view class="page-view">
 					<view class="class-item">
 						<view class="item-container">
-							<navigator class="thumb-box" v-for="(goods, index) in goodslist" :key="`${index}-${goods.id}`" :url="'/pages/goods/show?id=' + goods.id">
+							<navigator class="thumb-box" v-for="(goods, index) in goodsList" :key="`${index}-${goods.id}`" :url="'/pages/goods/show?id=' + goods.id">
 								<image class="item-menu-image" :src="goods.cover_url" mode=""></image>
 								<view class="item-menu-name">{{goods.title}}</view>
 							</navigator>
-							<view v-if="!goodslist.length" class="u-flex-1 u-p-t-80 u-p-b-80">
+							<view v-if="!goodsList.length" class="u-flex-1 u-p-t-80 u-p-b-80">
 								<u-empty text="暂无商品" mode="list"></u-empty>
 							</view>
 						</view>
@@ -35,10 +36,18 @@
 	export default {
 		data() {
 			return {
+				sortList: [
+					{name: '默认'}, 
+					{name: '销量'}, 
+					{name: '推荐'},
+					{name: '价格'},
+					{name: '评论数'},
+				],
+				curSort: 0,
 				curPage: 1,
 				keyword: '',
 				isLast: false,
-				goodslist: [],
+				goodsList: [],
 				categories: [],
 				currentId: null, // 预设当前项的值
 			}
@@ -47,18 +56,28 @@
 			this.getData()
 		},
 		methods: {
+			changeSort(index) {
+				this.curSort = index
+				// 重置商品数据和分页
+				this.curPage = 1
+				this.goodsList = []
+				this.getData()
+			},
 			async getData() {
 				const params = {
 					page: this.curPage,
 					title: this.keyword,
 				}
 				// 判断是否有分类ID
-				if(this.currentId) {
-					params.category_id = this.currentId
-				}
+				if(this.currentId) params.category_id = this.currentId
+				// 增加排序条件
+				if(this.curSort === 1) params.sales = 1
+				if(this.curSort === 2) params.recommend = 1
+				if(this.curSort === 3) params.price = 1
+				if(this.curSort === 4) params.comments_count = 1
 				const res = await this.$u.api.goodsList(params)
 				this.categories = res.categories
-				this.goodslist = [...this.goodslist,...res.goods.data]
+				this.goodsList = [...this.goodsList,...res.goods.data]
 				this.isLast = res.goods.next_page_url ? false : true
 			},
 			// 点击左边的栏目切换
@@ -70,7 +89,7 @@
 			// 搜索商品
 			searchGoods() {
 				this.curPage = 1
-				this.goodslist = []
+				this.goodsList = []
 				this.getData()
 			},
 			// 清除搜索商品
