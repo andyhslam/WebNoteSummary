@@ -4,7 +4,7 @@
 			<u-search placeholder="输入商品名称" v-model="keyword" @custom="searchGoods" @clear="clearSearch"></u-search>
 		</view>
 		<view class="u-menu-wrap">
-			<scroll-view scroll-y scroll-with-animation class="u-tab-view menu-scroll-view" :scroll-top="scrollTop">
+			<scroll-view scroll-y scroll-with-animation class="u-tab-view menu-scroll-view">
 				<block v-for="item in categories" :key="item.id">
 					<view v-for="c in item.children" :key="c.id" class="u-tab-item" :class="[currentId === c.id ? 'u-tab-item-active' : '']"
 					 :data-current="c.id" @tap.stop="swichMenu(c.id)">
@@ -36,15 +36,12 @@
 		data() {
 			return {
 				tabbar: '',
-				scrollTop: 0, //tab标题的滚动条位置
 				currentId: null, // 预设当前项的值
-				menuHeight: 0, // 左边菜单的高度
-				menuItemHeight: 0, // 左边菜单item的高度
 				categories:[],
 				goodslist:[],
 				keyword:'',
 				curPage:1,
-				isLast:false
+				isLast:false,
 			}
 		},
 		onLoad() {
@@ -56,6 +53,7 @@
 					page: this.curPage,
 					title: this.keyword
 				}
+				// 判断是否有分类ID
 				if(this.currentId) {
 					params.category_id = this.currentId
 				}
@@ -65,19 +63,12 @@
 				this.isLast = res.goods.next_page_url ? false : true
 			},
 			// 点击左边的栏目切换
-			async swichMenu(id) {
-				if(id === this.currentId) return ;
-				this.currentId = id;
+			async swichMenu(cid) {
+				if(cid === this.currentId) return ;
+				this.currentId = cid;
 				this.curPage = 1;
 				this.goodslist = []
-				// 如果为0，意味着尚未初始化
 				this.getData()
-				if(this.menuHeight == 0 || this.menuItemHeight == 0) {
-					await this.getElRect('menu-scroll-view', 'menuHeight');
-					await this.getElRect('u-tab-item', 'menuItemHeight');
-				}
-				// 将菜单菜单活动item垂直居中
-				this.scrollTop = index * this.menuItemHeight + this.menuItemHeight / 2 - this.menuHeight / 2;
 			},
 			// 搜索商品
 			searchGoods() {
