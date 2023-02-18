@@ -1,7 +1,7 @@
 <template>
 	<view class="u-wrap">
 		<view class="u-search-box">
-			<u-search placeholder="搜索商品" v-model="keyword" @custom="Search" @clear="Clear"></u-search>
+			<u-search placeholder="输入商品名称" v-model="keyword" @custom="searchGoods" @clear="clearSearch"></u-search>
 		</view>
 		<view class="u-menu-wrap">
 			<scroll-view scroll-y scroll-with-animation class="u-tab-view menu-scroll-view" :scroll-top="scrollTop">
@@ -16,11 +16,11 @@
 				<view class="page-view">
 					<view class="class-item">
 						<view class="item-container">
-							<navigator class="thumb-box" v-for="goods in goodslist" :key="goods.id" :url="'/pages/goods/show?id=' + goods.id">
+							<navigator class="thumb-box" v-for="(goods, index) in goodslist" :key="`${index}-${goods.id}`" :url="'/pages/goods/show?id=' + goods.id">
 								<image class="item-menu-image" :src="goods.cover_url" mode=""></image>
 								<view class="item-menu-name">{{goods.title}}</view>
 							</navigator>
-							<view v-if="goodslist.length==0" class="u-flex-1 u-p-t-80 u-p-b-80">
+							<view v-if="!goodslist.length" class="u-flex-1 u-p-t-80 u-p-b-80">
 								<u-empty text="暂无商品" mode="list"></u-empty>
 							</view>
 						</view>
@@ -43,7 +43,7 @@
 				categories:[],
 				goodslist:[],
 				keyword:'',
-				page:1,
+				curPage:1,
 				isLast:false
 			}
 		},
@@ -53,8 +53,8 @@
 		methods: {
 			async getData() {
 				const params = {
-					page:this.page,
-					title:this.keyword
+					page: this.curPage,
+					title: this.keyword
 				}
 				if(this.currentId) {
 					params.category_id = this.currentId
@@ -68,7 +68,7 @@
 			async swichMenu(id) {
 				if(id === this.currentId) return ;
 				this.currentId = id;
-				this.page = 1;
+				this.curPage = 1;
 				this.goodslist = []
 				// 如果为0，意味着尚未初始化
 				this.getData()
@@ -79,15 +79,17 @@
 				// 将菜单菜单活动item垂直居中
 				this.scrollTop = index * this.menuItemHeight + this.menuItemHeight / 2 - this.menuHeight / 2;
 			},
-			// 搜索
-			Search() {
-				this.page = 1
+			// 搜索商品
+			searchGoods() {
+				this.curPage = 1
+				this.goodslist = []
 				this.getData()
 			},
-			// 清除
-			Clear() {
-				this.page = 1
+			// 清除搜索商品
+			clearSearch() {
+				this.curPage = 1
 				this.keyword = ''
+				this.goodslist = []
 				this.getData()
 			},
 			scrollEvent(e) {
@@ -96,7 +98,7 @@
 					this.$u.toast('已经到底了')
 					return
 				}
-				this.page = this.page + 1
+				this.curPage += 1
 				this.getData()
 			}
 		},
