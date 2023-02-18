@@ -11,16 +11,16 @@
 			</view>
 		</view>
 		<view>
-			<u-tabs :list="list" :is-scroll="false" :current="current" @change="change"></u-tabs>
+			<u-tabs :list="list" :is-scroll="false" :current="curTab" @change="changeTab"></u-tabs>
 		</view>
 		
-		<view v-if="current === 0">
+		<view v-if="curTab === 0">
 			<view class="info u-p-b-80">
 				<u-parse :html="goodsInfo.details"></u-parse>
 			</view>
 		</view>
 		
-		<view v-if="current === 1">
+		<view v-if="curTab === 1">
 			<view class="comment" v-for="(res,index) in commentList" :key="res.id">
 				<view class="left">
 					<image :src="res.user.avatar_url" mode="aspectFill"></image>
@@ -37,7 +37,7 @@
 			</view>
 		</view>
 		
-		<view class="u-p-b-80" v-if="current === 2">
+		<view class="u-p-b-80" v-if="curTab === 2">
 			<u-row gutter="16">
 				<u-col v-for="(goods,index) in goodsList" :key="index" span="6">
 					<goods-card :goods="goods"></goods-card>
@@ -81,7 +81,7 @@
 				},{
 					name:'推荐商品'
 				}],
-				current:0,
+				curTab:0,
 				goodsInfo:{},
 				commentList:[],
 				goodsList:[],
@@ -107,8 +107,8 @@
 				this.goodsList = res.like_goods
 				this.isCollect = res.goods.is_collect
 			},
-			change(index) {
-				this.current = index
+			changeTab(index) {
+				this.curTab = index
 			},
 			// 收藏商品
 			async collect() {
@@ -123,12 +123,13 @@
 			},
 			// 加入购物车
 			async addCart() {
-				const params = {goods_id:this.goodsId}
+				const params = {goods_id: this.goodsId}
 				await this.$u.api.cartAdd(params)
 				this.$u.toast('添加成功')
 				// 重新获取购物项产品数量
 				this.getCartCount()
 			},
+			// 跳转到购物车
 			toCart() {
 				this.$u.route({
 					type:"switchTab",
@@ -140,7 +141,7 @@
 				const token = this.vuex_token
 				if (token) {
 					const res = await this.$u.api.cartList()
-					this.cartCount = res.data[0].num
+					this.cartCount = res.data.find(item => item.goods_id === parseInt(this.goodsId))?.num
 				}
 			}
 		}

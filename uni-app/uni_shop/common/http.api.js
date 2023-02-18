@@ -22,6 +22,10 @@ const install = (Vue, vm) => {
 	// 购物车相关的
 	const cartAdd = (params) => vm.$u.post('/api/carts', params); // 添加购物车
 	const cartList = () => vm.$u.get('/api/carts'); // 购物车列表
+	const cartGoodsList = () => vm.$u.get('/api/carts?include=goods'); // 购物车列表(包含额外的数据)
+	const cartChecked = (params) => vm.$u.patch('/api/carts/checked', params); // 购物车改变选中
+	const cartDelete = (id) => vm.$u.delete(`/api/carts/${id}`); // 移出购物车
+	const cartNum = (id, params) => vm.$u.put(`/api/carts/${id}`, params); // 购物车数量改变
 	
 	// 将各个定义的接口名称，统一放进对象挂载到vm.$u.api(因为vm就是this，也即this.$u.api)下
 	vm.$u.api = {
@@ -38,6 +42,10 @@ const install = (Vue, vm) => {
 		goodsList,
 		cartAdd,
 		cartList,
+		cartGoodsList,
+		cartChecked,
+		cartDelete,
+		cartNum,
 	};
 }
 

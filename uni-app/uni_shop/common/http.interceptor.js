@@ -82,7 +82,7 @@ const install = (Vue, vm) => {
 		// 模拟patch请求
 		const _params = {
 			...params,
-			method: 'PATCH',
+			_method: 'PATCH',
 		}
 		return vm.$u.post(url, _params, header)
 	}
