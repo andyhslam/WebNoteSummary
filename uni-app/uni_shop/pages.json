@@ -58,6 +58,13 @@
 				"enablePullDownRefresh": false
 			}
 
+		}, {
+			"path": "pages/cart/preview",
+			"style": {
+				"navigationBarTitleText": "订单预览",
+				"enablePullDownRefresh": false
+			}
+
 		}
 	],
 	"globalStyle": {

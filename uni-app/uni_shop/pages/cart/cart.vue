@@ -3,7 +3,7 @@
 		<view class="container">
 			<view class="cartItem u-p-t-10 u-p-b-10 u-flex" v-for="item in cartList" :key="item.id">
 				<view class="left u-text-center">
-					<u-checkbox v-model="item.is_checked === 1 ? true:false" :name="item.id" @change="changeCheck"
+					<u-checkbox v-model="item.is_checked === 1 ? true : false" :name="item.id" @change="changeCheck"
 						shape="circle" size="40"></u-checkbox>
 				</view>
 				<view class="image">
@@ -23,7 +23,7 @@
 							<u-number-box v-model="item.num" @minus="handleNum(item)" @plus="handleNum(item)" :max="item.goods.stock" :min="1">
 							</u-number-box>
 						</view>
-						<view class="icon" @click="del(item.id)">
+						<view class="icon" @click="delGoods(item.id)">
 							<u-icon name="trash" size="40"></u-icon>
 						</view>
 					</view>
@@ -44,7 +44,7 @@
 		</view>
 		<u-modal v-model="show" content="确认要移除商品吗?" :show-cancel-button="true" @cancel="show=false" @confirm="confirm">
 		</u-modal>
-		<u-empty class="empty" icon-size="100px" :show="totalPrice>0?false:true" mode="car"></u-empty>
+		<u-empty class="empty" icon-size="100px" :show="!cartList.length" mode="car"></u-empty>
 	</view>
 </template>
 
@@ -55,24 +55,22 @@
 				cardId: '', // 要删除的id
 				cartList: [], // 购物车数据列表
 				show: false, // 删除提示
-				isArr:[],
+				idList:[],
 				price:"",
 			}
 		},
 		computed: {
 			totalPrice() {
-				return this.cartList.filter(item => {
-					return item.is_checked ? true : false
-				}).reduce((pre, curr) => {
+				return this.cartList
+				.filter(item => item.is_checked)
+				.reduce((pre, curr) => {
 					this.price = parseFloat(pre) + parseFloat(curr.goods.price) * curr.num
 					return parseFloat(pre) + parseFloat(curr.goods.price) * curr.num
 				}, 0)
 			},
 			allChcked: {
 				get() {
-					return this.cartList.every(item => {
-						return item.is_checked
-					})
+					return this.cartList.every(item => item.is_checked)
 				},
 				set(val) {
 					this.checkAll(val)
@@ -86,6 +84,7 @@
 			async getCartList() {
 				const res = await this.$u.api.cartGoodsList()
 				this.cartList = res.data
+				this.idList = this.cartList.filter(v => v.is_checked).map(v => v.id)
 			},
 			async getCartChecked(value) {
 				const params = {
@@ -94,7 +93,7 @@
 				await this.$u.api.cartChecked(params)
 				this.getCartList()
 			},
-			del(id) {
+			delGoods(id) {
 				this.show = true
 				this.cardId = id
 			},
@@ -104,38 +103,30 @@
 				this.getCartList()
 			},
 			submit() {
-				let cartArr = []
-				this.cartList.every(item => {
-					if (item.is_checked==1) {
-						cartArr.push(item)
-					}
-					return item.is_checked
-				})
-				this.$u.vuex('vuex_cart',cartArr)
+				const cartArr = this.cartList.map(item => item.is_checked === 1)
+				this.$u.vuex('vuex_cart', cartArr)
 				this.$u.route({
 					url:"pages/cart/preview",
 				})
 			},
 			// 单选
 			async changeCheck(val) {
-				console.log('val', val);
 				const {name,value} = val
-				if(!value) {
-				console.log('isArr', this.isArr);
-					this.isArr.splice(this.isArr.indexOf(name),1)
-				}else {
-					this.isArr.push(name)	
+				if (!value) {
+					this.idList.splice(this.idList.indexOf(name), 1)
+				} else {
+					this.idList.push(name)	
 				}
-				this.getCartChecked(this.isArr)
+				this.getCartChecked(this.idList)
 			},
 			// 全选/全不选
 			async checkAll(val){
 				if(!val){
-					this.isArr=[]
-					this.getCartChecked(this.isArr)
+					this.idList = []
+					this.getCartChecked(this.idList)
 				}else{
-					this.isArr = this.cartList.map(item => item.id)
-					this.getCartChecked(this.isArr)
+					this.idList = this.cartList.map(item => item.id)
+					this.getCartChecked(this.idList)
 				}
 			},
 			// 数量增加或减少

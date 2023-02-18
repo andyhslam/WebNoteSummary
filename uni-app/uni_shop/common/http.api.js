@@ -27,6 +27,9 @@ const install = (Vue, vm) => {
 	const cartDelete = (id) => vm.$u.delete(`/api/carts/${id}`); // 移出购物车
 	const cartNum = (id, params) => vm.$u.put(`/api/carts/${id}`, params); // 购物车数量改变
 	
+	// 订单相关的
+	const orderPreview = () => vm.$u.get('/api/orders/preview'); // 订单预览
+	
 	// 将各个定义的接口名称，统一放进对象挂载到vm.$u.api(因为vm就是this，也即this.$u.api)下
 	vm.$u.api = {
 		index,
@@ -46,6 +49,7 @@ const install = (Vue, vm) => {
 		cartChecked,
 		cartDelete,
 		cartNum,
+		orderPreview,
 	};
 }
 
