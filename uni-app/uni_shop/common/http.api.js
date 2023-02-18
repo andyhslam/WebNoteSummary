@@ -17,6 +17,7 @@ const install = (Vue, vm) => {
 	// 商品相关的
 	const goodsInfo = (id) => vm.$u.get(`/api/goods/${id}`); // 商品详情
 	const goodsCollect = (id) => vm.$u.post(`/api/collects/goods/${id}`); // 收藏和取消
+	const goodsList = (params = {}) => vm.$u.get('/api/goods', params); // 商品列表
 	
 	// 购物车相关的
 	const cartAdd = (params) => vm.$u.post('/api/carts', params); // 添加购物车
@@ -34,6 +35,7 @@ const install = (Vue, vm) => {
 		userAvatar,
 		goodsInfo,
 		goodsCollect,
+		goodsList,
 		cartAdd,
 		cartList,
 	};

@@ -137,7 +137,8 @@
 			},
 			// 获取购物项产品数量
 			async getCartCount() {
-				if (this.$u.utils.isLogin()) {
+				const token = this.vuex_token
+				if (token) {
 					const res = await this.$u.api.cartList()
 					this.cartCount = res.data[0].num
 				}
