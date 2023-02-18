@@ -35,13 +35,12 @@
 	export default {
 		data() {
 			return {
-				tabbar: '',
+				curPage: 1,
+				keyword: '',
+				isLast: false,
+				goodslist: [],
+				categories: [],
 				currentId: null, // 预设当前项的值
-				categories:[],
-				goodslist:[],
-				keyword:'',
-				curPage:1,
-				isLast:false,
 			}
 		},
 		onLoad() {
@@ -51,7 +50,7 @@
 			async getData() {
 				const params = {
 					page: this.curPage,
-					title: this.keyword
+					title: this.keyword,
 				}
 				// 判断是否有分类ID
 				if(this.currentId) {
@@ -63,12 +62,10 @@
 				this.isLast = res.goods.next_page_url ? false : true
 			},
 			// 点击左边的栏目切换
-			async swichMenu(cid) {
-				if(cid === this.currentId) return ;
-				this.currentId = cid;
-				this.curPage = 1;
-				this.goodslist = []
-				this.getData()
+			swichMenu(cid) {
+				if(cid === this.currentId) return
+				this.currentId = cid
+				this.searchGoods()
 			},
 			// 搜索商品
 			searchGoods() {
@@ -78,13 +75,12 @@
 			},
 			// 清除搜索商品
 			clearSearch() {
-				this.curPage = 1
 				this.keyword = ''
-				this.goodslist = []
-				this.getData()
+				this.searchGoods()
 			},
+			// 右侧区域滚动到底部，加载下一页
 			scrollEvent(e) {
-				// console.log(e);
+				console.log(e)
 				if(this.isLast) {
 					this.$u.toast('已经到底了')
 					return
