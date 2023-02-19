@@ -12,7 +12,7 @@ const install = (Vue, vm) => {
 	// 用户相关的
 	const userInfo = () => vm.$u.get('/api/user'); // 用户详情
 	const userInfoUpdate = (params) => vm.$u.put('/api/user', params); // 更新用户信息
-	const userAvatar = (params) => vm.$u.patch('/api/user/avatar', params); // 更新头像
+	const userAvatar = (params) => vm.$u.post('/api/user/avatar', params); // 更新头像
 	
 	// 商品相关的
 	const goodsInfo = (id) => vm.$u.get(`/api/goods/${id}`); // 商品详情

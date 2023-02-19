@@ -3,7 +3,7 @@
 		<u-swiper :list="slides" name="img_url" height="320"></u-swiper>
 		<u-tabs :list="sortList" :is-scroll="false" :current="curSort" @change="changeSort"></u-tabs>
 		<u-row gutter="16"  class="u-skeleton">
-			<u-col span="6" v-for="(goods, index) in goodsList.length ? goodsList : [{}, {}, {}, {}]" :key="index">
+			<u-col span="6" v-for="(goods, index) in goodsList" :key="index">
 				<goods-card :goods="goods"></goods-card>
 			</u-col>
 		</u-row>
@@ -23,7 +23,7 @@
 				],
 				curSort: 0,
 				slides: [],
-				goodsList: [],
+				goodsList: [{}, {}, {}, {}],
 				page: 1,
 				loading: false,
 			}
@@ -40,7 +40,7 @@
 			changeSort(index) {
 				this.curSort = index
 				// 重置商品数据和分页
-				this.goodsList = []
+				this.goodsList = [{}, {}, {}, {}]
 				this.page = 1
 				this.getIndexData()
 			},
@@ -58,7 +58,7 @@
 				console.log('首页数据', res);
 				this.slides = res.slides
 				// this.goodsList.push(...res.goods.data)
-				this.goodsList = [...this.goodsList, ...res.goods.data]
+				this.goodsList = this.goodsList.pop().title ? [...this.goodsList, ...res.goods.data] : res.goods.data
 			},
 		},
 	}

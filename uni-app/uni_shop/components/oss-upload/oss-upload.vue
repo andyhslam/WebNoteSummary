@@ -44,6 +44,7 @@
 				_this.action = host
 				// 处理唯一的文件名
 				const {file} = list[0]
+				console.log(file);
 				// #ifdef H5
 				const fileName = file.name
 				// #endif
