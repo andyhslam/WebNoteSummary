@@ -42,9 +42,24 @@ const install = (Vue, vm) => {
 		vm.$u.vuex('vuex_user', userInfo)
 	}
 	
+	// 判断是否是安卓设备
+	const isAndroidDevice = () => {
+		try {
+			const res = uni.getSystemInfoSync()
+			if (res.AppPlatform === 'android') {
+				return true
+			} else {
+				return false
+			}
+		} catch(e) {
+			//TODO handle the exception
+		}
+	}
+	
 	vm.$u.utils = {
 		isLogin,
 		updateUser,
+		isAndroidDevice,
 	};
 }
 

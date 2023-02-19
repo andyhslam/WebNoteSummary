@@ -6,12 +6,12 @@
 		<u-tabs :list="sortList" :is-scroll="false" :current="curSort" @change="changeSort"></u-tabs>
 		<view class="u-menu-wrap">
 			<scroll-view scroll-y scroll-with-animation class="u-tab-view menu-scroll-view">
-				<block v-for="item in categories" :key="item.id">
+				<view v-for="item in categories" :key="item.id">
 					<view v-for="c in item.children" :key="c.id" class="u-tab-item" :class="[currentId === c.id ? 'u-tab-item-active' : '']"
 					 :data-current="c.id" @tap.stop="swichMenu(c.id)">
 						<text class="u-line-1">{{c.name}}</text>
 					</view>
-				</block>
+				</view>
 			</scroll-view>
 			<scroll-view scroll-y class="right-box" @scrolltolower="scrollEvent">
 				<view class="page-view">

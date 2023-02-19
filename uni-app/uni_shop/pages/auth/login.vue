@@ -52,9 +52,11 @@ export default {
 			this.$u.utils.updateUser()
 			// 登录之后，跳转到来源页
 			const backUrl = uni.getStorageSync('back_url') || 'pages/index/index'
+			// 底部tabbar，使用switchTab；普通页面，使用redirect；使用reLaunch在App上会导致无法返回首页
+			const tabBarList = ['pages/index/index', 'pages/goods/goods', 'pages/cart/cart', 'pages/center/index']
 			setTimeout(() => {
 				this.$u.route({
-					type: 'reLaunch',
+					type: tabBarList.includes(backUrl) ? 'switchTab' : 'redirect',
 					url: backUrl,
 				})
 			}, 1500)
