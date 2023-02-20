@@ -4,7 +4,7 @@
 			<view class="u-m-r-10 avatar-body">
 				<oss-upload></oss-upload>
 			</view>
-			<view class="u-flex-1" :class="{'u-m-l-60': isAndroid}">
+			<view class="u-flex-1" :class="{'u-m-l-40': isAndroid}">
 				<view class="u-font-18 u-p-b-20">{{vuex_user.name}}</view>
 				<view class="u-font-14 u-tips-color">邮箱: {{vuex_user.email}}</view>
 			</view>
@@ -42,7 +42,6 @@
 		onLoad() {
 			if(!this.$u.utils.isLogin()) return
 			if (this.$u.utils.isAndroidDevice()) {
-				this.$u.toast('是安卓设备')
 				this.isAndroid = true
 			}
 		},

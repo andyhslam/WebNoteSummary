@@ -213,7 +213,7 @@
 	position: fixed;
 	bottom: 0;
 	width: 100%;
-	height: 50px;
+	height: 120rpx;
 	margin-top: 100rpx;
 	border: solid 2rpx #f2f2f2;
 	background-color: #fff;

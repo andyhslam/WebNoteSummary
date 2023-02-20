@@ -46,7 +46,7 @@ const install = (Vue, vm) => {
 	const isAndroidDevice = () => {
 		try {
 			const res = uni.getSystemInfoSync()
-			if (res.AppPlatform === 'android') {
+			if (res.platform === 'android') {
 				return true
 			} else {
 				return false

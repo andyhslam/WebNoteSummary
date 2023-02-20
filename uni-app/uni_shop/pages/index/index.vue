@@ -55,7 +55,7 @@
 				if(this.curSort === 3) params.new = 1
 				const res = await this.$u.api.index(params)
 				this.loading = false
-				console.log('首页数据', res);
+				// console.log('首页数据', res);
 				this.slides = res.slides
 				// this.goodsList.push(...res.goods.data)
 				this.goodsList = this.goodsList.pop().title ? [...this.goodsList, ...res.goods.data] : res.goods.data

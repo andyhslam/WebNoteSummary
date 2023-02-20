@@ -17,7 +17,7 @@
 				<view class="page-view">
 					<view class="class-item">
 						<view class="item-container">
-							<navigator class="thumb-box" v-for="(goods, index) in goodsList" :key="`${index}-${goods.id}`" :url="'/pages/goods/show?id=' + goods.id">
+							<navigator class="thumb-box" v-for="goods in goodsList" :key="goods.id + Math.random(10)" :url="'/pages/goods/show?id=' + goods.id">
 								<image class="item-menu-image" :src="goods.cover_url" mode=""></image>
 								<view class="item-menu-name">{{goods.title}}</view>
 							</navigator>
@@ -99,7 +99,7 @@
 			},
 			// 右侧区域滚动到底部，加载下一页
 			scrollEvent(e) {
-				console.log(e)
+				// console.log(e)
 				if(this.isLast) {
 					this.$u.toast('已经到底了')
 					return
