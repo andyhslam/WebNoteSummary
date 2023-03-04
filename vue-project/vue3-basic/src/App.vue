@@ -1,5 +1,5 @@
 <script setup>
-import Demo from './views/02-template-syntax/Demo.vue'
+import Demo from './views/03-reactivity-fundame/Demo.vue'
 </script>
 
 <template>
