@@ -1,5 +1,5 @@
 <script setup>
-import Demo from './views/10-life-cycle/Demo.vue'
+import Demo from './views/11-watcher/Demo.vue'
 </script>
 
 <template>
