@@ -1,5 +1,5 @@
 <script setup>
-import Demo from './views/04-computed-property/Demo.vue'
+import Demo from './views/05-class-style/Example.vue'
 </script>
 
 <template>

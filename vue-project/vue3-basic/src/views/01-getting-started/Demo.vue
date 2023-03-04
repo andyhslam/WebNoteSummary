@@ -14,4 +14,4 @@ const handleClick = () => {
   </div>
 </template>
 
-<style lang="less"></style>
+<style scoped lang="css"></style>
