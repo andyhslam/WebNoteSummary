@@ -1,7 +1,7 @@
 <script>
 // <Child title="hello" class="box"></Child>
 // 这两个在父组件定义的特殊的选项式属性，默认会继承在子组件的根元素上；
-// 可以再增加一个额外的script标签，通过inheritAttrs: false来阻断
+// 可以再增加一个额外的script标签，通过inheritAttrs: false来阻断。
 export default {
   inheritAttrs: false,
 }
