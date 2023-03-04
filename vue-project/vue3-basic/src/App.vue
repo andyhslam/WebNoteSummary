@@ -1,5 +1,5 @@
 <script setup>
-import Demo from './views/07-list-render/Demo.vue'
+import Demo from './views/08-event/Demo.vue'
 </script>
 
 <template>
