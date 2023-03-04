@@ -1,5 +1,5 @@
 <script setup>
-import Demo from './views/06-condition-render/Demo.vue'
+import Demo from './views/07-list-render/Demo.vue'
 </script>
 
 <template>
