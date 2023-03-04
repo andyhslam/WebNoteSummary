@@ -1,5 +1,5 @@
 <script setup>
-import Demo from './views/14-component-event/Demo.vue'
+import Demo from './views/15-fullthrough-attrs/Demo.vue'
 </script>
 
 <template>
