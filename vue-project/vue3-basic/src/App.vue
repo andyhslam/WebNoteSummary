@@ -1,5 +1,5 @@
 <script setup>
-import Demo from './views/17-inject-provide/Demo.vue'
+import Demo from './views/18-composition-function/Demo.vue'
 </script>
 
 <template>
