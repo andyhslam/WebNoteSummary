@@ -1,5 +1,5 @@
 <script setup>
-import Demo from './views/18-composition-function/Demo.vue'
+import Demo from './views/19-directive-plugin/Demo.vue'
 </script>
 
 <template>
