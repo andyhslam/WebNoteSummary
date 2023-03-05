@@ -1,5 +1,5 @@
 <script setup>
-import Demo from './views/15-fullthrough-attrs/Demo.vue'
+import Demo from './views/16-slots/Demo.vue'
 </script>
 
 <template>
