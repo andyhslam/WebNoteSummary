@@ -4,7 +4,7 @@ export default {
     app.component('Child', Child)
     app.mixin({
       mounted () {
-        console.log(100)
+        console.log('创建自定义插件')
       },
       data () {
         return {
