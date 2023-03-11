@@ -1,5 +1,5 @@
 const path = require('path')
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -42,4 +42,13 @@ app.whenReady().then(() => {
       createWindow()
     }
   })
+})
+
+/**
+ * 在主进程接收渲染进程传递过来的内容，可以用同步和异步操作去接收。
+ * 如果listener返回一个Promise，那么Promise的最终结果就是远程调用的返回值；
+ * 否则，监听器的返回值(此处是msg)将被用来作为应答值。
+ */
+ipcMain.handle('send-event', (event, msg) => {
+  return msg
 })
