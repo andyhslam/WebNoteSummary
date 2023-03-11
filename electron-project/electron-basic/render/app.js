@@ -1,5 +1,5 @@
 const fs = require('fs')
 
-fs.writeFile('/c/Users/Andyt/Desktop/example.txt', 'abc', () => {
+fs.writeFile('/Users/Andyt/Desktop/test.txt', 'abc', () => {
   console.log('done.')
 })

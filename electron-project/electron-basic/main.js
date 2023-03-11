@@ -14,7 +14,27 @@ const createWindow = () => {
   // 打开开发者工具
   win.webContents.openDevTools()
   // 暂时关闭安全警告
-  process.env('ELECTRON_DISABLE_SECURITY_WARNINGS') = 'true'
+  // process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 }
 
-app.whenReady().then(createWindow)
+app.on('window-all-closed', () => {
+  console.log('window-all-closed')
+  // 对于 MacOS 系统 -> 关闭窗口时，不能直接退出应用
+  if (process.platform !== 'darwin') {
+    app.quit()
+  }
+})
+
+app.on('quit', () => {
+  console.log('quit')
+})
+
+app.whenReady().then(() => {
+  createWindow()
+  // 在MacOS下，当全部窗口关闭，点击 dock 图标，窗口再次打开。
+  app.on('activate', () => {
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createWindow()
+    }
+  })
+})
