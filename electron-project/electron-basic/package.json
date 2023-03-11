@@ -4,7 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "nodemon --exec electron ."
+    "start": "nodemon -x electron . -w ./ -e .js,.html,.css,.vue"
   },
   "keywords": [],
   "author": "",
@@ -12,5 +12,8 @@
   "devDependencies": {
     "electron": "^19.0.8",
     "nodemon": "^2.0.21"
+  },
+  "dependencies": {
+    "electron-win-state": "^1.1.22"
   }
 }
