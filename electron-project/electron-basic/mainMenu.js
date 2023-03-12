@@ -51,4 +51,8 @@ const mainMenu = (args, cb) => {
   ])
 }
 
-module.exports = mainMenu
+const contextMenu = Menu.buildFromTemplate([
+  { label: 'Item 1' },
+  { role: 'editMenu' }
+])
+module.exports = { mainMenu, contextMenu }

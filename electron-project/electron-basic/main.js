@@ -2,12 +2,9 @@ const path = require('path')
 // 因为electron-win-state没有对nodejs做exports的暴露，所以要在require后面加上default
 const WinState = require('electron-win-state').default
 const { app, BrowserWindow, ipcMain, dialog, globalShortcut, Menu } = require('electron')
-const mainMenu = require('./mainMenu.js')
+const { mainMenu, contextMenu } = require('./mainMenu.js')
 
-const contextMenu = Menu.buildFromTemplate([
-  { label: 'Item 1' },
-  { role: 'editMenu' }
-])
+
 
 const winState = new WinState({
   x: 200,
