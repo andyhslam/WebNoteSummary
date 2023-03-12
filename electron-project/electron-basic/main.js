@@ -1,7 +1,13 @@
 const path = require('path')
 // 因为electron-win-state没有对nodejs做exports的暴露，所以要在require后面加上default
 const WinState = require('electron-win-state').default
-const { app, BrowserWindow, ipcMain, dialog, globalShortcut } = require('electron')
+const { app, BrowserWindow, ipcMain, dialog, globalShortcut, Menu } = require('electron')
+const mainMenu = require('./mainMenu.js')
+
+const contextMenu = Menu.buildFromTemplate([
+  { label: 'Item 1' },
+  { role: 'editMenu' }
+])
 
 const winState = new WinState({
   x: 200,
@@ -82,12 +88,19 @@ const createWindow = () => {
     // }).then(({ response }) => {
     //   console.log(`User selected: ${answers[response]}`)
     // })
+
+    // 创建右键菜单
+    contextMenu.popup()
   })
 
   globalShortcut.register('CommandOrControl+Y', () => {
     console.log('User pressed G with a combination key')
     globalShortcut.unregister('CommandOrControl+Y')
   })
+
+  Menu.setApplicationMenu(mainMenu('我的消息窗口', (args) => {
+    console.log(args)
+  }))
 
   // 当页面加载完毕，再显示浏览器窗口
   win.on('ready-to-show', () => {
