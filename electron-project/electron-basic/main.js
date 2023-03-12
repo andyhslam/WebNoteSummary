@@ -1,7 +1,7 @@
 const path = require('path')
 // 因为electron-win-state没有对nodejs做exports的暴露，所以要在require后面加上default
 const WinState = require('electron-win-state').default
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, BrowserWindow, ipcMain, dialog } = require('electron')
 
 const winState = new WinState({
   x: 200,
@@ -56,10 +56,32 @@ const createWindow = () => {
 
   wc.on('context-menu', (e, params) => {
     // 在主进程监测，渲染进程的右键上下文信息
-    console.log(`Image Url: ${params.srcURL}`)
-    console.log(`Selection can be copied: ${params.editFlags.canCopy}`)
+    // console.log(`Image Url: ${params.srcURL}`)
+    // console.log(`Selection can be copied: ${params.editFlags.canCopy}`)
     // 往渲染进程的页面注入一段JS代码
-    wc.executeJavaScript(`alert('${params.selectionText}')`)
+    // wc.executeJavaScript(`alert('${params.selectionText}')`)
+
+    // dialog.showOpenDialog({
+    //   buttonLabel: '选择',
+    //   defaultPath: app.getPath('desktop'),
+    //   properties: ['multiSelections', 'openFile']
+    // }).then((result) => {
+    //   console.log(result.filePaths)
+    // })
+
+    // dialog.showSaveDialog({}).then(result => {
+    //   console.log(result.filePath)
+    // })
+
+    const answers = ['Yes', 'No', 'Maybe']
+    dialog.showMessageBox({
+      title: 'Message Box',
+      message: 'Please select an option',
+      detail: 'Message details.',
+      buttons: answers
+    }).then(({ response }) => {
+      console.log(`User selected: ${answers[response]}`)
+    })
   })
 
   // 当页面加载完毕，再显示浏览器窗口
