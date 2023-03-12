@@ -1,7 +1,7 @@
 const path = require('path')
 // 因为electron-win-state没有对nodejs做exports的暴露，所以要在require后面加上default
 const WinState = require('electron-win-state').default
-const { app, BrowserWindow, ipcMain, dialog, globalShortcut, Menu } = require('electron')
+const { app, BrowserWindow, ipcMain, dialog, globalShortcut, Menu, desktopCapturer } = require('electron')
 const { mainMenu, contextMenu } = require('./mainMenu.js')
 const createTray = require('./tray.js')
 
@@ -163,6 +163,12 @@ app.on('quit', () => {
 ipcMain.handle('send-event', (event, msg) => {
   const desktopPath = app.getPath('desktop')
   return { msg, desktopPath }
+})
+
+// 抓取屏幕
+ipcMain.handle('capture-event', async (e, args) => {
+  const sources = await desktopCapturer.getSources({ types: ['window', 'screen'] })
+  return sources
 })
 
 app.whenReady().then(() => {
