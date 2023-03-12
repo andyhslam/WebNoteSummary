@@ -1,13 +1,17 @@
 // 预加载脚本中只能使用渲染进程的相关模块
 const fs = require('fs')
 const path = require('path')
-const { contextBridge, ipcRenderer, clipboard, desktopCapturer } = require('electron')
+const { contextBridge, ipcRenderer, clipboard, nativeImage } = require('electron')
 
 fs.writeFile('C:\\Users\\Andyt\\Desktop\\女士的品格.txt', '万茜', () => {
   console.log('女一号')
 })
 
-// 在渲染进程接收主进程传递过来的内容，只能用异步操作去接收
+/**
+ * ipcRenderer：
+ * 从一个渲染器进程到主进程的异步通信，只在渲染进程（renderer pocess）中可用。
+ * 在渲染进程接收主进程传递过来的内容，只能用异步操作去接收。
+ */
 const handleSend = async () => {
   const fallback = await ipcRenderer.invoke('send-event', '女一变女二')
   console.log('fallback', fallback)
@@ -37,6 +41,11 @@ const capture = async () => {
   }
 }
 
+const testNativeImage = () => {
+  const image = nativeImage.createFromPath('icon@2x.png')
+  console.log(image)
+}
+
 /**
  * contextBridge：
  * 创建一座安全的、双向的、跨越隔离情境的同步桥梁；只在渲染进程（renderer pocess）中可用。
@@ -48,4 +57,5 @@ contextBridge.exposeInMainWorld('myApi', {
   copy,
   show,
   capture,
+  testNativeImage,
 })

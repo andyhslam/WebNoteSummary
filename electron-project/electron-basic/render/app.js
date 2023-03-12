@@ -15,3 +15,7 @@ document.querySelector('#capture-btn').addEventListener('click', async () => {
   const result = await myApi.capture()
   document.querySelector('#img').src = result
 })
+
+document.querySelector('#native-image-btn').addEventListener('click', () => {
+  myApi.testNativeImage()
+})
