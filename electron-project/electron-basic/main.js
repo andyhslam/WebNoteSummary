@@ -4,8 +4,6 @@ const WinState = require('electron-win-state').default
 const { app, BrowserWindow, ipcMain, dialog, globalShortcut, Menu } = require('electron')
 const { mainMenu, contextMenu } = require('./mainMenu.js')
 
-
-
 const winState = new WinState({
   x: 200,
   y: 200,
