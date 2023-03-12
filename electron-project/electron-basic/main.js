@@ -3,15 +3,16 @@ const path = require('path')
 const WinState = require('electron-win-state').default
 const { app, BrowserWindow, ipcMain, dialog, globalShortcut, Menu } = require('electron')
 const { mainMenu, contextMenu } = require('./mainMenu.js')
-
-const winState = new WinState({
-  x: 200,
-  y: 200,
-  defaultWidth: 800,
-  defaultHeight: 600,
-})
+const createTray = require('./tray.js')
 
 const createWindow = () => {
+  const winState = new WinState({
+    x: 200,
+    y: 200,
+    defaultWidth: 800,
+    defaultHeight: 600,
+  })
+
   // electron.BrowserWindow: 创建和控制浏览器窗口
   const win = new BrowserWindow({
     x: 100,
@@ -93,6 +94,9 @@ const createWindow = () => {
     globalShortcut.unregister('CommandOrControl+Y')
   })
 
+  // 定义托盘
+  createTray(app, win)
+
   Menu.setApplicationMenu(mainMenu('我的消息窗口', (args) => {
     console.log(args)
   }))
@@ -115,20 +119,6 @@ const createWindow = () => {
   // win2.loadURL('http://jx.1000phone.net/')
 }
 
-// 在 browserWindow 失去焦点时触发
-app.on('browser-window-blur', (e) => {
-  console.log('App blur')
-  setTimeout(() => {
-    // 关闭应用程序
-    app.quit()
-  }, 3000)
-})
-
-// 在 browserWindow 获得焦点时发出
-app.on('browser-window-focus', (e) => {
-  console.log('App focused')
-})
-
 app.on('window-all-closed', () => {
   console.log('window-all-closed')
   /**
@@ -136,6 +126,7 @@ app.on('window-all-closed', () => {
    * 但是对于MacOS系统，关闭窗口时，不能直接退出应用
    */
   if (process.platform !== 'darwin') {
+    // 关闭应用程序
     app.quit()
   }
 })
@@ -144,7 +135,20 @@ app.on('window-all-closed', () => {
 app.on('before-quit', (e) => {
   console.log('App is quiting')
   // 阻止默认行为：可以阻止应用程序的关闭
-  e.preventDefault()
+  // e.preventDefault()
+})
+
+// 在 browserWindow 失去焦点时触发
+app.on('browser-window-blur', (e) => {
+  console.log('App blur')
+  // setTimeout(() => {
+  //   app.quit()
+  // }, 3000)
+})
+
+// 在 browserWindow 获得焦点时发出
+app.on('browser-window-focus', (e) => {
+  console.log('App focused')
 })
 
 app.on('quit', () => {
