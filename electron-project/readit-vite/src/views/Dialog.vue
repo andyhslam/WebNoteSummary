@@ -1,11 +1,18 @@
 <script setup>
 import { ref, inject } from 'vue'
+import useWebsiteStore from '@/store/websiteStore.js'
+
+const websiteStore = useWebsiteStore()
 const { isShow, setIsShow } = inject('dialog-visible')
 const url = ref('https://www.baidu.com/')
+const isSubmit = ref(false)
 
 const handleAddClick = async () => {
+  isSubmit.value = true
   const result = await myApi.sendUrl(url.value)
-  console.log(result)
+  websiteStore.add(result)
+  isSubmit.value = false
+  setIsShow(false)
 }
 </script>
 
@@ -13,11 +20,16 @@ const handleAddClick = async () => {
   <div class="dialog-wrap" v-if="isShow">
     <div class="content">
       <div class="input">
-        <input type="text" v-model="url" placeholder="请输入网址..." />
+        <input
+          type="text"
+          v-model="url"
+          :disabled="isSubmit"
+          placeholder="请输入网址..."
+        />
       </div>
       <div class="btns">
-        <button @click="handleAddClick">添加</button>
-        <button @click="setIsShow(false)">取消</button>
+        <button @click="handleAddClick" :disabled="isSubmit">添加</button>
+        <button @click="setIsShow(false)" :disabled="isSubmit">取消</button>
       </div>
     </div>
   </div>

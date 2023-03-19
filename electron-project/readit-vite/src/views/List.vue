@@ -1,25 +1,21 @@
 <script setup>
-import { ref } from 'vue'
+import { onMounted } from 'vue'
+import useWebsiteStore from '@/store/websiteStore.js'
+
+const websiteStore = useWebsiteStore()
+onMounted(() => {
+  websiteStore.init()
+})
 </script>
 
 <template>
   <div>
-    <p id="no-item">暂无数据</p>
-    <div id="items">
-      <div class="read-item selected">
-        <img src="@/assets/images/avatar.jpeg" alt="" />
-        <h2>百度一下</h2>
-        <button>x</button>
-      </div>
-      <div class="read-item">
-        <img src="@/assets/images/avatar.jpeg" alt="" />
-        <h2>百度一下</h2>
-        <button>x</button>
-      </div>
-      <div class="read-item">
-        <img src="@/assets/images/avatar.jpeg" alt="" />
-        <h2>百度一下</h2>
-        <button>x</button>
+    <p id="no-item" v-if="!websiteStore.websites.length">暂无数据</p>
+    <div id="items" v-else>
+      <div class="read-item selected" v-for="ws in websiteStore.websites">
+        <img :src="ws.screenShot" :alt="ws.title" />
+        <h2>{{ ws.title }}</h2>
+        <button @click="websiteStore.deleteItem(ws.url)">x</button>
       </div>
     </div>
   </div>
