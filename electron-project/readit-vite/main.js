@@ -1,6 +1,8 @@
 const path = require('path')
 const { app, BrowserWindow } = require('electron')
 const WinState = require('electron-win-state').default
+// 获取网站的截图
+require('./controller/getSource.js')
 
 const createWindow = () => {
   const winState = new WinState({
@@ -12,6 +14,7 @@ const createWindow = () => {
   const win = new BrowserWindow({
     // 自定义窗口状态（包括大小和位置）
     ...winState.winOptions,
+    show: false,
     webPreferences: {
       // 定义预加载的js脚本
       preload: path.resolve(__dirname, './preload/index.js')
@@ -23,6 +26,11 @@ const createWindow = () => {
   win.webContents.openDevTools()
 
   winState.manage(win)
+
+  // 页面内容加载完之后，再去打开窗口
+  win.on('ready-to-show', () => {
+    win.show()
+  })
 }
 
 app.whenReady().then(() => {
