@@ -7,7 +7,9 @@ import List from './list/List.vue'
 <template>
   <main>
     <SearchBar></SearchBar>
-    <Dialog></Dialog>
+    <Teleport to="body">
+      <Dialog></Dialog>
+    </Teleport>
     <List></List>
   </main>
 </template>
