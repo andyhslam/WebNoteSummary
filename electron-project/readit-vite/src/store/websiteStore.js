@@ -12,7 +12,21 @@ const useWebsiteStore = defineStore('websiteStore', {
       websites: []
     }
   },
-
+  getters: {
+    searchWebsite (_state) {
+      return (keywords) => {
+        if (!keywords) {
+          return _state.websites
+        } else {
+          const result = _.filter(_state.websites, (item) => {
+            const pattern = new RegExp(keywords, 'i')
+            return pattern.test(item.title)
+          })
+          return result
+        }
+      }
+    }
+  },
   actions: {
     add (item) {
       if (_.find(this.websites, { url: item.url })) {

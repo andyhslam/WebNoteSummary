@@ -4,7 +4,7 @@ import useWebsiteStore from '@/store/websiteStore.js'
 
 const websiteStore = useWebsiteStore()
 const { isShow, setIsShow } = inject('dialog-visible')
-const url = ref('https://www.baidu.com/')
+const url = ref('https://www.')
 const isSubmit = ref(false)
 
 const handleAddClick = async () => {
@@ -30,6 +30,7 @@ const handleAddClick = async () => {
           v-model="url"
           :disabled="isSubmit"
           placeholder="请输入网址..."
+          @keyup.enter.native="handleAddClick"
         />
       </div>
       <div class="btns">

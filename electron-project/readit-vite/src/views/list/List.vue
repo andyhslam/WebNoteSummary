@@ -4,7 +4,7 @@ import useIndex from './useIndex.js'
 import useWebsiteStore from './useWebsite.js'
 
 const { curIndex, handleItemClick } = useIndex()
-const { websiteStore } = useWebsiteStore()
+const { websiteStore, keywords } = useWebsiteStore()
 
 onMounted(() => {
   websiteStore.init()
@@ -13,17 +13,19 @@ onMounted(() => {
 
 <template>
   <div>
-    <p id="no-item" v-if="!websiteStore.websites.length">暂无数据</p>
+    <p id="no-item" v-if="!websiteStore.searchWebsite(keywords).length">
+      暂无数据
+    </p>
     <div id="items" v-else>
       <div
         class="read-item"
         :class="{ selected: curIndex === index }"
-        v-for="(ws, index) in websiteStore.websites"
+        v-for="(ws, index) in websiteStore.searchWebsite(keywords)"
         @click="handleItemClick(index, ws.url)"
       >
         <img :src="ws.screenShot" :alt="ws.title" />
         <h2>{{ ws.title }}</h2>
-        <button @click="websiteStore.deleteItem(ws.url)">x</button>
+        <button @click.stop="websiteStore.deleteItem(ws.url)">x</button>
       </div>
     </div>
   </div>

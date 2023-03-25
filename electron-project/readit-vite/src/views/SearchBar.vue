@@ -1,16 +1,23 @@
 <script setup>
 import { inject } from 'vue'
+import _ from 'lodash'
+
 const { setIsShow } = inject('dialog-visible')
+const { setKeywords } = inject('searchbar-keywords')
 const handleClick = () => {
   setIsShow(true)
 }
+// 函数防抖动
+const search = _.debounce((e) => {
+  setKeywords(e.target.value)
+}, 500)
 </script>
 
 <template>
   <div class="search-container">
     <div class="button" @click="handleClick">+</div>
     <div class="input">
-      <input type="text" placeholder="请输入关键字..." />
+      <input type="text" placeholder="请输入关键字..." @input="search" />
     </div>
   </div>
 </template>

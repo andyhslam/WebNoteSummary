@@ -11,6 +11,16 @@ provide('dialog-visible', {
   isShow,
   setIsShow,
 })
+
+// searchBar的keywords
+const keywords = ref('')
+const setKeywords = (val) => {
+  keywords.value = val
+}
+provide('searchbar-keywords', {
+  keywords,
+  setKeywords,
+})
 </script>
 
 <template>
