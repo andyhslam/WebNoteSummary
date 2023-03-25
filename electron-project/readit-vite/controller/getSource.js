@@ -19,12 +19,12 @@ const getSource = (url) => {
       try {
         // capturePage:截取网页内容的图片
         const image = await win.webContents.capturePage()
-        const screenShot = image.toDataURL()
-        resolve({
-          url,
-          title,
-          screenShot
-        })
+        if (image.isEmpty()) {
+          resolve({ msg: '无法访问该站点' })
+        } else {
+          const screenShot = image.toDataURL()
+          resolve({ url, title, screenShot })
+        }
       } catch (e) {
         reject(e)
       }

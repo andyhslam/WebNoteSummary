@@ -1,8 +1,11 @@
 <script setup>
 import { onMounted } from 'vue'
-import useWebsiteStore from '@/store/websiteStore.js'
+import useIndex from './useIndex.js'
+import useWebsiteStore from './useWebsite.js'
 
-const websiteStore = useWebsiteStore()
+const { curIndex, handleItemClick } = useIndex()
+const { websiteStore } = useWebsiteStore()
+
 onMounted(() => {
   websiteStore.init()
 })
@@ -12,7 +15,12 @@ onMounted(() => {
   <div>
     <p id="no-item" v-if="!websiteStore.websites.length">暂无数据</p>
     <div id="items" v-else>
-      <div class="read-item selected" v-for="ws in websiteStore.websites">
+      <div
+        class="read-item"
+        :class="{ selected: curIndex === index }"
+        v-for="(ws, index) in websiteStore.websites"
+        @click="handleItemClick(index)"
+      >
         <img :src="ws.screenShot" :alt="ws.title" />
         <h2>{{ ws.title }}</h2>
         <button @click="websiteStore.deleteItem(ws.url)">x</button>

@@ -10,9 +10,14 @@ const isSubmit = ref(false)
 const handleAddClick = async () => {
   isSubmit.value = true
   const result = await myApi.sendUrl(url.value)
-  websiteStore.add(result)
+  if (result.msg) {
+    myApi.alert(result.msg)
+  } else {
+    websiteStore.add(result)
+    setIsShow(false)
+    url.value = ''
+  }
   isSubmit.value = false
-  setIsShow(false)
 }
 </script>
 

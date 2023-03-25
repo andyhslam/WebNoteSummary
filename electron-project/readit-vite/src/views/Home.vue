@@ -1,7 +1,7 @@
 <script setup>
 import SearchBar from './SearchBar.vue'
 import Dialog from './Dialog.vue'
-import List from './List.vue'
+import List from './list/List.vue'
 </script>
 
 <template>
