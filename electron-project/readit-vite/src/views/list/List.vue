@@ -19,7 +19,7 @@ onMounted(() => {
         class="read-item"
         :class="{ selected: curIndex === index }"
         v-for="(ws, index) in websiteStore.websites"
-        @click="handleItemClick(index)"
+        @click="handleItemClick(index, ws.url)"
       >
         <img :src="ws.screenShot" :alt="ws.title" />
         <h2>{{ ws.title }}</h2>
