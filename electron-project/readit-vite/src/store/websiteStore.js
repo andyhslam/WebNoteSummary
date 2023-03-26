@@ -19,6 +19,7 @@ const useWebsiteStore = defineStore('websiteStore', {
           return _state.websites
         } else {
           const result = _.filter(_state.websites, (item) => {
+            // 通过正则表达式做的模糊查询
             const pattern = new RegExp(keywords, 'i')
             return pattern.test(item.title)
           })
@@ -40,8 +41,6 @@ const useWebsiteStore = defineStore('websiteStore', {
       this.websites = store.get('websites')
     },
     deleteItem (url) {
-      // dropWhile方法只能从第一个开始删除
-      // this.websites = _.dropWhile(this.websites, { url })
       const index = this.websites.findIndex(item => item.url === url)
       this.websites.splice(index, 1)
       store.set('websites', this.websites)

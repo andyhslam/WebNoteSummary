@@ -3,12 +3,16 @@ import { onMounted } from 'vue'
 import useIndex from './useIndex.js'
 import useWebsiteStore from './useWebsite.js'
 
-const { curIndex, handleItemClick } = useIndex()
-const { websiteStore, keywords } = useWebsiteStore()
-
 onMounted(() => {
   websiteStore.init()
 })
+
+const { curIndex, handleItemClick } = useIndex()
+const { websiteStore, keywords } = useWebsiteStore()
+const handleDelClick = (url) => {
+  websiteStore.deleteItem(url)
+  curIndex.value = 0
+}
 </script>
 
 <template>
@@ -25,7 +29,7 @@ onMounted(() => {
       >
         <img :src="ws.screenShot" :alt="ws.title" />
         <h2>{{ ws.title }}</h2>
-        <button @click.stop="websiteStore.deleteItem(ws.url)">x</button>
+        <button @click.stop="handleDelClick(ws.url)">x</button>
       </div>
     </div>
   </div>
