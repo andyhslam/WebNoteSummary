@@ -5,6 +5,7 @@ const WinState = require('electron-win-state').default
 require('./controller/getSource.js')
 require('./controller/alert.js')
 require('./controller/openWindow.js')
+require('./controller/getFileList.js')
 
 const createWindow = () => {
   const winState = new WinState({
