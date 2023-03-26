@@ -4,6 +4,7 @@ const WinState = require('electron-win-state').default
 // 获取网站的截图
 require('./controller/getSource.js')
 require('./controller/alert.js')
+require('./controller/openWindow.js')
 
 const createWindow = () => {
   const winState = new WinState({
@@ -11,13 +12,18 @@ const createWindow = () => {
     y: 200,
     defaultWidth: 1000,
     defaultHeight: 800,
+    // 隔离选项：每个窗口不再共享同一个状态，主窗口与子窗口的状态区分开
+    electronStoreOptions: {
+      name: 'window-state-main'
+    }
   })
   const win = new BrowserWindow({
     // 自定义窗口状态（包括大小和位置）
     ...winState.winOptions,
     show: false,
     webPreferences: {
-      // 定义预加载的js脚本
+      // 定义主窗口(浏览器窗口，即渲染进程)的预加载脚本
+      // 创建一个新窗口，产生一个新的渲染进程，有独立的安全沙箱，并且每个渲染进程独有一份preload
       preload: path.resolve(__dirname, './preload/index.js')
     }
   })
