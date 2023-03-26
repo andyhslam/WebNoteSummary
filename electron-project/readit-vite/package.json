@@ -15,7 +15,8 @@
     "pinia": "^2.0.33",
     "store2": "^2.14.2",
     "stylus": "^0.59.0",
-    "vue": "^3.2.45"
+    "vue": "^3.2.45",
+    "vue-router": "^4.1.6"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",

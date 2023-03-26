@@ -1,6 +1,6 @@
 <script setup>
 import { ref, provide } from 'vue'
-import Home from './views/Home.vue'
+import Header from './views/Header.vue'
 
 // 窗口显示的状态
 const isShow = ref(false)
@@ -24,7 +24,8 @@ provide('searchbar-keywords', {
 </script>
 
 <template>
-  <Home></Home>
+  <Header></Header>
+  <router-view></router-view>
 </template>
 
 <style scoped lang="stylus"></style>
