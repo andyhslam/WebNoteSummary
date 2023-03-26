@@ -1,6 +1,7 @@
 const { ipcMain, BrowserWindow } = require('electron')
 const WinState = require('electron-win-state').default
 const path = require('path')
+const saveas = require('./saveas.js')
 
 const cssText = `width:80px;height:30px;color:#fff;background-color:cornflowerblue;border-radius:5px;text-align:center;border:none;position:fixed;bottom:50px;right:20px;z-index:1000`
 
@@ -42,6 +43,11 @@ ipcMain.handle('on-open-window-event', (e, url) => {
   win.webContents.openDevTools()
   // 把js代码注入到渲染进程(即浏览器)，然后在渲染进程发送事件到主进程
   win.webContents.executeJavaScript(template).catch(() => { })
+
+  // 鼠标右键菜单
+  win.webContents.on('context-menu', (e, args) => {
+    saveas(args.srcURL)
+  })
 })
 
 // 一个主进程对应多个渲染进程

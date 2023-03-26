@@ -14,6 +14,7 @@ const useWebsiteStore = defineStore('websiteStore', {
   },
   getters: {
     searchWebsite (_state) {
+      // 在getters里面，this和_state都可以用
       return (keywords) => {
         if (!keywords) {
           return _state.websites
