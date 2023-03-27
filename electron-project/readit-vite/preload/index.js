@@ -18,9 +18,23 @@ const getFileList = async () => {
   return fileList
 }
 
+const openDialog = () => {
+  ipcRenderer.send('on-open-dialog-event')
+}
+
+const onRendererEvent = (cb) => {
+  ipcRenderer.on('on-renderer-event', (e, msg) => {
+    if (msg === 'add') {
+      cb()
+    }
+  })
+}
+
 contextBridge.exposeInMainWorld('myApi', {
   sendUrl,
   alert,
   openWindow,
   getFileList,
+  openDialog,
+  onRendererEvent,
 })

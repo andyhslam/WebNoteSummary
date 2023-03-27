@@ -11,6 +11,8 @@ const handleClick = () => {
 const search = _.debounce((e) => {
   setKeywords(e.target.value)
 }, 500)
+
+defineExpose({ handleClick })
 </script>
 
 <template>

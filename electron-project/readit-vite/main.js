@@ -6,6 +6,7 @@ require('./controller/getSource.js')
 require('./controller/alert.js')
 require('./controller/openWindow.js')
 require('./controller/getFileList.js')
+require('./controller/buildMenu.js')
 
 const createWindow = () => {
   const winState = new WinState({

@@ -9,7 +9,7 @@ const saveas = (srcURL) => {
   if (srcURL) {
     const contextMenu = Menu.buildFromTemplate([
       {
-        label: '收藏另存',
+        label: '收藏图片',
         accelerator: 'CommandOrControl+S',
         click: () => {
           got.get(srcURL).then(async (res) => {
