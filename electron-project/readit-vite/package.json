@@ -1,15 +1,18 @@
 {
   "name": "readit-vite",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "main": "main.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "app:dir": "electron-builder --dir",
+    "app:dist": "electron-builder",
     "start": "nodemon --exec electron . --watch ./ --ext .js,.html,.css,.vue"
   },
   "dependencies": {
+    "electron-win-state": "^1.1.22",
     "got": "^11.8.6",
     "image-type": "^4.1.0",
     "lodash": "^4.17.21",
@@ -24,7 +27,7 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
     "electron": "^19.0.8",
-    "electron-win-state": "^1.1.22",
+    "electron-builder": "^23.6.0",
     "nodemon": "^2.0.21",
     "vite": "^4.1.0"
   }
