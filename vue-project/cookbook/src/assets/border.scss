@@ -1,6 +1,7 @@
 // 构造1像素边框线的Sass函数
 @mixin border($width: 1px, $style: solid, $color: #ccc, $radius: 5px) {
   position: relative;
+  // 这里的伪元素相当于子元素
   &::after {
     content: '';
     // 在水平垂直方向撑满
