@@ -1,0 +1,41 @@
+// 构造1像素边框线的Sass函数
+@mixin border($width: 1px, $style: solid, $color: #ccc, $radius: 5px) {
+  position: relative;
+  &::after {
+    content: '';
+    // 在水平垂直方向撑满
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 999;
+    // 这个边框浮在search-input元素的上面
+    border-width: $width;
+    border-style: $style;
+    border-color: $color;
+    border-radius: $radius;
+    // 模拟器的DPR(window.devicePixelRatio)大约等于2
+    // 通过媒体查询，计算当前手机设备的DPR(devicePixelRatio)
+    @media screen and (-webkit-max-device-pixel-ratio: 1.49) {
+      width: 100%;
+      height: 100%;
+      // 将边框线的宽高各自压缩的百分比
+      transform: scale(1);
+    }
+    @media screen and (-webkit-min-device-pixel-ratio: 1.5) and (-webkit-max-device-pixel-ratio: 2.49) {
+      width: 200%;
+      height: 200%;
+      // 将边框线的宽高各自压缩的百分比
+      transform: scale(0.5);
+    }
+    @media screen and (-webkit-min-device-pixel-ratio: 2.5) {
+      width: 300%;
+      height: 300%;
+      // 将边框线的宽高各自压缩的百分比
+      transform: scale(0.3333333);
+    }
+    // 压缩的起始坐标点在search-input元素的原点
+    transform-origin: 0 0;
+  }
+}
