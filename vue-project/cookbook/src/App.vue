@@ -28,6 +28,7 @@ watch(
     </main>
     <van-tabbar
       route
+      :fixed="false"
       v-model="active"
       active-color="#000"
       inactive-color="#ccc"
@@ -56,10 +57,19 @@ watch(
 </template>
 
 <style lang="scss">
-.van-nav-bar__content {
-  background-color: #ee7530;
-  .van-nav-bar__title {
-    color: #fff;
+.home-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  main {
+    flex: 1;
+    overflow-y: scroll;
+  }
+  .van-nav-bar__content {
+    background-color: #ee7530;
+    .van-nav-bar__title {
+      color: #fff;
+    }
   }
 }
 </style>

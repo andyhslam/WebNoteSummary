@@ -1,9 +1,16 @@
 html,
 body {
   height: 100%;
-  // overflow: hidden;
+  overflow: hidden;
+  ::-webkit-scrollbar {
+    // 去掉右侧的滚动条
+    display: none;
+  }
 }
 
 * {
   box-sizing: border-box;
+}
+#app {
+  height: 100%;
 }
