@@ -1,6 +1,7 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import useListStore from '@/store/listStore.js'
 
 import cookbook from '@/assets/images/cookbook.png'
 import cookbookActive from '@/assets/images/cookbook-active.png'
@@ -12,12 +13,18 @@ import moreActive from '@/assets/images/more-active.png'
 const active = ref(0)
 const title = ref('菜谱大全')
 const route = useRoute()
+
 watch(
   () => route.meta,
   (meta) => {
     title.value = meta.title
   }
 )
+
+const listStore = useListStore()
+onMounted(() => {
+  listStore.loadData()
+})
 </script>
 
 <template>
