@@ -1,20 +1,21 @@
-const func1 = function (name: string, age?: number): string {
-  return name + age;
+// 函数的默认参数和可选参数
+const func1 = function (name: string, age?: number, id: number = 10): string {
+  return name + age + id
 }
-let lx = func1('lx', 20);
+console.log(func1('lx', 20))
 
 // 用接口去约束函数的参数和返回值
 interface User {
-  name: string,
-  age: number,
+  name: string
+  age: number
 }
-const func2 = function (user: User): User{
-  return user;
+const func3 = function (user: User): User {
+  return user
 }
-let khp = func2({
+let khp = func3({
   name: 'khp',
   age: 30,
-});
+})
 // console.log(khp);
 
 // 函数重载：
@@ -23,11 +24,11 @@ let khp = func2({
 // 3、参数数量不同你可以将不同的参数设置为可选。
 
 // 前两个是重载函数(写规则)
-function fn(params1: number): void
-function fn(params1: string, params2: number): void
+function func4(params1: number): void
+function func4(params1: string, params2: number): void
 // 后一个是执行函数(写业务逻辑)，可以遵循任意一个重载函数的规则
-function fn(params1: any, params2?: any): void {
-  console.log(params1);
-  console.log(params2);
+function func4(params1: any, params2?: any): void {
+  console.log(params1)
+  console.log(params2)
 }
-fn('1', 2);
+func4('1', 2)
