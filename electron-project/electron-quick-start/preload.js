@@ -5,6 +5,8 @@
  * 
  * https://www.electronjs.org/docs/latest/tutorial/sandbox
  */
+
+// 这个文件没有用到，进程间通信使用的是remote模块
 window.addEventListener('DOMContentLoaded', () => {
   const replaceText = (selector, text) => {
     const element = document.getElementById(selector)
