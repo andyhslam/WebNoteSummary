@@ -12,8 +12,7 @@ app.on('ready', () => {
   mainWindow.loadFile('index.html')
   mainWindow.webContents.openDevTools()
   ipcMain.on('message', (event, arg) => {
-    console.log('event', event)
-    console.log('arg', arg)
+    console.log(arg)
     event.reply('reply', 'hello from main process')
   })
 
