@@ -1,9 +1,3 @@
-let no: number = NaN
-let sr: string = `${no}`
-
-let v1: void = null
-let v2: void = undefined
-
 let xm: any = { 帅: true, open: () => 123 }
 console.log(xm.open())
 
