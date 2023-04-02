@@ -39,14 +39,37 @@ console.log('obj2', obj2)
 // 函数重载：
 // 1、重载是方法名字相同，而参数不同，返回类型可以相同也可以不同。
 // 2、如果参数类型不同，则参数类型应设置为 any。
-// 3、参数数量不同你可以将不同的参数设置为可选。
+// 3、参数数量不同，你可以将不同的参数设置为可选。
 
-// 前两个是重载函数(写规则)
-function func4(params1: number): void
-function func4(params1: string, params2: number): void
+// 函数重载例子一：前两个是重载函数(写规则)
+function func3(params1: number): void
+function func3(params1: string, params2: number): void
 // 后一个是执行函数(写业务逻辑)，可以遵循任意一个重载函数的规则
-function func4(params1: any, params2?: any): void {
-  console.log(params1)
-  console.log(params2)
+function func3(params1: any, params2?: any): void {
+  console.log(params1, params2)
 }
-func4('1', 2)
+func3(3) // 执行第一个重载函数
+func3('1', 2) // 执行第二个重载函数
+
+// 函数重载例子二
+let user: number[] = [1, 2, 3]
+// 如果传入id，就是单个查询
+function findNum(id: number): number[]
+// 如果传入一个number类型的数组，就添加
+function findNum(add: number[]): number[]
+// 如果没传参数，就是查询全部
+function findNum(): number[]
+// 实现函数(写业务逻辑)，可以遵循任意一个重载函数的规则
+function findNum(ids?: number | number[]): number[] {
+  if (typeof ids === 'number') {
+    return user.filter((v) => v === ids)
+  } else if (Array.isArray(ids)) {
+    user.push(...ids)
+    return user
+  } else {
+    return user
+  }
+}
+console.log(findNum(3)) // 单个查询
+console.log(findNum([4, 5, 6])) // 添加
+console.log(findNum()) // 查询全部
