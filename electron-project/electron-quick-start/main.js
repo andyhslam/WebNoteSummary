@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
 
 app.on('ready', () => {
   require('devtron').install()
@@ -11,14 +11,20 @@ app.on('ready', () => {
   })
   mainWindow.loadFile('index.html')
   mainWindow.webContents.openDevTools()
-
-  let secondWindow = new BrowserWindow({
-    width: 400,
-    height: 300,
-    parent: mainWindow,
-    webPreferences: {
-      nodeIntegration: true,
-    }
+  ipcMain.on('message', (event, arg) => {
+    console.log('event', event)
+    console.log('arg', arg)
+    event.reply('reply', 'hello from main process')
   })
-  secondWindow.loadFile('second.html')
+
+
+  // let secondWindow = new BrowserWindow({
+  //   width: 400,
+  //   height: 300,
+  //   parent: mainWindow,
+  //   webPreferences: {
+  //     nodeIntegration: true,
+  //   }
+  // })
+  // secondWindow.loadFile('second.html')
 })
