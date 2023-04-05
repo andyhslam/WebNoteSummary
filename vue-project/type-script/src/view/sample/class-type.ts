@@ -23,7 +23,7 @@ class Person {
     this.height
     // build里面已经调用runner，所以现在runner里面不能调用build
     // this.build()
-    return 234
+    return '起风了'
   }
 
   // 两个静态方法是可以互相调用的，但是不能同时调用
@@ -72,22 +72,26 @@ abstract class Abs {
     this.name = name
   }
   // 在抽象类定义的非抽象方法需要在其内部实现，还可以直接被派生类调用
-  setName(name: string) {
-    this.name = name
+  getName(): string {
+    return this.name
   }
-  // 在抽象类定义的抽象方法必须在派生类实现
-  abstract getName(): string
+  // 在抽象类定义的抽象方法只能描述，不能在其内部实现，必须在派生类实现。
+  abstract init(): void
 }
 // new Abs(); // 抽象类无法被实例化
 
-// 在Abs抽象类定义 getName 抽象方法但未实现
-// Bps类实现Abs抽象类定义的抽象方法 如不实现就报错
+// 在Abs抽象类定义init抽象方法，但未实现
+// Bps派生类实现Abs抽象类定义的抽象方法，如不实现就报错
 class Bps extends Abs {
   constructor() {
-    super('yyc')
+    super('mi')
+    this.init()
   }
-  getName(): string {
-    return this.name
+  init() {
+    console.log(this.getName())
+  }
+  setName(name: string) {
+    this.name = name
   }
 }
 let bps = new Bps() // 非抽象类才能被实例化
@@ -106,7 +110,7 @@ class Ref {
     return this._value + '失败'
   }
   set value(newVal) {
-    this._value = newVal + '从不'
+    this._value = newVal + '永不'
   }
 }
 
