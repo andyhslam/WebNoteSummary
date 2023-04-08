@@ -60,7 +60,7 @@ foo = function <T>(arg: T): T {
 }
 foo(123)
 
-// 泛型约束：
+// 泛型约束：控制类型的范围
 // 我们期望在一个泛型的变量上面，获取其length参数，但是有的数据类型是没有length属性的
 interface Len {
   length: number // 约束其为具有length属性的类型
@@ -71,17 +71,29 @@ function getLength<T extends Len>(arg: T) {
 getLength<string>('123')
 getLength<Array<string | number>>(['1', 2, 3]) // getLength(['1', 2, 3]);
 
-// 使用keyof约束泛型对象
+// 使用keyof约束泛型对象的key
 // 其中使用TS泛型和泛型约束
 // 首先定义T类型并使用extends关键字继承object类型的子类型
 // 然后使用keyof操作符获取T类型的所有键，它的返回类型是联合类型
 // 最后利用extends关键字约束 K类型必须为keyof T联合类型的子类型
-function prop<T, K extends keyof T>(obj: T, key: K) {
+function prop<T extends object, K extends keyof T>(obj: T, key: K) {
   return obj[key]
 }
+type keyog = keyof typeof og
 let og = { a: 1, b: 2, c: 3 }
 prop(og, 'a')
 // prop(og, 'd'); // 报错
+
+// 编写一个泛型工具，把对象的key变成可选的和只读的
+interface Data3 {
+  name: string
+  age: number
+  sex: string
+}
+type Opts<T extends object> = {
+  readonly [Key in keyof T]?: T[Key]
+}
+type opt = Opts<Data3>
 
 // 泛型类：
 // 声明方法跟函数类似，名称后面定义<类型>，使用的时候确定类型new Sub<number>()
