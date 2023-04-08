@@ -13,10 +13,12 @@ console.log(Symbol('123') === Symbol.for('123')) // false
 
 // 用作对象属性的键，Symbol就是用来解决对象的属性key重复的问题
 let objs1 = {
-  [nums1]: 'value',
-  [strs1]: 'miss',
   name: 'swq',
   sex: 'female',
+  [strs1]: 'miss1',
+  [strs2]: 'miss2',
+  [nums1]: 'miss3',
+  [Symbol('258')]: 369,
 }
 console.log('objs1', objs1)
 
@@ -43,40 +45,92 @@ for (let key of Reflect.ownKeys(objs1)) {
   console.log(key)
 }
 
+// 生成器：和迭代器用法一样
+function* generator() {
+  // yield后面可以跟同步或者异步，即使有异步，也是按顺序执行
+  yield Promise.resolve('电科')
+  yield '小满'
+  yield '中满'
+  yield '大满'
+}
+const man = generator()
+console.log(man.next())
+
 // Symbol.iterator迭代器 和 生成器 for of
 let arr11: Array<number> = [4, 5, 6]
 
-// let itr: Iterator<number> = arr11[Symbol.iterator]();
-// console.log(itr.next());
-// console.log(itr.next());
-// console.log(itr.next());
-// console.log(itr.next());
+let itr: Iterator<number> = arr11[Symbol.iterator]()
+console.log(itr.next())
 
-let set: Set<number> = new Set([1, 2, 3, 2, 1])
-type mapKeys = string | number
+// 只支持字符串和数字去重，不支持对象去重
+let set: Set<number | string> = new Set([1, '2', 3, 3, '2', '1'])
+type mapKeys = Object
 let map: Map<mapKeys, mapKeys> = new Map()
-map.set(1, '太上皇')
-map.set(2, '皇上')
-console.log('set', set) // Set(3) { 1, 2, 3 }
-console.log('map', map) // Map(2) { 1 => '太上皇', 2 => '皇上' }
+const arrMap = [2, 4, 6]
+const objMap = { ep: 'good' }
+// map可以把引用类型当作key
+map.set(objMap, '皇上')
+map.set(arrMap, '太上皇')
+console.log('set', set) // Set(4) { 1, '2', 3, '1' }
+console.log(map.get(arrMap))
+console.log('map', map) // Map(2) { { ep: 'good' } => '皇上', [ 2, 4, 6 ] => '太上皇' }
 
 // Symbol.iterator迭代器：
-// 支持遍历大部分类型迭代器 arr nodeList argumetns set map 等
 // 不支持对象(因为对象没有返回迭代器的"[Symbol.iterator]()"方法)
-function generation(erg: any) {
-  let ite: Iterator<any> = erg[Symbol.iterator]()
+// 支持遍历大部分类型迭代器 arr nodeList(window环境) arguments set map 等
+// 实现一个方法，调用它们自身的迭代器去遍历
+function iterators(arg: any) {
+  let ite: Iterator<any> = arg[Symbol.iterator]()
   let next: any = { done: false }
+  // 如果done为true，就终止循环
   while (!next.done) {
     next = ite.next()
     if (!next.done) {
-      console.log(next)
+      console.log(next.value)
     }
   }
 }
-generation(map)
+iterators(map)
 
-// 生成器：for...of(iterator语法糖；其实已经实现了上面的generation函数)
+// 迭代器的语法糖：for...of(其底层原理就是上面的iterators函数)
 // 也是不支持对象
 for (let item of arr11) {
   console.log(item)
 }
+
+// 数组的解构和展开运算符的底层原理都是调用iterator
+let [a11, b11, c11] = [1, 2, [3, 4, 5]]
+let d11 = [...c11]
+
+// 手动实现iterator方法，使对象支持for...of和数组的展开运算符
+let iteObj = {
+  max: 5,
+  current: 0,
+  [Symbol.iterator]() {
+    return {
+      max: this.max,
+      current: this.current,
+      next() {
+        if (this.current === this.max) {
+          // 迭代结束
+          return {
+            value: undefined,
+            done: true,
+          }
+        } else {
+          return {
+            value: this.current++,
+            done: false,
+          }
+        }
+      },
+    }
+  },
+}
+for (let val of iteObj) {
+  console.log('val', val)
+}
+// 数组的展开：底层调用[Symbol.iterator]()
+console.log('数组的展开', [...iteObj])
+// 对象的展开：底层不是调用[Symbol.iterator]()
+console.log('对象的展开', { ...iteObj })
