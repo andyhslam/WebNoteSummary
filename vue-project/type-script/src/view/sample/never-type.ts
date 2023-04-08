@@ -1,5 +1,5 @@
 // TypeScript将使用never类型来表示不应该存在的状态
-type bef = string & number // 此处的&表示联合或交叉类型
+type bef = string & number // 此处的&表示交叉类型，两种类型都要包含
 
 // 因为必定抛出异常，所以函数error将不会有返回值
 function error(message: string): never {
