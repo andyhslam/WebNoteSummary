@@ -20,9 +20,14 @@ namespace MapSpace {
    * 它类似于对象，也是键值对的集合，但是“键”的范围不限于字符串，各种类型的值（包括对象）都可以当作键，
    * 是一种更完善的 Hash 结构实现。如果你需要“键值对”的数据结构，Map 比 Object 更合适
    */
-  let obj = { name: '阿森纳' }
+  let obj: any = { name: '阿森纳' }
+  let sen = obj
   let map: Map<object, any> = new Map()
   map.set(obj, 'arsenal')
+  obj = null
+  sen = null
+  // 只要obj被释放，map的值就消失
+  console.log('map', map.get(obj))
 }
 
 // weakSet 和 weakMap 的键都是弱引用，不会被计入垃圾回收策略
