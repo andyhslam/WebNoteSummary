@@ -5,8 +5,9 @@
 	"type": "module",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"dev": "cross-env NODE_ENV=development rollup -c -w",
-		"build": "cross-env NODE_ENV=production rollup -c"
+		"build": "cross-env NODE_ENV=production rollup -c",
+		"build-w": "cross-env NODE_ENV=development rollup -c -w",
+		"build-ls": "rollup -c rollup.config-ls.js"
 	},
 	"dependencies": {
 		"axios": "^0.26.1",
