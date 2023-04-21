@@ -1,24 +1,24 @@
 // TS进阶用法Record & Readonly
 type Person3 = {
-  name: string;
-  age: number;
-  text: string;
+  name: string
+  age: number
+  text: string
 }
-type readonly = Readonly<Person3>
+type readonly1 = Readonly<Person3>
+type readonly2 = ReadonlyOne<Person3>
 
 // 源码实现
 type ReadonlyOne<T> = {
-  readonly [P in keyof T]: T[P];
-};
+  readonly [P in keyof T]: T[P]
+}
 
 // readonly：这个操作就是将每一个属性变成只读
 // keyof T 等价于 type key = 'name' | 'age' | 'text'
 
-
 // 源码实现
 type RecordOne<K extends keyof any, T> = {
-  [P in K]: T;
-};
+  [P in K]: T
+}
 
 // 详解步骤：
 // 1. keyof any 返回 string number symbol 的联合类型
