@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>观察者模式</title>
+  <style>
+    main {
+      display: flex;
+      height: 500px;
+    }
+
+    .left {
+      width: 200px;
+      background-color: #ddd;
+    }
+
+    .left li {
+      cursor: pointer;
+    }
+
+    .right {
+      flex: 1;
+      background-color: #f40;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header">头部</header>
+  <main>
+    <div class="left">
+      <ul>
+        <li>首页</li>
+        <li>用户管理</li>
+        <li>权限管理</li>
+        <li>新闻管理</li>
+      </ul>
+    </div>
+    <div class="right">
+      <div class="breadcrumb">面包屑</div>
+    </div>
+  </main>
+</body>
+<script>
+  let uli = document.querySelectorAll('.left li')
+  for (let i = 0; i < uli.length; i++) {
+    uli[i].onclick = function () {
+      subject.notify(this.innerHTML)
+    }
+  }
+
+  class Subject {
+    constructor() {
+      this.observers = []
+    }
+    add (observer) {
+      this.observers.push(observer)
+    }
+    remove (observer) {
+      this.observers = this.observers.filter(item => item !== observer)
+    }
+    notify (data) {
+      this.observers.forEach(item => {
+        item.update(data)
+      })
+    }
+  }
+
+  class Observer {
+    constructor(ele) {
+      this.dom = document.querySelector(ele)
+    }
+    update (data) {
+      this.dom.innerHTML = data
+    }
+  }
+
+  const subject = new Subject()
+  const observer1 = new Observer('.breadcrumb')
+  const observer2 = new Observer('.header')
+  subject.add(observer1)
+  subject.add(observer2)
+</script>
+
+</html>
