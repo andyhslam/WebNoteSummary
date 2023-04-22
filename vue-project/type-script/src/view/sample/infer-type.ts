@@ -38,3 +38,15 @@ type shiftArr = Shift<Arr>
 // 4.剔除尾部元素 pop
 type Pop<T extends any[]> = T extends [...infer Rest, unknown] ? Rest : []
 type popArr = Pop<Arr>
+
+/**
+ *  infer递归:
+ * 1.首先使用泛型约束 约束只能传入数组类型的东西;
+ * 2.然后从数组中提取第一个，放入新数组的末尾;
+ * 3.反复此操作，形成递归，满足结束条件返回该类型T。
+ */
+type Arr1 = [1, 2, 3, 4]
+type RevertArr<T extends any[]> = T extends [infer first, ...infer rest]
+  ? [...RevertArr<rest>, first]
+  : T
+type Arr2 = RevertArr<Arr1>
