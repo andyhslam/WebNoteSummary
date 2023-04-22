@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>发布订阅模式</title>
+  <style>
+    main {
+      display: flex;
+      height: 500px;
+    }
+
+    .left {
+      width: 200px;
+      background-color: skyblue;
+    }
+
+    .left li {
+      cursor: pointer;
+    }
+
+    .right {
+      flex: 1;
+      background-color: #ff0;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <div class="left">
+      <ul>
+        <li>首页</li>
+        <li>用户管理</li>
+        <li>权限管理</li>
+        <li>新闻管理</li>
+      </ul>
+    </div>
+    <div class="right">
+      <div class="breadcrumb">面包屑</div>
+    </div>
+  </main>
+</body>
+<script>
+  let uli = document.querySelectorAll('.left li')
+  for (let i = 0; i < uli.length; i++) {
+    uli[i].onclick = function () {
+      PubSub.publish('ubc', this.innerHTML)
+    }
+  }
+
+  const PubSub = {
+    message: {},
+    publish (type, data) {
+      if (!this.message[type]) return
+      this.message[type].forEach(item => item(data))
+    },
+    subcribe (type, cb) {
+      if (!this.message[type]) {
+        this.message[type] = [cb]
+      } else {
+        this.message[type].push(cb)
+      }
+    },
+    unsubcribe (type, cb) {
+      if (!this.message[type]) {
+        return
+      } else if (!cb) {
+        this.message[type].length = 0
+      } else {
+        this.message[type] = this.message[type].filter(item => item !== cb)
+      }
+    },
+  }
+
+  function UpdateBreadcrumb (data) {
+    document.querySelector('.breadcrumb').innerHTML = data
+  }
+
+  // 先订阅，然后在点击的时候发布
+  PubSub.subcribe('ubc', UpdateBreadcrumb)
+</script>
+
+</html>
