@@ -14,6 +14,7 @@ function Dog (name, color) {
 	 * 在这里，就是把Animal里面的this指向Dog里面的this；
 	 */
 	Animal.call(this, name)
+	// Animal.apply(this, [name]) 在这里使用apply也可以实现继承
 	this.color = color
 }
 // 对于原型继承，能够继承父类的方法，此时不需要传参
@@ -27,7 +28,7 @@ Dog.prototype.constructor = Dog // 修正constructor的指向
 // console.log(Dog.prototype.__proto__.constructor)
 const d1 = new Dog("wangcai", "white")
 console.log(d1)
-console.log(d1.constructor === Dog.prototype.constructor)
+console.log(d1.constructor === Dog.prototype.constructor) // true
 d1.showName()
 
 // 组合继承：构造函数继承 + 原型继承，能够继承父类的属性和方法。
