@@ -9,23 +9,31 @@
 </head>
 
 <body>
-  选择颜色: <select id="colorSelect">
+  选择颜色: <select id="color-select">
     <option value="">请选择</option>
     <option value="red">红色</option>
     <option value="blue">蓝色</option>
   </select>
-  选择内存: <select id="memorySelect">
+  选择内存: <select id="memory-select">
     <option value="">请选择</option>
     <option value="32G">32G</option>
     <option value="16G">16G</option>
   </select>
-  输入购买数量: <input type="text" id="numberInput" /><br />
-  您选择了颜色: <div id="colorInfo"></div><br />
-  您选择了内存: <div id="memoryInfo"></div><br />
-  您输入了数量: <div id="numberInfo"></div><br />
-  <button id="nextBtn" disabled="true">请选择手机颜色、内存和购买数量</button>
+  输入购买数量: <input type="text" id="number-input" /><br />
+  您选择了颜色: <div id="color-info"></div><br />
+  您选择了内存: <div id="memory-info"></div><br />
+  您输入了数量: <div id="number-info"></div><br />
+  <button id="next-btn" disabled="true">请选择手机颜色、内存和购买数量</button>
 </body>
 <script>
+  var colorSelect = document.getElementById('color-select'),
+    memorySelect = document.getElementById('memory-select'),
+    numberInput = document.getElementById('number-input'),
+    colorInfo = document.getElementById('color-info'),
+    memoryInfo = document.getElementById('memory-info'),
+    numberInfo = document.getElementById('number-info'),
+    nextBtn = document.getElementById('next-btn')
+
   var goods = { // 手机库存
     "red|32G": 3,
     "red|16G": 0,
