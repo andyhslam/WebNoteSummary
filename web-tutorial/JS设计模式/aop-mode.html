@@ -55,7 +55,7 @@
 </script>
 
 <script>
-  // 把原函数和新函数都作为参数传入before 或者 after 方法
+  // 变通做法：把原函数和新函数都作为参数传入before 或者 after 方法
   var before = function (fn, beforefn) {
     return function () {
       beforefn.apply(this, arguments)
