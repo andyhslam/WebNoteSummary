@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>document中this被劫持的问题</title>
+</head>
+
+<body>
+  <button id="button">按钮</button>
+</body>
+<script>
+  // this 被劫持的问题
+  var _getElementById = document.getElementById
+  document.getElementById = function (id) {
+    alert(1)
+    return _getElementById(id) // (1)
+  }
+  var button = document.getElementById('button')
+
+// 执行这段代码，我们看到在弹出 alert(1)之后，紧接着控制台抛出了异常：Uncaught TypeError: Illegal invocation
+// 异常发生在(1) 处的_getElementById( id )这句代码上，此时_getElementById 是一个全局函数，
+// 当调用一个全局函数时，this 是指向 window 的，而 document.getElementById 方法的内部实现需要使用 this 引用，
+// this 在这个方法内预期是指向 document，而不是 window, 这是错误发生的原因。
+</script>
+<script>
+  var _getElementById = document.getElementById
+  document.getElementById = function () {
+    alert(1)
+    // 把 document 当作上下文 this 传入_getElementById：
+    return _getElementById.apply(document, arguments)
+    // return window._getElementById.apply(document, arguments)
+  }
+  var button = document.getElementById('button')
+</script>
+
+</html>
