@@ -1,11 +1,23 @@
 import { ITodoData } from '../../typings/index.ts'
+import Input, { IInputOptions } from './Subs/Input.ts'
+import List from './Subs/List.ts'
 
 class TodoList {
   private el: HTMLElement
   private todoData: ITodoData[]
+  private todoWrapper: HTMLElement
+  private input: Input
+  private list: List
   constructor(ele: HTMLElement, data: ITodoData[]) {
     this.el = ele
     this.todoData = data
+    this.todoWrapper = document.createElement('div')
+    this.input = new Input(<IInputOptions>{
+      wrapperEl: this.todoWrapper,
+      placeholderText: '请输入',
+      buttonText: '增加',
+    })
+    this.list = new List()
   }
 
   public init() {
@@ -15,11 +27,17 @@ class TodoList {
   }
 
   private createComponents() {
-    console.log('createComponents')
+    this.input = new Input(<IInputOptions>{
+      wrapperEl: this.todoWrapper,
+      placeholderText: '请输入',
+      buttonText: '增加',
+    })
+    this.list = new List()
   }
 
   private render() {
-    console.log('render')
+    this.input.render()
+    this.el.appendChild(this.todoWrapper)
   }
 
   // 绑定事件处理函数
