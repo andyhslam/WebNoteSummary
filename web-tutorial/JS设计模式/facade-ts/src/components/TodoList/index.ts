@@ -1,6 +1,6 @@
 import { ITodoData } from '../../typings/index.ts'
 import Input, { IInputOptions } from './Subs/Input.ts'
-import List from './Subs/List.ts'
+import List, { IListOptions } from './Subs/List.ts'
 
 class TodoList {
   private el: HTMLElement
@@ -12,12 +12,6 @@ class TodoList {
     this.el = ele
     this.todoData = data
     this.todoWrapper = document.createElement('div')
-    this.input = new Input(<IInputOptions>{
-      wrapperEl: this.todoWrapper,
-      placeholderText: '请输入',
-      buttonText: '增加',
-    })
-    this.list = new List()
   }
 
   public init() {
@@ -32,11 +26,15 @@ class TodoList {
       placeholderText: '请输入',
       buttonText: '增加',
     })
-    this.list = new List()
+    this.list = new List(<IListOptions>{
+      todoData: this.todoData,
+      wrapperEl: this.todoWrapper,
+    })
   }
 
   private render() {
     this.input.render()
+    this.list.render()
     this.el.appendChild(this.todoWrapper)
   }
 
