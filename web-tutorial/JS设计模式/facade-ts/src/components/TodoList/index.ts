@@ -40,7 +40,7 @@ class TodoList {
 
   // 绑定事件处理函数
   private bindEvent() {
-    console.log('bindEvent')
+    this.input.bindEvent()
   }
 }
 
