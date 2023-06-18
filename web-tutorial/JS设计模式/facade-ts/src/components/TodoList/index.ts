@@ -41,6 +41,7 @@ class TodoList {
   // 绑定事件处理函数
   private bindEvent() {
     this.input.bindEvent()
+    this.list.bindEvent()
   }
 }
 
