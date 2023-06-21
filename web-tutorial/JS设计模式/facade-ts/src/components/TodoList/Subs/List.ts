@@ -1,6 +1,5 @@
 import Component from './Component.ts'
 import { ITodoData } from '../../../typings/index.ts'
-import list from '../../../../node_modules/postcss/lib/list'
 
 export interface IListOptions {
   todoData: ITodoData[]
