@@ -52,6 +52,7 @@ class TodoList {
         this.addHandlers.push(this.todoDom.addItem.bind(this.todoDom))
         break
       case EVENT_TYPE.REMOVE:
+        // 注意：一定要先添加todo，再添加item；因为todo有resolve(id)，item只是resolve()
         this.removeHandlers.push(this.todoEvent.removeTodo.bind(this.todoEvent))
         this.removeHandlers.push(this.todoDom.removeItem.bind(this.todoDom))
         break
