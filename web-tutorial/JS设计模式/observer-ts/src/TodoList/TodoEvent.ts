@@ -11,7 +11,8 @@ class TodoEvent {
     return TodoEvent.instance
   }
 
-  public addTodo(todo: ITodo) {
+  // resolve的是什么类型，泛型里面就填什么类型
+  public addTodo(todo: ITodo): Promise<ITodo> {
     return new Promise((resolve, reject) => {
       const _todo: ITodo | undefined = this.todoData.find(
         (t) => t.content === todo.content
@@ -24,13 +25,13 @@ class TodoEvent {
       resolve(todo)
     })
   }
-  public removeTodo(id: number) {
+  public removeTodo(id: number): Promise<number> {
     return new Promise((resolve, reject) => {
       this.todoData = this.todoData.filter((t) => t.id !== id)
       resolve(id)
     })
   }
-  public toggleTodo(id: number) {
+  public toggleTodo(id: number): Promise<number> {
     return new Promise((resolve, reject) => {
       this.todoData.forEach((t) => {
         if (t.id === id) {
