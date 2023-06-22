@@ -25,12 +25,14 @@ class TodoEvent {
       resolve(todo)
     })
   }
+
   public removeTodo(id: number): Promise<number> {
     return new Promise((resolve, reject) => {
       this.todoData = this.todoData.filter((t) => t.id !== id)
       resolve(id)
     })
   }
+
   public toggleTodo(id: number): Promise<number> {
     return new Promise((resolve, reject) => {
       this.todoData.forEach((t) => {
