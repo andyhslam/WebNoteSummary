@@ -38,7 +38,7 @@ import TodoList from './TodoList/index'
   function handleListClick(e: MouseEvent) {
     // tar是事件源对象
     const tar = e.target as HTMLElement
-    const tagName = tar.tagName
+    const tagName = tar.tagName.toLocaleLowerCase()
 
     if (['input', 'button'].includes(tagName)) {
       const id: number = Number(tar.dataset.id)

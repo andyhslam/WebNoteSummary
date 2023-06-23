@@ -1,5 +1,6 @@
 import { todoView } from './template'
 import { addTodo, removeTodo, changeCompleted } from './todoEvent'
+import utils from './utils'
 
 // 写一个接口去描述对象
 export interface ITodo {
@@ -8,15 +9,22 @@ export interface ITodo {
   completed: boolean
 }
 
-const todoData: Array<ITodo> = []
-
+// utils装饰器挂载到类上，可以扩展TodoList的原型，增强其功能
+@utils
 class TodoList {
   private oTodoList: HTMLElement
   // 谁构造出来的instance，谁就是instance的类型
   private static instance: TodoList
 
+  private plus: Function
+  private minus: Function
+  private name: string
+
   constructor(oTodoList: HTMLElement) {
     this.oTodoList = oTodoList
+    console.log(this.plus(1, 2))
+    console.log(this.minus(1, 2))
+    console.log(this.name)
   }
 
   public static create(oTodoList: HTMLElement) {
@@ -26,7 +34,8 @@ class TodoList {
     return TodoList.instance
   }
 
-  @addTodo(todoData)
+  // 装饰器挂载到方法上，可以增强其功能
+  @addTodo
   public addItem(todo: ITodo) {
     const oItem: HTMLElement = document.createElement('div')
     oItem.className = 'todo-item'
@@ -34,7 +43,7 @@ class TodoList {
     this.oTodoList.appendChild(oItem)
   }
 
-  @removeTodo(todoData)
+  @removeTodo
   public removeItem(id: number) {
     const oItems: HTMLCollection = document.getElementsByClassName('todo-item')
     Array.from(oItems).forEach((oItem) => {
@@ -45,7 +54,7 @@ class TodoList {
     })
   }
 
-  @changeCompleted(todoData)
+  @changeCompleted
   public toggleCompleted(id: number, completed?: boolean) {
     const oItems: HTMLCollection = document.getElementsByClassName('todo-item')
     Array.from(oItems).forEach((oItem) => {
