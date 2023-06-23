@@ -1,4 +1,5 @@
 import { todoView } from './template'
+import { addTodo, removeTodo, changeCompleted } from './todoEvent'
 
 // 写一个接口去描述对象
 export interface ITodo {
@@ -6,6 +7,8 @@ export interface ITodo {
   content: string
   completed: boolean
 }
+
+const todoData: Array<ITodo> = []
 
 class TodoList {
   private oTodoList: HTMLElement
@@ -23,6 +26,7 @@ class TodoList {
     return TodoList.instance
   }
 
+  @addTodo(todoData)
   public addItem(todo: ITodo) {
     const oItem: HTMLElement = document.createElement('div')
     oItem.className = 'todo-item'
@@ -30,6 +34,7 @@ class TodoList {
     this.oTodoList.appendChild(oItem)
   }
 
+  @removeTodo(todoData)
   public removeItem(id: number) {
     const oItems: HTMLCollection = document.getElementsByClassName('todo-item')
     Array.from(oItems).forEach((oItem) => {
@@ -40,6 +45,7 @@ class TodoList {
     })
   }
 
+  @changeCompleted(todoData)
   public toggleCompleted(id: number, completed?: boolean) {
     const oItems: HTMLCollection = document.getElementsByClassName('todo-item')
     Array.from(oItems).forEach((oItem) => {
