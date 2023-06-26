@@ -36,14 +36,18 @@ import TodoEvent from './js/TodoEvent'
   }
 
   function handleAddBtnClick(): void {
-    const val: string = oInput.value.trim()
+    let val: string = oInput.value.trim()
     if (val.length) {
-      todoEvent.addTodo(<ITodoData>{
+      const ret = todoEvent.addTodo(<ITodoData>{
         id: 4,
-        content: '999',
+        content: val,
         completed: false,
       })
+      if (ret && ret === 1001) {
+        alert('列表项已存在')
+      }
     }
+    oInput.value = ''
   }
 
   function handleListClick(e: MouseEvent): void {
