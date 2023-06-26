@@ -7,10 +7,15 @@ class TodoEvent extends TodoDom {
   constructor(todoData: ITodoData[], todoWrapper: HTMLElement) {
     super(todoWrapper)
     this.todoData = todoData
+    this.init()
+  }
+
+  private init() {
+    this.initList(this.todoData)
   }
 
   public addTodo(todo: ITodoData): undefined | number {
-    const _todo: ITodoData = this.todoData.find(
+    const _todo: null | ITodoData = this.todoData.find(
       (item: ITodoData) => item.content === todo.content
     )
     if (!_todo) {

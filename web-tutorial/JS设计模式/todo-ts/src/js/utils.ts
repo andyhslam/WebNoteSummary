@@ -13,3 +13,14 @@ export function findParentNode(
     }
   }
 }
+
+export function createItem(
+  tagName: string,
+  className: string,
+  todoItem: string
+): HTMLElement {
+  const oItem: HTMLElement = document.createElement(tagName)
+  oItem.className = className
+  oItem.innerHTML = todoItem
+  return oItem
+}

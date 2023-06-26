@@ -29,17 +29,17 @@ import TodoEvent from './js/TodoEvent'
     bindEvent()
   }
 
-  // 绑定事件处理函数
+  // 绑定事件处理函数，处理数据
   function bindEvent(): void {
-    oAddBtn?.addEventListener('click', handleAddBtnClick, false)
-    oTodoList?.addEventListener('click', handleListClick, false)
+    oAddBtn.addEventListener('click', handleAddBtnClick, false)
+    oTodoList.addEventListener('click', handleListClick, false)
   }
 
   function handleAddBtnClick(): void {
     let val: string = oInput.value.trim()
     if (val.length) {
       const ret = todoEvent.addTodo(<ITodoData>{
-        id: 4,
+        id: Date.now(),
         content: val,
         completed: false,
       })
@@ -54,10 +54,13 @@ import TodoEvent from './js/TodoEvent'
     const tar = e.target as HTMLElement
     const tagName = tar.tagName.toLocaleLowerCase()
     if (['input', 'button'].includes(tagName)) {
+      const id = parseInt(tar.dataset.id)
       switch (tagName) {
         case 'input':
+          todoEvent.toggleComplete(tar, id)
           break
         case 'button':
+          todoEvent.removeTodo(tar, id)
           break
         default:
           break
