@@ -1,9 +1,9 @@
 import { ITodoData } from './js/typings'
 import TodoEvent from './js/TodoEvent'
 ;((doc) => {
-  const oInput: HTMLInputElement | null = document.querySelector('input')
-  const oAddBtn: HTMLButtonElement | null = document.querySelector('button')
-  const oTodoList: HTMLElement | null = document.querySelector('.todo-list')
+  const oInput: HTMLInputElement = document.querySelector('input')
+  const oAddBtn: HTMLButtonElement = document.querySelector('button')
+  const oTodoList: HTMLElement = document.querySelector('.todo-list')
 
   const todoData: ITodoData[] = [
     {
@@ -23,7 +23,7 @@ import TodoEvent from './js/TodoEvent'
     },
   ]
 
-  const todoEvent: TodoEvent = new TodoEvent(todoData)
+  const todoEvent: TodoEvent = new TodoEvent(todoData, oTodoList)
 
   const init = (): void => {
     bindEvent()
@@ -36,12 +36,14 @@ import TodoEvent from './js/TodoEvent'
   }
 
   function handleAddBtnClick(): void {
-    todoEvent.addTodo(<ITodoData>{
-      id: 4,
-      content: '999',
-      completed: false,
-    })
-    console.log('todoData', todoData)
+    const val: string = oInput.value.trim()
+    if (val.length) {
+      todoEvent.addTodo(<ITodoData>{
+        id: 4,
+        content: '999',
+        completed: false,
+      })
+    }
   }
 
   function handleListClick(e: MouseEvent): void {

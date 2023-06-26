@@ -1,31 +1,36 @@
+import TodoDom from './TodoDom'
 import { ITodoData } from './typings'
 
-class TodoEvent {
+class TodoEvent extends TodoDom {
   private todoData: ITodoData[]
 
-  constructor(todoData: ITodoData[]) {
+  constructor(todoData: ITodoData[], todoWrapper: HTMLElement) {
+    super(todoWrapper)
     this.todoData = todoData
   }
 
   public addTodo(todo: ITodoData): undefined | number {
-    const _todo: undefined | ITodoData = this.todoData.find(
+    const _todo: ITodoData = this.todoData.find(
       (item: ITodoData) => item.content === todo.content
     )
     if (!_todo) {
       this.todoData.push(todo)
+      this.addItem(todo)
       return
     }
     return 1001
   }
 
-  public removeTodo(id: number): void {
+  public removeTodo(target: HTMLElement, id: number): void {
     this.todoData = this.todoData.filter((todo: ITodoData) => todo.id !== id)
+    this.removeItem(target)
   }
 
-  public toggleComplete(id: number): void {
+  public toggleComplete(target: HTMLElement, id: number): void {
     this.todoData.forEach((todo: ITodoData) => {
       if (todo.id === id) {
         todo.completed = !todo.completed
+        this.changeCompleted(target, todo.completed)
       }
     })
   }
