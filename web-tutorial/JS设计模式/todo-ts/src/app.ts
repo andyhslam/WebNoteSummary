@@ -5,23 +5,7 @@ import TodoEvent from './js/TodoEvent'
   const oAddBtn: HTMLButtonElement = document.querySelector('button')
   const oTodoList: HTMLElement = document.querySelector('.todo-list')
 
-  const todoData: ITodoData[] = [
-    {
-      id: 1,
-      content: '12',
-      completed: false,
-    },
-    {
-      id: 2,
-      content: '34',
-      completed: true,
-    },
-    {
-      id: 3,
-      content: '56',
-      completed: false,
-    },
-  ]
+  const todoData: ITodoData[] = []
 
   const todoEvent: TodoEvent = new TodoEvent(todoData, oTodoList)
 
