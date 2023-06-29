@@ -1,6 +1,7 @@
 import express, { Application } from 'express'
 import bodyParse from 'body-parser' // bodyParse用来解释post请求
-import { readFile } from './utils'
+import { fileOperation, readFile, writeFile } from './utils'
+import { ITodoData } from '../src/js/typings'
 
 const app: Application = express()
 
@@ -16,13 +17,23 @@ app.all('*', (req, res, next) => {
 })
 
 app.get('/todolist', function (req, res) {
-  const todoList: string = readFile('todo.json')
+  const todoList = fileOperation('todo.json') as string
   res.send(todoList)
 })
 
 app.post('/toggle', function (req, res) {})
 
-app.post('/remove', function (req, res) {})
+app.post('/remove', function (req, res) {
+  const id: number = parseInt(req.body.id)
+  fileOperation('todo.json', function (todoList: ITodoData[]) {
+    return todoList.filter((todo: ITodoData) => todo.id !== id)
+  })
+  // 删除之后，还要响应给前端
+  res.send({
+    msg: 'ok',
+    statusCode: '200',
+  })
+})
 
 app.post('/add', function (req, res) {})
 
