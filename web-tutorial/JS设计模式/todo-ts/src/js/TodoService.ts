@@ -1,6 +1,7 @@
 import $ from 'jquery'
 import { ITodoData } from './typings'
 
+// 编写方法装饰器
 export function getTodoList(
   target: any, // 当前装饰的函数的容器 -> TodoEvent.prototype
   methodName: string, // 被装饰的函数名称
@@ -47,5 +48,24 @@ export function toggleTodo(
     $.post('http://localhost:8181/toggle', { id }).then((res) => {
       _origin.call(this, target, id)
     })
+  }
+}
+
+export function addTodo(
+  target: any,
+  methodName: string,
+  descriptor: PropertyDescriptor
+): void {
+  const _origin = descriptor.value
+  descriptor.value = function (todo: ITodoData) {
+    $.post('http://localhost:8181/add', { todo: JSON.stringify(todo) }).then(
+      (res) => {
+        if (res.statusCode === 100) {
+          alert('该项已存在')
+          return
+        }
+        _origin.call(this, todo)
+      }
+    )
   }
 }
