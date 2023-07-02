@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>006-栈结构的应用</title>
+</head>
+
+<body>
+  <script>
+    // 栈是一个受限的数组
+    class Stack {
+      // 可以在外层作用域初始化元素，不一定非得在constructor函数里面初始化。
+      #items = [] // ES13默认支持的私有属性，加一个#
+
+      // 添加一个元素到栈顶
+      push (data) {
+        this.#items.push(data)
+      }
+
+      // 出栈
+      pop () {
+        return this.#items.pop()
+      }
+
+      // 返回栈顶
+      peek () {
+        return this.#items.at(-1)
+      }
+
+      isEmpty () {
+        return this.#items.length === 0
+      }
+
+      size () {
+        return this.#items.length
+      }
+
+      clear () {
+        this.#items = []
+      }
+
+      toString () {
+        return this.#items.join(' ')
+      }
+    }
+
+    // 辗转相除法
+    function convert (decNumber, base) {
+      const remStack = new Stack()
+      let number = decNumber // number是商
+      let string = ''
+      const baseString = '0123456789ABCDEF'
+      while (number > 0) {
+        remStack.push(number % base)
+        number = Math.floor(number / base)
+      }
+      while (!remStack.isEmpty()) {
+        // 字符串也可以像数组一样，通过索引来取对应的字符
+        string += baseString[remStack.pop()]
+      }
+      return string
+    }
+
+    convert(50, 2)
+
+  </script>
+</body>
+
+</html>
