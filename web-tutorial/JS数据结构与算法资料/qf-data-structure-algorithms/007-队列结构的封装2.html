@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>007-队列结构的封装2</title>
+</head>
+
+<body>
+  <script>
+    // 队列是一个受限的线性表
+    class Queue {
+      // 可以在外层作用域初始化元素，不一定非得在constructor函数里面初始化。
+      #items = {} // ES13默认支持的私有属性，加一个#
+      #lowCount = 0 // 队头的索引
+      #count = 0 // 插入的元素个数
+
+      // 插入一个元素到队尾
+      enqueue (data) {
+        this.#items[this.#count] = data
+        this.#count++
+      }
+
+      // 出队：删除队头最前面的元素
+      dequeue () {
+        if (this.isEmpty()) return
+        const res = this.#items[this.#lowCount]
+        delete this.#items[this.#lowCount]
+        this.#lowCount++
+        return res
+      }
+
+      // 返回队头最前面的元素
+      front () {
+        return this.#items[this.#lowCount]
+      }
+
+      isEmpty () {
+        return this.size() === 0
+      }
+
+      size () {
+        return this.#count - this.#lowCount
+      }
+
+      clear () {
+        this.#items = {}
+        this.#lowCount = 0
+        this.#count = 0
+      }
+
+      toString () {
+        let str = ''
+        for (let i = this.#lowCount; i < this.#count; i++) {
+          str += `${this.#items[i]} `
+        }
+        return str.slice(0, str.length - 1)
+      }
+    }
+
+    const queue = new Queue()
+  </script>
+</body>
+
+</html>
