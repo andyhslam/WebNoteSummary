@@ -8,6 +8,8 @@
 </head>
 
 <body>
+  <div>链表的设计思路：借助一个向后的指针next，可以有效的组织一个不定长度的数据</div>
+  <div>链表解决的问题：动态数据，不定长度数据的存储</div>
   <script>
     class Node {
       constructor(element) {
@@ -113,7 +115,34 @@
       }
 
       insert (element, index) {
+        if (index >= 0 && index <= this.count) {
+          const node = new Node(element)
+          if (index === 0) {
+            const current = this.head
+            node.next = current
+            this.head = node
+          } else {
+            const previous = this.getNodeAt(index - 1)
+            const current = previous.next
+            node.next = current
+            previous.next = node
+          }
+          this.count++
+          return true
+        }
+        return false
+      }
 
+      size () {
+        return this.count
+      }
+
+      isEmpty () {
+        return this.size() === 0
+      }
+
+      getHead () {
+        return this.head
       }
     }
 
