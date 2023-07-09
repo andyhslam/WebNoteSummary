@@ -13,10 +13,10 @@ class Star {
 		this.singer()
 	}
 	// 普通函数里面的this指向该函数的调用者
-	singer() {
+	singer () {
 		console.log(this.uname)
 	}
-	sing(song) {
+	sing (song) {
 		console.log(this.uname + "：" + song)
 	}
 }
@@ -50,13 +50,13 @@ class Father {
 		this.x = x
 		this.y = y
 	}
-	sum() {
+	sum () {
 		console.log(this.x + this.y)
 	}
-	say() {
+	say () {
 		console.log("我是爸爸")
 	}
-	money() {
+	money () {
 		console.log(100)
 	}
 }
@@ -71,12 +71,15 @@ class Son extends Father {
 		 */
 		super(x, y)
 	}
-	subtract() {
+	subtract () {
 		console.log(this.x - this.y)
 	}
-	say() {
-		// 通过super关键字，调用父类上的普通函数
+	say () {
+		// 通过super关键字，可以调用父类上的普通函数，但是不能调用父类上的属性。
 		super.say()
+		super.money()
+		this.money()
+		this.subtract()
 	}
 }
 
@@ -88,7 +91,6 @@ class Son extends Father {
 
 const son = new Son(5, 3)
 console.log(son)
-son.money()
 son.sum()
-son.subtract()
 son.say()
+son.subtract()
