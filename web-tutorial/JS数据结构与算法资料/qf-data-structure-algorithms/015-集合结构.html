@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>015-集合结构</title>
+</head>
+
+<body>
+  <script>
+    class SwimSet {
+      items = {}
+
+      add (element) {
+        if (!this.has(element)) {
+          this.items[element] = element
+          return true
+        }
+        return false
+      }
+
+      delete (element) {
+        if (this.has(element)) {
+          delete this.items[element]
+          return true
+        }
+        return false
+      }
+
+      has (element) {
+        return element in this.items
+      }
+
+      clear () {
+        this.items = {}
+      }
+
+      size () {
+        return Object.keys(this.items).length
+      }
+
+      values () {
+        return Object.values(this.items)
+      }
+    }
+
+    const swimset = new SwimSet()
+
+    let arr = [1, 2, 3, 2, 3, 4, 5, 6]
+    arr.forEach((item) => {
+      swimset.add(item)
+    })
+    arr = swimset.values()
+  </script>
+</body>
+
+</html>
