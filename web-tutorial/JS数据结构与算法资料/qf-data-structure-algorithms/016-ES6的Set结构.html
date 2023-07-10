@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>016-ES6的Set结构</title>
+</head>
+<p>篇幅不够，平行宇宙</p>
+<p>解释不通，穿越时空</p>
+<p>遇事不决，量子力学</p>
+
+<body>
+  <script>
+    const mySet = new Set()
+    mySet.add(100)
+    mySet.add(200)
+    mySet.add(300)
+    const myIter = mySet.values() // 迭代器结构
+
+    // console.log(myIter.next())
+    // console.log(myIter.next())
+    // console.log(myIter.next())
+    // console.log(myIter.next())
+
+    // for (let i of myIter) {
+    //   console.log(i)
+    // }
+
+    // console.log([...myIter]);
+  </script>
+
+  <script>
+    const mysetA = new Set([1, 2, 3])
+    const mysetB = new Set([2, 3, 4])
+    // 并集
+    const myset1 = new Set([...mysetA, ...mysetB]) // 集合也是一个迭代器
+    // 交集
+    const myset2 = new Set([...mysetA].filter(item => mysetB.has(item)))
+    // A对于B的差集
+    const myset3 = new Set([...mysetA].filter(item => !mysetB.has(item)))
+    // B对于A的差集
+    const myset4 = new Set([...mysetB].filter(item => !mysetA.has(item)))
+
+    console.log(myset4)
+  </script>
+</body>
+
+</html>
