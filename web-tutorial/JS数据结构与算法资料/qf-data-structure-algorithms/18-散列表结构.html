@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>18-散列表结构</title>
+</head>
+
+<body>
+  <div>
+    HashMap类，它是Dictionary类的一种散列表实现方式。散列算法的作用是尽可能快的在数据结构中找到一个值。
+    散列表就是保存键和对表中记录的引用。
+  </div>
+</body>
+<script>
+  class HashMap {
+    table = {}
+
+    // 把key转换成字符串的方法
+    toStrFn (item) {
+      if (item === null) {
+        return 'null'
+      } else if (item === undefined) {
+        return 'undefined'
+      } else if (typeof item === 'string' || item instanceof String) {
+        return item
+      } else {
+        // 对象和数组类型
+        return JSON.stringify(item)
+      }
+    }
+
+    /**
+     * 散列函数：把key转换成唯一不重复的数字常量。
+     * 1. 对象转换成字符串
+     * 2. 通过charAtCode()，把对应的每一个ASCII码值取出来，相加得到一个数字
+     * 3. 如果数字过大，就取余%
+     * 最终把对象转换成hash值的作用：就算数据量很大，数字常量的查询速度非常快；不会因为数据量增多，而加大对数的复杂度；
+     * 在数据库中建立索引也是采用类似的方案，通过散列结构存储索引和数据库中的记录。
+    */
+    hashCode (key) {
+      if (typeof key === 'number') {
+        return key
+      }
+      const tableKey = this.toStrFn(key)
+      let hash = 0
+      for (let i = 0; i < tableKey.length; i++) {
+        // 两种写法都可以
+        hash += tableKey[i].charCodeAt()
+        // hash += tableKey.charCodeAt(i)
+      }
+      return hash % 37
+    }
+
+    // 社区推崇的哈希算法
+    commonHashCode (key) {
+      const tableKey = this.toStrFn(key)
+      let hash = 5381
+      for (let i = 0; i < tableKey.length; i++) {
+        hash = hash * 33 + tableKey.charCodeAt(i)
+      }
+      return hash % 1013
+    }
+
+    set (key, value) {
+      if (key && value) {
+        const position = this.commonHashCode(key)
+        this.table[position] = new ValuePair(key, value)
+        return true
+      }
+      return false
+    }
+
+    get (key) {
+      const hash = this.commonHashCode(key)
+      return this.table[hash]?.value
+    }
+
+    remove (key) {
+      const hash = this.commonHashCode(key)
+      const vp = this.table[hash]
+      if (vp) {
+        delete this.table[hash]
+        return true
+      }
+      return false
+    }
+  }
+
+  class ValuePair {
+    constructor(key, value) {
+      this.key = key
+      this.value = value
+    }
+  }
+
+  const hashMap = new HashMap()
+</script>
+
+</html>
