@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>017-字典数据结构</title>
+</head>
+
+<body>
+  <script>
+    class Dictionary {
+      table = {}
+
+      // 把key转换成字符串的方法
+      toStrFn (item) {
+        if (item === null) {
+          return 'null'
+        } else if (item === undefined) {
+          return 'undefined'
+        } else if (typeof item === 'string' || item instanceof String) {
+          return item
+        } else {
+          // 对象和数组类型
+          return JSON.stringify(item)
+        }
+      }
+
+      hasKey (key) {
+        return this.table[this.toStrFn(key)] != null
+      }
+
+      set (key, value) {
+        if (key && value) {
+          const tableKey = this.toStrFn(key)
+          // 存储键值对当作value，保留key原来的数据类型
+          this.table[tableKey] = new ValuePair(key, value)
+          return true
+        }
+        return false
+      }
+
+      get (key) {
+        return this.table[this.toStrFn(key)]?.value
+      }
+
+      remove (key) {
+        if (this.hasKey(key)) {
+          delete this.table[this.toStrFn(key)]
+          return true
+        }
+        return false
+      }
+
+      keys () {
+        return this.keyValues().map(item => item.key)
+      }
+
+      values () {
+        return this.keyValues().map(item => item.value)
+      }
+
+      keyValues () {
+        return Object.values(this.table)
+      }
+
+      size () {
+        return Object.keys(this.table).length
+      }
+
+      isEmpty () {
+        return this.size() === 0
+      }
+
+      clear () {
+        this.table = {}
+      }
+
+      forEach (cb) {
+        const valuePair = this.keyValues()
+        for (let i = 0, item; item = valuePair[i++];) {
+          cb(item.key, item.value)
+        }
+      }
+    }
+
+    class ValuePair {
+      constructor(key, value) {
+        this.key = key
+        this.value = value
+      }
+    }
+
+    const myDictionary = new Dictionary()
+    myDictionary.set('age', 20)
+    myDictionary.set({ a: 1 }, 30)
+    myDictionary.forEach((key, value) => {
+      console.log(key, value)
+    })
+  </script>
+</body>
+
+</html>
