@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>019-ES6的Map结构</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  const myMap = new Map()
+  let obj = { a: 1 }
+  myMap.set('age', 20)
+  myMap.set(obj, 30)
+  obj = null // 引用丢失，通过myMap.get(obj)取不出值，导致内存泄漏
+  console.log('myMap', myMap)
+
+  // 弱引用
+  var myWeakMap = new WeakMap()
+  let obj2 = { a: 1 }
+  // 只能是对象为键
+  myWeakMap.set(obj2, 300)
+  obj2 = null // 引用丢失，垃圾回收机制就会把键和值都回收
+  console.log('myWeakMap', myWeakMap)
+</script>
+
+</html>
