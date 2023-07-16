@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>020-二叉搜索树-插入</title>
+  <title>020-二叉搜索树</title>
 </head>
 
 <body>
@@ -38,6 +38,7 @@
         this.insertNode(this.root, key)
       }
     }
+
     compareFn (a, b) {
       if (a === b) {
         return Compare.equal
@@ -47,6 +48,7 @@
         return Compare.bigger
       }
     }
+
     insertNode (node, key) {
       if (this.compareFn(key, node.key) === Compare.less) {
         if (node.left === null) {
@@ -62,9 +64,60 @@
         }
       }
     }
+
+    // 中序遍历：以从最小到最大的顺序访问所有节点。
+    inOrderMap (cb) {
+      this.inOrderMapNode(this.root, cb)
+    }
+
+    inOrderMapNode (node, cb) {
+      if (node !== null) {
+        // 先执行左侧值小的
+        this.inOrderMapNode(node.left, cb)
+        cb(node.key)
+        // 再执行右侧值大的
+        this.inOrderMapNode(node.right, cb)
+      }
+    }
+
+    // 先序遍历：以优先于后代节点的顺序访问每个节点。
+    preOrderMap (cb) {
+      this.preOrderMapNode(this.root, cb)
+    }
+
+    preOrderMapNode (node, cb) {
+      if (node !== null) {
+        // 先执行根节点
+        cb(node.key)
+        this.preOrderMapNode(node.left, cb)
+        this.preOrderMapNode(node.right, cb)
+      }
+    }
+
+    // 后序遍历：先访问节点的后代节点，再访问节点本身。
+    postOrderMap (cb) {
+      this.postOrderMapNode(this.root, cb)
+    }
+
+    postOrderMapNode (node, cb) {
+      if (node !== null) {
+        this.postOrderMapNode(node.left, cb)
+        this.postOrderMapNode(node.right, cb)
+        // 最后执行根节点
+        cb(node.key)
+      }
+    }
   }
 
   const myTree = new BST()
+  myTree.insert(100)
+  myTree.insert(80)
+  myTree.insert(70)
+  myTree.insert(90)
+  myTree.insert(110)
+  myTree.postOrderMap((value) => {
+    console.log(value)
+  })
 </script>
 
 </html>
