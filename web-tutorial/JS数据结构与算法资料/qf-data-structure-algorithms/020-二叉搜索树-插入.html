@@ -12,6 +12,59 @@
     树是一种分层数据的抽象模型，是一种非顺序的数据结构。
   </div>
 </body>
-<script></script>
+<script>
+  const Compare = {
+    less: -1,
+    bigger: 1,
+    equal: 0,
+  }
+  class Node {
+    constructor(key) {
+      this.key = key
+      this.left = null
+      this.right = null
+    }
+  }
+
+  class BST {
+    constructor() {
+      this.root = null
+    }
+
+    insert (key) {
+      if (this.root === null) {
+        this.root = new Node(key)
+      } else {
+        this.insertNode(this.root, key)
+      }
+    }
+    compareFn (a, b) {
+      if (a === b) {
+        return Compare.equal
+      } else if (a < b) {
+        return Compare.less
+      } else {
+        return Compare.bigger
+      }
+    }
+    insertNode (node, key) {
+      if (this.compareFn(key, node.key) === Compare.less) {
+        if (node.left === null) {
+          node.left = new Node(key)
+        } else {
+          this.insertNode(node.left, key)
+        }
+      } else {
+        if (node.right === null) {
+          node.right = new Node(key)
+        } else {
+          this.insertNode(node.right, key)
+        }
+      }
+    }
+  }
+
+  const myTree = new BST()
+</script>
 
 </html>
