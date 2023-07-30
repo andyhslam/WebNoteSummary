@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>024-二叉堆</title>
+</head>
+
+<body>
+  <script>
+    const Compare = {
+      less: -1,
+      bigger: 1,
+      equal: 0,
+    }
+
+    class MinHeap {
+      heap = [] // 数组管理数据
+
+      getLeftIndex (index) {
+        return 2 * index + 1
+      }
+
+      getRightIndex (index) {
+        return 2 * index + 2
+      }
+
+      getParentIndex (index) {
+        return Math.floor((index - 1) / 2)
+      }
+
+      insert (value) {
+        if (value != null) {
+          this.heap.push(value)
+          // 与父节点对比，如果比父节点小，就交换位置
+          this.shiftUp(this.heap.length - 1)
+          return true
+        }
+        return false
+      }
+
+      compareFn (a, b) {
+        if (a === b) {
+          return Compare.equal
+        } else if (a < b) {
+          return Compare.less
+        } else {
+          return Compare.bigger
+        }
+      }
+
+      shiftUp (cIndex) {
+        let pIndex = this.getParentIndex(cIndex)
+        // 逐级与父节点对比：通过对比父节点的索引值和子节点的索引值，判断是否要进入循环体。
+        while (cIndex > 0 && this.compareFn(this.heap[cIndex], this.heap[pIndex]) === Compare.less) {
+          this.swap(this.heap, pIndex, cIndex)
+          // 交换位置后，将值小的父节点的索引赋值给子节点的索引
+          cIndex = pIndex
+          // 通过子节点的索引向上查找父节点的索引
+          pIndex = this.getParentIndex(cIndex)
+        }
+      }
+
+      swap (array, a, b) {
+        const temp = array[a]
+        array[a] = array[b]
+        array[b] = temp
+      }
+
+      size () {
+        return this.heap.length
+      }
+
+      isEmpty () {
+        return this.size() === 0
+      }
+
+      findTarget () {
+        return this.heap[0]
+      }
+
+      // 删除最小值
+      extract () {
+        if (this.isEmpty()) {
+          return
+        }
+        if (this.size() === 1) {
+          return this.heap.shift()
+        }
+        const removed = this.heap[0]
+        // 保证结构的完整性
+        this.heap[0] = this.heap.pop()
+        this.shiftDown(0)
+        return removed
+      }
+
+      shiftDown (index) {
+        let current = index
+        let left = this.getLeftIndex(index)
+        let right = this.getRightIndex(index)
+        const size = this.size()
+
+        if (left < size && this.compareFn(this.heap[current], this.heap[left]) === Compare.bigger) {
+          current = left
+        }
+        if (right < size && this.compareFn(this.heap[current], this.heap[right]) === Compare.bigger) {
+          current = right
+        }
+        if (index !== current) {
+          this.swap(this.heap, index, current)
+          this.shiftDown(current)
+        }
+      }
+
+    }
+
+    const heap = new MinHeap()
+    heap.insert(1)
+    heap.insert(3)
+    heap.insert(2)
+    heap.insert(4)
+    heap.insert(5)
+  </script>
+</body>
+
+</html>
