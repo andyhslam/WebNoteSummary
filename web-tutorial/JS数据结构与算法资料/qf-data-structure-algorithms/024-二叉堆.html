@@ -115,12 +115,36 @@
 
     }
 
-    const heap = new MinHeap()
-    heap.insert(1)
-    heap.insert(3)
-    heap.insert(2)
-    heap.insert(4)
-    heap.insert(5)
+    class MaxHeap extends MinHeap {
+      // 此时的constructor方法可省略，因为MaxHeap没有定义自己的属性。
+      constructor() {
+        super()
+      }
+
+      compareFn (a, b) {
+        if (a === b) {
+          return Compare.equal
+        } else if (a > b) {
+          return Compare.less
+        } else {
+          return Compare.bigger
+        }
+      }
+    }
+
+    const minHeap = new MinHeap()
+    minHeap.insert(1)
+    minHeap.insert(3)
+    minHeap.insert(2)
+    minHeap.insert(4)
+    minHeap.insert(5)
+
+    const maxHeap = new MaxHeap()
+    maxHeap.insert(1)
+    maxHeap.insert(3)
+    maxHeap.insert(2)
+    maxHeap.insert(4)
+    maxHeap.insert(5)
   </script>
 </body>
 
