@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>026-排序算法-冒泡排序</title>
+</head>
+
+<body>
+  <script>
+    function bubbleSort (array) {
+      const { length } = array
+      for (let i = 0; i < length; i++) {
+        // 经过第一轮的对比，最大数已经排到最后的位置；-i可以拿让每一轮比上一轮少比一个，从而提升性能。
+        for (let j = 0; j < length - 1 - i; j++) {
+          if (array[j] > array[j + 1]) {
+            // 交换位置的方法
+            swap(array, j, j + 1)
+          }
+        }
+      }
+      console.log('array', array)
+    }
+
+    function swap (array, a, b) {
+      [array[b], array[a]] = [array[a], array[b]]
+      // [array[a], array[b]] = [array[b], array[a]]
+      // const temp = array[a]
+      // array[a] = array[b]
+      // array[b] = temp
+    }
+
+    bubbleSort([5, 3, 4, 2, 1])
+  </script>
+</body>
+
+</html>
