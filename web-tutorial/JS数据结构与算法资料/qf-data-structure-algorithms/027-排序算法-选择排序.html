@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>027-排序算法-选择排序</title>
+</head>
+
+<body>
+  <script>
+    function selectionSort (arr) {
+      const { length } = arr
+      let minIndex
+      // 经过第一轮对比，最小的数已经排在最前面，所以外循环的执行次数为length-1。
+      for (let i = 0; i < length - 1; i++) {
+        minIndex = i
+        // 内循环：没必要对比前面的数，一定比前面的数要大，最小的数已经排在最前面，所以从索引为i的数开始对比。
+        for (let j = i; j < length; j++) {
+          if (arr[minIndex] > arr[j]) {
+            minIndex = j
+          }
+        }
+        if (i !== minIndex) {
+          swap(arr, i, minIndex)
+        }
+      }
+      console.log('arr', arr)
+    }
+
+    function swap (array, a, b) {
+      [array[b], array[a]] = [array[a], array[b]]
+      // [array[a], array[b]] = [array[b], array[a]]
+      // const temp = array[a]
+      // array[a] = array[b]
+      // array[b] = temp
+    }
+
+    selectionSort([5, 4, 3, 2, 1])
+  </script>
+</body>
+
+</html>
