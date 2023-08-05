@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>030-排序算法-快速排序</title>
+</head>
+
+<body>
+  <script>
+    function quickSort (arr) {
+      const { length } = arr
+      if (length < 2) {
+        return arr
+      }
+      // 取索引0的值作为基准值
+      let base = arr[0]
+      // 比基准值小的数组
+      let minArr = arr.slice(1).filter(item => item <= base)
+      // 比基准值大的数组
+      let maxArr = arr.slice(1).filter(item => item > base)
+
+      return quickSort(minArr).concat(base).concat(quickSort(maxArr))
+    }
+
+    const sortList = quickSort([3, 4, 5, 2, 1])
+    console.log('sortList', sortList)
+  </script>
+</body>
+
+</html>
