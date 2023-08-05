@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>029-排序算法-归并排序</title>
+</head>
+
+<body>
+  <script>
+    function mergeSort (array) {
+      if (array.length > 1) {
+        const { length } = array
+        const middle = Math.floor(length / 2)
+        const left = mergeSort(array.slice(0, middle))
+        const right = mergeSort(array.slice(middle, length))
+        array = merge(left, right)
+      }
+      return array
+    }
+
+    function merge (left, right) {
+      let i = 0
+      let j = 0
+      const result = []
+      while (i < left.length && j < right.length) {
+        // 先push，再++；result里面都是小的值。
+        result.push(left[i] < right[j] ? left[i++] : right[j++])
+      }
+      // 如果i小于left的长度，说明i可能没有自增过，left是较大的值，最后才把较大的值连接合并到result的后面；反之亦然。
+      return result.concat(i < left.length ? left.slice(i) : right.slice(j))
+    }
+
+    const sortList = mergeSort([5, 4, 7, 3, 6, 2, 1])
+    console.log('sortList', sortList)
+  </script>
+</body>
+
+</html>
