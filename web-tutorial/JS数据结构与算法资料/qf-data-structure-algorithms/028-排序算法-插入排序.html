@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>028-排序算法-插入排序</title>
+</head>
+
+<body>
+  <script>
+    function insertSort (arr) {
+      const { length } = arr
+      let temp // 存储当前这一轮对应索引的元素值
+      for (let i = 1; i < length; i++) {
+        temp = arr[i]
+        let j = i
+        while (j > 0 && arr[j - 1] > temp) {
+          // 把前面大的值覆盖到后面的位置上
+          arr[j] = arr[j - 1]
+          j--
+        }
+        // 把当前的值覆盖到内循环结束时j索引的位置上
+        arr[j] = temp
+      }
+      console.log('arr', arr)
+    }
+
+    insertSort([5, 4, 3, 6, 2, 1])
+  </script>
+</body>
+
+</html>
