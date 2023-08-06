@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>034-搜索算法-顺序搜索</title>
+</head>
+
+<body>
+  <p>
+    顺序或线性搜索是最基本的搜索算法。它的机制是，将数据结构中的每一个元素和我们要找的元素做比较。
+    顺序搜索是最低效的一种搜索算法。
+  </p>
+  <script>
+    function sequentialSearch (array, value) {
+      for (let i = 0; i < array.length; i++) {
+        if (array[i] === value) {
+          return i
+        }
+      }
+      return -1
+    }
+    const findIndex = sequentialSearch([5, 3, 6, 4, 9], 6)
+    console.log(findIndex);
+  </script>
+</body>
+
+</html>
