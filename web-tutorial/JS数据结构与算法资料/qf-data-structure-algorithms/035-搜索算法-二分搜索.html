@@ -41,8 +41,8 @@
           return end
         }
         // 二分搜索公式
-        // let mid = Math.ceil((end - start) / 2) + start
-        let mid = Math.ceil((end + start) / 2)
+        // const mid = Math.ceil((end - start) / 2) + start
+        const mid = Math.ceil((end + start) / 2)
         if (arr[mid] === find) {
           return mid
         } else if (arr[mid] > find) {
