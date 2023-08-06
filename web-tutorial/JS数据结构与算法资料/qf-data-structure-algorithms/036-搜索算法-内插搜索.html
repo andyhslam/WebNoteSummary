@@ -42,7 +42,7 @@
           return end
         }
         // 内插搜索公式
-        let mid = start + Math.floor((find - arr[start]) / (arr[end] - arr[start]) * (end - start))
+        const mid = start + Math.floor((find - arr[start]) / (arr[end] - arr[start]) * (end - start))
         if (arr[mid] === find) {
           return mid
         } else if (arr[mid] > find) {
