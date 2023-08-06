@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>036-搜索算法-内插搜索</title>
+</head>
+
+<body>
+  <p>内插搜索是改良版的二分搜索。二分搜索总是检查mid位置上的值，而内插搜索可能会根据要搜索的值检查数组中的不同地方。</p>
+  <script>
+    function quickSort (arr) {
+      const { length } = arr
+      if (length < 2) {
+        return arr
+      }
+      // 取索引0的值作为基准值
+      let base = arr[0]
+      // 比基准值小的数组
+      let minArr = arr.slice(1).filter(item => item <= base)
+      // 比基准值大的数组
+      let maxArr = arr.slice(1).filter(item => item > base)
+
+      return quickSort(minArr).concat(base).concat(quickSort(maxArr))
+    }
+
+    function insertSearch (find, arr, start, end) {
+      start = start ?? 0
+      end = end ?? arr.length - 1
+      let flag = 0
+      if (flag === 0) {
+        arr = quickSort(arr)
+        flag = 1
+      }
+
+      if (start <= end && find >= arr[start] && find <= arr[end]) {
+        if (arr[start] === find) {
+          return start
+        }
+        if (arr[end] === find) {
+          return end
+        }
+        // 内插搜索公式
+        let mid = start + Math.floor((find - arr[start]) / (arr[end] - arr[start]) * (end - start))
+        if (arr[mid] === find) {
+          return mid
+        } else if (arr[mid] > find) {
+          // 往左边搜索
+          return insertSearch(find, arr, start, mid - 1)
+        } else {
+          // 往右边搜索
+          return insertSearch(find, arr, mid + 1, end)
+        }
+      }
+
+      return -1
+    }
+
+    // 注意：返回的是要查找的值在排好序的数组中的索引
+    const findIndex = insertSearch(0, [5, 7, 4, 2, 9])
+    console.log(findIndex);
+  </script>
+</body>
+
+</html>
