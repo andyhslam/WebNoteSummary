@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>032-排序算法-桶排序</title>
+</head>
+
+<body>
+  <p>
+    桶排序（也被称为箱排序）也是分布式排序算法，它将元素分为不同的桶（较小的数组），再使用一个简单的排序算法，
+    例如插入排序（用来排序小数组的算法），来对每个桶进行排序。然后它将所有的桶合并为结果数组。
+  </p>
+  <script>
+    // 插入排序算法
+    function insertSort (arr) {
+      const { length } = arr
+      let temp // 存储当前这一轮对应索引的元素值
+      for (let i = 1; i < length; i++) {
+        temp = arr[i]
+        let j = i
+        while (j > 0 && arr[j - 1] > temp) {
+          // 把前面大的值覆盖到后面的位置上
+          arr[j] = arr[j - 1]
+          j--
+        }
+        // 把当前的值覆盖到内循环结束时j索引的位置上
+        arr[j] = temp
+      }
+    }
+
+    function bucketSort (arr, bucketSize = 3) {
+      if (arr.length < 2) {
+        return arr
+      }
+
+      // 创建几个小桶
+      const buckets = createBucket(arr, bucketSize)
+
+      // 小桶排序（插入排序算法），最后合并
+      return sortBuckets(buckets)
+    }
+
+    // 数据稀疏，桶的数量多(大概率有空桶的情况)；数据密集，桶的数量少。
+    function createBucket (arr, bucketSize) {
+      let minValue = Math.min(...arr)
+      let maxValue = Math.max(...arr)
+      // 分桶策略
+      const bucketCount = Math.floor((maxValue - minValue) / bucketSize) + 1
+
+      // 方式一
+      // const buckets = []
+      // for (let i = 0; i < bucketCount; i++) {
+      //   buckets[i] = []
+      // }
+
+      // 方式二
+      const buckets = [...Array(bucketCount)].map(() => [])
+
+      // 分桶策略：前面桶比后面桶的所有元素都要小
+      for (let i = 0; i < arr.length; i++) {
+        // 获取每个数字要存储的位置
+        const index = Math.floor((arr[i] - minValue) / bucketSize)
+        buckets[index].push(arr[i])
+      }
+      console.log(buckets)
+      return buckets
+    }
+
+    function sortBuckets (arr) {
+      const sortArr = []
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i].length) {
+          // arr是二维数组，arr[i]表示装载数据的小童，每个小桶从小到大排好序。
+          insertSort(arr[i])
+          // 可以通过push或者concat方法来合并
+          sortArr.push(...arr[i])
+        }
+      }
+      return sortArr
+    }
+
+    const sortList = bucketSort([5, 4, 3, 2, 6, 1, 7, 10, 9, 8])
+    console.log(sortList);
+  </script>
+</body>
+
+</html>
