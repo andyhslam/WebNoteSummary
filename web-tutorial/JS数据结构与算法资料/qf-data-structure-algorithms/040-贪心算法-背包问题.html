@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>040-贪心算法-背包问题（分数背包）</title>
+</head>
+
+<body>
+  <p>
+    贪心算法：在对问题求解时，总是做出在当前看来是最好的选择。也就是说，不从整体最优上加以考虑，它所做出的仅是在某种意义上的
+    局部最优解。贪心算法不是对所有问题都能得到整体最优解，但对范围相当广泛的许多问题，它能产生整体最优解或者是整体最优解的近似解。
+  </p>
+</body>
+<script>
+  function greed (capacity, weights, values) {
+    // capacity表示背包容量，weights表示物品重量，values表示物品价值
+    const list = []
+
+    // 第一步，计算性价比
+    for (let i = 0; i < weights.length; i++) {
+      list.push({
+        num: i + 1,
+        w: weights[i],
+        v: values[i],
+        rate: values[i] / weights[i]
+      })
+    }
+
+    // 第二步，按照性价比从大到小排序
+    list.sort((a, b) => b.rate - a.rate)
+
+    const selects = []
+    let total = 0
+    // 第三步，按照性价比从大到小的顺序，依次放入背包中
+    for (let i = 0; i < list.length; i++) {
+      const item = list[i]
+      if (item.w <= capacity) {
+        selects.push({
+          num: item.num,
+          w: item.w,
+          v: item.v,
+          rate: 1
+        })
+        total += item.v
+        capacity -= item.w
+      } else if (capacity > 0) {
+        const rate = capacity / item.w
+        const v = item.v * rate
+        selects.push({
+          num: item.num,
+          w: item.w * rate,
+          v,
+          rate
+        })
+        total += v
+        break
+      } else {
+        break
+      }
+    }
+    return { selects, total }
+  }
+
+  const result = greed(10, [2, 2, 6, 5, 4], [6, 3, 5, 4, 6])
+  console.log('result', result)
+</script>
+
+</html>
