@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>039-动态规划-最长公共子序列</title>
+</head>
+
+<body>
+  <p>
+    最长公共子序列：找出两个字符串序列的最长子序列的长度。最长子序列是指，在两个字符串序列中以相同顺序出现，但不要求连续
+    （非字符串子串）的字符串序列。
+  </p>
+</body>
+<script>
+  function LCS (str1, str2) {
+    // m表示行数，n表示列数
+    let m = str1.length
+    let n = str2.length
+
+    // 二维矩阵数组的第0行和第0列的元素都是0，是边界值；
+    // 首先创建一个二维矩阵数组，其第一个元素是长度为n+1，数组元素全为0的一维数组，即第0行全是0。
+    let dp = [new Array(n + 1).fill(0)]
+
+    for (let i = 1; i <= m; i++) {
+      // 二维矩阵的每一行的第0列全是0
+      dp[i] = [0]
+      for (let j = 1; j <= n; j++) {
+        // 字符串的第0个对应着二维矩阵的第一行或者第一列，以此类推，所以字符串的索引要减1
+        if (str1[i - 1] === str2[j - 1]) {
+          dp[i][j] = dp[i - 1][j - 1] + 1
+        } else {
+          // 如果不相等，就取左边或者上边，比较大的值
+          dp[i][j] = Math.max(dp[i][j - 1], dp[i - 1][j])
+        }
+      }
+    }
+    // 两层for循环结束之后，i等于m，j等于n
+    const res = printLCS(dp, str1, str2, m, n)
+    console.log('res', res)
+    return dp[m][n]
+  }
+
+  function printLCS (dp, str1, str2, i, j) {
+    if (i === 0 || j === 0) {
+      return ''
+    }
+    if (str1[i - 1] === str2[j - 1]) {
+      // 因为是从右下角往左上角开始查找，所以把最先找到的结果str1[i - 1]放在最后。
+      return printLCS(dp, str1, str2, i - 1, j - 1) + str1[i - 1]
+    } else {
+      if (dp[i][j - 1] > dp[i - 1][j]) {
+        return printLCS(dp, str1, str2, i, j - 1)
+      } else {
+        return printLCS(dp, str1, str2, i - 1, j)
+      }
+    }
+  }
+
+  const result1 = LCS('abcadf', 'acbaed')
+  const result2 = LCS(['a', 'b', 'c', 'a', 'd', 'f'], ['a', 'c', 'b', 'a', 'e', 'd'])
+  console.log('result1', result1)
+  console.log('result2', result2)
+</script>
+
+</html>
