@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>041-回溯算法</title>
+</head>
+
+<body>
+  <p>
+    回溯算法采用试错的思想，尝试分步的去解决一个问题。在分步解决问题的过程中，当它通过尝试发现现有的分步答案不能得到有效的正确解答的时候，
+    它将取消上一步甚至是上几步的计算，再通过其它的可能的分步解答再次尝试寻找问题的答案。
+  </p>
+  <p>
+    回溯算法：根据当前字符找到上下左右的字符。
+  </p>
+</body>
+<script>
+  function exist (board, word) {
+    // 设置行列数
+    const row = board.length
+    const col = board[0].length
+
+    // 双循环，每个坐标都尝试作目标的第1元素
+    for (let i = 0; i < row; i++) {
+      for (let j = 0; j < col; j++) {
+        // 从宫格图中第一个开始找(i，j)，找目标第一个字母(word[0])
+        const ret = find(i, j, 0) // 返回true或false
+        if (ret) {
+          return ret
+        }
+      }
+    }
+    return false // 结束了都没找到，就返回false
+
+    // 递归函数，第1个元素符合就接着内部再递归find上下左右找第2个元素
+    function find (r, c, cur) {
+      // cur指定传进来的字符串的第几个字符
+      if (r >= row || r < 0) return false
+      if (c >= col || c < 0) return false
+      if (board[r][c] !== word[cur]) return false // 不是目标元素，则返回false
+
+      // 执行到这，说明rc坐标是目标元素；
+      // 先判断，如果是最后一个也找到了，返回true结束
+      if (cur === word.length - 1) return true
+
+      let letter = board[r][c] // 赋值给临时变量
+      board[r][c] = null // 用null替换做标记，避免下一个找上下左右时重复
+
+      // 进行下一步，上下左右查找
+      // 如：[0][0]是目标第一个元素，这里接着find找[0][1]，[1][0]
+      // 没找到返回false，结束所有find，进入双for中的[0][1]
+      const ret = find(r - 1, c, cur + 1) || find(r + 1, c, cur + 1) || find(r, c - 1, cur + 1) || find(r, c + 1, cur + 1)
+      // 用null做标记是避免重复，但双for的find结束就需要恢复
+      board[r][c] = letter
+      return ret
+    }
+  }
+</script>
+
+</html>
