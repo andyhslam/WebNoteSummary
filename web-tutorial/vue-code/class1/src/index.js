@@ -11,11 +11,13 @@ let vm = new Vue({
       students: [
         { id: 1, name: 'Jack' },
         { id: 2, name: 'Tom' },
-      ]
+      ],
+      info: { a: { b: 1 } }
     }
   }
 })
 
 console.log(vm.title)
+console.log(vm.info.a)
 console.log(vm._data.title)
 console.log(vm.$options.data().title)
