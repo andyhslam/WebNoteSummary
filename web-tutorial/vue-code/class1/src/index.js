@@ -17,7 +17,8 @@ let vm = new Vue({
   }
 })
 
-console.log(vm.title)
-console.log(vm.info.a)
-console.log(vm._data.title)
-console.log(vm.$options.data().title)
+// console.log(vm)
+console.log(vm.students.splice(1, 1, { id: 3, name: 'Andy' }))
+// console.log(vm.info.a = { c: 8 })
+// console.log(vm._data.title)
+// console.log(vm.$options.data().title)

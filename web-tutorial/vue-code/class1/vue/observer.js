@@ -1,8 +1,12 @@
 import defineReactiveData from './reactive.js'
+import { arrMethods } from './array.js'
+import observeArr from './observeArr.js'
 
 function Observer (data) {
   if (Array.isArray(data)) {
-
+    data.__proto__ = arrMethods
+    // 通过递归调用，把所有数据设置成响应式
+    observeArr(data)
   } else {
     this.walk(data)
   }
