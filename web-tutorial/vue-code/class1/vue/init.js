@@ -11,7 +11,7 @@ function initState (vm) {
 
 function initData (vm) {
   var data = vm.$options.data
-  data = vm._data = typeof data === 'function' ? data.call(vm) : data || {}
+  vm._data = data = typeof data === 'function' ? data.call(vm) : data || {}
 
   for (var key in data) {
     proxyData(vm, '_data', key)
