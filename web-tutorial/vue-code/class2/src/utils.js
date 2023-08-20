@@ -1,7 +1,9 @@
-function proxy (vm) {
+function proxy (vm, target, key) {
   return new Proxy(vm, {
-    get (target, key) { },
-    set (target, key, newValue) {
+    get () {
+      return vm[target][key]
+    },
+    set (newValue) {
       if (vm[target][key] === newValue) return
       vm[target][key] = newValue
     },
