@@ -20,7 +20,7 @@ const startTagClose = /^\s*(\/?)>/
 const endTag = new RegExp(`^<\\/${qnameCapture}[^>]*>`)
 
 function parseHtmlToAst (html) {
-  let text
+  let text, root, currentParent, stack = []
 
   // 每匹配一个，就删除一个，直到html被完全删除
   while (html) {
@@ -34,11 +34,9 @@ function parseHtmlToAst (html) {
       // 匹配到整个结束标签
       const endTagMatch = html.match(endTag)
       if (endTagMatch) {
-        console.log('endTagMatch', endTagMatch)
         // 删除整个结束标签
         advance(endTagMatch[0].length)
-        end(endTagMatch[1])
-        // continue
+        end()
       }
     } else if (textEnd > 0) {
       // 获取文本类型
@@ -83,18 +81,31 @@ function parseHtmlToAst (html) {
   }
 
   function start (tagName, attrs) {
-    console.log('----开始----')
-    console.log(tagName, attrs)
+    const element = createAstElement(tagName, attrs)
+    if (!root) {
+      root = element
+    }
+    currentParent = element
+    stack.push(element)
   }
 
-  function end (tagName) {
-    console.log('----结束----')
-    console.log(tagName)
+  function end () {
+    const element = stack.pop()
+    currentParent = stack.at(-1)
+    if (currentParent) {
+      element.parent = currentParent
+      currentParent.children.push(element)
+    }
   }
 
   function chars (text) {
-    console.log('----文本----')
-    console.log(text)
+    text = text.trim()
+    if (text.length) {
+      currentParent.children.push({
+        type: 3,
+        text
+      })
+    }
   }
 
   function createAstElement (tagName, attrs) {
@@ -103,9 +114,10 @@ function parseHtmlToAst (html) {
       tag: tagName,
       children: [],
       attrs,
-      parent
+      parent: currentParent
     }
   }
+  return root
 }
 
 export { parseHtmlToAst }
