@@ -8,5 +8,5 @@
 - AST 树不是虚拟 DOM，AST 是代码层面的树状的数据结构，虚拟 DOM 可以添加自定义属性(如：data-xxx)
 
 3. AST 树 -> render 函数(\_c：createElement，\_v：文本，\_s：变量)
-4. render 函数 -> 虚拟节点
+4. render 函数 -> 虚拟节点(这是一个挂载的过程，一个 vue 的实例就是一个组件)
 5. 设置 patch(数据变化时，对比新旧两个节点，去打相应的补丁) -> 打补丁到真实 DOM

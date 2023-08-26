@@ -62,11 +62,13 @@ function getChildren (el) {
 
 function generate (el) {
   const children = getChildren(el)
-  let code = `
-    _c('${el.tag}',${el.attrs.length ? `${formatProps(el.attrs)}` : undefined
+  let code = `_c('${el.tag}', ${el.attrs.length > 0
+    ?
+    `${formatProps(el.attrs)}`
+    :
+    'undefined'
     }${children ? `,${children}` : ''
-    })
-  `
+    })`
 
   return code
 }
