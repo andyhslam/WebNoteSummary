@@ -6,7 +6,7 @@ function renderMixin (Vue) {
     const vm = this,
       render = vm.$options.render,
       vnode = render.call(vm)
-    console.log('vnode', render)
+    console.log('vnode', vnode)
   }
 
   // 创建元素
