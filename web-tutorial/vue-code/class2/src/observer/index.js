@@ -15,7 +15,7 @@ class Observer {
   walk (data) {
     const keys = Object.keys(data)
     keys.forEach((key) => {
-      defineReactiveData(data, key, data[key])
+      defineReactive(data, key, data[key])
     })
   }
 
@@ -26,7 +26,7 @@ class Observer {
   }
 }
 
-function defineReactiveData (data, key, value) {
+function defineReactive (data, key, value) {
   observe(value)
   Object.defineProperty(data, key, {
     get () {

@@ -20,7 +20,7 @@ ARR_METHODS.forEach((method) => {
       default:
         break
     }
-    newArr.length && observeArr(newArr)
+    newArr.length && ob.observeArr(newArr)
     return result
   }
 })

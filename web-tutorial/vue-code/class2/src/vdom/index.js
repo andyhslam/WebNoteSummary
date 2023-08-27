@@ -10,10 +10,17 @@ function renderMixin (Vue) {
     return vnode
   }
 
-  // 创建元素
+  // 创建元素：方式一
   Vue.prototype._c = function () {
+    console.log(arguments, ...arguments)
     return createElement(...arguments)
   }
+
+  // 创建元素：方式二
+  // Vue.prototype._c = function (...args) {
+  //   console.log(args, ...args)
+  //   return createElement(...args)
+  // }
 
   // 转换变量
   Vue.prototype._s = function (value) {

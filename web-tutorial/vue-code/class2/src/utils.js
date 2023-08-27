@@ -1,15 +1,14 @@
 function proxy (vm, target, key) {
-  return new Proxy(vm, {
+  Object.defineProperty(vm, key, {
     get () {
       return vm[target][key]
     },
     set (newValue) {
       if (vm[target][key] === newValue) return
       vm[target][key] = newValue
-    },
+    }
   })
 }
-
 
 function isObject (value) {
   return typeof value === 'object' && value !== null
