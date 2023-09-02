@@ -1,4 +1,5 @@
-import { reactive } from '@vue/reactivity'
+// import { reactive } from '@vue/reactivity'
+import { reactive } from './vue3-core/reactivity'
 
 const state = reactive({
   name: '孔雪儿',
@@ -13,12 +14,13 @@ const state = reactive({
   hobby: ['piano', 'dance', 'sing']
 })
 
+state.name
 state.name = '虞书欣'
-state.age = 28
-state.info.job = '富二代'
-state.info.students.push({
-  id: 3,
-  name: '江枫'
-})
-state.hobby.push('shopping')
-console.log('state', state)
+// state.age = 28
+// state.info.job = '富二代'
+// state.info.students.push({
+//   id: 3,
+//   name: '江枫'
+// })
+// state.hobby.push('shopping')
+// console.log('state', state)
