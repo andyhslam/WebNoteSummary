@@ -1,4 +1,4 @@
-function People(name, age) {
+function People (name, age) {
 	// console.log(this)
 	// 实例属性
 	this.name = name
@@ -30,7 +30,7 @@ p2.showName()
 console.log(People.count)
 People.getCount()
 
-// 这些js内置对象的方法都是实例方法，因此需要new出来
+// 这些js内置对象是函数对象，可构造；其方法都是实例方法，因此需要new出来。
 // const str = new String("imooc")
 // console.log(str)
 // const arr1 = new Array(3)
@@ -38,6 +38,7 @@ People.getCount()
 // const obj1 = new Object({ age: 22 })
 // console.log(obj1)
 
-// js内置对象Math的静态方法，Math对象下面的方法都是静态方法，因此不需要new Math()
+// js内置对象Math和Reflect不是函数对象，不可构造；其方法都是静态方法，因此不需要new出来。
 // console.log(Math.max(2, 8))
 // console.log(Math.random())
+
