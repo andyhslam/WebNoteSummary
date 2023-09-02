@@ -30,7 +30,7 @@ p2.showName()
 console.log(People.count)
 People.getCount()
 
-// 这些js内置对象是函数对象，可构造；其方法都是实例方法，因此需要new出来。
+// 这些js内置对象是构造函数对象，其方法都是实例方法，因此需要new出来。
 // const str = new String("imooc")
 // console.log(str)
 // const arr1 = new Array(3)
@@ -38,7 +38,11 @@ People.getCount()
 // const obj1 = new Object({ age: 22 })
 // console.log(obj1)
 
-// js内置对象Math和Reflect不是函数对象，不可构造；其方法都是静态方法，因此不需要new出来。
+// js内置对象Math和Reflect不是构造函数对象，不能new，其方法都是静态方法。
 // console.log(Math.max(2, 8))
 // console.log(Math.random())
+
+// 与大多数全局对象不同Reflect并非一个构造函数，所以不能通过new运算符对其进行调用，或者将Reflect对象作为一个函数来调用。
+// Reflect 的所有属性和方法都是静态的（就像 Math 对象）。
+// Reflect对象提供拦截JavaScript操作的方法，这些方法与proxy handler方法的命名相同，作用也相似。
 
