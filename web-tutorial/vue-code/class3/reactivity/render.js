@@ -6,6 +6,6 @@ export function useDOM ({ template, state, methods }, DOM) {
 
 export function render (template, state) {
   template = eventFormat(template)
-  template = stateFormat(template, state)
+  // template = stateFormat(template, state)
   return template
 }
