@@ -11,15 +11,17 @@ const reg_frontTag = (node) => {
 export const statePool = []
 
 export function stateFormat (template, state) {
-  const _state = {}
   template = template.replace(reg_data_dom, (node, key) => {
     const matched = node.match(reg_tag)[1]
     const _flag = randomNum()
-    _state.flag = _flag
+    statePool.push({ flag: _flag })
     return `<${matched} data-dom="${_flag}">{{${key}}}</${matched}>`
   })
   console.log('template1', template)
+  // 这里的两个replace函数执行的次数是一样的
+  let od = 0
   template = template.replace(reg_variable, (node, key) => {
+    // 每匹配到一次，会执行一次这个箭头函数
     let _variable = key.trim()
     const _variableArr = _variable.split('.')
     _variable = state
@@ -28,11 +30,11 @@ export function stateFormat (template, state) {
       _variable = _variable[_variableArr[i]]
       i++
     }
-    _state.state = _variableArr
-    statePool.push(_state)
-    console.log('statePool', statePool)
+    statePool[od].state = _variableArr
+    od++
     return _variable
   })
+  console.log('statePool', statePool)
   console.log('template2', template)
   return template
 }

@@ -1,4 +1,6 @@
 import { useReactive } from '.'
+import { update } from '../render'
+import { statePool } from '../compiler/state'
 import { isEqual, isObject, hasOwnProperty } from "../shared/utils"
 
 const get = createGetter()
@@ -25,6 +27,7 @@ function createSetter () {
     if (!isKeyExist) {
       console.log('响应式新增：' + value)
     } else if (!isEqual(value, oldValue)) {
+      update(statePool, key, value)
       console.log('响应式修改：' + key + '=' + value)
     }
     return res
