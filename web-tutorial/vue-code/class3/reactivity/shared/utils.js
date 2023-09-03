@@ -1,3 +1,6 @@
+const reg_check_str = /^['|"].+?['|"]$/
+const reg_str = /['|"]/g
+
 function isEqual (newValue, oldValue) {
   return newValue === oldValue
 }
@@ -14,9 +17,25 @@ function randomNum () {
   return new Date().getTime() + parseInt(Math.random() * 10000)
 }
 
+function checkType (str) {
+  if (reg_check_str.test(str)) {
+    return str.replace(reg_str, '')
+  }
+  switch (str) {
+    case 'true':
+      return true
+    case 'false':
+      return false
+    default:
+      break
+  }
+  return Number(str)
+}
+
 export {
   isEqual,
   isObject,
   hasOwnProperty,
-  randomNum
+  randomNum,
+  checkType
 }
