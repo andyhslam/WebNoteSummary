@@ -9,10 +9,10 @@
     .box-wrapper {
       width: 800px;
       height: 200px;
+      display: flex;
     }
 
     .box {
-      float: left;
       width: 200px;
       height: 200px;
       line-height: 200px;
@@ -41,18 +41,20 @@
 
 <body>
   <div id="app">
+    <h2>Nicola Cavanis 尼古拉·卡瓦尼斯</h2>
     <div class="box-wrapper">
-      <h2>Nicola Cavanis 尼古拉·卡瓦尼斯</h2>
       <div class="box box1" v-if="boxShow1">BOX 1</div>
       <div class="box box2" v-show="boxShow2">BOX 2</div>
       <div class="box box3" v-if="boxShow3">BOX 3</div>
       <div class="box box4" v-show="boxShow4">BOX 4</div>
     </div>
 
-    <button @click="showBox1">BOX 1</button>
-    <button @click="showBox2">BOX 2</button>
-    <button @click="showBox3">BOX 3</button>
-    <button @click="showBox4">BOX 4</button>
+    <div class="btn">
+      <button @click="showBox1">BOX 1</button>
+      <button @click="showBox2">BOX 2</button>
+      <button @click="showBox3">BOX 3</button>
+      <button @click="showBox4">BOX 4</button>
+    </div>
   </div>
 
   <script src="index.js"></script>

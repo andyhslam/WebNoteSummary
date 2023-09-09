@@ -30,6 +30,7 @@ class Nicola {
         set (newValue) {
           // console.log('设置：', key, newValue)
           this.data[key] = newValue
+          this.domChange(key, this.showPool)
         },
       })
     }
@@ -74,23 +75,51 @@ class Nicola {
 
   // 3.初始化视图
   initView (showPool) {
-    this.domChange(showPool)
+    this.domChange(null, showPool)
   }
 
-  domChange (showPool) {
+  domChange (data, showPool) {
+    if (!data) {
+      // 初始化的操作
+      for (const [k, v] of showPool) {
+        switch (v.type) {
+          case 'if':
+            // 创建一个注释节点来占位
+            v.comment = document.createComment('v-if')
+            // 如果为false，就把原本的dom元素节点(k)替换成注释的节点(v.comment)
+            !v.show && k.parentNode.replaceChild(v.comment, k)
+            break
+          case 'show':
+            !v.show && (k.style.display = 'none')
+            break
+          default:
+            break
+        }
+      }
+      return
+    }
+
+    // 切换按钮的操作
     for (const [k, v] of showPool) {
-      switch (v.type) {
-        case 'if':
-          // 创建一个注释来占位
-          v.comment = document.createComment('v-if')
-          // 如果为false，就用注释来替代旧节点
-          !v.show && k.parentNode.replaceChild(v.comment, k)
-          break
-        case 'show':
-          !v.show && (k.style.display = 'none')
-          break
-        default:
-          break
+      if (v.data === data) {
+        switch (v.type) {
+          case 'if':
+            if (v.show) {
+              // 如果为true，就要切换为false；也就是隐藏时，把原本的dom元素节点(k)替换成注释的节点(v.comment)
+              k.parentNode.replaceChild(v.comment, k)
+            } else {
+              // 如果为false，就要切换为true；也就是显示时，把注释的节点(v.comment)替换成原本的dom元素节点(k)
+              v.comment.parentNode.replaceChild(k, v.comment)
+            }
+            v.show = !v.show
+            break
+          case 'show':
+            v.show ? k.style.display = 'none' : k.style.display = 'block'
+            v.show = !v.show
+            break
+          default:
+            break
+        }
       }
     }
   }
