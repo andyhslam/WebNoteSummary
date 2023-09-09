@@ -86,6 +86,7 @@ class Nicola {
         case 'if':
           // 创建一个注释来占位
           v.comment = document.createComment('v-if')
+          // 如果为false，就用注释来替代旧节点
           !v.show && k.parentNode.replaceChild(v.comment, k)
           break
         case 'show':
