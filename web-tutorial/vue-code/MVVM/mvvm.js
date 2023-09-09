@@ -7,6 +7,11 @@ class MVVM {
 
   init () {
     this.initData()
+    this.initDom()
+  }
+
+  initDom () {
+    this.bindInput(this.el)
   }
 
   initData () {
@@ -24,7 +29,21 @@ class MVVM {
         },
       })
     }
-    this.data.age
-    this.data['name'] = '奥本海默'
+  }
+
+  bindInput (el) {
+    const _allInputs = el.querySelectorAll('input')
+    _allInputs.forEach((input) => {
+      const _vModel = input.getAttribute('v-model')
+      if (_vModel) {
+        input.addEventListener('keyup', this.handleInput.bind(this, _vModel, input), false)
+      }
+    })
+  }
+
+  handleInput (key, input) {
+    const _value = input.value
+    this.data[key] = _value
+    console.log(this.data)
   }
 }
