@@ -1,5 +1,4 @@
 /**
- * 3.初始化视图
  * 4.事件处理函数的绑定
  * 5.改变数据的同时，改变DOM
  */
@@ -19,6 +18,7 @@ class Nicola {
   init () {
     this.initData()
     this.initDom(this.el)
+    this.initView(this.showPool)
 
     console.log(this.showPool, this.eventPool)
   }
@@ -73,6 +73,28 @@ class Nicola {
       }
       this.initDom(dom)
     })
+  }
+
+  // 3.初始化视图
+  initView (showPool) {
+    this.domChange(showPool)
+  }
+
+  domChange (showPool) {
+    for (let [k, v] of showPool) {
+      switch (v.type) {
+        case 'if':
+          // 创建一个注释来占位
+          v.comment = document.createComment('v-if')
+          !v.show && k.parentNode.replaceChild(v.comment, k)
+          break
+        case 'show':
+          !v.show && (k.style.display = 'none')
+          break
+        default:
+          break
+      }
+    }
   }
 
 }
