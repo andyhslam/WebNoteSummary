@@ -71,4 +71,8 @@ class MVVM {
     const _value = input.value
     this.data[key] = _value
   }
+
+  setData (key, value) {
+    this.data[key] = value
+  }
 }
