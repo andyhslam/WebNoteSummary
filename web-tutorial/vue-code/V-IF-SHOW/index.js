@@ -99,7 +99,7 @@ class Nicola {
       return
     }
 
-    // 切换按钮的操作
+    // 5.改变数据的同时，改变DOM：切换按钮的操作
     for (const [k, v] of showPool) {
       if (v.data === data) {
         switch (v.type) {
@@ -130,7 +130,5 @@ class Nicola {
       k.addEventListener('click', v.bind(this), false)
     }
   }
-
-  // 5.改变数据的同时，改变DOM
 
 }
