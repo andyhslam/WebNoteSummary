@@ -1,8 +1,3 @@
-/**
- * 4.事件处理函数的绑定
- * 5.改变数据的同时，改变DOM
- */
-
 class Nicola {
   constructor(options) {
     const { el, data, methods } = options
@@ -19,19 +14,21 @@ class Nicola {
     this.initData()
     this.initDom(this.el)
     this.initView(this.showPool)
+    this.initEvent(this.eventPool)
 
     console.log(this.showPool, this.eventPool)
   }
 
   // 1.代理数据与数据劫持
   initData () {
-    for (let key in this.data) {
+    for (const key in this.data) {
       Object.defineProperty(this, key, {
         get () {
-          console.log('访问：', key, this.data[key])
+          // console.log('访问：', key, this.data[key])
           return this.data[key]
         },
         set (newValue) {
+          // console.log('设置：', key, newValue)
           this.data[key] = newValue
         },
       })
@@ -81,7 +78,7 @@ class Nicola {
   }
 
   domChange (showPool) {
-    for (let [k, v] of showPool) {
+    for (const [k, v] of showPool) {
       switch (v.type) {
         case 'if':
           // 创建一个注释来占位
@@ -97,5 +94,14 @@ class Nicola {
       }
     }
   }
+
+  // 4.事件处理函数的绑定
+  initEvent (eventPool) {
+    for (const [k, v] of eventPool) {
+      k.addEventListener('click', v.bind(this), false)
+    }
+  }
+
+  // 5.改变数据的同时，改变DOM
 
 }
