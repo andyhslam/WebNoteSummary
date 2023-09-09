@@ -32,8 +32,9 @@ class MVVM {
   bindDom (el) {
     const childNodes = el.childNodes
     childNodes.forEach((item) => {
+      // 判断是否为文本节点
       if (item.nodeType === 3) {
-        // .trim()可以去掉换行符
+        // trim()不仅可以去掉前后空格，可以去掉换行符
         const _value = item.nodeValue.trim()
         if (_value.length) {
           // 此时正则的子表达式里面的？表示 非贪婪模式
