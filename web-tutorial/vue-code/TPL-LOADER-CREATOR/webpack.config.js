@@ -19,6 +19,7 @@ module.exports = {
     filename: 'bundle.[hash:16].js'
   },
   devtool: 'source-map',
+  // 解释loader时，先执行第一项，第一项没有的话，再执行第二项，以此类推。
   resolveLoader: {
     modules: ['node_modules', resolve(__dirname, 'loaders')]
   },
