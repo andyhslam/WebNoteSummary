@@ -19,6 +19,9 @@ module.exports = {
     filename: 'bundle.[hash:16].js'
   },
   devtool: 'source-map',
+  resolveLoader: {
+    modules: ['node_modules', resolve(__dirname, 'loaders')]
+  },
   module: {
     rules: [
       {
