@@ -8,3 +8,7 @@ const info = tpl({
   career: 'actress',
   hobby: 'travel, movie'
 })
+
+console.log('info', info)
+
+oApp.innerHTML = info
