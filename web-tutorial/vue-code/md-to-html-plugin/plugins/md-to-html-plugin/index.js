@@ -1,5 +1,6 @@
 const { readFileSync } = require('fs')
 const { resolve } = require('path')
+const { compileHTML } = require('./compiler')
 
 const INNER_MARK = '<!-- inner -->'
 
@@ -21,17 +22,19 @@ class MdToHtmlPlugin {
       const _templateHTML = readFileSync(resolve(__dirname, 'template.html'), 'utf8')
       const _mdContentArr = _mdContent.split('\n')
       const _htmlStr = compileHTML(_mdContentArr)
-      const _finalHTML = _templateHTML.replace(INNER_MARK, _htmlStr)
 
-      // 添加一个资源到test.html
-      _assets[this.filename] = {
-        source () {
-          return _finalHTML
-        },
-        size () {
-          return _finalHTML.length
-        }
-      }
+      console.log('_htmlStr', _htmlStr)
+      // const _finalHTML = _templateHTML.replace(INNER_MARK, _htmlStr)
+
+      // // 添加一个资源到test.html
+      // _assets[this.filename] = {
+      //   source () {
+      //     return _finalHTML
+      //   },
+      //   size () {
+      //     return _finalHTML.length
+      //   }
+      // }
     })
   }
 }
