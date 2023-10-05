@@ -1,3 +1,5 @@
+import { compileTemplate } from './compile'
+
 export function creatApp (options) {
   for (const option in options) {
     switch (option) {
@@ -16,8 +18,7 @@ export function creatApp (options) {
 function initComponent (components) {
   for (const component of components) {
     const [template, state] = component()
-    console.log('template', template)
-    console.log('state', state)
+    const node = compileTemplate(template, state)
   }
 }
 
