@@ -23,18 +23,17 @@ class MdToHtmlPlugin {
       const _mdContentArr = _mdContent.split('\n')
       const _htmlStr = compileHTML(_mdContentArr)
 
-      console.log('_htmlStr', _htmlStr)
-      // const _finalHTML = _templateHTML.replace(INNER_MARK, _htmlStr)
+      const _finalHTML = _templateHTML.replace(INNER_MARK, _htmlStr)
 
-      // // 添加一个资源到test.html
-      // _assets[this.filename] = {
-      //   source () {
-      //     return _finalHTML
-      //   },
-      //   size () {
-      //     return _finalHTML.length
-      //   }
-      // }
+      // 添加一个资源到test.html
+      _assets[this.filename] = {
+        source () {
+          return _finalHTML
+        },
+        size () {
+          return _finalHTML.length
+        }
+      }
     })
   }
 }

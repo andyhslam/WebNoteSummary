@@ -74,7 +74,26 @@ function createTree (mdArr) {
 
 function compileHTML (mdArr) {
   const _htmlPool = createTree(mdArr)
-  console.log('_htmlPool', _htmlPool)
+  let _htmlStr = ''
+  let item
+
+  for (const k in _htmlPool) {
+    item = _htmlPool[k]
+    if (item.type === 'single') {
+      item.tags.forEach(tag => {
+        _htmlStr += tag
+      })
+    } else if (item.type === 'wrap') {
+      const tagName = k.split('-')[0]
+      let _list = `<${tagName}>`
+      item.tags.forEach(tag => {
+        _list += tag
+      })
+      _list += `</${tagName}>`
+      _htmlStr += _list
+    }
+  }
+  return _htmlStr
 }
 
 module.exports = {
