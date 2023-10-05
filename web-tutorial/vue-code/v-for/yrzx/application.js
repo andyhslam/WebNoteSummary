@@ -16,6 +16,8 @@ export function creatApp (options) {
 function initComponent (components) {
   for (const component of components) {
     const [template, state] = component()
+    console.log('template', template)
+    console.log('state', state)
   }
 }
 
