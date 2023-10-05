@@ -5,31 +5,31 @@ const template = `
     <h1>{{ title }}</h1>
     {{ dateTime }}
     <for data="list" tag="li" class="item">
-      <span>姓名：{ name }</span>
-      <span>年龄：{ age }</span>
+      <span>Name：{ name }</span>
+      <span>Age：{ age }</span>
     </for>
   </ul>
 `
 
-function TestA () {
+function TestB () {
   const state = createReactive({
-    title: '学生信息列表',
+    title: '教师信息列表',
     dateTime: Date.now(),
     list: [
       {
         id: 1,
-        name: '刮骨刀',
-        age: 18,
+        name: '姜佩瑶',
+        age: 26,
       },
       {
         id: 2,
         name: '夏禾',
-        age: 20,
+        age: 28,
       },
       {
         id: 3,
-        name: '异人之下',
-        age: 22,
+        name: '文咏珊',
+        age: 30,
       },
     ]
   })
@@ -37,4 +37,4 @@ function TestA () {
   return [template, state]
 }
 
-export default TestA
+export default TestB

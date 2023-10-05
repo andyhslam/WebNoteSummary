@@ -4,6 +4,10 @@ export function creatApp () {
   }
 }
 
+export function createReactive () {
+
+}
+
 function mount (el) {
 
 }
