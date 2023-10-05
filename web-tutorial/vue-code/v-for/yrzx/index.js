@@ -1,13 +1,5 @@
-export function creatApp () {
-  return {
-    mount
-  }
-}
+export { creatApp } from './application'
 
-export function createReactive () {
-
-}
-
-function mount (el) {
-
+export function createReactive (state) {
+  return state
 }

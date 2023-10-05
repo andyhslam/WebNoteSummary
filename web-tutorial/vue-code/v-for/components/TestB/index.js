@@ -14,7 +14,7 @@ const template = `
 function TestB () {
   const state = createReactive({
     title: '教师信息列表',
-    dateTime: Date.now(),
+    dateTime: new Date(),
     list: [
       {
         id: 1,
