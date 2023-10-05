@@ -1,11 +1,14 @@
+const { randomNum } = require('./utils')
 
 const reg_mark = /^(.+?)\s/
 const reg_sharp = /^\#/
 const reg_crossbar = /^\-/
+const reg_number = /^\d/
 
 function createTree (mdArr) {
   let _htmlPool = {}
   let _lastMark = ''
+  let _key = 0
 
   mdArr.forEach((mdFragment) => {
     const matched = mdFragment.match(reg_mark)
@@ -19,10 +22,11 @@ function createTree (mdArr) {
         const tagContent = input.replace(reg_mark, '').replace(/\r/, '')
         // 当前标签和上一个标签是一样的，表示他们是一组的
         if (mark === _lastMark) {
-          _htmlPool[tag].tags.push(`<${tag}>${tagContent}</${tag}>`)
+          _htmlPool[`${tag}-${_key}`].tags.push(`<${tag}>${tagContent}</${tag}>`)
         } else {
           _lastMark = mark
-          _htmlPool[tag] = {
+          _key = randomNum()
+          _htmlPool[`${tag}-${_key}`] = {
             type: 'single',
             tags: [`<${tag}>${tagContent}</${tag}>`]
           }
@@ -35,10 +39,28 @@ function createTree (mdArr) {
         const tagContent = input.replace(reg_mark, '').replace(/\r/, '')
         // 当前标签和上一个标签是一样的，表示他们是一组的
         if (reg_crossbar.test(_lastMark)) {
-          _htmlPool['ul'].tags.push(`<${tag}>${tagContent}</${tag}>`)
+          _htmlPool[`ul-${_key}`].tags.push(`<${tag}>${tagContent}</${tag}>`)
         } else {
           _lastMark = mark
-          _htmlPool['ul'] = {
+          _key = randomNum()
+          _htmlPool[`ul-${_key}`] = {
+            type: 'wrap',
+            tags: [`<${tag}>${tagContent}</${tag}>`]
+          }
+        }
+      }
+
+      // 判断有序列表：ol标签
+      if (reg_number.test(mark)) {
+        const tag = 'li'
+        const tagContent = input.replace(reg_mark, '').replace(/\r/, '')
+        // 当前标签和上一个标签是一样的，表示他们是一组的
+        if (reg_number.test(_lastMark)) {
+          _htmlPool[`ol-${_key}`].tags.push(`<${tag}>${tagContent}</${tag}>`)
+        } else {
+          _lastMark = mark
+          _key = randomNum()
+          _htmlPool[`ol-${_key}`] = {
             type: 'wrap',
             tags: [`<${tag}>${tagContent}</${tag}>`]
           }
