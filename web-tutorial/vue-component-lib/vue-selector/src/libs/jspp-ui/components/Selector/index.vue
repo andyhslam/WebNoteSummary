@@ -14,12 +14,10 @@
 </template>
 
 <script>
+import { reactive, toRefs } from 'vue'
 import focus from './directives/focus'
-
 import SelectorInput from './Input'
 import SelectorMenu from './Menu'
-
-import { reactive, toRefs } from 'vue'
 
 export default {
   name: 'SelectorView',

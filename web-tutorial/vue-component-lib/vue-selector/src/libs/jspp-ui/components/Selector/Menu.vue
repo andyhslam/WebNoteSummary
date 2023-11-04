@@ -58,9 +58,9 @@ export default {
       searchData.value = props.data
     })
 
-    const filterData = () => {
+    const filterData = (searchValue) => {
       searchData.value = props.data.filter((item) => {
-        return item.text.toLowerCase().includes(props.searchValue.toLowerCase())
+        return item.text.toLowerCase().includes(searchValue.toLowerCase())
       })
     }
 

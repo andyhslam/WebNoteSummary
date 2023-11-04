@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="container">
-      <Selector
+      <SelectorView
         :data="selectorData"
         @setItemValue="setItemValue"
         placeholder="请选择框架"
@@ -11,35 +11,31 @@
 </template>
 
 <script>
+import selectorData from '@/data/selector'
 
-import selectorData from '@/data/selector';
-
-import { ref } from 'vue';
+import { ref } from 'vue'
 
 export default {
   name: 'App',
-  setup () {
-    
-    const val = ref('');
+  setup() {
+    const val = ref('')
 
     const setItemValue = (value) => {
-      val.value = value;
-
-      console.log(val.value);
+      val.value = value
     }
 
     return {
       selectorData,
-      setItemValue
+      setItemValue,
     }
-  }
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-  .container {
-    width: 500px;
-    height: 1000px;
-    margin: 200px auto;
-  }
+.container {
+  width: 500px;
+  height: 1000px;
+  margin: 200px auto;
+}
 </style>
