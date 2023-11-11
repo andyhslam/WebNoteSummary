@@ -1,5 +1,18 @@
 <template>
   <div id="app">
+    <div class="side-bar">
+      <tree-menu>
+        <template v-for="item of menuData" :key="item.id">
+          <menu-item v-if="!item.children">{{ item.title }}</menu-item>
+          <sub-menu v-else>
+            <template #title>{{ item.title }}</template>
+            <template v-for="child of item.children" :key="child.id">
+              <menu-item>{{ child.title }}</menu-item>
+            </template>
+          </sub-menu>
+        </template>
+      </tree-menu>
+    </div>
     <div class="container">
       <CarouselView
         :autoplay="true"
@@ -9,7 +22,7 @@
         :hasDirector="true"
       >
         <car-item v-for="(item, index) of carData" :key="index">
-          <img :src="require(`./assets/img/${item.img_name}`)" alt="" />
+          <img :src="require(`./assets/img/${item.img_name}`)" />
         </car-item>
       </CarouselView>
       <SelectorView
@@ -18,21 +31,14 @@
         placeholder="请选择框架"
       />
     </div>
-    <div class="side-bar">
-      <tree-menu>
-        <menu-item v-for="item of menuData" :key="item.id">{{
-          item.title
-        }}</menu-item>
-      </tree-menu>
-    </div>
   </div>
 </template>
 
 <script>
 import { ref } from 'vue'
+import menuData from '@/data/treeMenu'
 import carData from '@/data/carousel'
 import selectorData from '@/data/selector'
-import menuData from '@/data/treeMenu'
 
 export default {
   name: 'App',
@@ -42,9 +48,9 @@ export default {
       val.value = value
     }
     return {
+      menuData,
       carData,
       selectorData,
-      menuData,
       setItemValue,
     }
   },
