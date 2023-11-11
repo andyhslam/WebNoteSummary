@@ -6,12 +6,14 @@
 
 <script>
 export default {
-  name: 'TreeMenu'
+  name: 'TreeMenu',
 }
 </script>
 
 <style lang="scss" scoped>
-  .tree-menu {
-    background-color: #000;
-  }
+.tree-menu {
+  width: 100%;
+  color: #fff;
+  background-color: #000;
+}
 </style>
