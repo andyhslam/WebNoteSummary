@@ -65,6 +65,20 @@ export default [
   },
   {
     id: 3,
-    title: '菜单3'
+    title: '菜单3',
+    children: [
+      {
+        id: 31,
+        title: '3-1'
+      },
+      {
+        id: 32,
+        title: '3-2'
+      },
+      {
+        id: 31,
+        title: '3-3'
+      },
+    ]
   }
 ]

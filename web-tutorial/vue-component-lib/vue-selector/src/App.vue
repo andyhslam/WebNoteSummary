@@ -4,12 +4,7 @@
       <tree-menu>
         <template v-for="item of menuData" :key="item.id">
           <menu-item v-if="!item.children">{{ item.title }}</menu-item>
-          <sub-menu v-else>
-            <template #title>{{ item.title }}</template>
-            <template v-for="child of item.children" :key="child.id">
-              <menu-item>{{ child.title }}</menu-item>
-            </template>
-          </sub-menu>
+          <re-sub-menu :data="item" v-else></re-sub-menu>
         </template>
       </tree-menu>
     </div>
