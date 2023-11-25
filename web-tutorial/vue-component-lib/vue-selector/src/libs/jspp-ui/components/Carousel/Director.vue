@@ -29,9 +29,8 @@ export default {
 <style lang="scss" scoped>
 .director {
   position: absolute;
-  top: 50%;
+  top: 25%;
   z-index: 1;
-  margin-top: -15px;
   width: 20px;
   height: 30px;
   text-align: center;

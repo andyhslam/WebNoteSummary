@@ -53,12 +53,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container {
-  width: 500px;
-  height: 1000px;
-  margin: 200px auto;
-}
 .side-bar {
   width: 300px;
+}
+.container {
+  width: 500px;
+  height: 500px;
+  margin: 50px auto 300px;
 }
 </style>
