@@ -53,4 +53,33 @@ export default {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.img-wrap {
+  position: relative;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 5px #999;
+  .static-img {
+    width: 100%;
+  }
+  .mag-wrap {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    background-color: #fff;
+    box-shadow: 0 0 3px #ccc;
+    cursor: move;
+    overflow: hidden;
+    &.show {
+      display: block;
+      transform: scale(1.5);
+    }
+    .mag-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+}
+</style>
