@@ -26,11 +26,23 @@
         placeholder="请选择框架"
       />
     </div>
+    <div class="wrapper">
+      <MagnifierView
+        :link="link"
+        :blank="blank"
+        :imgUrl="imgUrl"
+        :imgAlt="imgAlt"
+        :imgWidth="imgWidth"
+        :imgHeight="imgHeight"
+        :magWidth="magWidth"
+        :magHeight="magHeight"
+      ></MagnifierView>
+    </div>
   </div>
 </template>
 
 <script>
-import { ref } from 'vue'
+import { reactive, toRefs } from 'vue'
 import menuData from '@/data/treeMenu'
 import carData from '@/data/carousel'
 import selectorData from '@/data/selector'
@@ -38,11 +50,22 @@ import selectorData from '@/data/selector'
 export default {
   name: 'App',
   setup() {
-    const val = ref('')
+    const state = reactive({
+      itemValue: '',
+      blank: true,
+      link: 'https://www.baidu.com',
+      imgUrl: require('/src/assets/img/suzy.jpg'),
+      imgAlt: '裴秀智',
+      imgWidth: 375,
+      imgHeight: 480,
+      magWidth: 100,
+      magHeight: 100,
+    })
     const setItemValue = (value) => {
-      val.value = value
+      state.itemValue = value
     }
     return {
+      ...toRefs(state),
       menuData,
       carData,
       selectorData,
@@ -55,6 +78,10 @@ export default {
 <style lang="scss" scoped>
 .side-bar {
   width: 300px;
+}
+.wrapper {
+  width: 375px;
+  margin: 100px auto;
 }
 .container {
   width: 500px;

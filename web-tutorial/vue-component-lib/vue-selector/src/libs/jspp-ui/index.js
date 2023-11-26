@@ -8,6 +8,8 @@ import ReSubMenu from './components/TreeMenu/ReSubMenu'
 
 import Selector from './components/Selector'
 
+import Magnifier from './components/Magnifier'
+
 import './assets/css/iconfont.css'
 
 let JsppUI = {}
@@ -21,6 +23,8 @@ JsppUI.install = function (Vue) {
   Vue.component(ReSubMenu.name, ReSubMenu)
 
   Vue.component(Selector.name, Selector)
+
+  Vue.component(Magnifier.name, Magnifier)
 }
 
 export default JsppUI
