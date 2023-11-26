@@ -1,12 +1,13 @@
 <template>
   <div
+    v-magnifier
     class="img-wrap"
     :style="{ width: imgWidth + 'px', height: imgHeight + 'px' }"
   >
     <a
       class="mag-wrap"
       :href="link"
-      :target="{ _blank: blank }"
+      :target="blank ? '_blank' : ''"
       :style="{ width: magWidth + 'px', height: magHeight + 'px' }"
     >
       <img
@@ -23,8 +24,10 @@
 </template>
 
 <script>
+import { magnifier } from './directives'
 export default {
   name: 'MagnifierView',
+  directives: { magnifier },
   props: {
     imgWidth: {
       type: Number,
