@@ -20,6 +20,8 @@
           <img :src="require(`./assets/img/${item.img_name}`)" />
         </car-item>
       </CarouselView>
+      <StarsView :num="3" :size="30" @getStarNum="getStarNum" />
+      <div style="margin: 10px 0">选择的框架是：{{ itemValue }}</div>
       <SelectorView
         :data="selectorData"
         @setItemValue="setItemValue"
@@ -43,8 +45,8 @@
 
 <script>
 import { reactive, toRefs } from 'vue'
-import menuData from '@/data/treeMenu'
 import carData from '@/data/carousel'
+import menuData from '@/data/treeMenu'
 import selectorData from '@/data/selector'
 
 export default {
@@ -61,15 +63,20 @@ export default {
       magWidth: 100,
       magHeight: 100,
     })
-    const setItemValue = (value) => {
-      state.itemValue = value
+    const fn = {
+      setItemValue(value) {
+        state.itemValue = value
+      },
+      getStarNum(num) {
+        console.log('num', num)
+      },
     }
     return {
       ...toRefs(state),
-      menuData,
+      ...fn,
       carData,
+      menuData,
       selectorData,
-      setItemValue,
     }
   },
 }
@@ -86,6 +93,6 @@ export default {
 .container {
   width: 500px;
   height: 500px;
-  margin: 50px auto 300px;
+  margin: 50px auto 350px;
 }
 </style>
