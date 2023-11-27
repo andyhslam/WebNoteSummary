@@ -1,16 +1,19 @@
 <template>
   <div class="ui-stars">
     <span
-      v-for="starNum in 5"
-      :key="starNum"
+      v-for="num in 5"
+      :key="num"
       class="iconfont icon-star"
-      :class="{ active: starNum <= num }"
+      :class="{ active: num <= starNum }"
       :style="{ fontSize: `${size}px` }"
+      @click="setStarNum(num)"
     ></span>
   </div>
 </template>
 
 <script>
+import { useStars } from '../../hooks'
+
 export default {
   name: 'StarsView',
   props: {
@@ -22,6 +25,16 @@ export default {
       type: Number,
       default: 16,
     },
+  },
+  setup(props, ctx) {
+    const [starNum, setStarNum] = useStars(props.num, () => {
+      ctx.emit('getStarNum', starNum.value)
+    })
+
+    return {
+      starNum,
+      setStarNum,
+    }
   },
 }
 </script>

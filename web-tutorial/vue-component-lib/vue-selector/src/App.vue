@@ -20,7 +20,7 @@
           <img :src="require(`./assets/img/${item.img_name}`)" />
         </car-item>
       </CarouselView>
-      <StarsView :num="3" :size="30" @getStarNum="getStarNum" />
+      <StarsView :num="num" :size="size" @getStarNum="getStarNum" />
       <div style="margin: 10px 0">选择的框架是：{{ itemValue }}</div>
       <SelectorView
         :data="selectorData"
@@ -54,6 +54,8 @@ export default {
   setup() {
     const state = reactive({
       itemValue: '',
+      num: 2,
+      size: 30,
       blank: true,
       link: 'https://www.baidu.com',
       imgUrl: require('/src/assets/img/suzy.jpg'),
