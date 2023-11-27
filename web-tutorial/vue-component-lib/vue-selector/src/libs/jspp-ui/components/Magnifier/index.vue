@@ -72,6 +72,7 @@ export default {
     z-index: 2;
     background-color: #fff;
     box-shadow: 0 0 3px #ccc;
+    border-radius: 50%;
     cursor: move;
     overflow: hidden;
     &.show {
