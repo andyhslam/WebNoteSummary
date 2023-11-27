@@ -1,12 +1,12 @@
 <template>
   <div class="ui-stars">
     <span
-      v-for="num in 5"
-      :key="num"
+      v-for="selfNum in 5"
+      :key="selfNum"
       class="iconfont icon-star"
-      :class="{ active: num <= starNum }"
+      :class="{ active: selfNum <= starNum }"
       :style="{ fontSize: `${size}px` }"
-      @click="setStarNum(num)"
+      @click="setStarNum(selfNum)"
     ></span>
   </div>
 </template>
