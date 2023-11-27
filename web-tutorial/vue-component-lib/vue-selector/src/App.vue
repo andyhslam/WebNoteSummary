@@ -39,6 +39,22 @@
         :magWidth="magWidth"
         :magHeight="magHeight"
       ></MagnifierView>
+      <ModalView
+        :show="true"
+        :width="350"
+        :borderRadius="10"
+        headerBgc="#007bff"
+        headerText="SUPER MODAL"
+        headerTextColor="#fff"
+        contentText="This is a SUPER MODAL."
+        contentTextColor="#333"
+        position="center"
+        :btnGroupShow="true"
+        confirmText="确定"
+        cancelText="取消"
+        @confirm="modalConfirm"
+        @close="modalClose"
+      />
     </div>
   </div>
 </template>
@@ -71,6 +87,12 @@ export default {
       },
       getStarNum(num) {
         console.log('num', num)
+      },
+      modalConfirm() {
+        console.log('modal Confirm')
+      },
+      modalClose() {
+        console.log('modal Close')
       },
     }
     return {

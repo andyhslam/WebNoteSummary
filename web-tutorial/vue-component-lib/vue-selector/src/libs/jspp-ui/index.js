@@ -7,9 +7,9 @@ import SubMenu from './components/TreeMenu/SubMenu'
 import ReSubMenu from './components/TreeMenu/ReSubMenu'
 
 import Selector from './components/Selector'
-
 import Magnifier from './components/Magnifier'
 import Stars from './components/Stars'
+import Modal from './components/Modal'
 
 import './assets/css/iconfont.css'
 
@@ -26,6 +26,7 @@ JsppUI.install = function (Vue) {
   Vue.component(Selector.name, Selector)
   Vue.component(Magnifier.name, Magnifier)
   Vue.component(Stars.name, Stars)
+  Vue.component(Modal.name, Modal)
 }
 
 export default JsppUI
