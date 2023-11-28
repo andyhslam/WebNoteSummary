@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-mask" v-show="show">
+  <div class="modal-mask" v-show="modalShow">
     <div
       class="ui-modal"
       :style="{
@@ -15,20 +15,32 @@
         :style="{ color: headerTextColor, backgroundColor: headerBgc }"
       >
         <h1>{{ headerText }}</h1>
-        <a href="javascript:;" :style="{ color: headerTextColor }">&times;</a>
+        <a
+          href="javascript:;"
+          :style="{ color: headerTextColor }"
+          @click="close"
+          >&times;</a
+        >
       </header>
       <article class="content">
         <p :style="{ color: contentTextColor }">{{ contentText }}</p>
       </article>
       <div class="btn-group" v-if="btnGroupShow">
-        <button class="btn btn-confirm">{{ confirmText }}</button>
-        <button class="btn btn-cancel">{{ cancelText }}</button>
+        <button
+          class="btn btn-confirm"
+          :style="{ color: headerTextColor, backgroundColor: headerBgc }"
+          @click="confirm"
+        >
+          {{ confirmText }}
+        </button>
+        <button class="btn btn-cancel" @click="close">{{ cancelText }}</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { reactive, toRefs } from 'vue'
 export default {
   name: 'ModalView',
   props: {
@@ -81,13 +93,23 @@ export default {
       default: '取消',
     },
   },
-  setup() {
+  setup(props, ctx) {
+    const state = reactive({
+      modalShow: props.show,
+    })
     const fn = {
-      confirm() {},
-      cancel() {},
+      confirm() {
+        state.modalShow = false
+        ctx.emit('confirm')
+      },
+      close() {
+        state.modalShow = false
+        ctx.emit('close')
+      },
     }
     return {
       ...fn,
+      ...toRefs(state),
     }
   },
 }
@@ -140,6 +162,27 @@ export default {
   .content {
     padding: 0 14px;
     box-sizing: border-box;
+  }
+  .btn-group {
+    height: 30px;
+    padding: 10px 14px;
+    border-top: 1px solid #ddd;
+    .btn {
+      float: right;
+      min-width: 80px;
+      height: 30px;
+      font-size: 14px;
+      border-radius: 3px;
+      cursor: pointer;
+      &.btn-confirm {
+        color: #fff;
+        margin-left: 14px;
+      }
+      &.btn-cancel {
+        color: #666;
+        background-color: #ddd;
+      }
+    }
   }
 }
 </style>
