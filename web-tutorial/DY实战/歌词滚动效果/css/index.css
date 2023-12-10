@@ -14,13 +14,13 @@ audio {
 .container {
   height: 420px;
   overflow: hidden;
-  border: 2px solid #fff;
+  /* border: 2px solid #fff; */
 }
 .container ul {
-  border: 2px solid #f00;
-  /* transition只对数值类的属性有效 */
-  transition: all 0.2s linear;
   list-style: none;
+  /* transition只对数值类的属性有效 */
+  transition: all 0.6s linear;
+  /* border: 2px solid #f00; */
 }
 .container li {
   height: 30px;
