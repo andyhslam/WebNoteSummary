@@ -95,7 +95,7 @@ class UI {
     for (let i = 0; i < this.uiData.uiGoods.length; i++) {
       const g = this.uiData.uiGoods[i]
       html += `<div class="goods-item">
-        <img src="${g.data.pic}" class="goods-pic">
+        <img src="${g.data.pic}" class="goods-pic" width="80" height="100">
         <div class="goods-info">
           <h2 class="goods-title">${g.data.title}</h2>
           <p class="goods-desc">${g.data.desc}</p>
