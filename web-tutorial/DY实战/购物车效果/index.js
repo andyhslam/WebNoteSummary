@@ -79,6 +79,10 @@ class UIData {
   isCrossDeliveryThreshold () {
     return this.getTotalPrice() >= this.deliveryThreshold
   }
+
+  isChoose (index) {
+    return this.uiGoods[index].isChoose()
+  }
 }
 
 // 整个界面
@@ -109,15 +113,43 @@ class UI {
               <span>${g.data.price}</span>
             </p>
             <div class="goods-btns">
-              <i class="iconfont i-jianhao"></i>
+              <i class="iconfont icon-jianhao"></i>
               <span>${g.choose}</span>
-              <i class="iconfont i-jiajianzujianjiahao"></i>
+              <i class="iconfont icon-jiahao"></i>
             </div>
           </div>
         </div>
       </div>`
     }
     this.doms.goodsContainer.innerHTML = html
+  }
+
+  increase (index) {
+    this.uiData.increase(index)
+    this.updateGoodsItem(index)
+  }
+
+  decrease (index) {
+    this.uiData.decrease(index)
+    this.updateGoodsItem(index)
+  }
+
+  // 更新某个商品元素的显示状态
+  updateGoodsItem (index) {
+    const goodsItemDom = this.doms.goodsContainer.children[index]
+    console.log(goodsItemDom)
+    if (this.uiData.isChoose(index)) {
+      goodsItemDom.classList.add('active')
+    } else {
+      goodsItemDom.classList.remove('active')
+    }
+    const span = goodsItemDom.querySelector('.goods-btns span')
+    span.textContent = this.uiData.uiGoods[index].choose
+  }
+
+  // 更新页脚
+  updateFooter () {
+
   }
 }
 

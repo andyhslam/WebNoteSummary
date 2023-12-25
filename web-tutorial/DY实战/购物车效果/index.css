@@ -1,0 +1,93 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-size: 14px;
+}
+
+.container {
+  display: flex;
+  width: 800px;
+}
+
+.menu {
+  width: 30%;
+}
+
+.menu-item {
+  padding: 1rem;
+}
+
+.goods-list {
+  flex-grow: 1;
+  overflow-y: scroll;
+}
+
+.goods-item {
+  display: flex;
+  padding: 3rem 2rem;
+  border-bottom: 1rem solid #f8f8f8;
+}
+
+.goods-info {
+  width: 100%;
+  overflow: hidden;
+  padding: 0 1rem;
+}
+
+.goods-desc {
+  width: 20%;
+  padding: 0.5rem 0;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.goods-confirm {
+  width: 30%;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 0.5rem;
+}
+
+.goods-btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.goods-btns .icon-jianhao {
+  display: none;
+}
+
+.goods-btns span {
+  margin: 0 1.5rem;
+  display: none;
+}
+
+.goods-item.active .goods-btns .icon-jianhao,
+.goods-item.active .goods-btns span {
+  display: block;
+}
+
+.footer {
+  width: 800px;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-car-container {
+  display: flex;
+}
+
+.footer-car {
+  padding: 0 1rem;
+}
