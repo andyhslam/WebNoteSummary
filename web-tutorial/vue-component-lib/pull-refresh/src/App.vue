@@ -1,7 +1,5 @@
 <template>
   <div>
-    <!-- @refreshing="handleRefreshing"
-    @refreshed="handleRefreshed" -->
     <PullRefresh
       willPullTip="Pull to refresh..."
       pullingTip="Release to refresh..."
@@ -10,6 +8,8 @@
       tipColor="#f40"
       :tipSize="14"
       :loadingDuration="2000"
+      @refreshing="handleRefreshing"
+      @refreshed="handleRefreshed"
     >
       <ul>
         <li>1</li>
@@ -119,6 +119,14 @@
 
 <script setup lang="ts">
 import PullRefresh from './components/pull-refresh.vue'
+
+const handleRefreshing = () => {
+  2
+}
+
+const handleRefreshed = () => {
+  4
+}
 </script>
 
 <style lang="scss">

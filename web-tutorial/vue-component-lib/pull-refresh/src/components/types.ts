@@ -12,6 +12,7 @@ export interface IData {
   refreshTip: string
   refreshHeight: number
   refreshShow: boolean
+  needTransition: boolean
 }
 
 export enum DefaultTips {
@@ -26,4 +27,5 @@ export enum DefaultConfigs {
   BG_COLOR = '#fff',
   LOADING_DURATION = 1000,
   MIN_REFRESHING_HEIGHT = 60,
+  TRANSITION_DURATION = 0.3,
 }
