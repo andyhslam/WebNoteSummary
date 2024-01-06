@@ -8,6 +8,12 @@ export interface IProps {
   loadingDuration: number
 }
 
+export interface IData {
+  refreshTip: string
+  refreshHeight: number
+  refreshShow: boolean
+}
+
 export enum DefaultTips {
   WILL_PULL_TIP = '下拉即可刷新...',
   PULLING_TIP = '释放即可刷新...',
@@ -19,4 +25,5 @@ export enum DefaultConfigs {
   TIP_SIZE = 14,
   BG_COLOR = '#fff',
   LOADING_DURATION = 1000,
+  MIN_REFRESHING_HEIGHT = 60,
 }

@@ -1,14 +1,23 @@
 <template>
-  <div>
-    <div>
+  <div class="pull-refresh">
+    <div
+      v-show="refreshShow"
+      class="refresh-wrapper"
+      :style="{ height: refreshHeight + 'px', backgroundColor: bgColor }"
+    >
+      <span :style="{ color: tipColor, fontSize: tipSize + 'px' }">{{
+        refreshTip
+      }}</span>
+    </div>
+    <div class="content-wrapper">
       <slot></slot>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineEmits, withDefaults, defineProps } from 'vue'
-import { DefaultConfigs, DefaultTips, IProps } from './types'
+import { reactive, toRefs, defineEmits, withDefaults, defineProps } from 'vue'
+import { DefaultConfigs, DefaultTips, IProps, IData } from './types'
 
 const emit = defineEmits<{
   (e: 'refreshing'): void
@@ -24,6 +33,25 @@ const props = withDefaults(defineProps<IProps>(), {
   tipSize: DefaultConfigs.TIP_SIZE,
   loadingDuration: DefaultConfigs.LOADING_DURATION,
 })
+
+const state = reactive<IData>({
+  refreshTip: props.willPullTip,
+  refreshHeight: 0,
+  refreshShow: false,
+})
+
+const { refreshTip, refreshHeight, refreshShow } = toRefs(state)
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.pull-refresh {
+  overflow-y: auto;
+  height: 100vh;
+  .refresh-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+}
+</style>

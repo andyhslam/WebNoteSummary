@@ -1,6 +1,16 @@
 <template>
   <div>
-    <PullRefresh>
+    <!-- @refreshing="handleRefreshing"
+    @refreshed="handleRefreshed" -->
+    <PullRefresh
+      willPullTip="Pull to refresh..."
+      pullingTip="Release to refresh..."
+      loadingTip="Loading..."
+      bgColor="#ededed"
+      tipColor="#f40"
+      :tipSize="14"
+      :loadingDuration="2000"
+    >
       <ul>
         <li>1</li>
         <li>2</li>
@@ -111,12 +121,14 @@
 import PullRefresh from './components/pull-refresh.vue'
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 html,
 body {
   height: 100vh;
   overflow: hidden;
 }
+
+body,
 ul {
   margin: 0;
 }
