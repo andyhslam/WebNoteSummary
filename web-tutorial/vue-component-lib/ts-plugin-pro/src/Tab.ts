@@ -1,3 +1,5 @@
+import Fade from './Fade'
+import Slide from './Slide'
 import { setEl, setType } from './utils'
 
 interface IOptions {
@@ -19,8 +21,16 @@ class Tab {
     this._el = setEl(el, this._type as TYPE)
   }
 
+  // Fade:直接切换；Slide：滚动切换
   public create() {
-    console.log(this._el, this._type)
+    switch (this._type) {
+      case TYPE.FADE:
+        return new Fade(this._el)
+      case TYPE.SLIDE:
+        return new Slide(this._el)
+      default:
+        break
+    }
   }
 }
 
