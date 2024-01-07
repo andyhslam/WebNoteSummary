@@ -15,6 +15,11 @@ export interface IData {
   needTransition: boolean
 }
 
+export interface ITouchingPosition {
+  start: number
+  end: number
+}
+
 export enum DefaultTips {
   WILL_PULL_TIP = '下拉即可刷新...',
   PULLING_TIP = '释放即可刷新...',

@@ -33,7 +33,13 @@ import {
   withDefaults,
   defineProps,
 } from 'vue'
-import { DefaultConfigs, DefaultTips, IProps, IData } from './types'
+import {
+  DefaultConfigs,
+  DefaultTips,
+  IProps,
+  IData,
+  ITouchingPosition,
+} from './types'
 
 let loadingStatus = false
 
@@ -65,12 +71,37 @@ const transitionStatus = computed(() =>
     : 'none'
 )
 
+const touchingPosition: ITouchingPosition = {
+  start: 0,
+  end: 0,
+}
+
 const handleTouchStart = (e: TouchEvent) => {
-  2
+  // e.changedTouches表示多个手指触碰，e.changedTouches[0]表示只有一个手指触碰。
+  const touch = e.changedTouches[0]
+  touchingPosition.start = touch.clientY
 }
 
 const handleTouchMove = (e: TouchEvent) => {
-  3
+  if (!loadingStatus) {
+    setRefreshShow(true)
+    const touch = e.changedTouches[0]
+    touchingPosition.end = touch.clientY
+    const distance = touchingPosition.end - touchingPosition.start
+    console.log('distance', distance)
+    if (state.refreshHeight > DefaultConfigs.MIN_REFRESHING_HEIGHT) {
+      setTip(props.pullingTip)
+    }
+    if (distance < 0) {
+      // 手指从下往上移动
+      addRefreshHeight(distance)
+    } else {
+      // 手指从上往下移动
+      addRefreshHeight(distance / 2)
+    }
+    // 每次移动，都把end赋值给start，相当于每次增加的距离除以2
+    touchingPosition.start = touchingPosition.end
+  }
 }
 
 const handleTouchEnd = (e: TouchEvent) => {
