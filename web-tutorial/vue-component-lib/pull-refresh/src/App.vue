@@ -121,11 +121,11 @@
 import PullRefresh from './components/pull-refresh.vue'
 
 const handleRefreshing = () => {
-  2
+  console.log('数据更新中...')
 }
 
 const handleRefreshed = () => {
-  4
+  console.log('数据更新成功！')
 }
 </script>
 

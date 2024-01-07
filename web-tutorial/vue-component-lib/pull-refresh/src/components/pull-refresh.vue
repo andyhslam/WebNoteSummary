@@ -88,10 +88,13 @@ const handleTouchMove = (e: TouchEvent) => {
     const touch = e.changedTouches[0]
     touchingPosition.end = touch.clientY
     const distance = touchingPosition.end - touchingPosition.start
-    console.log('distance', distance)
+
     if (state.refreshHeight > DefaultConfigs.MIN_REFRESHING_HEIGHT) {
       setTip(props.pullingTip)
+    } else {
+      setTip(props.willPullTip)
     }
+
     if (distance < 0) {
       // 手指从下往上移动
       addRefreshHeight(distance)
@@ -104,8 +107,40 @@ const handleTouchMove = (e: TouchEvent) => {
   }
 }
 
-const handleTouchEnd = (e: TouchEvent) => {
-  4
+const handleTouchEnd = () => {
+  setNeedTransition(true)
+  if (state.refreshHeight < DefaultConfigs.MIN_REFRESHING_HEIGHT) {
+    resetRefresh()
+  } else {
+    setRefreshing()
+    setTimeout(setRefreshed, props.loadingDuration)
+  }
+}
+
+function resetRefresh() {
+  setRefreshHeight(0)
+  setTip(props.willPullTip)
+  setLoadingStatus(false)
+  closeRefreshArea()
+}
+
+function setRefreshing() {
+  setRefreshHeight(DefaultConfigs.MIN_REFRESHING_HEIGHT)
+  setTip(props.loadingTip)
+  setLoadingStatus(true)
+  emit('refreshing')
+}
+
+function setRefreshed() {
+  resetRefresh()
+  emit('refreshed')
+}
+
+function closeRefreshArea() {
+  setTimeout(() => {
+    setNeedTransition(false)
+    setRefreshShow(false)
+  }, DefaultConfigs.TRANSITION_DURATION * 1000)
 }
 
 function setTip(tip: string) {
