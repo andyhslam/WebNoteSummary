@@ -1,0 +1,44 @@
+.alert {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.alert.hide {
+  display: none;
+}
+
+.alert.show {
+  display: block;
+}
+
+.alert .inner {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  z-index: 999;
+  width: 500px;
+  transform: translateX(-50%);
+  box-shadow: 1px 3px 5px #ddd;
+  border-radius: 10px;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.alert .alert-header {
+  position: relative;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 15px;
+  font-size: 18px;
+  color: #fff;
+  background-color: #000;
+}
+
+.alert .alert-wrap {
+  padding: 30px 15px;
+  box-sizing: border-box;
+}
