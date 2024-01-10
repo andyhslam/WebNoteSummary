@@ -47,7 +47,11 @@ class Man extends Person {
 }
 console.log(Person.height) // 通过类名直接访问其静态属性
 console.log(Person.runner()) // 通过类名直接访问其静态方法
-let pct = new Person('父名', 20, false)
+console.log("子类", Man.height, Man.runner()); // 继承的子类也可以通过其类名直接访问父类的静态属性或静态方法
+const pct = new Person("父名", 40, false);
+const mct = new Man();
+console.log(pct.age);
+console.log(mct.age);
 
 // 通过接口去约束类
 interface School {
