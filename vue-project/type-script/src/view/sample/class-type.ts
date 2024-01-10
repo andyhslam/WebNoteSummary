@@ -4,6 +4,7 @@
  * private修饰符：代表定义的变量是私有的，只能在内部访问，不能在外部和继承的子类中访问
  * protected修饰符：代表定义的变量是私有的，只能在内部和继承的子类中访问，不能在外部访问
  * public修饰符：代表定义的变量是公有的，可以在内部、外部和继承的子类中访问，如果不写默认就是public
+ * 注：内部是指这个类的内部，继承的子类中是指继承的子类的内部，外部是指这个类的实例或者继承的子类的实例。
  */
 
 class Person {
@@ -46,7 +47,11 @@ class Man extends Person {
 }
 console.log(Person.height) // 通过类名直接访问其静态属性
 console.log(Person.runner()) // 通过类名直接访问其静态方法
-let pct = new Person('父名', 20, false)
+console.log("子类", Man.height, Man.runner()); // 继承的子类也可以通过其类名直接访问父类的静态属性或静态方法
+const pct = new Person("父名", 40, false);
+const mct = new Man();
+console.log(pct.age);
+console.log(mct.age);
 
 // 通过接口去约束类
 interface School {
