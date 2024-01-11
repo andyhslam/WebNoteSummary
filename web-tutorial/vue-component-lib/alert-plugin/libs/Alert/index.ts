@@ -1,6 +1,6 @@
 import $ from 'jquery'
 import Template from './Template'
-import { IAlertOptions } from './typing'
+import { DEFAULT_VALUES, IAlertOptions, UI_COLOR_TYPES } from './typing'
 
 class Alert extends Template {
   private _headerTitle: string
@@ -9,14 +9,17 @@ class Alert extends Template {
   private _oAlert: JQuery<HTMLElement>
   private _oXIcon: JQuery<HTMLElement>
   private _oInner: JQuery<HTMLElement>
+  private _oHeaderTitle: JQuery<HTMLElement>
+  private _oAlertText: JQuery<HTMLElement>
 
   // 实例化Alert，就会执行其构造器
   constructor(options: IAlertOptions) {
     // 调用父类的构造器
     super()
-    this._headerTitle = options.headerTitle || 'This is my Alert'
-    this._alertText = options.alertText || 'This is my Alert content'
-    this._duration = options.duration || 200
+    const _options: IAlertOptions = Alert.mergeOptions(options)
+    this._headerTitle = _options.headerTitle as string
+    this._alertText = _options.alertText as string
+    this._duration = _options.duration as number
     this.render()
     this.bindEvent()
   }
@@ -40,15 +43,44 @@ class Alert extends Template {
     this._oAlert = $('.alert')
     this._oXIcon = $('.icon')
     this._oInner = $('.inner')
+    this._oHeaderTitle = this._oAlert.find('header h1')
+    this._oAlertText = this._oAlert.find('.alert-wrap p')
   }
 
-  public static create(options: IAlertOptions) {
+  private static mergeOptions(options: IAlertOptions) {
+    const _defaultOptions: IAlertOptions = {
+      headerTitle: DEFAULT_VALUES.HEADER_TITLE as string,
+      alertText: DEFAULT_VALUES.ALERT_TEXT as string,
+      duration: DEFAULT_VALUES.DURATION as number,
+    }
+    if (!options) {
+      return _defaultOptions
+    }
+    return Object.assign(_defaultOptions, options)
+  }
+
+  public static create(options?: IAlertOptions | any) {
     return new Alert(options)
   }
 
-  public show(type: string, options: IAlertOptions) {
-    const { headerTitle, alertText, duration } = options
-    this._duration = duration || this._duration
+  public show(type?: string, options?: IAlertOptions) {
+    if (options) {
+      const { headerTitle, alertText, duration } = options
+      duration && (this._duration = duration)
+      alertText && this._oAlertText.text(alertText)
+      headerTitle && this._oHeaderTitle.html(headerTitle)
+    }
+
+    let _type: UI_COLOR_TYPES = UI_COLOR_TYPES.PRIMARY
+    if (type) {
+      for (let k in UI_COLOR_TYPES) {
+        if (UI_COLOR_TYPES[k] === type) {
+          _type = type as UI_COLOR_TYPES
+        }
+      }
+    }
+
+    this._oAlert.addClass(_type)
     this._oAlert.fadeIn(this._duration)
   }
 

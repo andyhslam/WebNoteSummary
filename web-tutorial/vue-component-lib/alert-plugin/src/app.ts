@@ -16,7 +16,7 @@ import { Alert } from '../libs/index.ts'
   }
 
   function showAlert(): void {
-    alert.show('warning', {
+    alert.show('success', {
       duration: 150,
       headerTitle: 'Fua Kaede',
       alertText: '藍芽みずき',

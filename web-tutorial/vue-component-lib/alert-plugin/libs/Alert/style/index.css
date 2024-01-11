@@ -43,3 +43,27 @@
   padding: 30px 15px;
   box-sizing: border-box;
 }
+
+.alert.primary .alert-header {
+  color: #fff;
+  border-color: #007bff;
+  background-color: #007bff;
+}
+
+.alert.success .alert-header {
+  color: #fff;
+  border-color: #28a745;
+  background-color: #28a745;
+}
+
+.alert.warning .alert-header {
+  color: #212529;
+  border-color: #ffc107;
+  background-color: #ffc107;
+}
+
+.alert.danger .alert-header {
+  color: #fff;
+  border-color: #dc3545;
+  background-color: #dc3545;
+}
