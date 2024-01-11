@@ -6,7 +6,7 @@ class Template {
   protected alertView(options: IAlertOptions) {
     const { headerTitle, alertText } = options
     const oAlert: HTMLElement = document.createElement('div')
-    oAlert.className = 'alert hide'
+    oAlert.className = 'alert'
     oAlert.innerHTML = `
       <div class="inner">
         <header class="alert-header">
