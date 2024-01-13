@@ -70,12 +70,16 @@ class PgTab {
 
   // 在驱动里面做事件处理函数的绑定，并且返回新的index
   private bindEvent() {
-    this._oNavItems = this._oNavWrapper.getElementsByClassName('nav-item')
-    this._oPageItems = this._oPageWrapper.getElementsByClassName('page-item')
-    this._oNavWrapper.addEventListener('click', this.clickNav.bind(this), false)
+    this._oNavItems = this._oNavWrapper!.getElementsByClassName('nav-item')
+    this._oPageItems = this._oPageWrapper!.getElementsByClassName('page-item')
+    this._oNavWrapper!.addEventListener(
+      'click',
+      this.handleNavClick.bind(this),
+      false
+    )
   }
 
-  private clickNav(e: Event) {
+  private handleNavClick(e: Event) {
     const tar = e.target as HTMLElement
     if (tar.className === 'nav-item') {
       this._oNavItems![this._curIdx].className = 'nav-item'
