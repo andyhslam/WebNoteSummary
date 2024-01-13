@@ -1,3 +1,5 @@
+import './index.scss'
+
 interface IOptions {
   currentIndex?: number
   data: any[]
@@ -15,6 +17,8 @@ class PgTab {
   private _callback
   private _oNavWrapper: HTMLElement | null = null
   private _oPageWrapper: HTMLElement | null = null
+  private _oNavItems: HTMLCollection | null = null
+  private _oPageItems: HTMLCollection | null = null
 
   constructor(options: IOptions) {
     this._data = options.data
@@ -45,14 +49,14 @@ class PgTab {
       // _oNavWrapper可能为null，所以在后面加!来断言，确定其存在
       this._oNavWrapper!.innerHTML += `
         <div 
-        class="nav-item ${this._curIdx === index ? 'current' : ''}"
+        class="nav-item${this._curIdx === index ? ' current' : ''}"
         style="width: ${500 / this._data.length}px"
         >${item.navItem}</div>
       `
 
       this._oPageWrapper!.innerHTML += `
         <div 
-        class="page-item ${this._curIdx === index ? 'current' : ''}"
+        class="page-item${this._curIdx === index ? ' current' : ''}"
         >${item.pageItem}</div>
       `
     })
@@ -60,11 +64,28 @@ class PgTab {
     // 此时oTabWrapper还没有进入到真实节点，所以就没有更改dom树
     oTabWrapper.appendChild(this._oNavWrapper)
     oTabWrapper.appendChild(this._oPageWrapper)
-
+    this.bindEvent()
     return oTabWrapper
   }
-}
 
-// 在驱动里面做事件处理函数的绑定，并且返回新的index
+  // 在驱动里面做事件处理函数的绑定，并且返回新的index
+  private bindEvent() {
+    this._oNavItems = this._oNavWrapper.getElementsByClassName('nav-item')
+    this._oPageItems = this._oPageWrapper.getElementsByClassName('page-item')
+    this._oNavWrapper.addEventListener('click', this.clickNav.bind(this), false)
+  }
+
+  private clickNav(e: Event) {
+    const tar = e.target as HTMLElement
+    if (tar.className === 'nav-item') {
+      this._oNavItems![this._curIdx].className = 'nav-item'
+      this._oPageItems![this._curIdx].className = 'page-item'
+      this._curIdx = [].indexOf.call(this._oNavItems, tar as never)
+      this._oNavItems![this._curIdx].classList.add('current')
+      this._oPageItems![this._curIdx].classList.add('current')
+      this._callback && this._callback(this._curIdx)
+    }
+  }
+}
 
 export default PgTab

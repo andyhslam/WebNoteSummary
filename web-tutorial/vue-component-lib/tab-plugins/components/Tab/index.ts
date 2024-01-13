@@ -1,4 +1,6 @@
 import { PgTab } from '../../plugins'
+// 用户也可以自定义样式
+import './index.scss'
 
 interface IProps {
   curIdx?: number
