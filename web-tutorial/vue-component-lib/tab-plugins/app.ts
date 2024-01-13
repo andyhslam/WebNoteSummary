@@ -4,7 +4,7 @@ import { PgRender } from './plugins'
 function App(): HTMLElement[] {
   return [
     Tab({
-      curIndx: 3,
+      curIdx: 3,
     }),
   ]
 }
