@@ -21,7 +21,6 @@ class VideoBarrage {
     })
 
     this.barragePool = this.createBarragePool()
-    console.log(this.barragePool)
   }
 
   createBarragePool () {
