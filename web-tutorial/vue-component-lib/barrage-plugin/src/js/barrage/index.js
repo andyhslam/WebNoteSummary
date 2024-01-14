@@ -14,7 +14,7 @@ class VideoBarrage {
     this.barragePaused = true
 
     Object.assign(this, options, {
-      content: '白皇后',
+      content: '白王后',
       speed: 2,
       runTime: 0,
       color: '#fff'
@@ -25,7 +25,7 @@ class VideoBarrage {
   }
 
   createBarragePool () {
-    return this.barrageData.map(bg => new Barrage(bg, this))
+    return this.barrageData.map(bgd => new Barrage(bgd, this))
   }
 
   render () {
@@ -33,12 +33,28 @@ class VideoBarrage {
     this.clearRect()
     this.drawBarrage()
     // 因为requestAnimationFrame的回调函数render里面的this指向window，所以用bind来修正this的指向
-    !this.barragePaused && window.requestAnimationFrame(this.render.bind(this))
+    !this.barragePaused && requestAnimationFrame(this.render.bind(this))
   }
 
   // 清除画布
   clearRect () {
     this.canvasCtx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+  }
+
+  reset () {
+    this.clearRect()
+    let currentTime = this.video.currentTime
+
+    this.barragePool.forEach((bg) => {
+      bg.stopDrawing = false
+      if (currentTime <= bg.runTime) {
+        // 要重新初始化
+        bg.isInitialized = false
+      } else {
+        // 停止绘制
+        bg.stopDrawing = true
+      }
+    })
   }
 
   // 绘制弹幕
@@ -59,12 +75,16 @@ class VideoBarrage {
         bg.draw()
 
         // 左移的弹幕坐标在画板的外面时，停止绘制
-        if (bg.X <= this.canvas.width * -1) {
+        if (bg.X <= bg.width * -1) {
           // 添加停止绘制的标志
           bg.stopDrawing = true
         }
       }
     })
+  }
+
+  addBarrage (data) {
+    this.barragePool.push(new Barrage(data, this))
   }
 }
 

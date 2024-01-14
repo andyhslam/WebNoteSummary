@@ -52,6 +52,9 @@ const barrageData = [
     // 获取video和canvas的DOM对象
     const oBarrageVideo = doc.getElementById('J_barrageVideo')
     const oBarrageCanvas = doc.getElementById('J_barrageCanvas')
+    const oBarrageInput = doc.getElementsByClassName('barrage-input')[0]
+    const oBarrageBtn = doc.getElementsByClassName('barrage-btn')[0]
+    const oColorInput = doc.getElementsByClassName('color-input')[0]
 
     // 模块初始化函数
     const init = () => {
@@ -65,6 +68,8 @@ const barrageData = [
     function bindEvent () {
       oBarrageVideo.addEventListener('play', handleVideoPlay, false)
       oBarrageVideo.addEventListener('pause', handleVideoPause, false)
+      oBarrageVideo.addEventListener('seeked', handleVideoSeek, false)
+      oBarrageBtn.addEventListener('click', handleBarrageBtnClick, false)
     }
 
     function handleVideoPlay () {
@@ -75,6 +80,29 @@ const barrageData = [
 
     function handleVideoPause () {
       videoBarrage.barragePaused = true
+    }
+
+    // 操作播放进度条的函数
+    function handleVideoSeek () {
+      videoBarrage.reset()
+    }
+
+
+    function handleBarrageBtnClick () {
+      if (videoBarrage.barragePaused) return
+      const inputValue = oBarrageInput.value.trim()
+      if (!inputValue.length) return
+      const colorValue = oColorInput.value
+      const currentTime = oBarrageVideo.currentTime
+
+      const _data = {
+        content: inputValue,
+        color: colorValue,
+        runTime: currentTime
+      }
+
+      videoBarrage.addBarrage(_data)
+      oBarrageInput.value = ''
     }
 
     init()
