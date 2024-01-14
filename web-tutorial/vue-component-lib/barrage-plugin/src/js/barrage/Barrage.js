@@ -15,7 +15,6 @@ class Barrage {
     this.fontSize = 30
     this.width = getTextWidth(this.content, this.fontSize)
     getTextPosition(this.ctx.canvas, this.fontSize, this)
-    console.log(this)
   }
 
   draw () {

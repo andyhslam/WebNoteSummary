@@ -62,7 +62,20 @@ const barrageData = [
     }
 
     // 绑定事件处理函数的管理函数
-    function bindEvent () { }
+    function bindEvent () {
+      oBarrageVideo.addEventListener('play', handleVideoPlay, false)
+      oBarrageVideo.addEventListener('pause', handleVideoPause, false)
+    }
+
+    function handleVideoPlay () {
+      // 不能暂停了
+      videoBarrage.barragePaused = false
+      videoBarrage.render()
+    }
+
+    function handleVideoPause () {
+      videoBarrage.barragePaused = true
+    }
 
     init()
   })(document)
