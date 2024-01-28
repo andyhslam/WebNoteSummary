@@ -10,6 +10,6 @@
 - 这四种新的类型模块如下
 
 1. asset/resource：它会发送一个单独的文件并导出 URL
-2. asset/inline：它会导出一个资源的 Data URL
+2. asset/inline：它会导出一个资源的 Data URL；如果是图片，那就是 base64 的格式。
 3. asset/source：它会导出资源的源代码
-4. asset：它会在导出一个 Data URL 和发送一个单独的文件之间自动进行选择
+4. asset(通用资源类型)：它会在导出一个 Data URL(asset/inline)和发送一个单独的文件(asset/resource)之间自动进行选择。默认情况下，当资源文件大于 4k 的时候，就会采用 asset/resource 的方式，创建一个资源；如果小于 4k，就会采用 asset/inline 的方式，生成一个 base64 的链接。不过，还可以通过 dataUrlCondition 的 maxSize 属性来修改这个临界值。

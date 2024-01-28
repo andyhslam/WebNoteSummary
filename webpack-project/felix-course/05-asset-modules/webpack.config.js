@@ -39,12 +39,22 @@ module.exports = {
       },
       {
         test: /\.svg$/,
-        // 导出的资源为Data URL base64的格式
+        // 导出的资源为Data URL；如果是图片，那就是base64的格式。
         type: 'asset/inline',
       },
       {
         test: /\.txt$/,
         type: 'asset/source',
+      },
+      {
+        test: /\.jpg$/,
+        type: 'asset',
+        parser: {
+          dataUrlCondition: {
+            // 当jpg格式的图片大于4M时，生成一个资源文件(asset/resource)；否则，生成一个base64的格式(asset/inline)。
+            maxSize: 4 * 1024 * 1024
+          }
+        }
       }
     ]
   }

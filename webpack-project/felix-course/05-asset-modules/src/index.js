@@ -3,6 +3,7 @@ import helloWorld from "./hello-world"
 import imgSrc from './assets/img-1.png'
 import logoSvg from './assets/webpack-logo.svg'
 import exampleTxt from './assets/example.txt'
+import jpgMap from './assets/qianfeng-sem.jpg'
 
 helloWorld()
 
@@ -22,3 +23,9 @@ const block = document.createElement('div')
 block.style.cssText = 'width: 200px; height: 200px; background-color: aliceblue;'
 block.textContent = exampleTxt
 document.body.appendChild(block)
+
+console.log('jpgMap', jpgMap)
+const img3 = document.createElement('img')
+img3.style.cssText = 'width: 600px; height: 240px; display: block;'
+img3.src = jpgMap
+document.body.appendChild(img3)
