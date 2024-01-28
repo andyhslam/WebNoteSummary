@@ -41,6 +41,10 @@ module.exports = {
         test: /\.svg$/,
         // 导出的资源为Data URL base64的格式
         type: 'asset/inline',
+      },
+      {
+        test: /\.txt$/,
+        type: 'asset/source',
       }
     ]
   }
