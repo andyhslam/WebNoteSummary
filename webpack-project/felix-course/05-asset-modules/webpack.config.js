@@ -36,6 +36,11 @@ module.exports = {
         generator: {
           filename: 'images/[contenthash][ext]'
         }
+      },
+      {
+        test: /\.svg$/,
+        // 导出的资源为Data URL base64的格式
+        type: 'asset/inline',
       }
     ]
   }
