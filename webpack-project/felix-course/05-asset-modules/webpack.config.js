@@ -40,6 +40,7 @@ module.exports = {
       {
         test: /\.svg$/,
         // 导出的资源为Data URL；如果是图片，那就是base64的格式。
+        // 这里是把一个svg转成一个base64的字符串；可以在业务代码直接引用这个字符串。
         type: 'asset/inline',
       },
       {
