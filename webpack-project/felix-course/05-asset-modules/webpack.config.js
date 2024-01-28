@@ -8,7 +8,10 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, './dist'),
-    clean: true
+    clean: true,
+    // 设置文件的名称和路径的第一种方法：
+    // [contenthash]表示根据文件的内容来生成一个哈希的字符串，[ext]表示使用原资源的扩展名。
+    assetModuleFilename: 'images/[contenthash][ext]'
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -27,7 +30,12 @@ module.exports = {
     rules: [
       {
         test: /\.png$/,
-        type: 'asset/resource'
+        type: 'asset/resource',
+        // 设置文件的名称和路径的第二种方法：
+        // generator的优先级要高于在output配置的资源路径和文件名的优先级
+        generator: {
+          filename: 'images/[contenthash][ext]'
+        }
       }
     ]
   }
