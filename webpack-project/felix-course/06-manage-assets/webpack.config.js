@@ -1,8 +1,10 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   devtool: 'inline-source-map',
   entry: './src/index.js',
   output: {
@@ -18,7 +20,10 @@ module.exports = {
       template: './index.html',
       filename: 'app.html',
       inject: 'body'
-    })
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'styles/[contenthash].css'
+    }),
   ],
   // 其实webpack-dev-server并没有输出任何物理文件，它把输出的打包以后的bundle文件放到内存里；
   // 即使删掉dist文件夹，也能正常访问浏览器。
@@ -58,13 +63,16 @@ module.exports = {
         }
       },
       {
-        // 当碰到通过require或者是import去解析一个.txt文件的时候，在对这个文件进行打包之前，先使用raw-loader转化。
-        test: /\.(css|less)$/,
-        // 从后往前加载：先用less-loader解析css文件，然后把这个解析好的文件交给css-loader，接着css-loader再把结果通过style-loader放置到页面的head标签里。
-        use: ['style-loader', 'css-loader', 'less-loader'],
         // webpack支持loader的链式调用，链式的每个loader都可以对我们的源进行转换，而且转换是逆序的；
-        // 第一个loader会将结果或者是转换以后的源传递给下一个loader(即style-loader)，最后webpack希望style-loader会返回一个js.
+        test: /\.(css|less)$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader'],
       },
+    ]
+  },
+  // 优化的配置
+  optimization: {
+    minimizer: [
+      new CssMinimizerPlugin()
     ]
   }
 }
