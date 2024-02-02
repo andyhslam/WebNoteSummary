@@ -71,6 +71,7 @@ module.exports = {
   },
   // 优化的配置
   optimization: {
+    // 压缩代码
     minimizer: [
       new CssMinimizerPlugin()
     ]
