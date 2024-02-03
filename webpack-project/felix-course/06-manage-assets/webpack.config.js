@@ -24,6 +24,7 @@ module.exports = {
       filename: 'app.html',
       inject: 'body'
     }),
+    // 通过此插件和相应的loader去抽离css文件
     new MiniCssExtractPlugin({
       filename: 'styles/[contenthash].css'
     }),
@@ -113,6 +114,7 @@ module.exports = {
   optimization: {
     // 压缩代码
     minimizer: [
+      // 通过此插件压缩css文件
       new CssMinimizerPlugin()
     ]
   }
