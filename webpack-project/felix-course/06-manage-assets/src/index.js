@@ -34,3 +34,9 @@ img3.src = jpgMap
 document.body.appendChild(img3)
 
 document.body.classList.add('hello')
+
+const span = document.createElement('span')
+span.classList.add('icon')
+// 字体文件像文本一样，去加载一个文本的代码；通过设置innerHTML的值为下载字体时，提供的字体代码&#xe668;
+span.innerHTML = '&#xe668;'
+document.body.appendChild(span)

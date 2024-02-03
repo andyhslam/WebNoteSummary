@@ -67,6 +67,11 @@ module.exports = {
         test: /\.(css|less)$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader'],
       },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        // 这个类型可以加载任何类型的资源
+        type: 'asset/resource',
+      },
     ]
   },
   // 优化的配置
