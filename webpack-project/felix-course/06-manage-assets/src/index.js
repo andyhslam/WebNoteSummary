@@ -6,6 +6,8 @@ import exampleTxt from './assets/example.txt'
 import jpgMap from './assets/qianfeng-sem.jpg'
 import './style.css'
 import './style.less'
+import Data from './assets/data.xml'
+import Notes from './assets/data.csv'
 
 helloWorld()
 
@@ -40,3 +42,9 @@ span.classList.add('icon')
 // 字体文件像文本一样，去加载一个文本的代码；通过设置innerHTML的值为下载字体时，提供的字体代码&#xe668;
 span.innerHTML = '&#xe668;'
 document.body.appendChild(span)
+
+
+console.log('Data', Data)
+console.log('Notes', Notes)
+
+

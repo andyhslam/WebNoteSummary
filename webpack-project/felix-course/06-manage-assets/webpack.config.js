@@ -72,6 +72,17 @@ module.exports = {
         // 这个类型可以加载任何类型的资源
         type: 'asset/resource',
       },
+      {
+        // csv是用逗号来分隔数据，tsv是用type来分隔数据。
+        test: /\.(csv|tsv)$/,
+        // csv或tsv类型的文件数据会转化成一个数组
+        use: 'csv-loader',
+      },
+      {
+        test: /\.xml$/,
+        // xml类型的文件数据会转化成一个js对象
+        use: 'xml-loader',
+      },
     ]
   },
   // 优化的配置
