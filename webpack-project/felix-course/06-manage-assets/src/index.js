@@ -8,6 +8,9 @@ import './style.css'
 import './style.less'
 import Data from './assets/data.xml'
 import Notes from './assets/data.csv'
+import toml from './assets/data.toml'
+import yaml from './assets/data.yaml'
+import json5 from './assets/data.json5'
 
 helloWorld()
 
@@ -43,8 +46,11 @@ span.classList.add('icon')
 span.innerHTML = '&#xe668;'
 document.body.appendChild(span)
 
-
 console.log('Data', Data)
 console.log('Notes', Notes)
+
+console.log('toml', toml.title, toml.owner.name)
+console.log('yaml', yaml.title, yaml.owner.name)
+console.log('json5', json5.title, json5.owner.name)
 
 

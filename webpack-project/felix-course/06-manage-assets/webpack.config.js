@@ -2,6 +2,9 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
+const toml = require('toml')
+const yaml = require('yaml')
+const json5 = require('json5')
 
 module.exports = {
   mode: 'development',
@@ -82,6 +85,27 @@ module.exports = {
         test: /\.xml$/,
         // xml类型的文件数据会转化成一个js对象
         use: 'xml-loader',
+      },
+      {
+        test: /\.toml$/,
+        type: 'json',
+        parser: {
+          parse: toml.parse
+        },
+      },
+      {
+        test: /\.yaml$/,
+        type: 'json',
+        parser: {
+          parse: yaml.parse
+        },
+      },
+      {
+        test: /\.json5$/,
+        type: 'json',
+        parser: {
+          parse: json5.parse
+        },
       },
     ]
   },
