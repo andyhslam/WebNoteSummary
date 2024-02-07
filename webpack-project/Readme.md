@@ -47,3 +47,7 @@
 1. babel-loader 是在 webpack 里面应用 babel 解释 ES6 的一个桥梁。
 2. @babel/core 是 babel 的核心代码。
 3. @babel/preset-env 是 babel 的预设，一组 babel 插件的集合。
+
+## webpack 的内置插件
+
+- split-chunks-plugin：可以把模块依赖的一些公共文件抽离成单独的 chunk

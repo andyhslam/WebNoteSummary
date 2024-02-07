@@ -10,6 +10,18 @@ module.exports = {
   mode: 'development',
   devtool: 'inline-source-map',
   entry: {
+    // dependOn选项可以定义一些共享的文件，这样可以在多个chunk之间共享模块
+    // index: {
+    //   import: './src/index.js',
+    //   dependOn: 'shared',
+    // },
+    // another: {
+    //   import: './src/another-module.js',
+    //   dependOn: 'shared',
+    // },
+    // 把一些公共文件抽离成单独的chunk：当不同的模块里面都有lodash模块的时候，就会把lodash抽离出来，并且把它取名为叫shared这样的一个chunk
+    // shared: 'lodash',
+
     index: './src/index.js',
     another: './src/another-module.js',
   },
@@ -26,6 +38,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './index.html',
       filename: 'app.html',
+      // 将打包好的文件注入到body元素中
       inject: 'body'
     }),
     // 通过此插件和相应的loader去抽离css文件
@@ -130,6 +143,11 @@ module.exports = {
     minimizer: [
       // 通过此插件压缩css文件
       new CssMinimizerPlugin()
-    ]
+    ],
+    // 这里使用webpack的内置插件(split-chunks-plugin)实现代码的分割
+    splitChunks: {
+      // 把公共的代码抽离到一个单独的文件
+      chunks: 'all'
+    }
   }
 }
