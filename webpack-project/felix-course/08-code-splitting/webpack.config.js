@@ -19,7 +19,7 @@ module.exports = {
     //   import: './src/another-module.js',
     //   dependOn: 'shared',
     // },
-    // 把一些公共文件抽离成单独的chunk：当不同的模块里面都有lodash模块的时候，就会把lodash抽离出来，并且把它取名为叫shared这样的一个chunk
+    // 把一些公共文件抽离成单独的chunk：当不同的模块里面都有lodash模块的时候，就会把lodash抽离出来，并且把它取名为shared这样的一个chunk
     // shared: 'lodash',
 
     index: './src/index.js',

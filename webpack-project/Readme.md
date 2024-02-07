@@ -51,3 +51,4 @@
 ## webpack 的内置插件
 
 - split-chunks-plugin：可以把模块依赖的一些公共文件抽离成单独的 chunk
+- 静态导入和动态导入都可以把依赖的公共模块抽离成单独的 chunk
