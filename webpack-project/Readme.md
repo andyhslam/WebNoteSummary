@@ -43,3 +43,7 @@
 - yaml 文件通过缩进来完成子项的设置；
 - toml 文件通过一个中括号的方式来定义子项；
 - json5 文件是对 json 格式的一个升级：可以加注释，key 不需要使用双引号，值可以使用单引号，还可以使用类似于\n\r 的一些转义字符。
+
+1. babel-loader 是在 webpack 里面应用 babel 解释 ES6 的一个桥梁。
+2. @babel/core 是 babel 的核心代码。
+3. @babel/preset-env 是 babel 的预设，一组 babel 插件的集合。
