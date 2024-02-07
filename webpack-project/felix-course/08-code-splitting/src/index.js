@@ -57,4 +57,15 @@ console.log('json5', json5.title, json5.owner.name)
 
 console.log(join(['index', 'module', 'loaded!'], ' '))
 
+const button = document.createElement('button')
+button.textContent = '点击执行加法运算'
+// DOM二级事件
+button.addEventListener('click', () => {
+  // 魔法注释
+  import(/* webpackChunkName: 'math', webpackPrefetch: true */'./math.js').then(({ add }) => {
+    console.log(add(4, 5))
+  })
+})
+document.body.appendChild(button)
+
 
