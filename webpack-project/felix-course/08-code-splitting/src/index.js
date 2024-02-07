@@ -12,6 +12,7 @@ import toml from './assets/data.toml'
 import yaml from './assets/data.yaml'
 import json5 from './assets/data.json5'
 import { join } from 'lodash'
+import './async-module.js'
 
 helloWorld()
 

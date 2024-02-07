@@ -144,10 +144,9 @@ module.exports = {
       // 通过此插件压缩css文件
       new CssMinimizerPlugin()
     ],
-    // 这里使用webpack的内置插件(split-chunks-plugin)实现代码的分割
+    // 这里使用webpack的内置插件(split-chunks-plugin)实现代码的分割，把公共的代码抽离到一个单独的文件。
     splitChunks: {
-      // 把公共的代码抽离到一个单独的文件
       chunks: 'all'
-    }
+    },
   }
 }
