@@ -134,7 +134,14 @@ module.exports = {
     ],
     // 这里使用webpack的内置插件(split-chunks-plugin)实现代码的分割，把公共的代码抽离到一个单独的文件。
     splitChunks: {
-      chunks: 'all'
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          // 设置打包后的第三方库的文件名为vendors
+          name: 'vendors',
+          chunks: 'all',
+        }
+      }
     },
   }
 }
