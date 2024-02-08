@@ -16,7 +16,7 @@ module.exports = {
   output: {
     // [name]这种格式称之为substitution(可替换的模板字符串)，可以拿到entry入口的属性名，来作为每个chunk的名字。
     // [contenthash]表示根据文件的内容来生成一个哈希的字符串，从而文件名会随着文件内容的变化而变化。
-    filename: '[name].[contenthash].js',
+    filename: 'scripts/[name].[contenthash].js',
     path: path.resolve(__dirname, './dist'),
     clean: true,
     // 设置文件的名称和路径的第一种方法：[ext]表示使用原资源的扩展名。
