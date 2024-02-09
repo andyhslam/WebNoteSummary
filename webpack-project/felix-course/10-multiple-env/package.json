@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack serve -c ./config/webpack.config.dev.js --open",
-    "build": "webpack -c ./config/webpack.config.prod.js"
+    "start": "webpack serve -c ./config/webpack.config.js --env development --open",
+    "build": "webpack -c ./config/webpack.config.js --env production"
   },
   "keywords": [],
   "author": "",

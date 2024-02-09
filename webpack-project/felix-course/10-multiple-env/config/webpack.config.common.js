@@ -1,9 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
-// webpack5已经内置这个插件，可以不用单独安装。
-const TerserPlugin = require('terser-webpack-plugin')
 
 const toml = require('toml')
 const yaml = require('yaml')
