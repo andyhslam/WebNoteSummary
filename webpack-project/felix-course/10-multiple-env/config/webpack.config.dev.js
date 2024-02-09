@@ -1,4 +1,3 @@
-
 module.exports = {
   mode: 'development',
   // 用于在开发环境来调试代码
