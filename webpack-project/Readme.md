@@ -88,3 +88,13 @@
 1. 在入口起点，通过配置多个入口实现代码的分离。
 2. 也是在入口起点里面配置，不过它可以把一些共享的代码单独抽离成一个 bundle，从而防止代码的重复打包。
 3. 动态导入
+
+## 7 种 SourceMap 模式
+
+1. eval：每个 module 会封装到 eval 里包裹起来执行，并且会在 bundle 文件的末尾追加注释//# sourceURL，虽然没有生成 SourceMap 文件，但是 bundle 文件也能够锁定代码行数。
+2. source-map：会在 bundle 文件的末尾追加注释，生成一个 SourceMap 文件，这个文件会和 bundle 文件做关联，因此能够锁定代码行数。
+3. hidden-source-map：不会在 bundle 文件的末尾追加注释，生成一个 SourceMap 文件，但是这个文件不会和 bundle 文件做关联，因此不能锁定代码行数。
+4. inline-source-map：不会生成 SourceMap 文件，会在 bundle 文件的末尾追加一个 DataUrl 形式的注释，bundle 文件也能够锁定代码行数。
+5. eval-source-map：每个 module 会通过 eval()来执行，不会生成 SourceMap 文件，只生成一个 DataUrl 形式的 SourceMap 放在 bundle 末尾，bundle 文件也能够锁定代码行数。
+6. cheap-source-map：生成一个没有列信息（column-mappings）的 SourceMaps 文件，不包含 loader 的 sourcemap（譬如 babel 的 sourcemap）
+7. cheap-module-source-map：生成一个没有列信息（column-mappings）的 SourceMaps 文件，同时 loader 的 sourcemap 也被简化为只包含对应行的。开发环境推荐使用这个选项。
