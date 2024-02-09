@@ -1,3 +1,5 @@
+// 注：这个配置文件已经用不着了，将由config文件夹里面的配置文件代替。
+
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
