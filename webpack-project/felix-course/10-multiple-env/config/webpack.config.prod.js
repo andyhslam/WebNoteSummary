@@ -142,5 +142,10 @@ module.exports = {
         }
       }
     },
+  },
+  // 只有生成环境才有的这个性能提示
+  performance: {
+    // 去掉性能提示
+    hints: false
   }
 }
