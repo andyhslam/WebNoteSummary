@@ -74,7 +74,7 @@ module.exports = (env) => {
           type: 'asset',
           parser: {
             dataUrlCondition: {
-              // 当jpg格式的图片大于4M时，生成一个资源文件(asset/resource)；否则，生成一个base64的格式(asset/inline)。
+              // 当jpg格式的图片大于4M时，生成一个资源文件(asset/resource)；否则生成一个base64格式的dataUrl(asset/inline)。
               maxSize: 4 * 1024 * 1024
             }
           }

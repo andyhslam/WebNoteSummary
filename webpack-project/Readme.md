@@ -23,11 +23,11 @@
 {
   // webpack支持loader的链式调用，链式的每个loader都可以对我们的源进行转换，而且转换是逆序的；
   test: /\.(css|less)$/,
-  // 从后往前加载：先用less-loader解析css文件，然后把这个解析好的文件交给css-loader，接着css-loader再把结果通过style-loader放置到页面的head标签里。
+  // 从后往前加载：先用less-loader解析less文件，然后把这个解析好的文件交给css-loader，接着css-loader再把结果通过style-loader放置到页面的head标签里。
   use: ['style-loader', 'css-loader', 'less-loader'],
 },
 {
-  test: /\.(css|less)$/,
+  test: /\.css$/,
   // 第一个loader会将结果或者是转换以后的源传递给下一个loader(即style-loader)，最后webpack希望style-loader会返回一个js.
   use: ['style-loader', 'css-loader'],
 },
