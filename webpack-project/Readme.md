@@ -98,3 +98,5 @@
 5. eval-source-map：每个 module 会通过 eval()来执行，不会生成 SourceMap 文件，只生成一个 DataUrl 形式的 SourceMap 放在 bundle 末尾，bundle 文件也能够锁定代码行数。
 6. cheap-source-map：生成一个没有列信息（column-mappings）的 SourceMaps 文件，不包含 loader 的 sourcemap（譬如 babel 的 sourcemap）
 7. cheap-module-source-map：生成一个没有列信息（column-mappings）的 SourceMaps 文件，同时 loader 的 sourcemap 也被简化为只包含对应行的。开发环境推荐使用这个选项。
+
+### git config core.hooksPath .githooks  执行git的配置，会自动读取pre-commit文件
