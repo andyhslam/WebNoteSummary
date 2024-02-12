@@ -102,7 +102,7 @@
 ## 三种配置 pre-commit 的方法
 
 1. 使用默认配置 .git/hooks/pre-commit
-2. 自定义配置，在项目根目录中建立一个文件 .githooks/pre-commit，再结合如下命令一起使用
+2. 自定义配置，在项目的根目录创建一个文件 .githooks/pre-commit，再结合如下命令一起使用
 
 - git config core.hooksPath .githooks
 - 执行 git 的配置，会自动读取 pre-commit 文件；然后在.git/config 文件里，会看到相应的配置 hooksPath = .githooks
