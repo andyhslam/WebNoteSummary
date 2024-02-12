@@ -111,3 +111,4 @@
 
 - 先安装插件 npm i husky -D
 - 初始化 npx husky init
+- chmod +x filename 给某个文件添加可执行的权限
