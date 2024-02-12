@@ -1,0 +1,2 @@
+echo husky-commit
+npx eslint ./src

@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "eslint": "eslint ./src"
+    "eslint": "eslint ./src",
+    "prepare": "husky"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +18,7 @@
     "eslint-plugin-import": "^2.29.1",
     "eslint-webpack-plugin": "^4.0.1",
     "html-webpack-plugin": "^5.6.0",
+    "husky": "^9.0.10",
     "webpack": "^5.90.1",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"
