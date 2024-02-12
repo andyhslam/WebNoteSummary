@@ -99,4 +99,15 @@
 6. cheap-source-map：生成一个没有列信息（column-mappings）的 SourceMaps 文件，不包含 loader 的 sourcemap（譬如 babel 的 sourcemap）
 7. cheap-module-source-map：生成一个没有列信息（column-mappings）的 SourceMaps 文件，同时 loader 的 sourcemap 也被简化为只包含对应行的。开发环境推荐使用这个选项。
 
-### git config core.hooksPath .githooks  执行git的配置，会自动读取pre-commit文件
+## 三种配置 pre-commit 的方法
+
+1. 使用默认配置 .git/hooks/pre-commit
+2. 自定义配置，在项目根目录中建立一个文件 .githooks/pre-commit，再结合如下命令一起使用
+
+- git config core.hooksPath .githooks
+- 执行 git 的配置，会自动读取 pre-commit 文件；然后在.git/config 文件里，会看到相应的配置 hooksPath = .githooks
+
+3. 利用第三方工具 husky（https://typicode.github.io/husky/get-started.html）
+
+- 先安装插件 npm i husky -D
+- 初始化 npx husky init
