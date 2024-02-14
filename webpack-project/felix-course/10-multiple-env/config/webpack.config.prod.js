@@ -1,6 +1,6 @@
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 // webpack5已经内置这个插件，可以不用单独安装。
-const TerserPlugin = require('terser-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   mode: 'production',
@@ -10,7 +10,7 @@ module.exports = {
     // [contenthash]将根据资源内容创建出唯一hash；当资源内容发生变化时，[contenthash]也会发生变化。
     filename: 'scripts/[name].[contenthash].js',
     // 通过它来指定应用程序中所有资源的基础路径
-    publicPath: 'http://localhost:8080/'
+    publicPath: 'http://localhost:8080/',
   },
   // 优化的配置
   optimization: {
@@ -21,9 +21,9 @@ module.exports = {
       new TerserPlugin(),
     ],
   },
-  // 只有生成环境才有的这个性能提示
+  // 只有生产环境才有的这个性能提示
   performance: {
     // 去掉性能提示
-    hints: false
-  }
-}
+    hints: false,
+  },
+};
