@@ -112,3 +112,10 @@
 - 先安装插件 npm i husky -D
 - 初始化 npx husky init
 - chmod +x filename 给某个文件添加可执行的权限
+
+## postcss
+
+- "browserslist": [
+  "> 1%", // 全球浏览器的使用率要大于 1%，即 postcss 插件要应用在全球使用率大于 1%的浏览器。
+  "last 2 versions" // 每个浏览器中最新的两个版本
+  ]
