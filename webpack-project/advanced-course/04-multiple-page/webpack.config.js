@@ -17,15 +17,17 @@ module.exports = {
       filename: 'chanel1/index.html',
       // 指定当前页面该打包入口的哪些chunk
       chunks: ['main', 'lodashModule'],
-      publicPath: 'http://www.a.com/',
+      // 访问路径变成 http://localhost:8080/chanel1/index.html
+      publicPath: 'http://localhost:8080/',
     }),
     new HtmlWebpackPlugin({
       template: './index2.html',
       inject: 'body',
       filename: 'chanel2/index2.html',
       chunks: ['main2', 'lodashModule'],
-      // 两个入口文件的前缀不一样
-      publicPath: 'http://www.b.com/',
+      // 添加入口文件的前缀
+      // 访问路径变成 http://localhost:8080/chanel2/index2.html
+      publicPath: 'http://localhost:8080/',
     }),
   ],
   entry: {
