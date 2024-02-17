@@ -8,4 +8,12 @@ module.exports = {
   optimization: {
     usedExports: true,
   },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
+  },
 };
