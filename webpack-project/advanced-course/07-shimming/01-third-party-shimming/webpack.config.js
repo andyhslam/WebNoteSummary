@@ -18,4 +18,13 @@ module.exports = {
       join: ['lodash', 'join'],
     }),
   ],
+  module: {
+    rules: [
+      {
+        test: require.resolve('./src/index.js'),
+        // 包里面的this指向window
+        use: 'imports-loader?wrapper=window',
+      },
+    ],
+  },
 };
