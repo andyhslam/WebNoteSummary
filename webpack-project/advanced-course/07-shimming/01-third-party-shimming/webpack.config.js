@@ -25,6 +25,12 @@ module.exports = {
         // 包里面的this指向window
         use: 'imports-loader?wrapper=window',
       },
+      {
+        // 先载入第三方模块globals.js，再使用exports-loader导出
+        test: require.resolve('./src/globals.js'),
+        // 指定模块导出的类型为commonjs，定义导出的变量，multiple表示可以导出map格式(其中helpers.parse表示value，parse表示key)的变量，|表示管道运算符
+        use: 'exports-loader?type=commonjs&exports=file,multiple|helpers.parse|parse',
+      },
     ],
   },
 };
