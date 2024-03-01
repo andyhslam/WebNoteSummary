@@ -63,8 +63,8 @@ button.textContent = '点击执行加法运算';
 button.addEventListener('click', () => {
   /** webpack魔法注释
    * webpackChunkName:'math'，告诉webpack打包生成的文件名为math 。
-   * webpackPrefetch:true，告诉webpack执行预获取。这会生成 <link rel="prefetch" href="math.js">
-   * 并追加到页面头部，指示着浏览器在闲置时间读取math.js文件。
+   * webpackPrefetch:true，告诉webpack执行预获取。这会生成 <link rel="prefetch" as="script" href="math.js">
+   * 并追加到页面头部，指示着浏览器在闲置时间读取math.js文件，要在浏览器端才看到这句代码。
    */
   import(
     /* webpackChunkName: 'math', webpackPrefetch: true */ './math.js'
