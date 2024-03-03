@@ -1,5 +1,9 @@
 import HomeList from './HomeList';
 
-const body = document.createElement('div');
-body.innerHTML = HomeList(5);
-document.body.appendChild(body);
+// 拼接的资源路径
+import('nav/Header').then((Header) => {
+  const body = document.createElement('div');
+  body.appendChild(Header.default());
+  document.body.appendChild(body);
+  document.body.innerHTML += HomeList(5);
+});
