@@ -10,4 +10,14 @@ export default defineConfig({
   },
   // 缓存的目标文件夹，把服务器端的文件缓存到.cache文件夹
   cacheDir: './.cache',
+  resolve: {
+    alias: {
+      '@styles': '/src/assets/styles',
+    },
+  },
+  css: {
+    modules: {
+      localsConvention: 'camelCase',
+    },
+  },
 });

@@ -1,0 +1,11 @@
+:root {
+  --main-bg-color: #ff0;
+}
+
+.title {
+  color: aqua;
+  background-color: var(--main-bg-color);
+  span {
+    color: #ddd;
+  }
+}

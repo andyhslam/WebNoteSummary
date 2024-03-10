@@ -1,0 +1,7 @@
+@import url('@styles/reset.css');
+
+.title {
+  span {
+    color: aqua;
+  }
+}
