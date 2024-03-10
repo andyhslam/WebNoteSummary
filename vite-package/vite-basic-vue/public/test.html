@@ -6,6 +6,17 @@
     <title>Document</title>
   </head>
   <body>
-    使用vite构建一个项目，可以直接在浏览器端的地址栏输入域名拼接上test.html来展示
+    <h1>public目录下面的资源，可以直接在页面上进行引用</h1>
+    <p>
+      使用vite构建一个项目，可以直接在浏览器端的地址栏输入域名拼接上test.html来展示
+    </p>
+    <p>
+      <span>何时可以使用到public目录呢？</span>
+      <br />
+      <span
+        >不会被js源码去引用的情况下，，比方说我们在这里放一个 favicon.ico
+        文件，放一个robots.txt文件，也就是可以给我们的爬虫使用的。另外呢我们还可以保存一些没有hash值的文件，也就是不需要进行hash转换的操作，也就是不需要缓存，或者是我们压根都不想引用这个资源，只是想得到一个URL，那我们就可以使用public目录下的资源</span
+      >
+    </p>
   </body>
 </html>
