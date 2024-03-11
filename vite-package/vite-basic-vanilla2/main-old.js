@@ -1,3 +1,4 @@
+import { text } from './json/data.json';
 // 纯JS环境下使用Web Worker
 // const worker = new Worker('./worker.js');
 
@@ -11,5 +12,4 @@ worker.onmessage = function (ev) {
   // console.log(ev.data);
 };
 
-import { text } from './json/data.json';
 console.log(text);
