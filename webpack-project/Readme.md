@@ -110,7 +110,7 @@
 3. 利用第三方工具 husky（https://typicode.github.io/husky/get-started.html）
 
 - 先安装插件 npm i husky -D
-- 初始化 npx husky init
+- 初始化 npx husky init（注：npx husky install 命令已废弃）
 - chmod +x filename 给某个文件添加可执行的权限
 
 ## postcss
