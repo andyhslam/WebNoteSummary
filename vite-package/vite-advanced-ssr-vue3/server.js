@@ -1,22 +1,24 @@
-const fs = require('fs');
-const path = require('path');
-const express = require('express');
-const { createServer: createViteServer } = require('vite');
-// import express from 'express';
-// import { createServer as createViteServer } from 'vite';
+import fs from 'fs';
+import path from 'path';
+import express from 'express';
+import { fileURLToPath } from 'url';
+import { createServer as createViteServer } from 'vite';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 async function createServer() {
   const app = express();
   const vite = await createViteServer({
-    server: {
-      middlewareMode: 'ssr',
-    },
+    server: { middlewareMode: true },
+    appType: 'custom',
   });
+
   app.use(vite.middlewares);
   app.use('*', async (req, res) => {
     const url = req.originalUrl;
+
     try {
-      let template = fs.readSync(
+      let template = fs.readFileSync(
         path.resolve(__dirname, './index.html'),
         'utf-8',
       );
@@ -26,12 +28,7 @@ async function createServer() {
       const appHtml = await render(url);
       const html = template.replace('<!--ssr-outlet-->', appHtml);
 
-      res
-        .status(200)
-        .set({
-          'content-type': 'text/html',
-        })
-        .end(html);
+      res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
     } catch (e) {
       vite.ssrFixStacktrace(e);
       console.error(e);
