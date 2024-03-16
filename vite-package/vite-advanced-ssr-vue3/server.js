@@ -66,7 +66,10 @@ async function createServer(isProd = process.env.NODE_ENV === 'production') {
       res.status(500).end(e.message);
     }
   });
-  app.listen(port);
+
+  app.listen(port, () => {
+    console.log(`Server started at http://localhost:${port}`);
+  });
 }
 
 createServer();
