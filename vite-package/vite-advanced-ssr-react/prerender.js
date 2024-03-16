@@ -8,11 +8,6 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // 产生一个物理的绝对路径
 const toAbsolute = (p) => path.resolve(__dirname, p);
 
-// const manifest = fs.readFileSync(
-//   toAbsolute('./dist/static/.vite/ssr-manifest.json'),
-//   'utf-8',
-// );
-
 const template = fs.readFileSync(
   toAbsolute('./dist/static/index.html'),
   'utf-8',
