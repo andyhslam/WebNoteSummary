@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
+import fs from 'fs';
 import path from 'path';
 import express from 'express';
-import fs from 'node:fs/promises';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -51,14 +51,14 @@ async function createServer(isProd = process.env.NODE_ENV === 'production') {
       if (!isProd) {
         template = fs.readFileSync(resolve('./index.html'), 'utf-8');
         template = await vite.transformIndexHtml(url, template);
-        render = (await vite.ssrLoadModule('/src/entry-server.js')).render;
+        render = (await vite.ssrLoadModule('/src/entry-server.jsx')).render;
       } else {
         template = indexProd;
         render = (await import('./dist/server/entry-server.js')).render;
       }
 
       const context = {};
-      const appHtml = render(url, context);
+      const appHtml = await render(url, context);
 
       if (context.url) {
         // 使用浏览器端的缓存内容：为了实现路由跳转时，不刷新页面的效果

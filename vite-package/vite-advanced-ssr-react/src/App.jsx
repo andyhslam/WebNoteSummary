@@ -1,6 +1,6 @@
 import { Link, Route, Switch } from 'react-router-dom';
 
-const pages = import.meta.globEager('./pages/*.jsx');
+const pages = import.meta.glob('./pages/*.jsx');
 const routes = Object.keys(pages).map((path) => {
   const name = path.match(/\.\/pages\/(.+)\.jsx$/)[1];
   return {

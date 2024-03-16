@@ -1,7 +1,7 @@
 // 生成静态页面的处理
 
+import fs from 'fs';
 import path from 'path';
-import fs from 'node:fs/promises';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
