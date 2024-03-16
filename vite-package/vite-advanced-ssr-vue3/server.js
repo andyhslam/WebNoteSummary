@@ -13,9 +13,9 @@ async function createServer(isProd = process.env.NODE_ENV === 'production') {
   const indexProd = isProd
     ? fs.readFileSync(resolve('./dist/client/index.html'), 'utf-8')
     : '';
-  // const ssrManifest = isProd
-  //   ? fs.readFileSync(resolve('./dist/client/.vite/ssr-manifest.json'), 'utf-8')
-  //   : undefined;
+  const ssrManifest = isProd
+    ? fs.readFileSync(resolve('./dist/client/ssr-manifest.json'), 'utf-8')
+    : {};
 
   const app = express();
 
@@ -57,7 +57,7 @@ async function createServer(isProd = process.env.NODE_ENV === 'production') {
         render = (await import('./dist/server/entry-server.js')).render;
       }
 
-      const appHtml = await render(url);
+      const appHtml = await render(url, ssrManifest);
       const html = template.replace('<!--ssr-outlet-->', appHtml);
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
     } catch (e) {
@@ -66,7 +66,7 @@ async function createServer(isProd = process.env.NODE_ENV === 'production') {
       res.status(500).end(e.message);
     }
   });
-  app.listen(3000);
+  app.listen(port);
 }
 
 createServer();
