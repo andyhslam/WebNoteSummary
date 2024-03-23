@@ -34,7 +34,9 @@ export default viteConfig;
 ```js
 /**
  * @param
- * @returns {string} 表示函数返回的类型
+ * @returns {string} 表示函数返回值的类型
  */
 function bar() {}
 ```
+
+## vite 编译是有生命周期的，读取环境变量是在读取配置文件之后。
