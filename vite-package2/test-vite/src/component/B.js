@@ -1,6 +1,6 @@
-import { footer } from '../style/B.module.css';
-console.log('footer', footer);
+import bmc from '../style/B.module.css';
+console.log('bmc', bmc);
 
 const div = document.createElement('div');
-div.className = footer;
+div.className = bmc.footer;
 document.body.appendChild(div);

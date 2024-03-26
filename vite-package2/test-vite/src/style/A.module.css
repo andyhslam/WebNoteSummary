@@ -1,5 +1,10 @@
 .footer {
   width: 100px;
   height: 200px;
-  background-color: #ff0;
+  background-color: #f40;
+}
+.footer-content {
+  width: 100px;
+  height: 200px;
+  background-color: beige;
 }
