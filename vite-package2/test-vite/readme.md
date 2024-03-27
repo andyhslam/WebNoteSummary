@@ -40,3 +40,7 @@ function bar() {}
 ```
 
 ## vite 编译是有生命周期的，读取环境变量是在读取配置文件之后。
+
+## less 编译器的执行命令
+
+`npx lessc ./index.module.less --math='always'`

@@ -6,5 +6,5 @@
 .footer-content {
   width: 100px;
   height: 200px;
-  background-color: beige;
+  background-color: var(--globalColor);
 }
