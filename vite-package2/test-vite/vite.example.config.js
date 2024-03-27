@@ -28,7 +28,20 @@ export default defineConfig({
       // 生成hash会根据类名 + 一些其他的字符串(文件名 + 它内部随机生成一个字符串)去进行生成, 如果你想要生成的hash更加独特一点, 就可以配置hashPrefix, 你配置的这个字符串会参与到最终的hash生成, （hash: 只要字符串有一个字不一样, 那么生成的hash就完全不一样, 但是只要字符串完全一样, 生成的hash就会一样）
       hashPrefix: 'rio',
       // 表示不参与到css模块化的路径
-      globalModulePaths: ['./src/style/B.module.css'],
+      globalModulePaths: [],
     },
+    preprocessorOptions: {
+      less: {
+        // 整个配置对象最终会给到less的执行参数(全局参数)中去
+        math: 'always',
+        // 全局变量
+        globalVars: {
+          mainColor: '#f00',
+        },
+      },
+      sass: {},
+    },
+    // 开启css的sourceMap(文件索引)
+    devSourcemap: true,
   },
 });

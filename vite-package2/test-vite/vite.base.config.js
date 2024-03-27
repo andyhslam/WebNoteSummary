@@ -30,5 +30,18 @@ export default defineConfig({
       // 表示不参与到css模块化的路径
       globalModulePaths: [],
     },
+    preprocessorOptions: {
+      less: {
+        // 整个配置对象最终会给到less的执行参数(全局参数)中去
+        math: 'always',
+        // 全局变量
+        globalVars: {
+          mainColor: '#f00',
+        },
+      },
+      sass: {},
+    },
+    // 开启css的sourceMap(文件索引)
+    devSourcemap: true,
   },
 });
