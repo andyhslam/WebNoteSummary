@@ -44,3 +44,7 @@ function bar() {}
 ## less 编译器的执行命令
 
 `npx lessc ./index.module.less --math='always'`
+
+## postcss 编译器的执行命令
+
+`npx postcss index.css -o result.css`
