@@ -1,11 +1,15 @@
 // @import url(./variables.less);
 
 .content {
+  width: 400px;
   .main {
     background-color: #edf;
     padding: (100px / 2);
     margin: 100px / 2;
     filter: blur(100px);
     background-color: @mainColor;
+    // vite内部有一个主流浏览器的支持表，postcss-preset-env做语法降级的编译工作。
+    width: clamp(100px, 30%, 200px);
+    user-select: none;
   }
 }
