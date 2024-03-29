@@ -1,7 +1,13 @@
 import { defineConfig } from 'vite';
 // const postcssPresetEnv = require('postcss-preset-env');
+import path from 'path';
 
 export default defineConfig({
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
   optimizeDeps: {
     exclude: [], // 将指定数组中的依赖不进行依赖预构建
   },
