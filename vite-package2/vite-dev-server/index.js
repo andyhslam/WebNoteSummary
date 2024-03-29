@@ -1,13 +1,14 @@
 const Koa = require('koa');
 const fs = require('fs');
 const path = require('path');
+const viteConfig = require('./vite.config.js');
+const aliasResolver = require('./src/aliasResolver.js');
+console.log('viteConfig', viteConfig);
 
 const app = new Koa();
 
 // 当请求来临以后会直接进入到use注册的回调函数中
 app.use(async (ctx) => {
-  console.log('ctx-request', ctx.request);
-  console.log('ctx-response', ctx.response);
   if (ctx.request.url === '/') {
     const indexContent = await fs.promises.readFile(
       path.resolve(__dirname, './index.html'),
@@ -15,12 +16,16 @@ app.use(async (ctx) => {
     ctx.response.body = indexContent;
     ctx.response.set('Content-Type', 'text/html');
   }
-  if (ctx.request.url === '/main.js') {
-    const mainContent = await fs.promises.readFile(
-      path.resolve(__dirname, './main.js'),
+  if (ctx.request.url.endsWith('.js')) {
+    const jsContent = await fs.promises.readFile(
+      path.resolve(__dirname, '.' + ctx.request.url),
     );
-    console.log('mainContent', mainContent.toString());
-    ctx.response.body = mainContent;
+    // 直接进行alias的替换
+    const lastResult = aliasResolver(
+      viteConfig.resolve.alias,
+      jsContent.toString(),
+    );
+    ctx.response.body = lastResult;
     ctx.response.set('Content-Type', 'text/javascript');
   }
   if (ctx.request.url === '/App.vue') {
@@ -32,13 +37,12 @@ app.use(async (ctx) => {
     const appVueContent = await fs.promises.readFile(
       path.resolve(__dirname, './App.vue'),
     );
-    console.log('appVueContent', appVueContent.toString());
     ctx.response.body = appVueContent;
     // 告知浏览器以js格式去解析vue文件
     ctx.response.set('Content-Type', 'text/javascript');
   }
 });
 
-app.listen(5173, () => {
-  console.log('vite dev serve listen on 5173');
+app.listen(5174, () => {
+  console.log('vite dev serve listen on 5174');
 });
