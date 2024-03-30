@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import MyViteAliases from './plugins/ViteAliases.js';
+import MyCreateHtmlPlugin from './plugins/CreateHtmlPlugin.js';
 
 export default defineConfig({
   optimizeDeps: {
@@ -58,11 +59,20 @@ export default defineConfig({
     // 默认值就是4kb，图片资源如果小于4kb，就会转换成base64格式，否则就会转换成静态资源文件。
     assetsInlineLimit: 4096,
     // 配置输出目录
-    outDir: 'public',
+    outDir: 'dist',
     // 配置输出目录中的静态资源目录
     assetsDir: 'static',
     // 清除输出目录中的所有文件
     emptyOutDir: true,
   },
-  plugins: [MyViteAliases()],
+  plugins: [
+    MyViteAliases(),
+    MyCreateHtmlPlugin({
+      inject: {
+        data: {
+          title: '主页123',
+        },
+      },
+    }),
+  ],
 });

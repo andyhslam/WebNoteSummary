@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 const postcssPresetEnv = require('postcss-preset-env');
 import { ViteAliases } from 'vite-aliases';
+import { createHtmlPlugin } from 'vite-plugin-html';
 import path from 'path';
 
 export default defineConfig({
@@ -70,11 +71,20 @@ export default defineConfig({
     // 清除输出目录中的所有文件
     emptyOutDir: true,
   },
-  plugins: [ViteAliases()],
   // 这个配置也可以由ViteAliases插件生成
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
     },
   },
+  plugins: [
+    ViteAliases(),
+    createHtmlPlugin({
+      inject: {
+        data: {
+          title: '主页',
+        },
+      },
+    }),
+  ],
 });

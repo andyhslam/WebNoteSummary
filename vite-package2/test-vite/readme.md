@@ -10,6 +10,8 @@
 
 ## 关于如何编写 vite 插件：https://vitejs.dev/guide/api-plugin.html#vite-specific-hooks
 
+## ejs 语法：https://ejs.bootcss.com/
+
 ## 处理 vite 配置文件的语法提示：手动注释，让 vscode 编辑器知道当前的类型是什么。
 
 ### 第一种方式：
