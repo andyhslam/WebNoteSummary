@@ -4,6 +4,10 @@ https://blog.csdn.net/weixin_50887064/article/details/134542514?spm=1001.2014.30
 
 https://www.zhixi.com/view/8c49b48c
 
+## vite 插件：https://cn.vitejs.dev/plugins/
+
+## vite-aliases 插件：https://github.com/subwaytime/vite-aliases
+
 ## 处理 vite 配置文件的语法提示：手动注释，让 vscode 编辑器知道当前的类型是什么。
 
 ### 第一种方式：
