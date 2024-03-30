@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite';
-// const postcssPresetEnv = require('postcss-preset-env');
-import { ViteAliases } from 'vite-aliases';
+import MyViteAliases from './plugins/ViteAliases.js';
 
 export default defineConfig({
   optimizeDeps: {
@@ -45,9 +44,6 @@ export default defineConfig({
     },
     // 开启css的sourceMap(文件索引)
     devSourcemap: true,
-    // postcss: {
-    //   plugins: [postcssPresetEnv()],
-    // },
   },
   // 构建生产包的配置策略
   build: {
@@ -68,5 +64,5 @@ export default defineConfig({
     // 清除输出目录中的所有文件
     emptyOutDir: true,
   },
-  plugins: [ViteAliases()],
+  plugins: [MyViteAliases()],
 });

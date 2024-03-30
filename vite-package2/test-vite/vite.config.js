@@ -16,8 +16,12 @@ const envResolver = {
 };
 
 export default defineConfig(({ command, mode }) => {
-  // command是build还是serve，取决于输入的命令
-  console.log('command', command);
+  /**
+   * command是build还是serve，取决于输入的命令：
+   * 输入yarn dev，command是serve，mode是development；
+   * 输入yarn build，command是build，mode是production；
+   * process.cwd()表示当前node执行命令的所在目录。
+   */
   console.log('process', process.cwd());
   // 当前env文件所在的目录
   const env = loadEnv(mode, process.cwd(), '');

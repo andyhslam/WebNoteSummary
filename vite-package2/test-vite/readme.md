@@ -1,12 +1,14 @@
-https://github.com/passerecho/vite-
+## 课件资料
 
-https://blog.csdn.net/weixin_50887064/article/details/134542514?spm=1001.2014.3001.5502
-
-https://www.zhixi.com/view/8c49b48c
+- https://github.com/passerecho/vite-
+- https://blog.csdn.net/weixin_50887064/article/details/134542514?spm=1001.2014.3001.5502
+- https://www.zhixi.com/view/8c49b48c
 
 ## vite 插件：https://cn.vitejs.dev/plugins/
 
 ## vite-aliases 插件：https://github.com/subwaytime/vite-aliases
+
+## 关于如何编写 vite 插件：https://vitejs.dev/guide/api-plugin.html#vite-specific-hooks
 
 ## 处理 vite 配置文件的语法提示：手动注释，让 vscode 编辑器知道当前的类型是什么。
 

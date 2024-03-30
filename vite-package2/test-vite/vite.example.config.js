@@ -1,13 +1,9 @@
 import { defineConfig } from 'vite';
-// const postcssPresetEnv = require('postcss-preset-env');
+const postcssPresetEnv = require('postcss-preset-env');
+import { ViteAliases } from 'vite-aliases';
 import path from 'path';
 
 export default defineConfig({
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-    },
-  },
   optimizeDeps: {
     exclude: [], // 将指定数组中的依赖不进行依赖预构建
   },
@@ -50,6 +46,7 @@ export default defineConfig({
     },
     // 开启css的sourceMap(文件索引)
     devSourcemap: true,
+    // 在vite配置文件的优先级要高于postcss.config.js
     postcss: {
       plugins: [postcssPresetEnv()],
     },
@@ -72,5 +69,12 @@ export default defineConfig({
     assetsDir: 'static',
     // 清除输出目录中的所有文件
     emptyOutDir: true,
+  },
+  plugins: [ViteAliases()],
+  // 这个配置也可以由ViteAliases插件生成
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
   },
 });

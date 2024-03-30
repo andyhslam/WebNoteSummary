@@ -3,8 +3,8 @@
 // import '@/style/variable.css';
 // import '@/style/index.css';
 // import '@/style/index.less';
-// import '@/component/A.js';
-// import '@/component/B.js';
+// import '@/components/A.js';
+// import '@/components/B.js';
 
 // console.log('count', count);
 
