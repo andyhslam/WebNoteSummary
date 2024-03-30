@@ -8,7 +8,7 @@
 
 // console.log('count', count);
 
-// import '@/views/imageLoader.js';
+import '@/views/imageLoader.js';
 import '@/views/svgLoader.js';
 import { age } from '@/assets/json/index.json';
 

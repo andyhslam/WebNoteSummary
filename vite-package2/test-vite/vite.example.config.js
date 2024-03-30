@@ -54,4 +54,21 @@ export default defineConfig({
       plugins: [postcssPresetEnv()],
     },
   },
+  // 构建生产包的配置策略
+  build: {
+    // 配置rollup的构建策略
+    rollupOptions: {
+      output: {
+        // [hash]: A hash based on the name and content of the asset.
+        // hash是基于文件名和文件内容进行组合计算得来的结果。
+        assetFileNames: '[hash].[name].[ext]',
+      },
+    },
+    // 默认值就是4kb，图片资源如果小于4kb，就会转换成base64格式，否则就会转换成静态资源文件。
+    assetsInlineLimit: 4096,
+    // 配置输出目录
+    outDir: 'public',
+    // 配置输出目录中的静态资源目录
+    assetsDir: 'static',
+  },
 });

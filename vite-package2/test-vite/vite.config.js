@@ -21,6 +21,6 @@ export default defineConfig(({ command, mode }) => {
   console.log('process', process.cwd());
   // 当前env文件所在的目录
   const env = loadEnv(mode, process.cwd(), '');
-  console.log('env', env);
+  // console.log('env', env);
   return envResolver[command]();
 });
