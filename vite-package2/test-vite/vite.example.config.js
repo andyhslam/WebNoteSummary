@@ -70,5 +70,7 @@ export default defineConfig({
     outDir: 'public',
     // 配置输出目录中的静态资源目录
     assetsDir: 'static',
+    // 清除输出目录中的所有文件
+    emptyOutDir: true,
   },
 });

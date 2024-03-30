@@ -1,13 +1,8 @@
 import { defineConfig } from 'vite';
 // const postcssPresetEnv = require('postcss-preset-env');
-import path from 'path';
+import { ViteAliases } from 'vite-aliases';
 
 export default defineConfig({
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-    },
-  },
   optimizeDeps: {
     exclude: [], // 将指定数组中的依赖不进行依赖预构建
   },
@@ -70,5 +65,8 @@ export default defineConfig({
     outDir: 'public',
     // 配置输出目录中的静态资源目录
     assetsDir: 'static',
+    // 清除输出目录中的所有文件
+    emptyOutDir: true,
   },
+  plugins: [ViteAliases()],
 });
