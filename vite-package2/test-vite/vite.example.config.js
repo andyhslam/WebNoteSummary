@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 const postcssPresetEnv = require('postcss-preset-env');
 import { ViteAliases } from 'vite-aliases';
 import { createHtmlPlugin } from 'vite-plugin-html';
+import { viteMockServe } from 'vite-plugin-mock';
 import path from 'path';
 
 export default defineConfig({
@@ -86,5 +87,6 @@ export default defineConfig({
         },
       },
     }),
+    viteMockServe(),
   ],
 });

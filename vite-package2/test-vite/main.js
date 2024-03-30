@@ -14,6 +14,8 @@ import { age } from '@/assets/json/index.json';
 
 // tree shaking(摇树优化)：打包工具会自动移除没有用到的变量或者方法
 console.log('jsonFile', age);
+
+// 不写域名，会自动补全本地域名，所以会把请求发送到本地的vite开发服务器。
 fetch('/api/users', { method: 'post' })
   .then((rsp) => rsp.json())
   .then((rsp) => {

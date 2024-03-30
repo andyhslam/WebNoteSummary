@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
-import { viteMockServe } from 'vite-plugin-mock';
 import MyViteAliases from './plugins/ViteAliases.js';
 import MyCreateHtmlPlugin from './plugins/CreateHtmlPlugin.js';
+import VitePluginMock from './plugins/VitePluginMock.js';
 
 export default defineConfig({
   optimizeDeps: {
@@ -75,6 +75,6 @@ export default defineConfig({
         },
       },
     }),
-    viteMockServe(),
+    VitePluginMock(),
   ],
 });
