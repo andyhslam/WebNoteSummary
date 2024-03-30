@@ -24,7 +24,10 @@ module.exports = [
       return {
         code: 200,
         msg: 'success',
-        data: userList,
+        data: {
+          list: userList.list,
+          count: userList.list.length,
+        },
       };
     },
   },
