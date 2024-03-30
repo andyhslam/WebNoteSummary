@@ -14,3 +14,10 @@ import { age } from '@/assets/json/index.json';
 
 // tree shaking(摇树优化)：打包工具会自动移除没有用到的变量或者方法
 console.log('jsonFile', age);
+fetch('/api/users', { method: 'post' })
+  .then((data) => {
+    console.log('data', data);
+  })
+  .catch((error) => {
+    console.log('error', error);
+  });

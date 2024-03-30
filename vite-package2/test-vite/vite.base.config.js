@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite';
+import { viteMockServe } from 'vite-plugin-mock';
 import MyViteAliases from './plugins/ViteAliases.js';
 import MyCreateHtmlPlugin from './plugins/CreateHtmlPlugin.js';
 
@@ -70,9 +71,10 @@ export default defineConfig({
     MyCreateHtmlPlugin({
       inject: {
         data: {
-          title: '主页123',
+          title: '主页',
         },
       },
     }),
+    viteMockServe(),
   ],
 });

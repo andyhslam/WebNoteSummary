@@ -12,6 +12,13 @@
 
 ## ejs 语法：https://ejs.bootcss.com/
 
+## apifox：
+
+- https://apifox.com/
+- https://apifox.com/compare/postman-vs-apifox/?utm_source=google_dsa&utm_medium=g&utm_campaign=20543997484&utm_content=156047449829&utm_term=&gad_source=1&gclid=Cj0KCQjw8J6wBhDXARIsAPo7QA-avXqsuE95Um9p_767KO8w6OE5zGDzLoEcq75_z_idvbBNhjlGte8aAkmwEALw_wcB
+
+## vite-plugin-mock 的 github 地址： https://github.com/vbenjs/vite-plugin-mock
+
 ## 处理 vite 配置文件的语法提示：手动注释，让 vscode 编辑器知道当前的类型是什么。
 
 ### 第一种方式：
