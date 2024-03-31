@@ -12,6 +12,12 @@
 
 ## ejs 语法：https://ejs.bootcss.com/
 
+## rollup 官网：https://rollupjs.org/configuration-options/#external
+
+## CDN 相关网站：https://www.jsdelivr.com/
+
+## 没被封的外国网站：https://codepen.io/
+
 ## apifox：
 
 - https://apifox.com/
