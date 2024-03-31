@@ -65,4 +65,8 @@ function bar(param1, param2) {}
 
 `npx postcss index.css -o result.css`
 
+# vite 性能优化概述
+
 ### vite 按需加载，在开发环境使用 esbuild 构建，在生产环境使用 rollup 构建
+
+### webpack 的 cache-loader，如果两次构建的源代码没有发生变化，则直接使用缓存，不调用 loader
