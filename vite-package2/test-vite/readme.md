@@ -48,10 +48,11 @@ export default viteConfig;
 
 ```js
 /**
- * @param
- * @returns {string} 表示函数返回值的类型
+ * @param { string } param1
+ * @param { { name: string, age: number } } param2
+ * @returns { string } 表示函数返回值的类型
  */
-function bar() {}
+function bar(param1, param2) {}
 ```
 
 ## vite 编译是有生命周期的，读取环境变量是在读取配置文件之后。
