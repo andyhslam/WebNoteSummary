@@ -5,12 +5,13 @@
 // import '@/style/index.less';
 // import '@/components/A.js';
 // import '@/components/B.js';
-
 // console.log('count', count);
 
-import '@/views/imageLoader.js';
 import '@/views/svgLoader.js';
 import { age } from '@/assets/json/index.json';
+import('@/views/imageLoader.js').then((data) => {
+  console.log('data', data);
+});
 
 // tree shaking(摇树优化)：打包工具会自动移除没有用到的变量或者方法
 console.log('jsonFile', age);
