@@ -72,3 +72,8 @@ function bar(param1, param2) {}
 ### webpack 的 cache-loader，如果两次构建的源代码没有发生变化，则直接使用缓存，不调用 loader
 
 ### 分包策略：vite4 版本直接导入内置插件 splitVendorChunkPlugin，不需要任何配置了。
+
+### gzip 压缩：
+
+- nginx 是动态压缩，前端是静态压缩；
+- 动态压缩是请求到了 nginx 的时候再压缩，比较消耗服务器资源，最好还是由前端来压缩。
