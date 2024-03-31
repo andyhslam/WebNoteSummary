@@ -63,3 +63,5 @@ function bar() {}
 ## postcss 编译器的执行命令
 
 `npx postcss index.css -o result.css`
+
+### vite 按需加载，在开发环境使用 esbuild 构建，在生产环境使用 rollup 构建
