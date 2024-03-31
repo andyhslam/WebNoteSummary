@@ -41,6 +41,13 @@ app.use(async (ctx) => {
     // 告知浏览器以js格式去解析vue文件
     ctx.response.set('Content-Type', 'text/javascript');
   }
+  // 伪代码：proxy原理
+  if (ctx.request.url.includes('/api')) {
+    const target = proxy.target;
+    const rewrite = (str) => str;
+    const result = await request(target + rewrite('/api'));
+    ctx.response.body = result;
+  }
 });
 
 app.listen(5174, () => {
