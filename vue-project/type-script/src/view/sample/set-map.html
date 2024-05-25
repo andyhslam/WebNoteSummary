@@ -1,15 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WeakMap与WeakSet</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
+  <body>
+    <!-- <script src="./set-map.js"></script> -->
 
-<body>
-  <script src="./set-map.js"></script>
-</body>
+    <h2>
+      WeakMap中“weak”表示弱映射的键是“弱弱地拿着”的。意思就是，这些键不属于正式的引用，不会阻止垃圾回收。
+      但要注意的是，弱映射中值的引用可不是“弱弱地拿着”的。只要键存在，键/值对就会存在于映射中，并被当作对值的引用，
+      因此就不会被当作垃圾回收。
+    </h2>
+    <script>
+      /**
+       * set()方法初始化了一个新对象并将它用作一个字符串的键。因为没有指向这个对象的其他引用，
+       * 所以当这行代码执行完成后，这个对象键就会被当作垃圾回收。然后，这个键/值对就从弱映射中消失了，
+       * 使其成为一个空映射。在这个例子中，因为值也没有被引用，所以这对键/值被破坏以后，值本身也会成为垃圾回收的目标。
+       */
+      const wm1 = new WeakMap();
+      wm1.set({}, 'val');
+      console.log('wm1', wm1);
 
+      /**
+       * 这一次，wmContainer 对象维护着一个对弱映射键的引用，因此这个对象键不会成为垃圾回收的目标。
+       * 不过，如果调用了 removeWmReference()，就会摧毁键对象的最后一个引用，垃圾回收程序就可以把这个键/值对清理掉。
+       */
+      const wm2 = new WeakMap();
+      const wmContainer = {
+        key: {},
+      };
+      wm2.set(wmContainer.key, 'val');
+      function removeWmReference() {
+        wmContainer.key = null;
+      }
+      removeWmReference();
+      console.log('wm2', wm2);
+      console.log(wm2.get(wmContainer.key));
+
+      /**
+       * 但是有个问题，你会发现控制台能输出，值是取不到的，因为V8的GC回收是需要一定时间的，
+       * 你可以延长到100ms看一看，并且为了避免这个问题不允许读取键值，也不允许遍历，同理weakSet也一样。
+       */
+      setTimeout(() => {
+        console.log('delay-wm1', wm1);
+        console.log('delay-wm2', wm2);
+      }, 100);
+    </script>
+
+    <h2>
+      WeakSet中“weak”表示弱集合的值是“弱弱地拿着”的。意思就是，这些值不属于正式的引用，不会阻止垃圾回收。
+    </h2>
+    <script>
+      /**
+       * add()方法初始化了一个新对象，并将它用作一个值。因为没有指向这个对象的其他引用，所以当这行代码执行完成后，
+       * 这个对象值就会被当作垃圾回收。然后，这个值就从弱集合中消失了，使其成为一个空集合。
+       */
+      const ws1 = new WeakSet();
+      ws1.add({});
+      console.log('ws1', ws1);
+
+      /**
+       * 这一次，wsContainer 对象维护着一个对弱集合值的引用，因此这个对象值不会成为垃圾回收的目标。
+       * 不过，如果调用了 removeWsReference()，就会摧毁值对象的最后一个引用，垃圾回收程序就可以把这个值清理掉。
+       */
+      const ws2 = new WeakSet();
+      const wsContainer = {
+        val: {},
+      };
+      ws2.add(wsContainer.val);
+      function removeWsReference() {
+        wsContainer.val = null;
+      }
+      removeWsReference();
+      console.log('ws2', ws2);
+
+      setTimeout(() => {
+        console.log('delay-ws1', ws1);
+        console.log('delay-ws2', ws2);
+      }, 100);
+    </script>
+  </body>
 </html>
