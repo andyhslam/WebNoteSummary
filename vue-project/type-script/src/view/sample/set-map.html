@@ -83,5 +83,44 @@
         console.log('delay-ws2', ws2);
       }, 100);
     </script>
+
+    <script>
+      // 原型链
+      function SuperType() {
+        this.property = true;
+      }
+      SuperType.prototype.getSuperValue = function () {
+        return this.property;
+      };
+      function SubType() {
+        this.subproperty = false;
+      }
+      // 继承 SuperType
+      SubType.prototype = new SuperType();
+      const st = new SuperType();
+      SubType.prototype.getSubValue = function () {
+        return this.subproperty;
+      };
+
+      let instance = new SubType();
+      console.log(instance.getSuperValue()); // true
+      console.log(SubType.prototype.constructor === SubType); // false
+      console.log(SubType.prototype.constructor === SuperType); // true
+      console.log(st.constructor === SuperType); // true
+
+      // 任何函数的默认原型都是一个Object的实例，这意味着这个实例有一个内部指针（即__proto__）指向Object.prototype
+      console.log(SuperType.prototype.__proto__ === Object.prototype); // true
+      // Object的实例（此处指SuperType.prototype）的constructor属性指向SuperType，而非Object
+      console.log(SuperType.prototype.constructor === SuperType); // true
+      console.log(SuperType.prototype.constructor === Object); // false
+      console.log(Object.prototype.constructor === Object); // true
+
+      const obj = new Object();
+      console.log(obj.__proto__ === Object.prototype); // true
+      // 一般来说，构造函数的原型对象和实例对象的constructor属性都指向构造函数
+      console.log(Object.prototype.constructor === Object); // true
+      console.log(obj.constructor === Object); // true
+      console.log(SuperType.prototype.__proto__ === obj.__proto__); // true
+    </script>
   </body>
 </html>
