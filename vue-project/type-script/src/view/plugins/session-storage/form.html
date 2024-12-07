@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>表单字段</title>
+  </head>
+  <body>
+    <select name="location" id="selLocation">
+      <option value="Sunnyvale, CA">Sunnyvale</option>
+      <option value="Los Angeles, CA">Los Angeles</option>
+      <option value="Mountain View, CA">Mountain View</option>
+      <option value="">China</option>
+      <option>Australia</option>
+    </select>
+  </body>
+</html>
+
+<script>
+  // let selectbox = document.forms[0].elements['location'];
+  let selectbox = document.getElementById('selLocation');
+  let selectedIndex = selectbox.selectedIndex;
+  let selectedOption = selectbox.options[selectedIndex];
+  console.log(
+    `Selected index: ${selectedIndex}\n` +
+      `Selected text: ${selectedOption.text}\n` +
+      `Selected value: ${selectedOption.value}`,
+  );
+  function clearSelectbox(selectbox) {
+    for (let option of selectbox.options) {
+      selectbox.remove(0);
+    }
+  }
+  // clearSelectbox(selectbox);
+  let optionToMove = selectbox.options[1];
+  selectbox.insertBefore(
+    optionToMove,
+    selectbox.options[optionToMove.index + 2],
+  );
+</script>
