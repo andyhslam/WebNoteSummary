@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 第一步：建立数据库连接
+      let db,
+        request,
+        requests = [];
+      version = 5;
+      request = indexedDB.open('admin2', version);
+      request.onerror = (event) =>
+        alert(`Failed to open: ${event.target.error.message}`);
+      request.onsuccess = (event) => {
+        db = event.target.result;
+        // 每次成功打开数据库后都指定 onversionchange 事件处理程序。
+        // 另一个同源标签页将数据库打开到新版本时，将执行此回调。此时立即关闭数据库，以便完成版本升级。
+        db.onversionchange = () => db.close();
+      };
+
+      // userList 是一个用户数据的数组
+      const userList = [
+        {
+          username: '007-1',
+          firstName: 'James-1',
+          lastName: 'Bond-1',
+          password: 'foo-1',
+        },
+        {
+          username: '007-2',
+          firstName: 'James-2',
+          lastName: 'Bond-2',
+          password: 'foo-2',
+        },
+      ];
+
+      // 观察这个对象，可以很容易看出最适合作为对象存储键的 username 属性。用户名必须全局唯一，
+      // 它也是大多数情况下访问数据的凭据。这个键很重要，因为创建对象存储时必须指定一个键。
+      const userVo = {
+        username: '007',
+        firstName: 'James',
+        lastName: 'Bond',
+        password: 'foo',
+      };
+
+      // 第二步：使用对象存储
+      // 创建对象存储来存储上述用户信息
+      request.onupgradeneeded = (event) => {
+        db = event.target.result;
+        // 如果存在则删除当前 objectStore。测试的时候可以这样做
+        // 但这样会在每次执行事件处理程序时删除已有数据
+        if (db.objectStoreNames.contains('users')) {
+          db.deleteObjectStore('users');
+        }
+        // 这里第二个参数的 keyPath 属性表示应该用作键的存储对象的属性名。
+        db.createObjectStore('users', { keyPath: 'username' });
+        console.log('db', db);
+      };
+
+      setTimeout(() => {
+        // 第一个参数表示对象存储的名称，第二个参数表示访问模式
+        const transaction = db.transaction('users', 'readwrite');
+        // 传入对象存储的名称以访问特定的对象存储
+        const store = transaction.objectStore('users');
+
+        // get()方法接收对象键作为参数，且该方法创建新的请求对象
+        request = store.get('007');
+
+        // 在对象存储上调用 index() 方法，参数是索引的名称，返回的是 IDBIndex 实例
+        const index = store.index('username');
+
+        // 使用 openKeyCursor() 方法也可以在索引上创建特殊游标
+        request = index.openKeyCursor();
+
+        // 使用 get() 方法并传入索引键通过索引取得单条记录，这会创建一个新请求
+        request = index.get('007');
+
+        // 使用 getKey() 方法只取得给定索引键的主键，这样也会创建一个新请求
+        request = index.getKey('007');
+
+        // 对象存储自身也有一个 indexNames 属性，
+        const indexNames = store.indexNames;
+        for (let indexName in indexNames) {
+          const idx = store.index(indexName);
+          console.log(
+            `Index name: ${idx.name}; KeyPath: ${idx.keyPath}; Unique: ${idx.unique}`,
+          );
+        }
+
+        // 在对象存储上调用 deleteIndex() 方法并传入索引的名称可以删除索引：
+        // 因为删除索引不会影响对象存储中的数据，所以这个操作没有回调。
+        store.deleteIndex('username');
+
+        request.onerror = (event) => alert('Did not get the object!');
+        request.onsuccess = (event) => {
+          alert(event.target.result);
+          // event.target.result.key 是索引键，event.target.result.value 是主键
+        };
+
+        // 插入对象，创建并填充数据
+        for (let user of userList) {
+          request = store.add(user);
+          request.onerror = () => {
+            // 处理错误
+          };
+          request.onsuccess = () => {
+            // 处理成功
+          };
+          requests.push(request);
+        }
+
+        // 从"007"记录开始，到"ace"记录停止
+        const boundRange = IDBKeyRange.bound('007', 'ace');
+        // 定义了范围之后，把它传给 openCursor() 方法，就可以得到位于该范围内的游标
+        // 在对象存储上调用 openCursor()方法创建游标，openCursor()方法返回一个请求
+        request = store.openCursor(range);
+        request.onerror = (event) => {
+          // 处理错误
+        };
+        // 这个例子只会输出从键为 "007" 的记录开始到键为 "ace" 的记录结束的对象
+        request.onsuccess = (event) => {
+          // 如果事务没有修改对象存储的权限， update() 和 delete() 都会抛出错误。
+          const cursor = event.target.result;
+          let value, updateRequest, deleteRequest;
+          if (cursor) {
+            // 永远要检查
+            if (cursor.key == 'foo') {
+              value = cursor.value; //  取得当前对象
+              value.password = 'magic!'; //  更新密码
+              // update() 方法使用指定的对象更新当前游标对应的值
+              updateRequest = cursor.update(value); //  请求保存更新后的对象
+              updateRequest.onsuccess = () => {
+                //  处理成功
+              };
+              updateRequest.onerror = () => {
+                //  处理错误
+              };
+
+              // 调用 delelte() 来删除游标位置的记录
+              deleteRequest = cursor.delete(); //  请求删除对象
+              deleteRequest.onsuccess = () => {
+                //  处理成功
+              };
+              deleteRequest.onerror = () => {
+                //  处理错误
+              };
+            }
+
+            // 这个例子中的 cursor.value 保存着实际的对象。正因为如此，在显示它之前才需要使用 JSON 来编码。
+            console.log(
+              `Key: ${cursor.key}, Value: ${JSON.stringify(cursor.value)}`,
+            );
+            // 调用 cursor.continue() 会触发另一个请求并再次调用 onsuccess 事件处理程序。
+            // 在没有更多记录时， onsuccess 事件处理程序最后一次被调用，此时 event.target.result 等于 null 。
+            cursor.continue(); // 移动到下一条记录
+          } else {
+            console.log('Done!');
+          }
+        };
+      }, 1000);
+    </script>
+  </body>
+</html>
