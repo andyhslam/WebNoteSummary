@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>try-catch-finally</title>
+  </head>
+  <body>
+    <script>
+      try {
+        console.log(1);
+        // 如果 try 块中有代码发生错误，代码会立即退出执行，并跳到 catch 块中。
+        const x = a;
+        console.log(2);
+      } catch (error) {
+        // name属性表示错误类型，message属性表示错误消息
+        console.log(3, error.name, error.message);
+      } finally {
+        console.log(4);
+      }
+      console.log(5);
+      // 使用 throw 操作符时，代码立即停止执行，除非 try/catch 语句捕获了抛出的值。
+
+      window.onerror = (message, url, line) => {
+        console.log(message);
+        // 可以返回 false 来阻止浏览器默认报告错误的行为
+        return false;
+      };
+
+      const image = new Image();
+      image.addEventListener('load', (event) => {
+        console.log('Image loaded!');
+      });
+      image.addEventListener('error', (event) => {
+        console.log('Image not loaded!');
+      });
+      image.src = 'doesnotexist.gif'; // 不存在，资源会加载失败
+
+      // 把所有参数拼接为一个字符串，然后打印出结果
+      consoleLog1 = function () {
+        // 'arguments'并没有 join 方法，这里先把它转换为数组
+        const args = Array.prototype.slice.call(arguments);
+        console.log(args.join(', '));
+      };
+
+      // 把所有参数拼接为一个字符串，然后打印出结果
+      consoleLog2 = function () {
+        // 'arguments'并没有 join 方法，这里先把它转换为数组
+        const args = Array.from(arguments);
+        console.log(args.join(', '));
+      };
+
+      // 把所有参数拼接为一个字符串，然后打印出结果
+      consoleLog3 = function () {
+        // 'arguments'并没有 join 方法，这里先把它转换为数组
+        const args = [...new Set(arguments)];
+        console.log(args.join(', '));
+      };
+
+      // 把所有参数拼接为一个字符串，然后打印出结果
+      consoleLog4 = function (...args) {
+        console.log(args.join(', '));
+      };
+
+      consoleLog1(1, 2, 3);
+      consoleLog2(1, 2, 3);
+      consoleLog3(1, 2, 3);
+      consoleLog4(1, 2, 3);
+    </script>
+  </body>
+</html>
