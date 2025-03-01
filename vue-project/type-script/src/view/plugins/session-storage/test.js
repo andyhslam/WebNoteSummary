@@ -188,3 +188,16 @@ const proxy = new Proxy(myTarget, {
   },
 });
 delete proxy.foo;
+
+// 类的私有属性
+class FDT {
+  #rip = 'r&b';
+  constructor() {
+    this.#rip = 'rb';
+    this.rib = 123;
+  }
+}
+
+const fdt = new FDT();
+console.log('rip', fdt.#rip);
+console.log('rib', fdt.rib);
